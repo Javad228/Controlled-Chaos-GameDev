@@ -1,5 +1,7 @@
+package character;
+
 /**
- * Inventory Class - Class which represents an inventory for a Character to collect and store items and coins
+ * character.Inventory Class - Class which represents an inventory for a Character to collect and store items and coins
  *
  * @author Cameron Hofbauer
  * @version September 28, 2022
@@ -7,12 +9,12 @@
 
 public class Inventory {
     private int numberOfSlots;                  // Number of slots to store items
-    // private ArrayList<Item> listOfItems;     // List of Items in this Inventory Object
+    // private ArrayList<Item> listOfItems;     // List of Items in this character.Inventory Object
                                                 // TODO: Create Item Class
-    private int coinAmount;                     // Amount of Coins in this Inventory Object
+    private int coinAmount;                     // Amount of Coins in this character.Inventory Object
 
     /**
-     * Default constructor for a generic Inventory Object
+     * Default constructor for a generic character.Inventory Object
      */
     public Inventory() {
         this.numberOfSlots = 10;

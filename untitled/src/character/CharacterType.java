@@ -1,3 +1,5 @@
+package character;
+
 /**
  * CharacterType - An enum defining a PlayerCharacter's type.
  *
