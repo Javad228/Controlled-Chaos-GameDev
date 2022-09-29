@@ -1,10 +1,12 @@
-/**
+package character; /**
  * Character Class - An abstract class which models a character containing basic information pertaining to the game.
  *
  * @author Cameron Hofbauer
  * @version September 28, 2022
  */
 
+
+import combat.CombatType;
 
 import java.util.ArrayList;
 

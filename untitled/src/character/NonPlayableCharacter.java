@@ -1,3 +1,7 @@
+package character;
+
+import combat.DamageType;
+
 /**
  * NonPlayableCharacter - An abstract class which defines attributes for a character that is not created by the user.
  *

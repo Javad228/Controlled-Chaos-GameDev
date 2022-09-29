@@ -1,5 +1,7 @@
+package combat;
+
 /**
- * CombatType - An enum defining the types of combat a Character has.
+ * combat.CombatType - An enum defining the types of combat a Character has.
  *
  * @author Cameron Hofbauer
  * @version September 28, 2022

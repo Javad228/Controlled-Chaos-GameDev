@@ -1,3 +1,5 @@
+package character;
+
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
  *
@@ -9,7 +11,7 @@ public class PlayerCharacter extends Character {
     private CharacterType characterType;    // Player Character Type
     // private Item startingItem            // Player Starting Item
                                             // TODO: Implement Item class
-    private Inventory inventory;            // Player Inventory
+    private Inventory inventory;            // Player character.Inventory
 
     public PlayerCharacter() {
         super();
