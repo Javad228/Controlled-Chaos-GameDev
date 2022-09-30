@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public abstract class Character {
     private String name;                        // Character name
     private int health;                         // Character health
-    private double movementSpeed;               // Character movement speed
+    private int movementSpeed;               // Character movement speed
     private int xCoord;                         // Character x-position in a room
     private int yCoord;                         // Character y-position in a room
     private ArrayList<String> activeEffects;    // Character active effects in game
@@ -58,7 +58,7 @@ public abstract class Character {
      * @param type Character Combat type
      * @param timeForInvincibility Time for invincibility given a hit occurs against this Character
      */
-    public Character(String name, int health, double movementSpeed, int xCoord, int yCoord,
+    public Character(String name, int health, int movementSpeed, int xCoord, int yCoord,
                      ArrayList<String> activeEffects, CombatType type, double timeForInvincibility) {
         this.name = name;
         this.health = health;
@@ -78,11 +78,11 @@ public abstract class Character {
         this.health = health;
     }
 
-    public double getMovementSpeed() {
+    public int getMovementSpeed() {
         return movementSpeed;
     }
 
-    public void setMovementSpeed(double movementSpeed) {
+    public void setMovementSpeed(int movementSpeed) {
         this.movementSpeed = movementSpeed;
     }
 
