@@ -131,16 +131,16 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update(){
-		if(keyH.upPressed == true) {
+		if(keyH.upPressed == true && playerY > 0) {
 			playerY -= playerSpeed;
 		}
-		if(keyH.downPressed == true) {
+		if(keyH.downPressed == true && playerY < (screenHeight - tileSize)) {
 			playerY += playerSpeed;
 		}
-		if(keyH.leftPressed == true) {
+		if(keyH.leftPressed == true && playerX > 0) {
 			playerX -= playerSpeed;
 		}
-		if(keyH.rightPressed == true) {
+		if(keyH.rightPressed == true && playerX < (screenWidth - tileSize)) {
 			playerX += playerSpeed;
 		}
 	}
