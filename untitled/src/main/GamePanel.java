@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 
 import character.PlayerCharacter;
+import loot.Weapon;
 
 import java.awt.*;
 
@@ -22,12 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
-
-	//Default Player Position
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 4;
-	//at 13:26 in video
+	public Weapon weapon = new Weapon(this, keyH);
 
 	//Methods to alter player:
 /* 	int playerX = player.getxCoord();
@@ -132,6 +128,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update(){
 		player.update();
+		weapon.update();
 	}
 	
 	public void paintComponent(Graphics g){
@@ -140,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D)g;
 
 		player.draw(g2);
+		weapon.draw(g2);
 		 
 		g2.dispose();
 	}
