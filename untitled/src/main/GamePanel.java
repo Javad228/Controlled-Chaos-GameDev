@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable{
 	KeyHandler keyH = new KeyHandler();
 
 	Thread gameThread;
-	public PlayerCharacter player = new PlayerCharacter();
+	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 
 	//Default Player Position
 	int playerX = 100;
@@ -131,18 +131,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update(){
-		if(keyH.upPressed == true && playerY > 0) {
-			playerY -= playerSpeed;
-		}
-		if(keyH.downPressed == true && playerY < (screenHeight - tileSize)) {
-			playerY += playerSpeed;
-		}
-		if(keyH.leftPressed == true && playerX > 0) {
-			playerX -= playerSpeed;
-		}
-		if(keyH.rightPressed == true && playerX < (screenWidth - tileSize)) {
-			playerX += playerSpeed;
-		}
+		player.update();
 	}
 	
 	public void paintComponent(Graphics g){
@@ -150,11 +139,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D)g;
 
-		g2.setColor(Color.white);
-
-		g2.fillRect(playerX, playerY, tileSize, tileSize);
-
-		//player.Draw(g2);
+		player.draw(g2);
 		 
 		g2.dispose();
 	}
