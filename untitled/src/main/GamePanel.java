@@ -2,7 +2,6 @@ package main;
 
 import javax.swing.*;
 
-import character.Character;
 import character.PlayerCharacter;
 
 import java.awt.*;
@@ -47,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void startGameThread() {
-		Music.openingMusic();
+		Audio.openingMusic();
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
