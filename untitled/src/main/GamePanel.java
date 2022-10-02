@@ -2,7 +2,6 @@ package main;
 
 import javax.swing.*;
 
-import character.Character;
 import character.PlayerCharacter;
 import loot.Weapon;
 
@@ -43,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void startGameThread() {
+		Audio.openingMusic();
 		gameThread = new Thread(this);
 		gameThread.start();
 	}

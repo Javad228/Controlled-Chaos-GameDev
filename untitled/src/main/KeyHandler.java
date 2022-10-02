@@ -18,6 +18,10 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
+        if ((!upPressed && !leftPressed && !downPressed && !rightPressed) || !Audio.walkingClip.isRunning()) {
+            Audio.walking();
+        }
+
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         }
@@ -30,7 +34,6 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-
     }
 
     @Override
@@ -50,5 +53,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             rightPressed = false;
         }
+
+        Audio.stopWalking();
     }
 }
