@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed;
 
     //TODO implement movement and attack
     @Override
@@ -18,20 +18,32 @@ public class KeyHandler implements KeyListener {
 
         int code = e.getKeyCode();
 
-        if ((!upPressed && !leftPressed && !downPressed && !rightPressed) || !Audio.walkingClip.isRunning()) {
+        if ((!wPressed && !sPressed && !aPressed && !dPressed) || !Audio.walkingClip.isRunning()) {
             Audio.walking();
         }
 
         if (code == KeyEvent.VK_W) {
-            upPressed = true;
-        }
-        if (code == KeyEvent.VK_A) {
-            leftPressed = true;
+            wPressed = true;
         }
         if (code == KeyEvent.VK_S) {
-            downPressed = true;
+            sPressed = true;
+        }
+        if (code == KeyEvent.VK_A) {
+            aPressed = true;
         }
         if (code == KeyEvent.VK_D) {
+            dPressed = true;
+        }
+        if (code == KeyEvent.VK_UP) {
+            upPressed = true;
+        }
+        if (code == KeyEvent.VK_DOWN) {
+            downPressed = true;
+        }
+        if (code == KeyEvent.VK_LEFT) {
+            leftPressed = true;
+        }
+        if (code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
     }
@@ -42,15 +54,27 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         
         if (code == KeyEvent.VK_W) {
-            upPressed = false;
-        }
-        if (code == KeyEvent.VK_A) {
-            leftPressed = false;
+            wPressed = false;
         }
         if (code == KeyEvent.VK_S) {
-            downPressed = false;
+            sPressed = false;
+        }
+        if (code == KeyEvent.VK_A) {
+            aPressed = false;
         }
         if (code == KeyEvent.VK_D) {
+            dPressed = false;
+        }
+        if (code == KeyEvent.VK_UP) {
+            upPressed = false;
+        }
+        if (code == KeyEvent.VK_DOWN) {
+            downPressed = false;
+        }
+        if (code == KeyEvent.VK_LEFT) {
+            leftPressed = false;
+        }
+        if (code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
 
