@@ -24,14 +24,6 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 	public Weapon weapon = new Weapon(this, keyH);
-
-	//Methods to alter player:
-/* 	int playerX = player.getxCoord();
-	int playerY = player.getyCoord();
-	double playerSpeed = player.getMovementSpeed();
-
-	player.setxCoord(1); */
-
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -49,49 +41,6 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	@Override
 	public void run() {
-
-		//First way to construct the game loop, led to inconsistent FPS.
-
-	/* 	double drawInterval = 1000000000/fps;					//converts from nanoseconds to seconds 
-		double nextDrawTime = System.nanoTime() + drawInterval;
-		
-		long timer = 0;
-		long drawCount = 0;
-		
-		while(gameThread != null){
-			long currentTime = System.nanoTime();
-			
-			timer += (nextDrawTime - currentTime);
-			
-			update();
-			repaint();
-			drawCount++;
-			
-			try {
-				double remainingTime = nextDrawTime - System.nanoTime();
-				
-				remainingTime = remainingTime / 1000000;		//converts from nanoseconds to milliseconds
-				
-				if (remainingTime < 0){
-					remainingTime = 0;
-				}
-				
-				Thread.sleep((long)remainingTime);
-				
-				nextDrawTime += drawInterval;
-
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-			if(timer >= 1000000000){
-				Main.window.setTitle("Controlled Chaos");
-				System.out.println("FPS:" + drawCount);
-				drawCount = 0;
-				timer = 0;
-			}
-		}
-		*/
 
 		double drawInterval = 1000000000/fps;					//converts from nanoseconds to seconds 
 		double delta = 0;
