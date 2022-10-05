@@ -39,6 +39,8 @@ public class PlayerCharacter extends Character {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
+        this.setWidth(18);
+        this.setHeight(46);
     }
 
     public void getPlayerImage() {
@@ -66,7 +68,7 @@ public class PlayerCharacter extends Character {
                 this.setDirection("up");
                 this.setyCoord(currentY - speed);
             }
-            if (keyH.downPressed && currentY < (gp.screenHeight - gp.tileSize)) {
+            if (keyH.downPressed && currentY < (gp.screenHeight - this.getHeight())) {
                 this.setDirection("down");
                 this.setyCoord(currentY + speed);
             }
@@ -74,7 +76,7 @@ public class PlayerCharacter extends Character {
                 this.setDirection("left");
                 this.setxCoord(currentX - speed);
             }
-            if (keyH.rightPressed && currentX < (gp.screenWidth - gp.tileSize)) {
+            if (keyH.rightPressed && currentX < (gp.screenWidth - this.getWidth())) {
                 this.setDirection("right");
                 this.setxCoord(currentX + speed);
             }
@@ -129,7 +131,7 @@ public class PlayerCharacter extends Character {
                 break;
         }
 
-        g2.drawImage(image, this.getxCoord(), this.getyCoord(), 18, 46, null);
+        g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
     }
 
     public CharacterType getCharacterType() {
