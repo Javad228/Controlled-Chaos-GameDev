@@ -44,7 +44,7 @@ public abstract class Entity {
         this.activeEffects = new ArrayList<>();
         this.type = CombatType.DEFAULT;
         this.timeForInvincibility = 1;
-        this.projectile = new Projectile();
+        //this.projectile = new Projectile();
     }
 
     /**
