@@ -1,34 +1,66 @@
+/*
+    Walking_On_Gravel from Caroline Ford on SoundBible:
+    https://soundbible.com/1432-Walking-On-Gravel.html
+ */
+
 package main;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.io.*;
 
 class Audio {
     public static Clip walkingClip;
 
-    private static Clip play(String filename)
+    private static Clip getClip(String filename)
     {
         try
         {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(new File(filename)));
-            clip.start();
             return clip;
         }
         catch (Exception exc)
         {
             exc.printStackTrace(System.out);
         }
+
         return null;
     }
 
+    public static void setClipVolume(Clip clip, float volume) {
+        if (clip == null) {
+            System.err.println("setClipVolume failed: clip == null");
+            return;
+        }
+
+        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        volumeControl.setValue(volume);
+    }
+
     public static void openingMusic() {
-        play("untitled/audio/Derp-Nugget.wav");
+        Clip music = getClip("untitled/audio/Derp-Nugget.wav");
+        if (music == null) {
+            System.err.println("openingMusic failed: getClip returned null");
+            return;
+        }
+        float volume = -20.0f;
+        setClipVolume(music, volume);
+        music.start();
     }
 
     public static void walking() {
-        walkingClip = play("untitled/audio/Walking_On_Gravel.wav");
+
+        walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
+        if (walkingClip == null) {
+            System.err.println("walking failed: getClip returned null");
+            return;
+        }
+        float volume = -10.0f;
+        setClipVolume(walkingClip, volume);
+        walkingClip.start();
+
     }
 
     public static void stopWalking() {
