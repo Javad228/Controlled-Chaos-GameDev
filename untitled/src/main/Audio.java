@@ -31,7 +31,7 @@ class Audio {
 
     public static void setClipVolume(Clip clip, float volume) {
         if (clip == null) {
-            System.err.println("setClipVolume failed: clip == null");
+            System.out.println("setClipVolume failed: clip == null");
             return;
         }
 
@@ -42,7 +42,7 @@ class Audio {
     public static void openingMusic() {
         Clip music = getClip("untitled/audio/Derp-Nugget.wav");
         if (music == null) {
-            System.err.println("openingMusic failed: getClip returned null");
+            System.out.println("openingMusic failed: getClip returned null");
             return;
         }
         float volume = -20.0f;
@@ -54,7 +54,7 @@ class Audio {
 
         walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
         if (walkingClip == null) {
-            System.err.println("walking failed: getClip returned null");
+            System.out.println("walking failed: getClip returned null");
             return;
         }
         float volume = -10.0f;
