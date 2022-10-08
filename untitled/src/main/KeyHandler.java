@@ -78,6 +78,6 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
 
-        Audio.stopWalking();
+        Audio.stopWalking();        //should be "if specific movement keys released, stop walking"
     }
 }

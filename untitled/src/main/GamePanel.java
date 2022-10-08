@@ -3,9 +3,12 @@ package main;
 import javax.swing.*;
 
 import character.PlayerCharacter;
+//import character.Arrow;
+//import character.Projectile;
 import loot.Weapon;
 
 import java.awt.*;
+//import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -20,9 +23,13 @@ public class GamePanel extends JPanel implements Runnable{
 	int fps = 60;
 
 	KeyHandler keyH = new KeyHandler();
+	//public Projectile projectile = new Projectile();
+	//public Arrow arrow = new Arrow(this);
 
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+	//public ArrayList<Entity> projectileList = new ArrayList<>();
+	//public ArrayList<Entity> entityList = new ArrayList<>();
 	public Weapon weapon = new Weapon(this, keyH);
 	
 	public GamePanel() {
@@ -86,6 +93,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D)g;
 
 		player.draw(g2);
+		//arrow.draw(g2);
 		weapon.draw(g2);
 		 
 		g2.dispose();

@@ -9,7 +9,7 @@ import combat.DamageType;
  * @version September 28, 2022
  */
 
-public abstract class NonPlayableCharacter extends Character {
+public abstract class NonPlayableCharacter extends Entity {
     private int damagePerHit;               // Amount of damage a NonPlayableCharacter can inflict on other Characters
     private DamageType damageType;          // Type of damage a NonPlayableCharacter can inflict
     //private script pathfindingScript      // Pathfinding Script

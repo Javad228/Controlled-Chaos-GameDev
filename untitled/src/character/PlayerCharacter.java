@@ -2,8 +2,10 @@ package character;
 
 import main.GamePanel;
 import main.KeyHandler;
+import character.Arrow;
 
 import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.io.IOException;
  * @version September 28, 2022
  */
 
-public class PlayerCharacter extends Character {
+public class PlayerCharacter extends Entity {
     private CharacterType characterType;    // Player Character Type
     // private Item startingItem            // Player Starting Item
                                             // TODO: Implement Item class
@@ -41,6 +43,7 @@ public class PlayerCharacter extends Character {
         this.setDirection("down");
         this.setWidth(18);
         this.setHeight(46);
+        this.setProjectile(new Arrow(gp));
     }
 
     public void getPlayerImage() {
@@ -90,21 +93,31 @@ public class PlayerCharacter extends Character {
                 this.setSpriteCounter(0);
             }
         }
-        /* if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+        
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            int currentX = this.getxCoord();
+            int currentY = this.getyCoord();
+            int movementSpeed = this.getProjectile().getMovementSpeed();
             if (keyH.upPressed && !keyH.downPressed) {
-                this.setDirection("up");
+                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                //gp.projectileList.add(projectile);
             }
             if (keyH.downPressed && !keyH.upPressed) {
-                this.setDirection("down");
+                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                //gp.projectileList.add(projectile);
             }
             if (keyH.leftPressed && !keyH.rightPressed) {
-                this.setDirection("left");
+                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                //gp.projectileList.add(projectile);
             }
             if (keyH.rightPressed && !keyH.leftPressed) {
-                this.setDirection("right");
+                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                //gp.projectileList.add(projectile);               
             }
-        } */
-    }
+        }
+            
+
+    } 
     
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
