@@ -1,11 +1,13 @@
 package main;
 
+import character.Character;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    public boolean wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed;
+    public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed;
 
     //TODO implement movement and attack
     @Override
@@ -21,7 +23,9 @@ public class KeyHandler implements KeyListener {
         if ((!wPressed && !sPressed && !aPressed && !dPressed) || !Audio.walkingClip.isRunning()) {
             Audio.walking();
         }
-
+        if (code == KeyEvent.VK_K) {
+            kPressed = true;
+        }
         if (code == KeyEvent.VK_W) {
             wPressed = true;
         }
@@ -52,7 +56,10 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
-        
+
+        if (code == KeyEvent.VK_K) {
+            kPressed = false;
+        }
         if (code == KeyEvent.VK_W) {
             wPressed = false;
         }
