@@ -20,7 +20,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenWidth = tileSize * maxScreenCol; 	//768 pixels
 	public final int screenHeight = tileSize * maxScreenRow;	//576 pixels
 
-	int fps = 60;
+
+	private int fps = 60;
 	public CollisionChecker checker = new CollisionChecker(this);
 
 	KeyHandler keyH = new KeyHandler();
@@ -51,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 	@Override
 	public void run() {
 
-		double drawInterval = 1000000000/fps;					//converts from nanoseconds to seconds 
+		double drawInterval;					//converts from nanoseconds to seconds
 		double delta = 0;
 		long lastTime = System.nanoTime();
 		long currentTime;
@@ -61,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
 		while(gameThread != null){
 			
 			currentTime = System.nanoTime();
+			drawInterval = 1000000000/fps;
 			
 			delta += (currentTime - lastTime) / drawInterval;
 			timer += (currentTime - lastTime);
@@ -99,6 +101,8 @@ public class GamePanel extends JPanel implements Runnable{
 		 
 		g2.dispose();
 	}
-	
 
+	public void setFps(int newFrameRate) {
+		fps = newFrameRate;
+	}
 }
