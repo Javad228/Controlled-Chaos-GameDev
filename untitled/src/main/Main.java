@@ -10,7 +10,6 @@ public class Main {
 		view = new View();
 		window = view.getWindow();
 		GamePanel gamePanel = view.getGamePanel();
-
 		gamePanel.startGameThread();
 	}
 }
