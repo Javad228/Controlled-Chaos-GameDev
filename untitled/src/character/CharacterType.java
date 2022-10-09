@@ -9,4 +9,11 @@ package character;
 
 public enum CharacterType {
     DEFAULT     // Default Player Type
+    ;
+
+    public static CharacterType getCharacterType(String s) {
+        if (s.compareTo("DEFAULT") == 0) return DEFAULT;
+
+        return DEFAULT;
+    }
 }

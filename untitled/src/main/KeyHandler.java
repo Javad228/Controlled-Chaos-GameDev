@@ -31,6 +31,7 @@ public class KeyHandler implements KeyListener {
             Audio.walking();
         }
 
+
         if (code == KeyEvent.VK_W) {
             wPressed = true;
         }

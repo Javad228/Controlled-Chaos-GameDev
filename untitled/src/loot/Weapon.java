@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.Key;
 
 public class Weapon extends Item {
     GamePanel gp;
@@ -26,6 +27,14 @@ public class Weapon extends Item {
 
         setDefaultValues();
         getWeaponImage();
+    }
+
+    public Weapon(Weapon w) {
+        super(w.getName(), w.getLootType(), w.getxCoord(), w.getyCoord(),
+                w.getDescription(), w.getPrice(), w.isEquipped());
+        this.gp = w.gp;
+        this.keyH = w.keyH;
+        this.setWoodenSword(w.getWoodenSword());
     }
 
     public void setDefaultValues() {
@@ -70,5 +79,29 @@ public class Weapon extends Item {
 
     public void draw(Graphics2D g2) {
         g2.drawImage(woodenSword, this.getxCoord(), this.getyCoord(), gp.tileSize, gp.tileSize, null);
+    }
+
+    public GamePanel getGp() {
+        return this.gp;
+    }
+
+    public void setGp(GamePanel gp) {
+        this.gp = gp;
+    }
+
+    public KeyHandler getKeyH() {
+        return this.keyH;
+    }
+
+    public void setKeyH(KeyHandler keyH) {
+        this.keyH = keyH;
+    }
+
+    public BufferedImage getWoodenSword() {
+        return this.woodenSword;
+    }
+
+    public void setWoodenSword(BufferedImage woodenSword) {
+        this.woodenSword = woodenSword;
     }
 }

@@ -1,0 +1,32 @@
+{
+  "characterType": "DEFAULT",
+  "inventory": {
+    "numberOfSlots": 10,
+    "coinAmount": 0
+  },
+  "name": "",
+  "health": 100,
+  "movementSpeed": 4,
+  "xCoord": 0,
+  "yCoord": 0,
+  "activeEffects": [],
+  "type": "DEFAULT",
+  "timeForInvincibility": 1.0,
+  "direction": "left",
+  "spriteCounter": 5,
+  "spriteNum": 1
+}
+-=-=-=-=-=-=-
+{
+  "spriteCounter": 0,
+  "isBobbingUp": true,
+  "frameCounter": 0,
+  "bobDistance": 3,
+  "description": "",
+  "price": 0.0,
+  "isEquipped": false,
+  "name": "",
+  "lootType": "DEFAULT",
+  "xCoord": 200,
+  "yCoord": 206
+}
