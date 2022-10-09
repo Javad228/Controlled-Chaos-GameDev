@@ -277,7 +277,8 @@ public abstract class Character {
         if (this.type != ((Character) o).getType()) return false;
 
         return this.timeForInvincibility == ((Character) o).getTimeForInvincibility();
-
+    }
+    
     public BufferedImage getUp3() {
         return up3;
     }
