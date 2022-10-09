@@ -19,6 +19,14 @@ public class Item extends Loot {
         this.isEquipped = isEquipped;
     }
 
+    public Item(String name, LootType lootType, int xCoord, int yCoord,
+                String description, double price, boolean isEquipped) {
+        super(name, lootType, xCoord, yCoord);
+        this.description = description;
+        this.price = price;
+        this.isEquipped = isEquipped;
+    }
+
     public String getDescription() {
         return description;
     }

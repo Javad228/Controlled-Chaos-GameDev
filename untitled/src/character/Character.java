@@ -98,6 +98,14 @@ public abstract class Character {
         this.timeForInvincibility = timeForInvincibility;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -258,6 +266,17 @@ public abstract class Character {
         this.spriteNum = spriteNum;
     }
 
+    public boolean equals(Object o) {
+        if (this.getClass() != o.getClass()) return false;
+        if (!this.name.equals(((Character) o).getName())) return false;
+        if (this.health != ((Character) o).getHealth()) return false;
+        if (this.movementSpeed != ((Character) o).getMovementSpeed()) return false;
+        if (this.xCoord != ((Character) o).getxCoord()) return false;
+        if (this.yCoord != ((Character) o).getyCoord()) return false;
+        if (!this.activeEffects.equals(((Character) o).getActiveEffects())) return false;
+        if (this.type != ((Character) o).getType()) return false;
+
+        return this.timeForInvincibility == ((Character) o).getTimeForInvincibility();
 
     public BufferedImage getUp3() {
         return up3;
