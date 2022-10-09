@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 	public Weapon weapon = new Weapon(this, keyH);
+	public SaveData saveData = new SaveData(this);
 
 	//Methods to alter player:
 /* 	int playerX = player.getxCoord();
@@ -39,6 +40,11 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
+
+
+		//Temp
+		this.add("Save", this.saveData.saveGameButton);
+		//this.add(saveData.);
 	}
 	
 	public void startGameThread() {
@@ -93,7 +99,7 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		*/
 
-		double drawInterval = 1000000000/fps;					//converts from nanoseconds to seconds 
+		double drawInterval = 1000000000./fps;					//converts from nanoseconds to seconds
 		double delta = 0;
 		long lastTime = System.nanoTime();
 		long currentTime;
@@ -129,6 +135,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update(){
 		player.update();
 		weapon.update();
+		//saveData.saveButton.update(null);
 	}
 	
 	public void paintComponent(Graphics g){

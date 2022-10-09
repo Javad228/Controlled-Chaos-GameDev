@@ -1,6 +1,7 @@
 package main;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 	public static JFrame window;
@@ -12,7 +13,9 @@ public class Main {
 		window.setTitle("Controlled Chaos");
 
 		GamePanel gamePanel = new GamePanel();
-		window.add(gamePanel);
+		window.setLayout(new BorderLayout());
+		window.add(gamePanel, BorderLayout.CENTER);
+		window.add(gamePanel.saveData.saveGameButton, BorderLayout.NORTH);
 
 		window.pack();
 

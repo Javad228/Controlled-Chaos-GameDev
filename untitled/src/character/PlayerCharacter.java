@@ -20,8 +20,8 @@ public class PlayerCharacter extends Character {
     // private Item startingItem            // Player Starting Item
                                             // TODO: Implement Item class
     private Inventory inventory;            // Player character.Inventory
-    GamePanel gp;
-    KeyHandler keyH;
+    private GamePanel gp;
+    private KeyHandler keyH;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
@@ -32,6 +32,24 @@ public class PlayerCharacter extends Character {
 
         setDefaultValues();
         getPlayerImage();
+    }
+
+    public PlayerCharacter(PlayerCharacter pc) {
+        this.characterType = pc.getCharacterType();
+        this.inventory = pc.getInventory();
+        this.gp = pc.gp;
+        this.keyH = pc.keyH;
+        this.setName(pc.getName());
+        this.setHealth(pc.getHealth());
+        this.setMovementSpeed(pc.getMovementSpeed());
+        this.setxCoord(pc.getxCoord());
+        this.setyCoord(pc.getyCoord());
+        this.setActiveEffects(pc.getActiveEffects());
+        this.setCharacterType(pc.getCharacterType());
+        this.setTimeForInvincibility(pc.getTimeForInvincibility());
+        this.setDirection(pc.getDirection());
+        this.setSpriteCounter(pc.getSpriteCounter());
+        this.setSpriteNum(pc.getSpriteNum());
     }
 
     public void setDefaultValues() {
@@ -148,5 +166,24 @@ public class PlayerCharacter extends Character {
         this.inventory = inventory;
     }
 
+    public void setGamePanel(GamePanel gp) {
+        this.gp = gp;
+    }
+
+    public void setKeyHandler(KeyHandler keyH) {
+        this.keyH = keyH;
+    }
+
     // TODO create getter and setter method for startingItem
+
+    @Override
+    public boolean equals(Object o) {
+        if (this.getClass() != o.getClass()) return false;
+
+        PlayerCharacter pc = (PlayerCharacter) o;
+        if (this.characterType != pc.getCharacterType()) return false;
+        if (!this.inventory.equals(pc.getInventory())) return false;
+        return super.equals(o);
+    }
+
 }
