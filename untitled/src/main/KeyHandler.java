@@ -87,9 +87,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_LEFT) {
             leftPressed = false;
         }
-        //if (code == KeyEvent.VK_RIGHT) {
-            //rightPressed = false;
-        //}
+        if (code == KeyEvent.VK_RIGHT) {
+            rightPressed = false;
+        }
 
         if (Audio.walkingClip != null) {
             Audio.stopWalking();

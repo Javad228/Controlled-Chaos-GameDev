@@ -52,7 +52,8 @@ class Audio {
 
     public static void walking() {
 
-        walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
+        //want to find a different clip and make it more coherent w animation
+        walkingClip = getClip("untitled/audio/NormalWood_Barefeet_Running.wav");
         if (walkingClip == null) {
             System.out.println("walking failed: getClip returned null");
             return;

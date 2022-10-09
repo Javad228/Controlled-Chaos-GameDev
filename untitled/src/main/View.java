@@ -26,8 +26,8 @@ public class View {
         //set up settings page
         settingsPage = new JPanel();
 
-        JLabel frameRateLabel = new JLabel("Frame Rate: ");
-        frameRateLabel.setVisible(true);
+        String currentFrameRateStr = "Current Frame Rate = " + gamePanel.getFps();
+        JLabel currentFrameRate = new JLabel(currentFrameRateStr);
 
         Integer[] frameRateChoices = {24, 30, 50, 60, 120};
         final JComboBox<Integer> dropDown = new JComboBox<Integer>(frameRateChoices);
@@ -46,11 +46,14 @@ public class View {
             }
         });
 
+        JLabel currentVSync = new JLabel("<html><br/>VSync: off<br/></html>");
+
         settingsPage.setName("Settings");
         settingsPage.setBackground(Color.white);
-        settingsPage.add(frameRateLabel);
+        settingsPage.add(currentFrameRate);
         settingsPage.add(dropDown);
         settingsPage.add(applyButton);
+        settingsPage.add(currentVSync);
         settingsPage.setVisible(true);
 
         //temporary window for testing settings
@@ -73,9 +76,6 @@ public class View {
 
     public JPanel getSettingsPage() {
         return settingsPage;
-    }
-
-    public static void updateFrameRate() {
     }
 
 }

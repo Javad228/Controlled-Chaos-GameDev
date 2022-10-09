@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 		while(gameThread != null){
 			
 			currentTime = System.nanoTime();
-			drawInterval = 1000000000/fps;
+			drawInterval = 1000000000.0/fps;
 			
 			delta += (currentTime - lastTime) / drawInterval;
 			timer += (currentTime - lastTime);
@@ -92,6 +92,9 @@ public class GamePanel extends JPanel implements Runnable{
 		g2.dispose();
 	}
 
+	public int getFps() {
+		return fps;
+	}
 	public void setFps(int newFrameRate) {
 		fps = newFrameRate;
 	}
