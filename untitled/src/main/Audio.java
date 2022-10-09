@@ -12,6 +12,10 @@ import java.io.*;
 
 class Audio {
     public static Clip walkingClip;
+    public static Clip musicClip;
+
+    public static float musicVolume = -20.0f;
+    public static float soundEffectVolume = -10.0f;
 
     private static Clip getClip(String filename)
     {
@@ -40,25 +44,22 @@ class Audio {
     }
 
     public static void openingMusic() {
-        Clip music = getClip("untitled/audio/Derp-Nugget.wav");
-        if (music == null) {
+        musicClip = getClip("untitled/audio/Derp-Nugget.wav");
+        if (musicClip == null) {
             System.out.println("openingMusic failed: getClip returned null");
             return;
         }
-        float volume = -20.0f;
-        setClipVolume(music, volume);
-        music.start();
+        setClipVolume(musicClip, musicVolume);
+        musicClip.start();
     }
 
     public static void walking() {
-
         walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
         if (walkingClip == null) {
             System.out.println("walking failed: getClip returned null");
             return;
         }
-        float volume = -10.0f;
-        setClipVolume(walkingClip, volume);
+        setClipVolume(walkingClip, soundEffectVolume);
         walkingClip.start();
 
     }
