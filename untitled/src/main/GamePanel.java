@@ -2,7 +2,10 @@ package main;
 
 import javax.swing.*;
 
+import character.Character;
+import character.NonPlayableCharacter;
 import character.PlayerCharacter;
+import enemy.Slime;
 import loot.Weapon;
 
 import java.awt.*;
@@ -17,12 +20,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenWidth = tileSize * maxScreenCol; 	//768 pixels
 	public final int screenHeight = tileSize * maxScreenRow;	//576 pixels
 
+
 	private int fps = 60;
+	public CollisionChecker checker = new CollisionChecker(this);
 
 	KeyHandler keyH = new KeyHandler();
 
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+	public AssetSetter assetSetter = new AssetSetter(this);
 	public Weapon weapon = new Weapon(this, keyH);
 	public SaveData saveData = new SaveData(this);
 
@@ -33,6 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	player.setxCoord(1); */
 
+	public Slime enemy = new Slime(this);
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -46,7 +53,9 @@ public class GamePanel extends JPanel implements Runnable{
 		this.add("Save", this.saveData.saveGameButton);
 		//this.add(saveData.);
 	}
-	
+	public void setupGame() {
+		assetSetter.setNPC();
+	}
 	public void startGameThread() {
 		Audio.openingMusic();
 		gameThread = new Thread(this);
@@ -132,13 +141,12 @@ public class GamePanel extends JPanel implements Runnable{
 				drawCount = 0;
 				timer = 0;
 			}
-					
 		}
-		
 	}
 	
 	public void update(){
 		player.update();
+		enemy.update();
 		weapon.update();
 		//saveData.saveButton.update(null);
 	}
@@ -148,6 +156,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D)g;
 
+		enemy.draw(g2);
 		player.draw(g2);
 		weapon.draw(g2);
 		 

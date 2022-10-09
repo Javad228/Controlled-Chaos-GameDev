@@ -29,7 +29,16 @@ public class PlayerCharacter extends Character {
         this.inventory = new Inventory();
         this.gp = gp;
         this.keyH = keyH;
-
+        this.solidArea.x = 3;
+        this.solidArea.y = 18;
+        this.setWidth(18);
+        this.setHeight(46);
+        this.solidArea.width = 9;
+        this.solidArea.height = 23;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        this.collisionAreaDefaultX = solidArea.x;
+        this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
     }
@@ -57,8 +66,10 @@ public class PlayerCharacter extends Character {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
-        this.setWidth(18);
-        this.setHeight(46);
+//        this.setWidth(18);
+//        this.setHeight(46);
+//        this.collisionAreaDefaultX = solidArea.x;
+//        this.collisionAreaDefaultY = solidArea.y;
     }
 
     public void getPlayerImage() {
@@ -77,6 +88,10 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
+        if(keyH.kPressed){
+            attacking();
+        }
+
         if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
             int currentX = this.getxCoord();
             int currentY = this.getyCoord();
@@ -123,7 +138,40 @@ public class PlayerCharacter extends Character {
             }
         } */
     }
-    
+
+    public void attacking(){
+
+        int currentWorldX = xCoord;
+        int currentWorldY = yCoord;
+        int collisionAreaWidth = solidArea.width;
+        int collisionAreaHeight = solidArea.height;
+
+
+        switch (direction) {
+            case "up" -> yCoord -= attackArea.height;
+            case "down" -> yCoord += attackArea.height;
+            case "left" -> xCoord -= attackArea.width;
+            case "right" -> xCoord += attackArea.width;
+        }
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+//        System.out.println(solidArea);
+        Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+//        System.out.println(isHit);
+        if(isHit){
+            System.out.println("Hit");
+        }
+
+
+        //After checking collision, restore original data
+        xCoord = currentWorldX;
+        yCoord = currentWorldY;
+        solidArea.width = collisionAreaWidth;
+        solidArea.height = collisionAreaHeight;
+    }
+
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
