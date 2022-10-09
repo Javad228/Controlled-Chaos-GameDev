@@ -29,7 +29,16 @@ public class PlayerCharacter extends Character {
         this.inventory = new Inventory();
         this.gp = gp;
         this.keyH = keyH;
-
+        this.solidArea.x = 3;
+        this.solidArea.y = 18;
+        this.setWidth(18);
+        this.setHeight(46);
+        this.solidArea.width = 9;
+        this.solidArea.height = 23;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        this.collisionAreaDefaultX = solidArea.x;
+        this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
     }
@@ -39,10 +48,10 @@ public class PlayerCharacter extends Character {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
-        this.setWidth(18);
-        this.setHeight(46);
-        this.collisionAreaDefaultX = solidArea.x;
-        this.collisionAreaDefaultY = solidArea.y;
+//        this.setWidth(18);
+//        this.setHeight(46);
+//        this.collisionAreaDefaultX = solidArea.x;
+//        this.collisionAreaDefaultY = solidArea.y;
     }
 
     public void getPlayerImage() {
@@ -129,8 +138,9 @@ public class PlayerCharacter extends Character {
 
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
-
+//        System.out.println(solidArea);
         Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+//        System.out.println(isHit);
         if(isHit){
             System.out.println("Hit");
         }

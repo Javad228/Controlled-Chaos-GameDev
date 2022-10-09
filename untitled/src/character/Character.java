@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public abstract class Character {
     public boolean attacking = false;
-    public Rectangle attackArea = new Rectangle(0, 0,0,0);
+    public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
     public int health;
     public int maxHealth;                   // Character health

@@ -12,7 +12,8 @@ public class CollisionChecker {
 
     public boolean checkEntity(Character entity, Character target){
         if(target != null){
-
+            entity.collisionOn = false;
+//            System.out.println(entity.solidArea.x);
             entity.solidArea.x = entity.xCoord + entity.solidArea.x;
             entity.solidArea.y = entity.yCoord + entity.solidArea.y;
 
@@ -20,6 +21,10 @@ public class CollisionChecker {
             target.solidArea.y = target.yCoord + target.solidArea.y;
 
             entityCollisionDirection(entity);
+//            System.out.println(entity.name);
+//            System.out.println(entity.solidArea);
+//            System.out.println(target.name);
+//            System.out.println(target.solidArea);
             if (entity.solidArea.intersects(target.solidArea)) {
                 if(target != entity){
                     entity.collisionOn = true;
