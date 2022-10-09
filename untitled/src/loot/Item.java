@@ -1,19 +1,22 @@
 package loot;
 
+import main.GamePanel;
+import main.KeyHandler;
+
 public class Item extends Loot {
     private String description;
     private double price;
     private boolean isEquipped;
 
-    public Item() {
-        super();
+    public Item(GamePanel gp, KeyHandler keyH, int framesToWait) {
+        super(gp, keyH, framesToWait);
         this.description = "";
         this.price = 0.0;
         this.isEquipped = false;
     }
 
-    public Item(String description, double price, boolean isEquipped) {
-        super();
+    public Item(GamePanel gp, KeyHandler keyH, int framesToWait, String description, double price, boolean isEquipped) {
+        super(gp, keyH, framesToWait);
         this.description = description;
         this.price = price;
         this.isEquipped = isEquipped;

@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 
 import character.PlayerCharacter;
+import loot.Effect;
 import loot.Weapon;
 
 import java.awt.*;
@@ -19,11 +20,15 @@ public class GamePanel extends JPanel implements Runnable{
 
 	private int fps = 60;
 
-	KeyHandler keyH = new KeyHandler();
+	private String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
+	private String[] weaponImages = {"/weapons/wooden_sword.png"};
 
+	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
+
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
-	public Weapon weapon = new Weapon(this, keyH);
+	public Weapon weapon = new Weapon(this, keyH, weaponImages);
+	public Effect effect = new Effect(this, keyH, effectImages);
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -79,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update(){
 		player.update();
 		weapon.update();
+		effect.update();
 	}
 	
 	public void paintComponent(Graphics g){
@@ -88,6 +94,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		player.draw(g2);
 		weapon.draw(g2);
+		effect.draw(g2);
 		 
 		g2.dispose();
 	}
