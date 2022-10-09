@@ -57,6 +57,8 @@ public class PlayerCharacter extends Character {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
+        this.setWidth(18);
+        this.setHeight(46);
     }
 
     public void getPlayerImage() {
@@ -75,26 +77,25 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+        if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
             int currentX = this.getxCoord();
             int currentY = this.getyCoord();
             int speed = this.getMovementSpeed();
-
-            if (keyH.upPressed && currentY > 0) {
-                this.setDirection("up");
+            if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
                 this.setyCoord(currentY - speed);
+                this.setDirection("up");
             }
-            if (keyH.downPressed && currentY < (gp.screenHeight - gp.tileSize)) {
-                this.setDirection("down");
+            if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
                 this.setyCoord(currentY + speed);
+                this.setDirection("down");
             }
-            if (keyH.leftPressed && currentX > 0) {
-                this.setDirection("left");
+            if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
                 this.setxCoord(currentX - speed);
+                this.setDirection("left");
             }
-            if (keyH.rightPressed && currentX < (gp.screenWidth - gp.tileSize)) {
-                this.setDirection("right");
+            if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
                 this.setxCoord(currentX + speed);
+                this.setDirection("right");
             }
 
             this.setSpriteCounter(this.getSpriteCounter() + 1);
@@ -107,8 +108,22 @@ public class PlayerCharacter extends Character {
                 this.setSpriteCounter(0);
             }
         }
+        /* if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            if (keyH.upPressed && !keyH.downPressed) {
+                this.setDirection("up");
+            }
+            if (keyH.downPressed && !keyH.upPressed) {
+                this.setDirection("down");
+            }
+            if (keyH.leftPressed && !keyH.rightPressed) {
+                this.setDirection("left");
+            }
+            if (keyH.rightPressed && !keyH.leftPressed) {
+                this.setDirection("right");
+            }
+        } */
     }
-
+    
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -147,7 +162,7 @@ public class PlayerCharacter extends Character {
                 break;
         }
 
-        g2.drawImage(image, this.getxCoord(), this.getyCoord(), 18, 46, null);
+        g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
     }
 
     public CharacterType getCharacterType() {

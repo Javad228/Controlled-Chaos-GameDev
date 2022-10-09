@@ -17,6 +17,8 @@ public abstract class Character {
     private int movementSpeed;               // Character movement speed
     private int xCoord;                         // Character x-position in a room
     private int yCoord;                         // Character y-position in a room
+    private int height;                         // Character height in pixels
+    private int width;                          // Character width in pixels
     private ArrayList<String> activeEffects;    // Character active effects in game
     private CombatType type;                    // Character combat type
     private double timeForInvincibility;        // Character time for invincibility after combat hit
@@ -36,6 +38,8 @@ public abstract class Character {
         this.movementSpeed = 1;
         this.xCoord = 0;
         this.yCoord = 0;
+        this.height = 50;
+        this.width = 50;
         this.activeEffects = new ArrayList<>();
         this.type = CombatType.DEFAULT;
         this.timeForInvincibility = 1;
@@ -61,17 +65,21 @@ public abstract class Character {
      * @param movementSpeed Speed of which this Character moves
      * @param xCoord x-Coordinate of this Character
      * @param yCoord y-Coordinate of this Character
+     * @param height Height of the character
+     * @param width Width of the character
      * @param activeEffects Display and apply any affects that this Character possesses
      * @param type Character Combat type
      * @param timeForInvincibility Time for invincibility given a hit occurs against this Character
      */
-    public Character(String name, int health, int movementSpeed, int xCoord, int yCoord,
+    public Character(String name, int health, int movementSpeed, int xCoord, int yCoord, int height, int width,
                      ArrayList<String> activeEffects, CombatType type, double timeForInvincibility) {
         this.name = name;
         this.health = health;
         this.movementSpeed = movementSpeed;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
+        this.height = height;
+        this.width = width;
         this.activeEffects = activeEffects;
         this.type=type;
         this.timeForInvincibility = timeForInvincibility;
@@ -115,6 +123,22 @@ public abstract class Character {
 
     public void setyCoord(int yCoord) {
         this.yCoord = yCoord;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     public ArrayList<String> getActiveEffects() {
