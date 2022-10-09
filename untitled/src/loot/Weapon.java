@@ -11,13 +11,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Weapon extends Item {
+    // TODO: add new fields, modify constructor(s) as necessary
     GamePanel gp;
     KeyHandler keyH;
     private BufferedImage woodenSword;
     private int spriteCounter = 0; // gives current position of weapon in its movement
     private boolean isBobbingUp = true;
     private int frameCounter = 0;
-    private int bobDistance = 3;
+    private int bobIncrement = 1;
+    private int maxSpriteCounter = 6;
 
     public Weapon(GamePanel gp, KeyHandler keyH) {
         super();
@@ -46,24 +48,26 @@ public class Weapon extends Item {
             if (spriteCounter == 0) { // at the bottom, need to bob up
                 isBobbingUp = true;
                 spriteCounter++;
-                setyCoord(getyCoord() + bobDistance);
-            } else if (spriteCounter == 1 && isBobbingUp) { // in the middle of bobbing up
+                setyCoord(getyCoord() + bobIncrement);
+            } else if (spriteCounter < maxSpriteCounter && isBobbingUp) { // in the middle of bobbing up
                 spriteCounter++;
-                setyCoord(getyCoord() + bobDistance);
-            } else if (spriteCounter == 2) { // reached the top, need to go down
+                setyCoord(getyCoord() + bobIncrement);
+            } else if (spriteCounter == maxSpriteCounter) { // reached the top, need to go down
                 isBobbingUp = false;
                 spriteCounter--;
-                setyCoord(getyCoord() - bobDistance);
-            } else if (spriteCounter == 1 && !isBobbingUp) { // in the middle of bobbing down
+                setyCoord(getyCoord() - bobIncrement);
+            } else if (spriteCounter < maxSpriteCounter && !isBobbingUp) { // in the middle of bobbing down
                 spriteCounter--;
-                setyCoord(getyCoord() - bobDistance);
+                setyCoord(getyCoord() - bobIncrement);
+            } else {
+                System.out.format("Received bad sprite counter value (%d)/\n", spriteCounter);
             }
         }
 
         frameCounter++;
 
         // reset the frame counter when we reach 20 frames
-        if (frameCounter == 20) {
+        if (frameCounter == 7) {
             frameCounter = 0;
         }
     }
