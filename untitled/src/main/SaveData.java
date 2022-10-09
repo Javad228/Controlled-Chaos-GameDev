@@ -39,10 +39,9 @@ public class SaveData {
     }
 
     private void initializeSaveGameButton() {
-        saveGameButton = new JButton();
-        saveGameButton.setFocusable(false);
-        saveGameButton.setPreferredSize(new Dimension(40, 20));
-        saveGameButton.setName("Save");
+        saveGameButton = new JButton("Save");
+        saveGameButton.setFocusable(true);
+        saveGameButton.setToolTipText("Save the current Game State");
 
         saveGameButton.addActionListener((a) -> {
             if (saveGameState()) {
@@ -55,10 +54,9 @@ public class SaveData {
     }
 
     private void initializeRestoreGameButton() {
-        restoreGameButton = new JButton();
-        restoreGameButton.setFocusable(false);
-        restoreGameButton.setPreferredSize(new Dimension(40,20));
-        restoreGameButton.setName("Load");
+        restoreGameButton = new JButton("Load from Save");
+        restoreGameButton.setFocusable(true);
+        restoreGameButton.setToolTipText("Load a saved instance of the game from file");
 
         restoreGameButton.addActionListener((a) -> {});
     }

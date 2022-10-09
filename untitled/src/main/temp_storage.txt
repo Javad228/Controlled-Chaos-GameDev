@@ -7,13 +7,15 @@
   "name": "",
   "health": 100,
   "movementSpeed": 4,
-  "xCoord": 0,
-  "yCoord": 0,
+  "xCoord": 100,
+  "yCoord": 100,
+  "height": 50,
+  "width": 50,
   "activeEffects": [],
   "type": "DEFAULT",
   "timeForInvincibility": 1.0,
-  "direction": "left",
-  "spriteCounter": 5,
+  "direction": "down",
+  "spriteCounter": 0,
   "spriteNum": 1
 }
 -=-=-=-=-=-=-
@@ -28,5 +30,5 @@
   "name": "",
   "lootType": "DEFAULT",
   "xCoord": 200,
-  "yCoord": 206
+  "yCoord": 200
 }
