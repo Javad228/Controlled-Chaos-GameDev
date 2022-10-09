@@ -24,34 +24,7 @@ public class View {
         window.setLocationRelativeTo(null);
 
         //set up settings page
-        settingsPage = new JPanel();
-
-        JLabel frameRateLabel = new JLabel("Frame Rate: ");
-        frameRateLabel.setVisible(true);
-
-        Integer[] frameRateChoices = {24, 30, 50, 60, 120};
-        final JComboBox<Integer> dropDown = new JComboBox<Integer>(frameRateChoices);
-        dropDown.setVisible(true);
-
-        JButton applyButton = new JButton("Apply");
-        applyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Integer newFrameRate = (Integer) dropDown.getSelectedItem();
-                if (newFrameRate != null) {
-                    gamePanel.setFps(newFrameRate);
-                } else {
-                    System.out.println("Frame rate update failed; fps input is null");
-                }
-            }
-        });
-
-        settingsPage.setName("Settings");
-        settingsPage.setBackground(Color.white);
-        settingsPage.add(frameRateLabel);
-        settingsPage.add(dropDown);
-        settingsPage.add(applyButton);
-        settingsPage.setVisible(true);
+        settingsPage = new SettingsPanel(gamePanel);
 
         //temporary window for testing settings
         JFrame tempWindow = new JFrame();
@@ -60,7 +33,7 @@ public class View {
         tempWindow.add(settingsPage);
         tempWindow.setVisible(true);
 
-        window.setVisible(true);
+        window.setVisible(true);                                    // currently opens up the game window
     }
 
     public JFrame getWindow() {
