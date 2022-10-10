@@ -102,4 +102,16 @@ public class KeyHandler implements KeyListener {
             Audio.stopWalking();
         }
     }
+
+    public void reset() {
+        kPressed = false;
+        wPressed = false;
+        sPressed = false;
+        aPressed = false;
+        dPressed = false;
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+    }
 }

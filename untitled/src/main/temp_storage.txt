@@ -4,19 +4,39 @@
     "numberOfSlots": 10,
     "coinAmount": 0
   },
+  "attacking": false,
+  "attackArea": {
+    "x": 0,
+    "y": 0,
+    "width": 8,
+    "height": 8
+  },
   "name": "",
   "health": 100,
+  "maxHealth": 100,
   "movementSpeed": 4,
-  "xCoord": 100,
-  "yCoord": 100,
+  "xCoord": 752,
+  "yCoord": 532,
   "height": 50,
   "width": 50,
   "activeEffects": [],
   "type": "DEFAULT",
   "timeForInvincibility": 1.0,
-  "direction": "down",
-  "spriteCounter": 0,
-  "spriteNum": 1
+  "solidArea": {
+    "x": 0,
+    "y": 0,
+    "width": 48,
+    "height": 48
+  },
+  "solidAreaDefaultX": 0,
+  "solidAreaDefaultY": 0,
+  "actionLockCounter": 0,
+  "collisionOn": false,
+  "direction": "right",
+  "spriteCounter": 6,
+  "spriteNum": 2,
+  "collisionAreaDefaultY": 0,
+  "collisionAreaDefaultX": 0
 }
 -=-=-=-=-=-=-
 {
@@ -30,5 +50,6 @@
   "name": "",
   "lootType": "DEFAULT",
   "xCoord": 200,
-  "yCoord": 200
+  "yCoord": 203
 }
+-=-=-=-=-=-=-

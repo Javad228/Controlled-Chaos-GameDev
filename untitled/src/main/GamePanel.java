@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public Weapon weapon = new Weapon(this, keyH);
 	public SaveData saveData = new SaveData(this);
+	public DeathPanel deathPanel = new DeathPanel(this);
 
 	//Methods to alter player:
 /* 	int playerX = player.getxCoord();
@@ -48,10 +49,6 @@ public class GamePanel extends JPanel implements Runnable{
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 
-
-		//Temp
-		this.add("Save", this.saveData.saveGameButton);
-		//this.add(saveData.);
 	}
 	public void setupGame() {
 		assetSetter.setNPC();
@@ -140,6 +137,19 @@ public class GamePanel extends JPanel implements Runnable{
 				System.out.println("FPS:" + drawCount);
 				drawCount = 0;
 				timer = 0;
+			}
+
+			if (player.getxCoord() == 752 && player.getyCoord() == 532) {
+				Container c = new Container();
+				c.add(deathPanel);
+				player.setHealth(0);
+				keyH.reset();
+				//Main.view.getWindow().setVisible(false);
+				Main.view.getWindow().remove(Main.view.getGamePanel());
+				Main.view.getWindow().add(deathPanel);
+				Main.view.getWindow().repaint();
+				Main.view.getWindow().setVisible(true);
+				return;
 			}
 		}
 	}

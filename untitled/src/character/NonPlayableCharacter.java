@@ -13,9 +13,9 @@ import java.awt.image.BufferedImage;
  * @version September 28, 2022
  */
 
-public class NonPlayableCharacter extends Character {
+public abstract class NonPlayableCharacter extends Character {
 
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    //public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public GamePanel gamePanel;
 
     private int damagePerHit;               // Amount of damage a NonPlayableCharacter can inflict on other Characters
