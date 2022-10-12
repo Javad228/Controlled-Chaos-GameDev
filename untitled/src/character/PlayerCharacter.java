@@ -17,7 +17,7 @@ import java.io.IOException;
  * @version September 28, 2022
  */
 
-public class PlayerCharacter extends Entity {
+public class PlayerCharacter extends Character {
     private CharacterType characterType;    // Player Character Type
     // private Item startingItem            // Player Starting Item
                                             // TODO: Implement Item class
@@ -148,8 +148,7 @@ public class PlayerCharacter extends Entity {
                 this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
                 //gp.projectileList.add(projectile);               
             }
-
-        } */
+        }
     }
 
     public void attacking(){
