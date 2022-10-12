@@ -6,8 +6,6 @@ import character.Character;
 import character.NonPlayableCharacter;
 import character.PlayerCharacter;
 
-//import character.Arrow;
-//import character.Projectile;
 import enemy.Slime;
 import loot.Weapon;
 
@@ -24,19 +22,14 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenWidth = tileSize * maxScreenCol; 	//768 pixels
 	public final int screenHeight = tileSize * maxScreenRow;	//576 pixels
 
-
 	private int fps = 60;
 	public CollisionChecker checker = new CollisionChecker(this);
 
 	KeyHandler keyH = new KeyHandler();
 	//public Projectile projectile = new Projectile();
-	//public Arrow arrow = new Arrow(this);
 
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
-
-	//public ArrayList<Entity> projectileList = new ArrayList<>();
-	//public ArrayList<Entity> entityList = new ArrayList<>();
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 
@@ -169,7 +162,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 		enemy.draw(g2);
 		player.draw(g2);
-		//arrow.draw(g2);
 		weapon.draw(g2);
 		 
 		g2.dispose();

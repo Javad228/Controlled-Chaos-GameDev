@@ -1,6 +1,12 @@
 package character;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class Projectile extends Character {
+
+    private BufferedImage projectileImage;
+    private boolean isMoving;
 
     public Projectile() {
         super();
@@ -13,35 +19,46 @@ public class Projectile extends Character {
         this.setyCoord(yCoord);
         this.setDirection(direction);
         this.setMovementSpeed(movementSpeed);
+        this.setMoving(true);
         //this.type = RANGED;
         //this.user = user;
     }
 
     public void update() {
-        switch(this.getDirection()) {
-            case "up": this.setyCoord(this.getyCoord() - this.getMovementSpeed()); break;
-            case "down": this.setyCoord(this.getyCoord() + this.getMovementSpeed()); break;
-            case "left": this.setxCoord(this.getxCoord() - this.getMovementSpeed()); break;
-            case "right": this.setxCoord(this.getxCoord() + this.getMovementSpeed()); break;
-        }
-
-        /* life--;
-        if (life <= 0) {
-            alive = false;
-        } */
-
-        this.setSpriteCounter(this.getSpriteCounter() + 1);
-        if (this.getSpriteCounter() > 1) {
-            if (this.getSpriteNum() == 1) {
-                this.setSpriteNum(2);
+        if (isMoving) {
+            switch (direction) {
+                case "up":
+                    this.setyCoord(this.getyCoord() - movementSpeed);
+                    break;
+                case "down":
+                    this.setyCoord(this.getyCoord() + movementSpeed);
+                    break;
+                case "left":
+                    this.setxCoord(this.getxCoord() - movementSpeed);
+                    break;
+                case "right":
+                    this.setxCoord(this.getxCoord() + movementSpeed);
             }
-            else if (this.getSpriteNum() == 2) {
-                this.setSpriteNum(1);
-            }
-            this.setSpriteCounter(0);
         }
-
-
     }
 
+    public void draw(Graphics2D g2) {
+        g2.drawImage(projectileImage, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+    }
+
+    public BufferedImage getProjectileImage() {
+        return projectileImage;
+    }
+
+    public void setProjectileImage(BufferedImage projectileImage) {
+        this.projectileImage = projectileImage;
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public void setMoving(boolean moving) {
+        isMoving = moving;
+    }
 }
