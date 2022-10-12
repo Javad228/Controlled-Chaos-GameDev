@@ -27,37 +27,8 @@ public class View {
 
         //set up settings page
         settingsPage = new SettingsPanel(gamePanel);
-        settingsPage = new JPanel();
 
-        String currentFrameRateStr = "Current Frame Rate = " + gamePanel.getFps();
-        JLabel currentFrameRate = new JLabel(currentFrameRateStr);
 
-        Integer[] frameRateChoices = {24, 30, 50, 60, 120};
-        final JComboBox<Integer> dropDown = new JComboBox<Integer>(frameRateChoices);
-        dropDown.setVisible(true);
-
-        JButton applyButton = new JButton("Apply");
-        applyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Integer newFrameRate = (Integer) dropDown.getSelectedItem();
-                if (newFrameRate != null) {
-                    gamePanel.setFps(newFrameRate);
-                } else {
-                    System.out.println("Frame rate update failed; fps input is null");
-                }
-            }
-        });
-
-        JLabel currentVSync = new JLabel("<html><br/>VSync: off<br/></html>");
-
-        settingsPage.setName("Settings");
-        settingsPage.setBackground(Color.white);
-        settingsPage.add(currentFrameRate);
-        settingsPage.add(dropDown);
-        settingsPage.add(applyButton);
-        settingsPage.add(currentVSync);
-        settingsPage.setVisible(true);
         // Add Save Page
         savePage = new JPanel();
         savePage.setLayout(new BorderLayout());
