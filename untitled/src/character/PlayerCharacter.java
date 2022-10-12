@@ -22,8 +22,8 @@ public class PlayerCharacter extends Entity {
     // private Item startingItem            // Player Starting Item
                                             // TODO: Implement Item class
     private Inventory inventory;            // Player character.Inventory
-    GamePanel gp;
-    KeyHandler keyH;
+    private GamePanel gp;
+    private KeyHandler keyH;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
@@ -31,9 +31,36 @@ public class PlayerCharacter extends Entity {
         this.inventory = new Inventory();
         this.gp = gp;
         this.keyH = keyH;
-
+        this.solidArea.x = 3;
+        this.solidArea.y = 18;
+        this.setWidth(18);
+        this.setHeight(46);
+        this.solidArea.width = 9;
+        this.solidArea.height = 23;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        this.collisionAreaDefaultX = solidArea.x;
+        this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
+    }
+
+    public PlayerCharacter(PlayerCharacter pc) {
+        this.characterType = pc.getCharacterType();
+        this.inventory = pc.getInventory();
+        this.gp = pc.gp;
+        this.keyH = pc.keyH;
+        this.setName(pc.getName());
+        this.setHealth(pc.getHealth());
+        this.setMovementSpeed(pc.getMovementSpeed());
+        this.setxCoord(pc.getxCoord());
+        this.setyCoord(pc.getyCoord());
+        this.setActiveEffects(pc.getActiveEffects());
+        this.setCharacterType(pc.getCharacterType());
+        this.setTimeForInvincibility(pc.getTimeForInvincibility());
+        this.setDirection(pc.getDirection());
+        this.setSpriteCounter(pc.getSpriteCounter());
+        this.setSpriteNum(pc.getSpriteNum());
     }
 
     public void setDefaultValues() {
@@ -41,9 +68,12 @@ public class PlayerCharacter extends Entity {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
-        this.setWidth(18);
-        this.setHeight(46);
+//        this.setWidth(18);
+//        this.setHeight(46);
+//        this.collisionAreaDefaultX = solidArea.x;
+//        this.collisionAreaDefaultY = solidArea.y;
         this.setProjectile(new Arrow(gp));
+
     }
 
     public void getPlayerImage() {
@@ -62,6 +92,10 @@ public class PlayerCharacter extends Entity {
     }
 
     public void update() {
+        if(keyH.kPressed){
+            attacking();
+        }
+
         if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
             int currentX = this.getxCoord();
             int currentY = this.getyCoord();
@@ -114,11 +148,42 @@ public class PlayerCharacter extends Entity {
                 this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
                 //gp.projectileList.add(projectile);               
             }
-        }
-            
 
-    } 
-    
+        } */
+    }
+
+    public void attacking(){
+
+        int currentWorldX = xCoord;
+        int currentWorldY = yCoord;
+        int collisionAreaWidth = solidArea.width;
+        int collisionAreaHeight = solidArea.height;
+
+
+        switch (direction) {
+            case "up" -> yCoord -= attackArea.height;
+            case "down" -> yCoord += attackArea.height;
+            case "left" -> xCoord -= attackArea.width;
+            case "right" -> xCoord += attackArea.width;
+        }
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+//        System.out.println(solidArea);
+        Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+//        System.out.println(isHit);
+        if(isHit){
+            System.out.println("Hit");
+        }
+
+
+        //After checking collision, restore original data
+        xCoord = currentWorldX;
+        yCoord = currentWorldY;
+        solidArea.width = collisionAreaWidth;
+        solidArea.height = collisionAreaHeight;
+    }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -176,5 +241,24 @@ public class PlayerCharacter extends Entity {
         this.inventory = inventory;
     }
 
+    public void setGamePanel(GamePanel gp) {
+        this.gp = gp;
+    }
+
+    public void setKeyHandler(KeyHandler keyH) {
+        this.keyH = keyH;
+    }
+
     // TODO create getter and setter method for startingItem
+
+    @Override
+    public boolean equals(Object o) {
+        if (this.getClass() != o.getClass()) return false;
+
+        PlayerCharacter pc = (PlayerCharacter) o;
+        if (this.characterType != pc.getCharacterType()) return false;
+        if (!this.inventory.equals(pc.getInventory())) return false;
+        return super.equals(o);
+    }
+
 }
