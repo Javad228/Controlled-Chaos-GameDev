@@ -43,4 +43,14 @@ public class Inventory {
     public void setCoinAmount(int coinAmount) {
         this.coinAmount = coinAmount;
     }
+
+    public boolean equals(Object o) {
+        if (this.getClass() != o.getClass()) return false;
+
+        Inventory inventory = (Inventory) o;
+
+        if (this.numberOfSlots != inventory.getNumberOfSlots()) return false;
+        return this.coinAmount == inventory.getCoinAmount();
+    }
+
 }

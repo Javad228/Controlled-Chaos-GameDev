@@ -1,6 +1,6 @@
 package character;
 
-public class Projectile extends Entity {
+public class Projectile extends Character {
 
     public Projectile() {
         super();
