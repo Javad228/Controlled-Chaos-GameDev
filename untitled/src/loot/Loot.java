@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.Key;
 
 public class Loot {
     private String name;
@@ -144,5 +145,28 @@ public class Loot {
 
     public void setyCoord(int yCoord) {
         this.yCoord = yCoord;
+    }
+
+    public BufferedImage[] getLootImages() {
+        return lootImages;
+    }
+
+    public void setLootImages(BufferedImage[] lootImages) {
+        this.lootImages = lootImages;
+    }
+
+    public GamePanel getGp() {
+        return gp;
+    }
+
+    public void setGp(GamePanel gp) {
+        this.gp = gp;
+    }
+    public KeyHandler getkeyH() {
+        return keyH;
+    }
+
+    public void setKeyH(KeyHandler keyH) {
+        this.keyH = keyH;
     }
 }

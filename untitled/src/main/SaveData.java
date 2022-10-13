@@ -175,7 +175,7 @@ public class SaveData {
     private static Weapon deallocateWeapon(Weapon c) {
         c.setGp(null);
         c.setKeyH(null);
-        c.setWoodenSword(null);
+        c.setLootImages(null);
         return c;
     }
 

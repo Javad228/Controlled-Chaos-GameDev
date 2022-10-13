@@ -57,14 +57,14 @@ public class Audio {
     }
 
     public static void openingMusic() {
-        Clip music = getClip("untitled/audio/Derp-Nugget.wav");
-        if (music == null) {
+        musicClip = getClip("untitled/audio/Derp-Nugget.wav");
+        if (musicClip == null) {
             System.out.println("opening music failed: getClip returned null");
             System.exit(0);
         }
         float volume = -20.0f;
-        setClipVolume(music, volume);
-        music.start();
+        setClipVolume(musicClip, volume);
+        musicClip.start();
     }
 
     public static void stopMusic() {
@@ -79,8 +79,7 @@ public class Audio {
             System.out.println("walking audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -10.0f;
-        setClipVolume(walkingClip, volume);
+        setClipVolume(walkingClip, soundEffectVolume);
         walkingClip.start();
 
     }

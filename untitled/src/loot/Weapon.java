@@ -26,19 +26,23 @@ public class Weapon extends Item {
                 w.getDescription(), w.getPrice(), w.isEquipped());
         this.gp = w.gp;
         this.keyH = w.keyH;
-        this.setWoodenSword(w.getWoodenSword());
+        setDefaultValues();
+        this.setLootImages(w.getLootImages());
     }
 
     public Weapon(SimpleWeapon weapon, GamePanel gp, KeyHandler keyH) {
-        super();
+        super(gp, keyH, 7, weapon.description, weapon.price, weapon.isEquipped);
         this.gp = gp;
         this.keyH = keyH;
+        /*
         this.setDescription(weapon.description);
         this.setPrice(weapon.price);
         this.setEquipped(weapon.isEquipped);
 
+         */
+
         setDefaultValues();
-        getWeaponImage();
+        //this.setLootImages(weapon.getLootImages());
     }
 
     public void setDefaultValues() {

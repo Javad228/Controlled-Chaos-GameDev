@@ -38,7 +38,6 @@ public class View {
         savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
 
         //temporary window for testing settings
-        /*
         JFrame tempWindow = new JFrame();
         tempWindow.setSize(400, 400);
         tempWindow.getContentPane().setSize(400, 400);
@@ -46,7 +45,6 @@ public class View {
         tempWindow.add(settingsPage, BorderLayout.NORTH);
         tempWindow.add(savePage, BorderLayout.SOUTH);
         tempWindow.setVisible(true);
-        */
 
         window.setVisible(true);                                    // currently opens up the game window
     }

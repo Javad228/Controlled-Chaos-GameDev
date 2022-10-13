@@ -35,7 +35,9 @@ public abstract class Character {
     public int actionLockCounter = 0;
     public boolean collisionOn = false;
     private BufferedImage up1, up2,up3,up4,up5,up6, down1, down2,down3,down4,down5,down6, left1, left2,left3,left4,left5,left6, right1, right2,right3,right4,right5,right6;
+    private BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public String direction = "down";
+    public boolean isAttacking = false;
 
     public int spriteCounter = 0;
 
@@ -411,5 +413,69 @@ public abstract class Character {
 
     public void setRight6(BufferedImage right6) {
         this.right6 = right6;
+    }
+
+    public BufferedImage getAttackUp1() {
+        return attackUp1;
+    }
+
+    public void setAttackUp1(BufferedImage attackUp1) {
+        this.attackUp1 = attackUp1;
+    }
+
+    public BufferedImage getAttackDown1() {
+        return attackDown1;
+    }
+
+    public void setAttackDown1(BufferedImage attackDown1) {
+        this.attackDown1 = attackDown1;
+    }
+
+    public BufferedImage getAttackRight1() {
+        return attackRight1;
+    }
+
+    public void setAttackRight1(BufferedImage attackRight1) {
+        this.attackRight1 = attackRight1;
+    }
+
+    public BufferedImage getAttackLeft1() {
+        return attackLeft1;
+    }
+
+    public void setAttackLeft1(BufferedImage attackLeft1) {
+        this.attackLeft1 = attackLeft1;
+    }
+
+    public BufferedImage getAttackUp2() {
+        return attackUp2;
+    }
+
+    public void setAttackUp2(BufferedImage attackUp2) {
+        this.attackUp2 = attackUp2;
+    }
+
+    public BufferedImage getAttackDown2() {
+        return attackDown2;
+    }
+
+    public void setAttackDown2(BufferedImage attackDown2) {
+        this.attackDown2 = attackDown2;
+    }
+
+    public BufferedImage getAttackRight2() {
+        return attackRight2;
+    }
+
+    public void setAttackRight2(BufferedImage attackRight2) {
+        this.attackRight2 = attackRight2;
+    }
+
+    public BufferedImage getAttackLeft2() {
+        return attackLeft2;
+    }
+
+    public void setAttackLeft2(BufferedImage attackLeft2) {
+        this.attackLeft2 = attackLeft2;
     }
 }

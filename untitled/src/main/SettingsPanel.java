@@ -14,13 +14,14 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
     public SettingsPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addFrameRateSelection();
         addMusicVolumeSelection();
         addSoundEffectVolumeSelection();
 
         setName("Settings");
         setBackground(Color.white);
-        setVisible(false);
+        setVisible(true);
     }
 
     private void addSoundEffectVolumeSelection() {

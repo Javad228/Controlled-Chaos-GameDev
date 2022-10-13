@@ -35,9 +35,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 	public Weapon weapon = new Weapon(this, keyH, weaponImages);
 	public Effect effect = new Effect(this, keyH, effectImages);
-	
-	private PlayerCharacter player = new PlayerCharacter(this, keyH);
-	private Weapon weapon = new Weapon(this, keyH);
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
@@ -71,9 +68,9 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 	}
 
-    	public void newGame() {
+	public void newGame() {
 		this.setPlayer(new PlayerCharacter(this, keyH));
-		this.setWeapon(new Weapon(this, keyH));
+		this.setWeapon(new Weapon(this, keyH, weaponImages));
 		newGameHelper();
 	}
 
