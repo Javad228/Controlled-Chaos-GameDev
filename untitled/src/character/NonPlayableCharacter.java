@@ -102,6 +102,12 @@ public abstract class NonPlayableCharacter extends Character {
         g2.fillRect(xCoord-1, yCoord-4, gamePanel.tileSize+2, 12);
         g2.setColor(new Color(255, 0, 30));
         g2.fillRect(xCoord, yCoord - 3 , (int) hpBarValue, 10);
+
+        if(invincible){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }else{
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        }
     }
     public void draw(Graphics2D g2){
         drawHP(g2);
@@ -193,6 +199,8 @@ public abstract class NonPlayableCharacter extends Character {
                 g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
                 break;
         }
+
+
 
 
 
