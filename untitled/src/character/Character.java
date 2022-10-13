@@ -1,4 +1,6 @@
-package character; /**
+package character;
+
+/*
  * Character Class - An abstract class which models a character containing basic information pertaining to the game.
  *
  * @author Cameron Hofbauer
@@ -7,6 +9,7 @@ package character; /**
 
 
 import combat.CombatType;
+import main.Audio;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -111,6 +114,9 @@ public abstract class Character {
     }
 
     public void setHealth(int health) {
+        if (this instanceof PlayerCharacter) {
+            Audio.playerDamagedAudio();
+        }
         this.health = health;
     }
 

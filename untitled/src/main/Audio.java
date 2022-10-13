@@ -1,6 +1,15 @@
 /*
     Walking_On_Gravel from Caroline Ford on SoundBible:
     https://soundbible.com/1432-Walking-On-Gravel.html
+
+    Slime-Splash from Mike Koenig on SoundBible
+    https://soundbible.com/1097-Slime-Splash.html
+
+    Frying-Pan-Hit from Mike Koenig on SoundBible
+    https://soundbible.com/1004-Frying-Pan-Hit.html
+
+    Button-Click from Mike Koenig on SoundBible
+    https://soundbible.com/893-Button-Click.html
  */
 
 package main;
@@ -8,7 +17,7 @@ package main;
 import javax.sound.sampled.*;
 import java.io.*;
 
-class Audio {
+public class Audio {
     public static Clip walkingClip;
     public static Clip musicClip;
 
@@ -81,20 +90,17 @@ class Audio {
     }
 
     public static void swordHitAudio() {
-        /*
 
         //uncomment when there are clips for these sounds
 
-        Clip swordHitClip = getClip();
+        Clip swordHitClip = getClip("untitled/audio/mixkit-dagger-woosh-1487.wav");
         if (swordHitClip == null) {
             System.out.println("Sword hit audio failed: getClip returned null");
             System.exit(0);
         }
         float volume = -10f; //may need changed
         setClipVolume(swordHitClip, volume);
-        swordHitClip.start;
-
-         */
+        swordHitClip.start();
     }
 
     public static void swordMissAudio() {
@@ -109,93 +115,91 @@ class Audio {
         }
         float volume = -10f; //may need changed
         setClipVolume(swordMissClip, volume);
-        swordMissClip.start;
+        swordMissClip.start();
 
          */
     }
 
     public static void itemPickUpAudio() {
-        /*
+
 
         //uncomment when there are clips for these sounds
 
-        Clip itemPickUpClip = getClip();
+        Clip itemPickUpClip = getClip("untitled/audio/jump-coin-216.wav");
         if (itemPickUpClip == null) {
             System.out.println("Item pick up audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -10f; //may need changed
+        float volume = soundEffectVolume; //may need changed
         setClipVolume(itemPickUpClip, volume);
-        itemPickUpClip.start;
-
-         */
+        itemPickUpClip.start();
     }
 
     public static void playerDamagedAudio() {
-        /*
 
         //uncomment when there are clips for these sounds
 
-        Clip playerDamagedClip = getClip();
-        if (playerDamagedCip == null) {
+        Clip playerDamagedClip = getClip("untitled/audio/short-knife-whoosh-fx.wav");
+        if (playerDamagedClip == null) {
             System.out.println("Player damaged audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -10f; //may need changed
+        float volume = soundEffectVolume; //may need changed
         setClipVolume(playerDamagedClip, volume);
-        playerDamaged.start;
-
-         */
+        playerDamagedClip.start();
     }
 
-    public static void destroyObjectAudio() {
-        /*
+    public static void enemyDamagedAudio() {
 
         //uncomment when there are clips for these sounds
 
-        Clip destroyObjectClip = getClip();
+        Clip playerDamagedClip = getClip("untitled/audio/Slime-Splash.wav");
+        if (playerDamagedClip == null) {
+            System.out.println("Player damaged audio failed: getClip returned null");
+            System.exit(0);
+        }
+        float volume = soundEffectVolume; //may need changed
+        setClipVolume(playerDamagedClip, volume);
+        playerDamagedClip.start();
+    }
+
+    public static void destroyObjectAudio() {
+        //uncomment when there are clips for these sounds
+
+        Clip destroyObjectClip = getClip("untitled/audio/Frying-Pan-Hit.wav");
         if (destroyObjectClip == null) {
             System.out.println("Destroy object audio failed: getClip returned null");
             System.exit(0);
         }
         float volume = -10f; //may need changed
         setClipVolume(destroyObjectClip, volume);
-        destroyObjectClip.start;
+        destroyObjectClip.start();
 
-         */
     }
 
     public static void pressButtonAudio() {
-        /*
-
         //uncomment when there are clips for these sounds
 
-        Clip pressButtonClip = getClip();
+        Clip pressButtonClip = getClip("untitled/audio/Button-Click.wav");
         if (pressButtonClip == null) {
             System.out.println("Press button audio failed: getClip returned null");
             System.exit(0);
         }
         float volume = -10f; //may need changed
         setClipVolume(pressButtonClip, volume);
-        pressButtonClip.start;
-
-         */
+        pressButtonClip.start();
     }
 
     public static void doorOpenAudio() {
-        /*
-
         //uncomment when there are clips for these sounds
 
-        Clip doorOpenClip = getClip();
+        Clip doorOpenClip = getClip("untitled/audio/Large-Metal-Rusty-Door.wav");
         if (doorOpenClip == null) {
             System.out.println("Door open audio failed: getClip returned null");
             System.exit(0);
         }
         float volume = -10f; //may need changed
         setClipVolume(doorOpenClip, volume);
-        doorOpenClip.start;
-
-         */
+        doorOpenClip.start();
     }
 }

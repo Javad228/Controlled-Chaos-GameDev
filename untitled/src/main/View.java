@@ -27,6 +27,7 @@ public class View {
 
         //set up settings page
         settingsPage = new SettingsPanel(gamePanel);
+        window.add(settingsPage);
 
 
         // Add Save Page
@@ -37,6 +38,7 @@ public class View {
         savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
 
         //temporary window for testing settings
+        /*
         JFrame tempWindow = new JFrame();
         tempWindow.setSize(400, 400);
         tempWindow.getContentPane().setSize(400, 400);
@@ -44,6 +46,7 @@ public class View {
         tempWindow.add(settingsPage, BorderLayout.NORTH);
         tempWindow.add(savePage, BorderLayout.SOUTH);
         tempWindow.setVisible(true);
+        */
 
         window.setVisible(true);                                    // currently opens up the game window
     }
@@ -58,9 +61,6 @@ public class View {
 
     public JPanel getSettingsPage() {
         return settingsPage;
-    }
-
-    public static void updateFrameRate() {
     }
 
 }

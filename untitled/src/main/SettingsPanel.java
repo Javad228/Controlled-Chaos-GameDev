@@ -20,12 +20,11 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
         setName("Settings");
         setBackground(Color.white);
-        setVisible(true);
+        setVisible(false);
     }
 
     private void addSoundEffectVolumeSelection() {
         JLabel soundEffectLabel = new JLabel("Sound Effects Volume: ");
-        soundEffectLabel.setVisible(true);
 
         soundEffectSlider = new JSlider(0, 10, 5);
         soundEffectSlider.setPaintTrack(true);
@@ -41,7 +40,6 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
     public void addMusicVolumeSelection() {
         JLabel musicLabel = new JLabel("Music Volume: ");
-        musicLabel.setVisible(true);
 
         musicSlider = new JSlider(0, 10, 5);
         musicSlider.setPaintTrack(true);
@@ -69,11 +67,9 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         JLabel currentFrameRate = new JLabel(currentFrameRateStr);
 
         JLabel frameRateLabel = new JLabel("New Frame Rate: ");
-        frameRateLabel.setVisible(true);
 
         Integer[] frameRateChoices = {24, 30, 50, 60, 120};
         final JComboBox<Integer> dropDown = new JComboBox<>(frameRateChoices);
-        dropDown.setVisible(true);
 
         JButton applyButton = new JButton("Apply");
         applyButton.addActionListener(new ActionListener() {
