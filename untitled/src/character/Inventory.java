@@ -1,5 +1,9 @@
 package character;
 
+import loot.Item;
+
+import java.util.ArrayList;
+
 /**
  * character.Inventory Class - Class which represents an inventory for a Character to collect and store items and coins
  *
@@ -9,8 +13,7 @@ package character;
 
 public class Inventory {
     private int numberOfSlots;                  // Number of slots to store items
-    // private ArrayList<Item> listOfItems;     // List of Items in this character.Inventory Object
-                                                // TODO: Create Item Class
+    private ArrayList<Item> listOfItems;        // List of Items in this character.Inventory Object
     private int coinAmount;                     // Amount of Coins in this character.Inventory Object
 
     /**
@@ -18,12 +21,13 @@ public class Inventory {
      */
     public Inventory() {
         this.numberOfSlots = 10;
+        this.listOfItems = new ArrayList<>();
         this.coinAmount = 0;
     }
 
-    // TODO add listOfItems after Item Class has been implemented
-    public Inventory(int numberOfSlots, int coinAmount) {
+    public Inventory(int numberOfSlots, ArrayList<Item> listOfItems, int coinAmount) {
         this.numberOfSlots = numberOfSlots;
+        this.listOfItems = listOfItems;
         this.coinAmount = coinAmount;
     }
 

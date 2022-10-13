@@ -58,6 +58,10 @@ class Audio {
         music.start();
     }
 
+    public static void stopMusic() {
+        if (musicClip != null)  musicClip.stop();
+    }
+
     public static void walking() {
 
         //want to find a different clip and make it more coherent w animation
@@ -73,7 +77,7 @@ class Audio {
     }
 
     public static void stopWalking() {
-        walkingClip.stop();
+        if (walkingClip != null)    walkingClip.stop();
     }
 
     public static void swordHitAudio() {

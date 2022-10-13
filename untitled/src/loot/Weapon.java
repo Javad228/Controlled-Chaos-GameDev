@@ -37,6 +37,18 @@ public class Weapon extends Item {
         this.setWoodenSword(w.getWoodenSword());
     }
 
+    public Weapon(SimpleWeapon weapon, GamePanel gp, KeyHandler keyH) {
+        super();
+        this.gp = gp;
+        this.keyH = keyH;
+        this.setDescription(weapon.description);
+        this.setPrice(weapon.price);
+        this.setEquipped(weapon.isEquipped);
+
+        setDefaultValues();
+        getWeaponImage();
+    }
+
     public void setDefaultValues() {
         this.setxCoord(200);
         this.setyCoord(200);

@@ -1,7 +1,9 @@
 package character;
 
 import main.GamePanel;
+import main.HealthBar;
 import main.KeyHandler;
+import loot.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,9 +19,9 @@ import java.io.IOException;
 
 public class PlayerCharacter extends Character {
     private CharacterType characterType;    // Player Character Type
-    // private Item startingItem            // Player Starting Item
-                                            // TODO: Implement Item class
+    private Item startingItem;              // Player Starting Item
     private Inventory inventory;            // Player character.Inventory
+    private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
 
@@ -41,6 +43,7 @@ public class PlayerCharacter extends Character {
         this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
+        this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -59,6 +62,22 @@ public class PlayerCharacter extends Character {
         this.setDirection(pc.getDirection());
         this.setSpriteCounter(pc.getSpriteCounter());
         this.setSpriteNum(pc.getSpriteNum());
+        this.setStartingItem(pc.getStartingItem());
+        this.healthBar = pc.healthBar;
+    }
+
+    public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
+        this(gp, keyH);
+        this.name = c.name;
+        this.health = c.health;
+        this.maxHealth = c.maxHealth;
+        this.movementSpeed = c.movementSpeed;
+        this.xCoord = c.xCoord;
+        this.yCoord = c.yCoord;
+        this.activeEffects = c.activeEffects;
+        this.type = c.combatType;
+        this.inventory = c.inventory;
+        this.characterType = c.characterType;
     }
 
     public void setDefaultValues() {
@@ -88,6 +107,9 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
+
+        if (keyH == null) return;
+
         if(keyH.kPressed){
             attacking();
         }
@@ -137,6 +159,8 @@ public class PlayerCharacter extends Character {
                 this.setDirection("right");
             }
         } */
+
+        this.healthBar.update(this.getHealth());
     }
 
     public void attacking(){
@@ -211,6 +235,11 @@ public class PlayerCharacter extends Character {
         }
 
         g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
+        this.healthBar.draw(g2,
+                this.getxCoord(),
+                this.getyCoord()-this.healthBar.getHeight());
+
     }
 
     public CharacterType getCharacterType() {
@@ -237,7 +266,13 @@ public class PlayerCharacter extends Character {
         this.keyH = keyH;
     }
 
-    // TODO create getter and setter method for startingItem
+    public Item getStartingItem() {
+        return this.startingItem;
+    }
+
+    public void setStartingItem(Item startingItem) {
+        this.startingItem = startingItem;
+    }
 
     @Override
     public boolean equals(Object o) {

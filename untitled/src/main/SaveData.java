@@ -1,14 +1,11 @@
 package main;
-import character.Inventory;
-import character.PlayerCharacter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import character.*;
 import loot.*;
 import com.google.gson.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -22,10 +19,11 @@ public class SaveData {
 
     public JButton saveGameButton;
     public JButton restoreGameButton;
+    public JButton resetGameProgressButton;
 
     private final GamePanel gp;
     private static final String file = "untitled/src/main/temp_storage.txt";
-    private final String separator = "\n-=-=-=-=-=-=-\n";
+//  private final String separator = "\n-=-=-=-=-=-=-\n";
     private GsonBuilder gb;
     private Gson g;
 
@@ -33,6 +31,7 @@ public class SaveData {
         this.gp = gp;
         initializeSaveGameButton();
         initializeRestoreGameButton();
+        initializeResetGameProgressButton();
         this.gb = new GsonBuilder();
         gb.setPrettyPrinting();
         g = gb.create();
@@ -44,11 +43,12 @@ public class SaveData {
         saveGameButton.setToolTipText("Save the current Game State");
 
         saveGameButton.addActionListener((a) -> {
+            if (gp.paused) return;
             if (saveGameState()) {
                 System.out.println("Save Failed");
             } else {
                 System.out.println("Save Success");
-                JOptionPane.showMessageDialog(saveGameButton, "Save Success");
+                JOptionPane.showMessageDialog(saveGameButton, "Save Succeeded");
             }
         });
     }
@@ -58,18 +58,35 @@ public class SaveData {
         restoreGameButton.setFocusable(true);
         restoreGameButton.setToolTipText("Load a saved instance of the game from file");
 
-        restoreGameButton.addActionListener((a) -> {});
+        restoreGameButton.addActionListener((a) -> {
+            if (gp.paused) return;
+            if (restoreSave()) JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Succeeded");
+            else JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Failed\nRestoring to Default Save");
+        });
+    }
+
+    private void initializeResetGameProgressButton() {
+        resetGameProgressButton = new JButton("Reset Saved Progress");
+        resetGameProgressButton.setFocusable(true);
+        resetGameProgressButton.setToolTipText("Clear any saved progress from file");
+
+        resetGameProgressButton.addActionListener((a) -> {
+            if (JOptionPane.showConfirmDialog(resetGameProgressButton,
+                    "Resetting game progress will erase all progress made\nAre you sure?", "Confirm Reset",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
+                resetSavedProgress();
+                System.out.println("Saved Progress Reset");
+                JOptionPane.showMessageDialog(resetGameProgressButton, "Game Progress Reset",
+                        "Reset Game Progress", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        });
     }
 
     public boolean saveGameState() {
         try {
             FileWriter f = new FileWriter(file);
-            //f.write(g.toJson(new GameSaveState(gp.player, gp.weapon), GameSaveState.class));
-            //f.write(new GameSaveState(gp.player, gp.weapon).write(g.newJsonWriter()))
-            //new GameSaveState(gp.player, gp.weapon).write(g.newJsonWriter(f));
-            f.write(g.toJson(deallocateCharacter(new PlayerCharacter(gp.player))));
-            f.write(separator);
-            f.write(g.toJson(deallocateWeapon(new Weapon(gp.weapon))));
+            f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
             f.close();
             return false;
         } catch (IOException e) {
@@ -79,23 +96,50 @@ public class SaveData {
         return true;
     }
 
-    //TODO: Polish Load from File method
-    public GameSaveState restoreGameState() {
+    protected boolean restoreSave() {
+        GameSaveState gs;
+
+        if ((gs=restoreGameState()) == null) {
+            gp.newGame();
+            if (gp.paused) System.out.println("Game restore Failed\nUsing starting values");
+            else System.out.println("Game restore Failed");
+            return false;
+        }
+
+        gp.newGame(gs.player, gs.weapon);
+        System.out.println("Game restore Succeeded");
+        return true;
+    }
+
+    private GameSaveState restoreGameState() {
         try {
-            StringBuilder input = new StringBuilder();
             BufferedReader r = new BufferedReader(new FileReader(file));
-            while (r.ready()) {
-                input.append(r.readLine());
-            }
+            StringBuilder input = new StringBuilder();
+
+            // Read from file
+            while (r.ready()) input.append(r.readLine());
+
             return g.fromJson(input.toString(), GameSaveState.class);
         } catch (IOException e) {
             System.out.println("ERROR: Reading from Save Failed");
             e.printStackTrace();
+            return null;
         } catch (com.google.gson.JsonSyntaxException e) {
             System.out.println("ERROR: Syntax Parsing Failure!");
             return null;
         }
-        return null;
+    }
+
+    public boolean resetSavedProgress() {
+        try {
+            FileWriter f = new FileWriter(file);
+            f.write("");
+            f.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private static PlayerCharacter deallocateCharacter(PlayerCharacter c) {
@@ -103,12 +147,28 @@ public class SaveData {
         c.setKeyHandler(null);
         c.setUp1(null);
         c.setUp2(null);
+        c.setUp3(null);
+        c.setUp4(null);
+        c.setUp5(null);
+        c.setUp6(null);
         c.setDown1(null);
         c.setDown2(null);
+        c.setDown3(null);
+        c.setDown4(null);
+        c.setDown5(null);
+        c.setDown6(null);
         c.setLeft1(null);
         c.setLeft2(null);
+        c.setLeft3(null);
+        c.setLeft4(null);
+        c.setLeft5(null);
+        c.setLeft6(null);
         c.setRight1(null);
         c.setRight2(null);
+        c.setRight3(null);
+        c.setRight4(null);
+        c.setRight5(null);
+        c.setRight6(null);
         return c;
     }
 
@@ -119,87 +179,6 @@ public class SaveData {
         return c;
     }
 
-    //TODO Temporary to familiarize with GSON
-    public static void main(String[] args) {
-        //SaveGameData s = new SaveGameData();
-
-        //String file = "untitled/src/main/storage.txt";
-
-        System.out.print("Enter character name: ");
-        Scanner s = new Scanner(System.in);
-
-        PlayerCharacter character = new PlayerCharacter(null, null);
-        character.setName(s.next());
-        character.setInventory(new Inventory(20, 20));
-        deallocateCharacter(character);
-        GsonBuilder b = new GsonBuilder();
-        b.setPrettyPrinting();
-        Gson g = b.create();
-        String str = g.toJson(character);
-        System.out.printf("%s\n", str);
-
-        StringBuilder input = new StringBuilder();
-
-        try {
-            FileWriter f = new FileWriter(file);
-            f.write("");
-            f.write(str);
-            f.close();
-            BufferedReader r = new BufferedReader(new FileReader(file));
-            while (r.ready()) {
-                input.append(r.readLine());
-            }
-            System.out.printf("%s\n", input);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        PlayerCharacter newChar = g.fromJson(input.toString(), PlayerCharacter.class);
-        System.out.printf("%s\n", g.toJson(newChar));
-        if (!newChar.equals(character)) throw new AssertionError();
-        else System.out.println("Yay!");
-
-    }
-
-}
-
-/**
- * GameSaveState - Private class which structures the save file format
- *
- * @author Cameron Hofbauer
- * @version October 9, 2022
- */
-class GameSaveState {
-    public PlayerCharacter player;
-    //TODO: Add list of npc
-    //TODO: Add list of enemies
-    public Weapon weapon;
-    //TODO: Add list of loot
-
-    public GameSaveState(PlayerCharacter player, Weapon weapon) {
-        this.player = player;
-        this.weapon = weapon;
-    }
-
-    public void write(JsonWriter writer) throws IOException {
-        TypeAdapter<GameSaveState> typeAdapter = new Gson().getAdapter(GameSaveState.class);
-        typeAdapter.write(writer, this);
-    }
-
-    public GameSaveState read(JsonReader r) throws IOException {
-        r.beginObject();
-//        PlayerCharacter player = new PlayerCharacter(null, null);
-//        player.setCharacterType(CharacterType.getCharacterType(r.nextString()));
-//        player.setInventory(new Inventory(r.nextInt(), r.nextInt()));
-//        player.setName(r.nextString())
-
-        //this.player = r.();
-
-        r.endObject();
-
-        return this;
-    }
 }
 
 /**
@@ -210,5 +189,46 @@ class GameSaveState {
  * @version October 9, 2022
  */
 class TestSaveData {
+    //TODO Replace with test
+    public static void main(String[] args) {
+        //SaveGameData s = new SaveGameData();
 
+        //String file = "untitled/src/main/storage.txt";
+
+        System.out.print("Enter character name: ");
+        Scanner s = new Scanner(System.in);
+
+        PlayerCharacter character = new PlayerCharacter(null, null);
+        character.setName(s.next());
+        character.setInventory(new Inventory(20, new ArrayList<>(),20));
+        //deallocateCharacter(character);
+        GsonBuilder b = new GsonBuilder();
+        b.setPrettyPrinting();
+        Gson g = b.create();
+        String str = g.toJson(character);
+        System.out.printf("%s\n", str);
+
+        //StringBuilder input = new StringBuilder();
+
+        //try {
+        //    FileWriter f = new FileWriter(file);
+        //    f.write("");
+        //    f.write(str);
+        //    f.close();
+        //    BufferedReader r = new BufferedReader(new FileReader(file));
+        //    while (r.ready()) {
+        //        input.append(r.readLine());
+        //    }
+        //    System.out.printf("%s\n", input);
+
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
+
+        //PlayerCharacter newChar = g.fromJson(input.toString(), PlayerCharacter.class);
+        //System.out.printf("%s\n", g.toJson(newChar));
+        //if (!newChar.equals(character)) throw new AssertionError();
+        //else System.out.println("Yay!");
+
+    }
 }
