@@ -53,6 +53,10 @@ class Audio {
         musicClip.start();
     }
 
+    public static void stopMusic() {
+        if (musicClip != null)  musicClip.stop();
+    }
+
     public static void walking() {
         walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
         if (walkingClip == null) {
@@ -65,6 +69,6 @@ class Audio {
     }
 
     public static void stopWalking() {
-        walkingClip.stop();
+        if (walkingClip != null)    walkingClip.stop();
     }
 }

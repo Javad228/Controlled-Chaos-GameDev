@@ -94,7 +94,7 @@ public abstract class Character {
         this.height = height;
         this.width = width;
         this.activeEffects = activeEffects;
-        this.type=type;
+        this.type = type;
         this.timeForInvincibility = timeForInvincibility;
     }
 

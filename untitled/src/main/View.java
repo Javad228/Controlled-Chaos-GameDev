@@ -32,7 +32,8 @@ public class View {
         savePage = new JPanel();
         savePage.setLayout(new BorderLayout());
         savePage.add(gamePanel.saveData.saveGameButton, BorderLayout.WEST);
-        savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.EAST);
+        savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.CENTER);
+        savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
 
         //temporary window for testing settings
         JFrame tempWindow = new JFrame();
