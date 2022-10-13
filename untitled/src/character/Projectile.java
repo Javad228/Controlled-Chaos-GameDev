@@ -1,15 +1,18 @@
 package character;
 
+import main.GamePanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Projectile extends Character {
 
+    GamePanel gp;
     private BufferedImage projectileImage;
     private boolean isMoving;
 
-    public Projectile() {
+    public Projectile(GamePanel gp) {
         super();
+        this.gp = gp;
     }
 
     public void set(int xCoord, int yCoord, String direction, int movementSpeed) {  //CombatType type
@@ -40,6 +43,33 @@ public class Projectile extends Character {
                     this.setxCoord(this.getxCoord() + movementSpeed);
             }
         }
+
+        int currentWorldX = xCoord;
+        int currentWorldY = yCoord;
+        int collisionAreaWidth = solidArea.width;
+        int collisionAreaHeight = solidArea.height;
+
+
+        switch (direction) {
+            case "up" -> yCoord -= attackArea.height;
+            case "down" -> yCoord += attackArea.height;
+            case "left" -> xCoord -= attackArea.width;
+            case "right" -> xCoord += attackArea.width;
+        }
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+        Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+        if(isHit){
+            System.out.println("Hit");
+        }
+
+
+        //After checking collision, restore original data
+        xCoord = currentWorldX;
+        yCoord = currentWorldY;
+        solidArea.width = collisionAreaWidth;
+        solidArea.height = collisionAreaHeight;
     }
 
     public void draw(Graphics2D g2) {

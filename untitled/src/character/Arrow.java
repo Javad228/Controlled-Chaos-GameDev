@@ -17,7 +17,7 @@ public class Arrow extends Projectile {
     private BufferedImage arrowLeft;
 
     public Arrow(GamePanel gp) {
-        super();
+        super(gp);
         this.gp = gp;
 
         setDefaultValues();

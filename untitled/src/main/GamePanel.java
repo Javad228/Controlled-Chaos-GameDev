@@ -34,7 +34,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public AssetSetter assetSetter = new AssetSetter(this);
 
 	public Weapon weapon = new Weapon(this, keyH);
-	public SaveData saveData = new SaveData(this);
 
 	//Methods to alter player:
 /* 	int playerX = player.getxCoord();
@@ -54,7 +53,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 		//Temp
-		this.add("Save", this.saveData.saveGameButton);
 		//this.add(saveData.);
 	}
 	public void setupGame() {
