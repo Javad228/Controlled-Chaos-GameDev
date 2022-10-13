@@ -153,23 +153,6 @@ public class GamePanel extends JPanel implements Runnable{
 		int drawCount = 0;
 		
 		while(gameThread != null){
-//<<<<<<< Cameron-NewGame-Method
-//=======
-//			
-//			currentTime = System.nanoTime();
-//			drawInterval = 1000000000.0/fps;
-//			
-//			delta += (currentTime - lastTime) / drawInterval;
-//			timer += (currentTime - lastTime);
-//			lastTime = currentTime;
-//
-//			if (delta >= 1) {
-//				update();
-//				repaint();
-//				delta--;
-//				drawCount++;
-//			}
-//>>>>>>> Cameron-MergeNewGame
 
 			delta = 0;
 			timer = 0;
