@@ -40,6 +40,13 @@ public abstract class NonPlayableCharacter extends Character {
     public void setAction(){}
 
     public void update(){
+        if(invincible){
+            invincibleCounter++;
+            if(invincibleCounter>30){
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
         setAction();
 //        System.out.println(direction);
         if(spriteNum!=1&&spriteNum!=2&&spriteNum!=6) {
@@ -87,7 +94,23 @@ public abstract class NonPlayableCharacter extends Character {
         this.attackCooldown = attackCooldown;
     }
 
+    public void drawHP(Graphics2D g2){
+        double oneScale = (double)gamePanel.tileSize/maxHealth;
+        double hpBarValue = oneScale*health;
+
+        g2.setColor(new Color(35, 35, 35));
+        g2.fillRect(xCoord-1, yCoord-4, gamePanel.tileSize+2, 12);
+        g2.setColor(new Color(255, 0, 30));
+        g2.fillRect(xCoord, yCoord - 3 , (int) hpBarValue, 10);
+
+        if(invincible){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        }else{
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        }
+    }
     public void draw(Graphics2D g2){
+        drawHP(g2);
         BufferedImage image = null;
 
         switch(this.getDirection()) {
@@ -176,6 +199,8 @@ public abstract class NonPlayableCharacter extends Character {
                 g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
                 break;
         }
+
+
 
 
 

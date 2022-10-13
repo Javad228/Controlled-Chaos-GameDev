@@ -17,6 +17,9 @@ import java.util.ArrayList;
 
 public abstract class Character {
     public boolean attacking = false;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
+    public boolean isAlive = true;
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
     public int health;
@@ -54,8 +57,8 @@ public abstract class Character {
         this.maxHealth = 100;
         this.health = maxHealth;
         this.movementSpeed = 1;
-        this.xCoord = 0;
-        this.yCoord = 0;
+        this.xCoord = 300;
+        this.yCoord = 300;
         this.height = 50;
         this.width = 50;
         this.activeEffects = new ArrayList<>();
