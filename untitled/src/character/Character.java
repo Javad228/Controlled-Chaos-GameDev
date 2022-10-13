@@ -28,6 +28,7 @@ public abstract class Character {
     public double timeForInvincibility;        // Character time for invincibility after combat hit
     public Projectile projectile;
     private boolean hasThrownProjectile;
+    private boolean isAlive;
 
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -58,6 +59,7 @@ public abstract class Character {
         this.activeEffects = new ArrayList<>();
         this.type = CombatType.DEFAULT;
         this.timeForInvincibility = 1;
+        this.isAlive = true;
     }
 
     /**
@@ -85,6 +87,7 @@ public abstract class Character {
      * @param activeEffects Display and apply any affects that this Character possesses
      * @param type Character Combat type
      * @param timeForInvincibility Time for invincibility given a hit occurs against this Character
+     * @param isAlive  Whether character is alive
      */
     public Character(String name, int health, int movementSpeed, int xCoord, int yCoord, int height, int width,
                      ArrayList<String> activeEffects, CombatType type, double timeForInvincibility) {
@@ -98,6 +101,7 @@ public abstract class Character {
         this.activeEffects = activeEffects;
         this.type=type;
         this.timeForInvincibility = timeForInvincibility;
+        this.isAlive = isAlive;
     }
 
 
@@ -187,6 +191,14 @@ public abstract class Character {
 
     public void setProjectile(Projectile projectile) {
         this.projectile = projectile;
+    }
+
+    public boolean getIsAlive() {
+        return isAlive;
+    }
+
+    public void setIsAlive(boolean isAlive) {
+        this.isAlive = isAlive;
     }
 
     public BufferedImage getUp1() {

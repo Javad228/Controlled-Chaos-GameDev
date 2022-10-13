@@ -235,7 +235,7 @@ public class PlayerCharacter extends Character {
 
         g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
 
-        if (isHasThrownProjectile()) {
+        if (isHasThrownProjectile() && this.projectile.getIsAlive()) {
             this.getProjectile().draw(g2);
         }
     }

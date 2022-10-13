@@ -23,6 +23,7 @@ public class Projectile extends Character {
         this.setDirection(direction);
         this.setMovementSpeed(movementSpeed);
         this.setMoving(true);
+        this.setIsAlive(true);
         //this.type = RANGED;
         //this.user = user;
     }
@@ -62,14 +63,15 @@ public class Projectile extends Character {
         Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
         if(isHit){
             System.out.println("Hit");
+            //Potentially add if statement for piercing effects where projectile isn't destroyed
+            this.setIsAlive(false);
         }
-
 
         //After checking collision, restore original data
         xCoord = currentWorldX;
         yCoord = currentWorldY;
         solidArea.width = collisionAreaWidth;
-        solidArea.height = collisionAreaHeight;
+        solidArea.height = collisionAreaHeight;        
     }
 
     public void draw(Graphics2D g2) {
