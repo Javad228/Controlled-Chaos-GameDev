@@ -1,7 +1,9 @@
 package character;
 
 import main.GamePanel;
+import main.HealthBar;
 import main.KeyHandler;
+import loot.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,11 +19,11 @@ import java.io.IOException;
 
 public class PlayerCharacter extends Character {
     private CharacterType characterType;    // Player Character Type
-    // private Item startingItem            // Player Starting Item
-                                            // TODO: Implement Item class
+    private Item startingItem;              // Player Starting Item
     private Inventory inventory;            // Player character.Inventory
-    GamePanel gp;
-    KeyHandler keyH;
+    private HealthBar healthBar;
+    private GamePanel gp;
+    private KeyHandler keyH;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
@@ -29,9 +31,53 @@ public class PlayerCharacter extends Character {
         this.inventory = new Inventory();
         this.gp = gp;
         this.keyH = keyH;
-
+        this.solidArea.x = 3;
+        this.solidArea.y = 18;
+        this.setWidth(18);
+        this.setHeight(46);
+        this.solidArea.width = 9;
+        this.solidArea.height = 23;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        this.collisionAreaDefaultX = solidArea.x;
+        this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
+        this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
+    }
+
+    public PlayerCharacter(PlayerCharacter pc) {
+        this.characterType = pc.getCharacterType();
+        this.inventory = pc.getInventory();
+        this.gp = pc.gp;
+        this.keyH = pc.keyH;
+        this.setName(pc.getName());
+        this.setHealth(pc.getHealth());
+        this.setMovementSpeed(pc.getMovementSpeed());
+        this.setxCoord(pc.getxCoord());
+        this.setyCoord(pc.getyCoord());
+        this.setActiveEffects(pc.getActiveEffects());
+        this.setCharacterType(pc.getCharacterType());
+        this.setTimeForInvincibility(pc.getTimeForInvincibility());
+        this.setDirection(pc.getDirection());
+        this.setSpriteCounter(pc.getSpriteCounter());
+        this.setSpriteNum(pc.getSpriteNum());
+        this.setStartingItem(pc.getStartingItem());
+        this.healthBar = pc.healthBar;
+    }
+
+    public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
+        this(gp, keyH);
+        this.name = c.name;
+        this.health = c.health;
+        this.maxHealth = c.maxHealth;
+        this.movementSpeed = c.movementSpeed;
+        this.xCoord = c.xCoord;
+        this.yCoord = c.yCoord;
+        this.activeEffects = c.activeEffects;
+        this.type = c.combatType;
+        this.inventory = c.inventory;
+        this.characterType = c.characterType;
     }
 
     public void setDefaultValues() {
@@ -39,8 +85,10 @@ public class PlayerCharacter extends Character {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
-        this.setWidth(18);
-        this.setHeight(46);
+//        this.setWidth(18);
+//        this.setHeight(46);
+//        this.collisionAreaDefaultX = solidArea.x;
+//        this.collisionAreaDefaultY = solidArea.y;
     }
 
     public void getPlayerImage() {
@@ -59,6 +107,13 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
+
+        if (keyH == null) return;
+
+        if(keyH.kPressed){
+            attacking();
+        }
+
         if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
             int currentX = this.getxCoord();
             int currentY = this.getyCoord();
@@ -104,8 +159,43 @@ public class PlayerCharacter extends Character {
                 this.setDirection("right");
             }
         } */
+
+        this.healthBar.update(this.getHealth());
     }
-    
+
+    public void attacking(){
+
+        int currentWorldX = xCoord;
+        int currentWorldY = yCoord;
+        int collisionAreaWidth = solidArea.width;
+        int collisionAreaHeight = solidArea.height;
+
+
+        switch (direction) {
+            case "up" -> yCoord -= attackArea.height;
+            case "down" -> yCoord += attackArea.height;
+            case "left" -> xCoord -= attackArea.width;
+            case "right" -> xCoord += attackArea.width;
+        }
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+//        System.out.println(solidArea);
+        Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+//        System.out.println(isHit);
+        if(isHit){
+            System.out.println("Hit");
+        }
+
+
+        //After checking collision, restore original data
+        xCoord = currentWorldX;
+        yCoord = currentWorldY;
+        solidArea.width = collisionAreaWidth;
+        solidArea.height = collisionAreaHeight;
+    }
+
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
@@ -145,6 +235,11 @@ public class PlayerCharacter extends Character {
         }
 
         g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
+        this.healthBar.draw(g2,
+                this.getxCoord(),
+                this.getyCoord()-this.healthBar.getHeight());
+
     }
 
     public CharacterType getCharacterType() {
@@ -163,5 +258,30 @@ public class PlayerCharacter extends Character {
         this.inventory = inventory;
     }
 
-    // TODO create getter and setter method for startingItem
+    public void setGamePanel(GamePanel gp) {
+        this.gp = gp;
+    }
+
+    public void setKeyHandler(KeyHandler keyH) {
+        this.keyH = keyH;
+    }
+
+    public Item getStartingItem() {
+        return this.startingItem;
+    }
+
+    public void setStartingItem(Item startingItem) {
+        this.startingItem = startingItem;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this.getClass() != o.getClass()) return false;
+
+        PlayerCharacter pc = (PlayerCharacter) o;
+        if (this.characterType != pc.getCharacterType()) return false;
+        if (!this.inventory.equals(pc.getInventory())) return false;
+        return super.equals(o);
+    }
+
 }

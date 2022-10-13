@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.Key;
 
 public class Weapon extends Item {
     // TODO: add new fields, modify constructor(s) as necessary
@@ -18,6 +19,26 @@ public class Weapon extends Item {
 
         setDefaultValues();
         getImage(imagePaths);
+    }
+
+    public Weapon(Weapon w) {
+        super(w.getName(), w.getLootType(), w.getxCoord(), w.getyCoord(),
+                w.getDescription(), w.getPrice(), w.isEquipped());
+        this.gp = w.gp;
+        this.keyH = w.keyH;
+        this.setWoodenSword(w.getWoodenSword());
+    }
+
+    public Weapon(SimpleWeapon weapon, GamePanel gp, KeyHandler keyH) {
+        super();
+        this.gp = gp;
+        this.keyH = keyH;
+        this.setDescription(weapon.description);
+        this.setPrice(weapon.price);
+        this.setEquipped(weapon.isEquipped);
+
+        setDefaultValues();
+        getWeaponImage();
     }
 
     public void setDefaultValues() {
