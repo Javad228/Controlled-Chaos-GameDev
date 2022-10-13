@@ -102,4 +102,32 @@ public class KeyHandler implements KeyListener {
             Audio.stopWalking();
         }
     }
+
+    public void reset() {
+        kPressed = false;
+        wPressed = false;
+        sPressed = false;
+        aPressed = false;
+        dPressed = false;
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+    }
+
+    public String toBitString() {
+        StringBuilder s = new StringBuilder();
+
+        if (kPressed) s.append(1); else s.append(0);
+        if (wPressed) s.append(1); else s.append(0);
+        if (aPressed) s.append(1); else s.append(0);
+        if (sPressed) s.append(1); else s.append(0);
+        if (dPressed) s.append(1); else s.append(0);
+        if (upPressed) s.append(1); else s.append(0);
+        if (downPressed) s.append(1); else s.append(0);
+        if (leftPressed) s.append(1); else s.append(0);
+        if (rightPressed) s.append(1); else s.append(0);
+
+        return s.toString();
+    }
 }
