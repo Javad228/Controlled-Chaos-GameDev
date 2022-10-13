@@ -65,11 +65,14 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     }
 
     public void addFrameRateSelection() {
-        JLabel frameRateLabel = new JLabel("Frame Rate: ");
+        String currentFrameRateStr = "Current Frame Rate = " + gamePanel.getFps();
+        JLabel currentFrameRate = new JLabel(currentFrameRateStr);
+
+        JLabel frameRateLabel = new JLabel("New Frame Rate: ");
         frameRateLabel.setVisible(true);
 
         Integer[] frameRateChoices = {24, 30, 50, 60, 120};
-        final JComboBox<Integer> dropDown = new JComboBox<Integer>(frameRateChoices);
+        final JComboBox<Integer> dropDown = new JComboBox<>(frameRateChoices);
         dropDown.setVisible(true);
 
         JButton applyButton = new JButton("Apply");
@@ -85,8 +88,15 @@ public class SettingsPanel extends JPanel implements ChangeListener {
             }
         });
 
+        add(currentFrameRate);
         add(frameRateLabel);
         add(dropDown);
         add(applyButton);
+
+
+        //move into own function
+        JLabel currentVSync = new JLabel("<html><br/>VSync: off<br/></html>");
+        add(currentVSync);
     }
+
 }

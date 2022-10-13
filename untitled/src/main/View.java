@@ -28,6 +28,7 @@ public class View {
         //set up settings page
         settingsPage = new SettingsPanel(gamePanel);
 
+
         // Add Save Page
         savePage = new JPanel();
         savePage.setLayout(new BorderLayout());
