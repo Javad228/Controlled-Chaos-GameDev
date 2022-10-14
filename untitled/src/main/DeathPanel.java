@@ -115,6 +115,7 @@ class RunDeathPanel {
         Main.view = v;
         Main.window = v.getWindow();
         GamePanel gp = v.getGamePanel();
+        gp.enemy.setDamagePerHit(25);
         PlayerCharacter p = gp.getPlayer();
         DeathPanel dp = gp.deathPanel;
         gp.startGameThread();
