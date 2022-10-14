@@ -15,6 +15,8 @@ public class View {
     public View () {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //window.setLayout(new ScrollPaneLayout());
+        window.setPreferredSize(new Dimension(800, 600));
         window.setResizable(false);
         window.setTitle("Controlled Chaos");
 
@@ -36,6 +38,23 @@ public class View {
         savePage.add(gamePanel.saveData.saveGameButton, BorderLayout.WEST);
         savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.CENTER);
         savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
+
+        JButton settingsButton = new JButton("Settings");
+        settingsButton.setPreferredSize(new Dimension(50, 25));
+
+        settingsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.view.getSettingsPage().setVisible(true);
+                Main.view.getGamePanel().setVisible(false);
+
+                Main.view.getGamePanel().pauseThread();
+
+                Audio.stopMusic();
+                Audio.settingsMusic();
+            }
+        });
+        window.add(settingsButton, BorderLayout.SOUTH);
 
         window.setVisible(true);                                    // currently opens up the game window
     }
