@@ -86,6 +86,9 @@ public class PlayerCharacter extends Character {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
+        this.solidArea = new Rectangle(8, 16, 32, 32);
+        this.attackArea.width = 36;
+        this.attackArea.height = 36;
 //        this.setWidth(18);
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
