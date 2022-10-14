@@ -62,16 +62,24 @@ public class KeyHandler implements KeyListener {
 
         //can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
-            System.out.printf("%b\n", Main.view.getSettingsPage().isVisible());
-            if (Main.view.getSettingsPage().isVisible()) {
-                Main.view.getGamePanel().setVisible(true);
-                Main.view.getSettingsPage().setVisible(false);
-            } else {
+            if (!Main.view.getSettingsPage().isVisible()) {
                 Main.view.getSettingsPage().setVisible(true);
                 Main.view.getGamePanel().setVisible(false);
-            }
-            System.out.printf("%b\n", Main.view.getSettingsPage().isVisible());
 
+                Main.view.getGamePanel().pauseThread();
+
+                Audio.stopMusic();
+                Audio.settingsMusic();
+
+            } else {
+                Main.view.getGamePanel().setVisible(true);
+                Main.view.getSettingsPage().setVisible(false);
+
+                Main.view.getGamePanel().resumeThread();
+
+                Audio.stopMusic();
+                Audio.openingMusic();
+            }
         }
 
         //display sounds for now
@@ -81,22 +89,27 @@ public class KeyHandler implements KeyListener {
             Audio.itemPickUpAudio();
         }
 
+        //player takes damage
         if (code == KeyEvent.VK_2) {
             Audio.playerDamagedAudio();
         }
 
+        //enemy is damaged
         if (code == KeyEvent.VK_SPACE) {
             Audio.enemyDamagedAudio();
         }
 
+        //object is destroyed
         if (code == KeyEvent.VK_3) {
             Audio.destroyObjectAudio();
         }
 
+        //button is pressed
         if (code == KeyEvent.VK_4) {
             Audio.pressButtonAudio();
         }
 
+        //door is opened
         if (code == KeyEvent.VK_5) {
             Audio.doorOpenAudio();
         }
