@@ -114,6 +114,10 @@ public abstract class Character {
         this.health = health;
     }
 
+    public void kill() {
+        this.setHealth(0);
+    }
+
     public int getMovementSpeed() {
         return movementSpeed;
     }

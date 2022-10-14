@@ -27,11 +27,10 @@ public class Slime extends NonPlayableCharacter {
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
 
+        this.setDamagePerHit(5);
         getImage();
 
     }
-
-
 
     @Override
     public void setAction(){
@@ -55,6 +54,8 @@ public class Slime extends NonPlayableCharacter {
             }
 
             actionLockCounter = 0;
+
+            attacking();
         }
     }
     public void getImage(){

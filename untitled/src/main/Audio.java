@@ -56,6 +56,7 @@ class Audio {
         float volume = -20.0f;
         setClipVolume(music, volume);
         music.start();
+        musicClip = music;
     }
 
     public static void stopMusic() {

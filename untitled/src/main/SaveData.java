@@ -83,6 +83,12 @@ public class SaveData {
         });
     }
 
+    /**
+     * saveGameState -
+     *
+     * @return false - no error occurs
+     *                  true - error occurs
+     */
     public boolean saveGameState() {
         try {
             FileWriter f = new FileWriter(file);
