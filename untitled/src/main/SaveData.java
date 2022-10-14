@@ -21,14 +21,14 @@ public class SaveData {
     public JButton restoreGameButton;
     public JButton resetGameProgressButton;
 
-    private final GamePanel gp;
+    private static GamePanel gp;
     private static final String file = "untitled/src/main/temp_storage.txt";
 //  private final String separator = "\n-=-=-=-=-=-=-\n";
     private GsonBuilder gb;
     private Gson g;
 
     public SaveData(GamePanel gp) {
-        this.gp = gp;
+        SaveData.gp = gp;
         initializeSaveGameButton();
         initializeRestoreGameButton();
         initializeResetGameProgressButton();
@@ -43,13 +43,17 @@ public class SaveData {
         saveGameButton.setToolTipText("Save the current Game State");
 
         saveGameButton.addActionListener((a) -> {
-            if (gp.paused) return;
+            if (gp.deathPanel.isShowing()) return;
             if (saveGameState()) {
                 System.out.println("Save Failed");
             } else {
                 System.out.println("Save Success");
                 JOptionPane.showMessageDialog(saveGameButton, "Save Succeeded");
             }
+            Main.view.getSettingsPage().hideSettingsPanel();
+            Main.view.getGamePanel().resumeThread();
+            Audio.stopMusic();
+            Audio.openingMusic();
         });
     }
 
@@ -59,7 +63,8 @@ public class SaveData {
         restoreGameButton.setToolTipText("Load a saved instance of the game from file");
 
         restoreGameButton.addActionListener((a) -> {
-            if (gp.paused) return;
+            if (gp.deathPanel.isShowing()) return;
+            if (Main.view.getSettingsPage().isShowing()) Main.view.getSettingsPage().setVisible(false);
             if (restoreSave()) JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Succeeded");
             else JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Failed\nRestoring to Default Save");
         });
@@ -78,6 +83,10 @@ public class SaveData {
                 System.out.println("Saved Progress Reset");
                 JOptionPane.showMessageDialog(resetGameProgressButton, "Game Progress Reset",
                         "Reset Game Progress", JOptionPane.INFORMATION_MESSAGE);
+                Main.view.getSettingsPage().hideSettingsPanel();
+                Main.view.getGamePanel().resumeThread();
+                Audio.stopMusic();
+                Audio.openingMusic();
             }
 
         });

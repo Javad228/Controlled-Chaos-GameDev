@@ -93,6 +93,8 @@ public class DeathPanel extends JPanel {
     }
 
     public void hideDeathPanel() {
+        if (!isVisible())   return;
+
         Main.view.getWindow().setVisible(false);
         Main.view.getWindow().remove(this);
         Main.view.getWindow().add(gp);

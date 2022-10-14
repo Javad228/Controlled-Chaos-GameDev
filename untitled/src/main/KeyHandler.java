@@ -60,8 +60,63 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
 
+        //can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
-            Main.view.getSettingsPage().setVisible(true);
+            if (!Main.view.getSettingsPage().isVisible()) {
+                //Main.view.getSettingsPage().setVisible(true);
+                //Main.view.getGamePanel().setVisible(false);
+
+                //Main.view.getGamePanel().pauseThread();
+
+                Audio.stopMusic();
+                Audio.settingsMusic();
+
+                Main.view.getGamePanel().pauseThread();
+
+                Main.view.getSettingsPage().showSettingsPanel();
+
+            } else {
+                //Main.view.getGamePanel().setVisible(true);
+                //Main.view.getSettingsPage().setVisible(false);
+                Main.view.getSettingsPage().hideSettingsPanel();
+
+                Main.view.getGamePanel().resumeThread();
+
+                Audio.stopMusic();
+                Audio.openingMusic();
+            }
+        }
+
+        //display sounds for now
+
+        //pick up weapon or boone
+        if (code == KeyEvent.VK_1) {
+            Audio.itemPickUpAudio();
+        }
+
+        //player takes damage
+        if (code == KeyEvent.VK_2) {
+            Audio.playerDamagedAudio();
+        }
+
+        //enemy is damaged
+        if (code == KeyEvent.VK_SPACE) {
+            Audio.enemyDamagedAudio();
+        }
+
+        //object is destroyed
+        if (code == KeyEvent.VK_3) {
+            Audio.destroyObjectAudio();
+        }
+
+        //button is pressed
+        if (code == KeyEvent.VK_4) {
+            Audio.pressButtonAudio();
+        }
+
+        //door is opened
+        if (code == KeyEvent.VK_5) {
+            Audio.doorOpenAudio();
         }
     }
 

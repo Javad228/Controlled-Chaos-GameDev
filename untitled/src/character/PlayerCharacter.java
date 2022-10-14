@@ -25,6 +25,7 @@ public class PlayerCharacter extends Character {
     private GamePanel gp;
     private KeyHandler keyH;
 
+
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
         this.characterType = CharacterType.DEFAULT;
@@ -85,6 +86,9 @@ public class PlayerCharacter extends Character {
         this.setyCoord(100);
         this.setMovementSpeed(4);
         this.setDirection("down");
+        this.solidArea = new Rectangle(8, 16, 32, 32);
+        this.attackArea.width = 36;
+        this.attackArea.height = 36;
 //        this.setWidth(18);
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
@@ -182,8 +186,10 @@ public class PlayerCharacter extends Character {
         solidArea.height = attackArea.height;
 //        System.out.println(solidArea);
         Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+
 //        System.out.println(isHit);
         if(isHit){
+            damageMonster();
             System.out.println("Hit");
         }
 
@@ -195,7 +201,18 @@ public class PlayerCharacter extends Character {
         solidArea.height = collisionAreaHeight;
     }
 
+    public void damageMonster(){
+        if(!gp.enemy.invincible){
+            gp.enemy.health -= 1;
+            gp.enemy.invincible = true;
+            System.out.println(gp.enemy.health);
 
+            if(gp.enemy.health <= 0){
+                gp.enemy.isAlive = false;
+            }
+        }
+
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
