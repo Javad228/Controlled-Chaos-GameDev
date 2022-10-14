@@ -123,6 +123,16 @@ public abstract class Character {
         this.health = health;
     }
 
+    public void damage(int damageTaken) {
+        if (damageTaken > this.health) kill();
+        else setHealth(this.health-damageTaken);
+    }
+
+    public void heal(int healthRegained) {
+        if (healthRegained >= this.maxHealth-this.health) setHealth(this.maxHealth);
+        else setHealth(this.health+healthRegained);
+    }
+
     public void kill() {
         this.setHealth(0);
     }

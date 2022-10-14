@@ -5,6 +5,7 @@ import javax.swing.*;
 import character.PlayerCharacter;
 import character.SimpleCharacter;
 import enemy.Slime;
+import loot.Consumable;
 import loot.SimpleWeapon;
 import loot.Weapon;
 
@@ -44,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
 	player.setxCoord(1); */
 
 	public Slime enemy = new Slime();
+	public Consumable apple = new Consumable(this);
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -87,7 +89,8 @@ public class GamePanel extends JPanel implements Runnable{
 			this.gameThread = new Thread(this);
 			startGameThread();
 		}
-
+		enemy.setxCoord(100);
+		enemy.setyCoord(100);
 		this.resumeThread();
 	}
 
@@ -215,6 +218,7 @@ public class GamePanel extends JPanel implements Runnable{
 		player.update();
 		enemy.update(this);
 		weapon.update();
+		apple.update();
 	}
 
 	public void paintComponent(Graphics g){
@@ -222,6 +226,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		Graphics2D g2 = (Graphics2D)g;
 
+		apple.draw(g2, this);
 		enemy.draw(g2, this);
 		player.draw(g2);
 		weapon.draw(g2);

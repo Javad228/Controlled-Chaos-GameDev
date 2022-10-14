@@ -95,12 +95,12 @@ public abstract class NonPlayableCharacter extends Character {
 
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
-        boolean isHit = gamePanel.checker.checkEntity(this, gamePanel.getPlayer());
+        boolean isHit = gamePanel.checker.checkEntityCollision(this, gamePanel.getPlayer());
         //boolean isHit = gamePanel.checker.checkEntity(gamePanel.getPlayer(), this);
 
         if (isHit) {
             System.out.println("Player took damage");
-            gamePanel.getPlayer().setHealth(gamePanel.getPlayer().getHealth()-this.damagePerHit);
+            gamePanel.getPlayer().damagePlayer();
         }
 
         xCoord = currX;

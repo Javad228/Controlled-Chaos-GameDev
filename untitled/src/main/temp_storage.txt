@@ -1,0 +1,24 @@
+{
+  "player": {
+    "name": "",
+    "health": 100,
+    "maxHealth": 100,
+    "movementSpeed": 4,
+    "xCoord": 496,
+    "yCoord": 496,
+    "activeEffects": [],
+    "combatType": "DEFAULT",
+    "currentRoom": "Test",
+    "inventory": {
+      "numberOfSlots": 10,
+      "listOfItems": [],
+      "coinAmount": 0
+    },
+    "characterType": "DEFAULT"
+  },
+  "weapon": {
+    "description": "",
+    "price": 0.0,
+    "isEquipped": false
+  }
+}
