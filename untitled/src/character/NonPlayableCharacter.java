@@ -35,9 +35,10 @@ public abstract class NonPlayableCharacter extends Character {
         this.damageType = DamageType.DEFAULT;
         this.attackCooldown = 1;
     }
-    public void setAction(){}
 
-    public void update(){
+    public void setAction(GamePanel gp){}
+
+    public void update(GamePanel gp){
         if(invincible){
             invincibleCounter++;
             if(invincibleCounter>30){
@@ -45,7 +46,7 @@ public abstract class NonPlayableCharacter extends Character {
                 invincibleCounter = 0;
             }
         }
-        setAction();
+        setAction(gp);
 //        System.out.println(direction);
         if(spriteNum!=1&&spriteNum!=2&&spriteNum!=6) {
             switch (direction) {
@@ -56,7 +57,7 @@ public abstract class NonPlayableCharacter extends Character {
             }
         }
 
-        attacking();
+        attacking(gp);
 
         int frameAdjust = 12;
         spriteCounter++;
@@ -79,7 +80,7 @@ public abstract class NonPlayableCharacter extends Character {
 
     }
 
-    public void attacking() {
+    public void attacking(GamePanel gamePanel) {
         int currX = this.xCoord;
         int currY = this.yCoord;
         int collisionAreaWidth = this.solidArea.width;

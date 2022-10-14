@@ -87,21 +87,14 @@ public class GamePanel extends JPanel implements Runnable{
 			this.gameThread = new Thread(this);
 			startGameThread();
 		}
-//<<<<<<< Cameron-Create-Tests
-//		//this.resumeThread();
-//	}
-//
-//	private void pauseThread() {
-//		synchronized (this) {
-//			this.paused = true;
-//		}
-//=======
-//		this.resumeThread();
-//	}
-//
-//	public void pauseThread() {
-//		this.paused = true;
-//>>>>>>> Cameron-AddSaveSettings-MergeFrom-CreateTests
+
+		this.resumeThread();
+	}
+
+	public void pauseThread() {
+		synchronized (this) {
+			this.paused = true;
+		}
 	}
 
 	public void resumeThread() {
@@ -220,7 +213,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void update(){
 		player.update();
-		enemy.update();
+		enemy.update(this);
 		weapon.update();
 	}
 

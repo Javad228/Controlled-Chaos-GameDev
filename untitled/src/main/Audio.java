@@ -82,16 +82,10 @@ public class Audio {
             System.out.println("opening music failed: getClip returned null");
             System.exit(0);
         }
-//<<<<<<< Cameron-Create-Tests
-//        float volume = -20.0f;
-//        setClipVolume(music, volume);
-//        music.start();
-//        musicClip = music;
-//=======
-//        setClipVolume(musicClip, musicVolume);
-//        musicClip.loop(Integer.MAX_VALUE);
-//        musicClip.start();
-//>>>>>>> Cameron-AddSaveSettings-MergeFrom-CreateTests
+
+        setClipVolume(musicClip, musicVolume);
+        musicClip.loop(Integer.MAX_VALUE);
+        musicClip.start();
     }
 
     public static void stopMusic() {

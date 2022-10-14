@@ -31,9 +31,8 @@ public class Slime extends NonPlayableCharacter {
         getImage();
 
     }
-
     @Override
-    public void setAction(){
+    public void setAction(GamePanel gp){
         actionLockCounter++;
 
         if(actionLockCounter == 200){
@@ -55,7 +54,7 @@ public class Slime extends NonPlayableCharacter {
 
             actionLockCounter = 0;
 
-            attacking();
+            attacking(gp);
         }
     }
     public void getImage(){
