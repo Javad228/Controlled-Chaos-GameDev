@@ -3,11 +3,12 @@ package main;
 import javax.swing.*;
 
 import character.PlayerCharacter;
-import character.SimpleCharacter;
+import save.SimpleCharacter;
 import enemy.Slime;
-import loot.SimpleWeapon;
+import save.SimpleWeapon;
 import loot.Effect;
 import loot.Weapon;
+import save.SaveData;
 
 import java.awt.*;
 
@@ -33,8 +34,8 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
-	public Weapon weapon = new Weapon(this, keyH, weaponImages);
-	public Effect effect = new Effect(this, keyH, effectImages);
+	public Weapon weapon = new Weapon(keyH, weaponImages);
+	public Effect effect = new Effect(keyH, effectImages);
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
@@ -70,13 +71,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void newGame() {
 		this.setPlayer(new PlayerCharacter(this, keyH));
-		this.setWeapon(new Weapon(this, keyH, weaponImages));
+		this.setWeapon(new Weapon(keyH, weaponImages));
 		newGameHelper();
 	}
 
 	public void newGame(SimpleCharacter sc, SimpleWeapon w) {
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
-		this.setWeapon(new Weapon(w, this, keyH));
+		this.setWeapon(new Weapon(w, keyH));
 		newGameHelper();
 	}
 
@@ -169,8 +170,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 		enemy.draw(g2);
 		player.draw(g2);
-		weapon.draw(g2);
-		effect.draw(g2);
+		weapon.draw(g2, this);
+		effect.draw(g2, this);
 
 		g2.dispose();
 	}

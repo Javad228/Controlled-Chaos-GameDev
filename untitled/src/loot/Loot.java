@@ -7,15 +7,14 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.security.Key;
 
 public class Loot {
     private String name;
     private LootType lootType;
     private int xCoord;                         // x-position in a room
     private int yCoord;                         // y-position in a room
-    GamePanel gp;
     KeyHandler keyH;
+    private String[] imagePaths;
     private BufferedImage[] lootImages;
     private int framesToWait;
     // the following variables are used for bobbing motion
@@ -28,14 +27,13 @@ public class Loot {
     private int spriteCounter = 0;
     private boolean isExpanding = true;
 
-    public Loot(GamePanel gp, KeyHandler keyH, int framesToWait) {
+    public Loot(KeyHandler keyH, int framesToWait, String[] imagePaths) {
         this.name = "";
         this.lootType = LootType.DEFAULT;
         this.xCoord = 0;
         this.yCoord = 0;
         this.framesToWait = framesToWait;
-
-        this.gp = gp;
+        this.imagePaths = imagePaths;
         this.keyH = keyH;
     }
 
@@ -104,7 +102,7 @@ public class Loot {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2, GamePanel gp) {
         /*
         if (lootImages.length == 1) { // if there is only one image then we just want to bob up and down.
             g2.drawImage(lootImages[0], this.getxCoord(), this.getyCoord(), gp.tileSize, gp.tileSize, null);
@@ -155,18 +153,19 @@ public class Loot {
         this.lootImages = lootImages;
     }
 
-    public GamePanel getGp() {
-        return gp;
-    }
-
-    public void setGp(GamePanel gp) {
-        this.gp = gp;
-    }
     public KeyHandler getkeyH() {
         return keyH;
     }
 
     public void setKeyH(KeyHandler keyH) {
         this.keyH = keyH;
+    }
+
+    public String[] getImagePaths() {
+        return this.imagePaths;
+    }
+
+    public void setImagePaths(String[] imagePaths) {
+        this.imagePaths = imagePaths;
     }
 }

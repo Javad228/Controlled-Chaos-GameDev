@@ -1,6 +1,5 @@
 package loot;
 
-import main.GamePanel;
 import main.KeyHandler;
 
 public class Effect extends Item {
@@ -10,8 +9,8 @@ public class Effect extends Item {
     private int customEffect; // what is this? is it supposed to be an int? ~KA
 
 
-    public Effect(GamePanel gp, KeyHandler keyH, String[] imagePaths) {
-        super(gp, keyH, 20);
+    public Effect(KeyHandler keyH, String[] imagePaths) {
+        super(keyH, 20, imagePaths);
         this.speedMultiplier = 1;
         this.damageModifier = 1;
         this.effectTimer = 0;
@@ -21,8 +20,8 @@ public class Effect extends Item {
         getImage(imagePaths);
     }
 
-    public Effect(GamePanel gp, KeyHandler keyH, int speedMultiplier, int damageModifier, int effectTimer, int customEffect) {
-        super(gp, keyH, 20);
+    public Effect(KeyHandler keyH, int speedMultiplier, int damageModifier, int effectTimer, int customEffect) {
+        super(keyH, 20, new String[0]);
         this.speedMultiplier = speedMultiplier;
         this.damageModifier = damageModifier;
         this.effectTimer = effectTimer;
