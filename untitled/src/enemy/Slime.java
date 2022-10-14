@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class Slime extends NonPlayableCharacter {
 
-    public Slime(GamePanel gp) {
-        super(gp);
+    public Slime() {
+        super();
         name = "Slime";
         movementSpeed = 1;
         maxHealth = 10;

@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage;
 public abstract class NonPlayableCharacter extends Character {
 
     //public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public GamePanel gamePanel;
 
     private int damagePerHit;               // Amount of damage a NonPlayableCharacter can inflict on other Characters
     private DamageType damageType;          // Type of damage a NonPlayableCharacter can inflict
@@ -30,9 +29,8 @@ public abstract class NonPlayableCharacter extends Character {
     /**
      *  Empty constructor to create a generic NonPlayableCharacter
      */
-    public NonPlayableCharacter(GamePanel gp) {
+    public NonPlayableCharacter() {
         super();
-        this.gamePanel = gp;
         this.damagePerHit = 0;
         this.damageType = DamageType.DEFAULT;
         this.attackCooldown = 1;
@@ -94,7 +92,9 @@ public abstract class NonPlayableCharacter extends Character {
         this.attackCooldown = attackCooldown;
     }
 
-    public void drawHP(Graphics2D g2){
+
+
+    public void drawHP(Graphics2D g2, GamePanel gamePanel){
         double oneScale = (double)gamePanel.tileSize/maxHealth;
         double hpBarValue = oneScale*health;
 
@@ -109,8 +109,8 @@ public abstract class NonPlayableCharacter extends Character {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
-    public void draw(Graphics2D g2){
-        drawHP(g2);
+    public void draw(Graphics2D g2, GamePanel gamePanel){
+        drawHP(g2, gamePanel);
         BufferedImage image = null;
 
         switch(this.getDirection()) {

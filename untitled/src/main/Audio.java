@@ -83,6 +83,7 @@ public class Audio {
             System.exit(0);
         }
         setClipVolume(musicClip, musicVolume);
+        musicClip.loop(Integer.MAX_VALUE);
         musicClip.start();
     }
 

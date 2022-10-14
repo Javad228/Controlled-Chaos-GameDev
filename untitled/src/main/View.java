@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class View {
     private JFrame window;
     private GamePanel gamePanel;
-    private JPanel settingsPage;
+    private SettingsPanel settingsPage;
     private JPanel savePage;
 
     public View () {
@@ -20,6 +20,7 @@ public class View {
 
         gamePanel = new GamePanel();
         window.add(gamePanel);
+        window.addKeyListener(gamePanel.keyH);
 
         window.pack();
 
@@ -27,15 +28,17 @@ public class View {
 
         //set up settings page
         settingsPage = new SettingsPanel(gamePanel);
+        //settingsPage.requestFocusInWindow();
+        //settingsPage.addKeyListener(gamePanel.keyH);
         window.add(settingsPage);
 
 
         // Add Save Page
-        savePage = new JPanel();
-        savePage.setLayout(new BorderLayout());
-        savePage.add(gamePanel.saveData.saveGameButton, BorderLayout.WEST);
-        savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.CENTER);
-        savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
+        //savePage = new JPanel();
+        //savePage.setLayout(new BorderLayout());
+        //savePage.add(gamePanel.saveData.saveGameButton, BorderLayout.WEST);
+        //savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.CENTER);
+        //savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
 
         window.setVisible(true);                                    // currently opens up the game window
     }
@@ -48,7 +51,7 @@ public class View {
         return gamePanel;
     }
 
-    public JPanel getSettingsPage() {
+    public SettingsPanel getSettingsPage() {
         return settingsPage;
     }
 

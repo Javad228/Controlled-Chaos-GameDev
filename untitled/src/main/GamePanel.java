@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	player.setxCoord(1); */
 
-	public Slime enemy = new Slime(this);
+	public Slime enemy = new Slime();
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -63,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 	}
 
-    	public void newGame() {
+	public void newGame() {
 		this.setPlayer(new PlayerCharacter(this, keyH));
 		this.setWeapon(new Weapon(this, keyH));
 		newGameHelper();
@@ -79,12 +79,15 @@ public class GamePanel extends JPanel implements Runnable{
 		Audio.stopWalking();
 		Audio.stopMusic();
 		Audio.openingMusic();
+		Main.view.getSettingsPage().hideSettingsPanel();
+		deathPanel.hideDeathPanel();
 		this.setFocusable(true);
 		this.requestFocusInWindow();
 		if (gameThread == null) {
 			this.gameThread = new Thread(this);
 			startGameThread();
 		}
+		this.resumeThread();
 	}
 
 	public void pauseThread() {
@@ -208,7 +211,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		Graphics2D g2 = (Graphics2D)g;
 
-		enemy.draw(g2);
+		enemy.draw(g2, this);
 		player.draw(g2);
 		weapon.draw(g2);
 
