@@ -1,5 +1,6 @@
 package character;
 
+import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
@@ -189,6 +190,7 @@ public class PlayerCharacter extends Character {
 
 //        System.out.println(isHit);
         if(isHit){
+            Audio.enemyDamagedAudio();
             damageMonster();
             System.out.println("Hit");
         }

@@ -32,6 +32,12 @@ public class KeyHandler implements KeyListener {
                 ((!wPressed && !sPressed && !aPressed && !dPressed) || !Audio.walkingClip.isRunning())) {
             Audio.walking();
         }
+
+        /*
+         * problem: this system is good for walking because it keeps updating while they're holding
+         * down the button, but for attacks and everything else it keeps attacking for as long as they
+         * hold the button, which results in some funky damage and sound effects
+         */
         if (code == KeyEvent.VK_K) {
             kPressed = true;
         }

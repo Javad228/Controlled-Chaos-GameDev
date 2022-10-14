@@ -9,6 +9,8 @@ import loot.SimpleWeapon;
 import loot.Weapon;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -63,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 	}
 
-    	public void newGame() {
+	public void newGame() {
 		this.setPlayer(new PlayerCharacter(this, keyH));
 		this.setWeapon(new Weapon(this, keyH));
 		newGameHelper();
