@@ -1,0 +1,27 @@
+{
+  "player": {
+    "name": "",
+    "health": 96,
+    "maxHealth": 100,
+    "movementSpeed": 4,
+    "xCoord": 100,
+    "yCoord": 100,
+    "activeEffects": [],
+    "combatType": "DEFAULT",
+    "currentRoom": "Test",
+    "inventory": {
+      "numberOfSlots": 10,
+      "listOfItems": [],
+      "coinAmount": 0
+    },
+    "characterType": "DEFAULT"
+  },
+  "weapon": {
+    "description": "",
+    "price": 0.0,
+    "isEquipped": false,
+    "imagePaths": [
+      "/weapons/wooden_sword.png"
+    ]
+  }
+}
