@@ -180,7 +180,7 @@ public class GamePanel extends JPanel implements Runnable{
 				if (timer >= 1000000000) {
 					Main.window.setTitle("Controlled Chaos");
 					System.out.println("FPS:" + drawCount);
-					this.player.setHealth(this.player.getHealth() - 1);						//TODO: Debug HealthBar
+					//this.player.setHealth(this.player.getHealth() - 1);						//TODO: Debug HealthBar
 					drawCount = 0;
 					timer = 0;
 				}

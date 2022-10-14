@@ -68,24 +68,13 @@ public class KeyHandler implements KeyListener {
 
         //can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
-            if (!Main.view.getSettingsPage().isVisible()) {
-                Main.view.getSettingsPage().setVisible(true);
-                Main.view.getGamePanel().setVisible(false);
+            Main.view.getSettingsPage().setVisible(true);
+            Main.view.getGamePanel().setVisible(false);
 
-                Main.view.getGamePanel().pauseThread();
+            Main.view.getGamePanel().pauseThread();
 
-                Audio.stopMusic();
-                Audio.settingsMusic();
-
-            } else {
-                Main.view.getGamePanel().setVisible(true);
-                Main.view.getSettingsPage().setVisible(false);
-
-                Main.view.getGamePanel().resumeThread();
-
-                Audio.stopMusic();
-                Audio.openingMusic();
-            }
+            Audio.stopMusic();
+            Audio.settingsMusic();
         }
 
         //display sounds for now
