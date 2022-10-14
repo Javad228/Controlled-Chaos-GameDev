@@ -1,8 +1,13 @@
 package main;
 
+import character.PlayerCharacter;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
+
+import static java.lang.Thread.sleep;
+//import static org.junit.Assert.*;
+//import org.junit.Test;
 
 public class DeathPanel extends JPanel {
     public GamePanel gp;
@@ -102,3 +107,45 @@ public class DeathPanel extends JPanel {
     }
 
 }
+
+class RunDeathPanel {
+    public static void main(String[] args) {
+        // Launch game environment
+        View v = new View();
+        Main.view = v;
+        Main.window = v.getWindow();
+        GamePanel gp = v.getGamePanel();
+        PlayerCharacter p = gp.getPlayer();
+        DeathPanel dp = gp.deathPanel;
+        gp.startGameThread();
+        p.kill();
+        // Begin testing
+        //TestDeathPanel.testNewGameButton(gp);
+    }
+}
+
+//class TestDeathPanel {
+//    @Test
+//    public static void testNewGameButton(GamePanel gp) {
+//
+//        int expectedX = 200;
+//        int expectedY = 200;
+//
+//        gp.getPlayer().xCoord = expectedX;
+//        gp.getPlayer().yCoord = expectedY;
+//
+//        //if (gp.saveData.saveGameState()) fail("Save Data - Save Failure");
+//        assertFalse(gp.saveData.saveGameState());
+//        assertTrue(gp.saveData.restoreSave());
+//
+//        try {
+//            sleep(1000);
+//            gp.deathPanel.newGame.doClick();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        assertEquals(1,1);
+//        //fail("Not yet implemented");
+//    }
+//}

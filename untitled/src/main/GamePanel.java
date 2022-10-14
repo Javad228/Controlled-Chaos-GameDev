@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable{
 		assetSetter.setNPC();
 	}
 	public void startGameThread() {
-		Audio.stopMusic();
+		//Audio.stopMusic();
 		Audio.openingMusic();
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -87,15 +87,33 @@ public class GamePanel extends JPanel implements Runnable{
 			this.gameThread = new Thread(this);
 			startGameThread();
 		}
-		this.resumeThread();
-	}
-
-	public void pauseThread() {
-		this.paused = true;
+//<<<<<<< Cameron-Create-Tests
+//		//this.resumeThread();
+//	}
+//
+//	private void pauseThread() {
+//		synchronized (this) {
+//			this.paused = true;
+//		}
+//=======
+//		this.resumeThread();
+//	}
+//
+//	public void pauseThread() {
+//		this.paused = true;
+//>>>>>>> Cameron-AddSaveSettings-MergeFrom-CreateTests
 	}
 
 	public void resumeThread() {
-		this.paused = false;
+		synchronized (this) {
+			this.paused = false;
+		}
+	}
+
+	public boolean readThreadState() {
+		synchronized (this) {
+			return this.paused;
+		}
 	}
 
 	@Override
@@ -161,7 +179,7 @@ public class GamePanel extends JPanel implements Runnable{
 			timer = 0;
 			lastTime = System.nanoTime();
 
-			while (!paused) {
+			while (!readThreadState()) {
 				currentTime = System.nanoTime();
 				drawInterval = 1000000000. / fps;
 
@@ -181,14 +199,14 @@ public class GamePanel extends JPanel implements Runnable{
 				if (timer >= 1000000000) {
 					Main.window.setTitle("Controlled Chaos");
 					System.out.println("FPS:" + drawCount);
-					this.player.setHealth(this.player.getHealth() - 1);						//TODO: Debug HealthBar
 					drawCount = 0;
 					timer = 0;
 				}
 
-				if (player.getHealth() == 0 ||
-						(player.getxCoord() == 752 && player.getyCoord() == 532)) {        //TODO: Debug DeathPanel
-					player.setHealth(0);
+				if (player.getHealth() <= 0) {
+					Audio.stopWalking();
+					Audio.stopMusic();
+					player.kill();
 					player.setDefaultValues();
 					keyH.reset();
 					player.setKeyHandler(null);

@@ -24,6 +24,7 @@ public class HealthBar extends BufferedImage {
     }
 
     public void setHealth(int hp) {
+        if (hp < 0) hp = 0;
         this.health = hp;
     }
 
@@ -58,4 +59,19 @@ public class HealthBar extends BufferedImage {
     }
 
 
+}
+
+class TestHealthBar {
+    public static void main(String[] args) {
+        Main.view = new View();
+        Main.window = Main.view.getWindow();
+        GamePanel gamePanel = Main.view.getGamePanel();
+
+        gamePanel.getPlayer().setxCoord(gamePanel.getWidth()/2);
+        gamePanel.getPlayer().setyCoord(gamePanel.getHeight()/2);
+        gamePanel.enemy.setxCoord(gamePanel.getWidth()/2 - gamePanel.tileSize);
+        gamePanel.enemy.setyCoord(gamePanel.getHeight()/2 - gamePanel.tileSize);
+
+        gamePanel.startGameThread();
+    }
 }

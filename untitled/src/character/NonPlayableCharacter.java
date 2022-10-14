@@ -56,6 +56,8 @@ public abstract class NonPlayableCharacter extends Character {
             }
         }
 
+        attacking();
+
         int frameAdjust = 12;
         spriteCounter++;
         if(spriteCounter > frameAdjust){
@@ -76,6 +78,36 @@ public abstract class NonPlayableCharacter extends Character {
         }
 
     }
+
+    public void attacking() {
+        int currX = this.xCoord;
+        int currY = this.yCoord;
+        int collisionAreaWidth = this.solidArea.width;
+        int collisionAreaHeight = this.solidArea.height;
+
+        switch (direction) {
+            case "up" -> yCoord -= attackArea.height;
+            case "down" -> yCoord += attackArea.height;
+            case "left" -> xCoord -= attackArea.width;
+            case "right" -> xCoord += attackArea.width;
+        }
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+        boolean isHit = gamePanel.checker.checkEntity(this, gamePanel.getPlayer());
+        //boolean isHit = gamePanel.checker.checkEntity(gamePanel.getPlayer(), this);
+
+        if (isHit) {
+            System.out.println("Player took damage");
+            gamePanel.getPlayer().setHealth(gamePanel.getPlayer().getHealth()-this.damagePerHit);
+        }
+
+        xCoord = currX;
+        yCoord = currY;
+        solidArea.width = collisionAreaWidth;
+        solidArea.height = collisionAreaHeight;
+    }
+
     public int getDamagePerHit() {
         return damagePerHit;
     }
