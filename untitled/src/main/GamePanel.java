@@ -11,6 +11,8 @@ import loot.Weapon;
 import save.SaveData;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -30,7 +32,8 @@ public class GamePanel extends JPanel implements Runnable{
 	private String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
 	private String[] weaponImages = {"/weapons/wooden_sword.png"};
 
-	KeyHandler keyH = new KeyHandler();
+	public KeyHandler keyH = new KeyHandler();
+
 	Thread gameThread;
 
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
@@ -93,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 
-	private void pauseThread() {
+	public void pauseThread() {
 		this.paused = true;
 	}
 
@@ -137,7 +140,7 @@ public class GamePanel extends JPanel implements Runnable{
 				if (timer >= 1000000000) {
 					Main.window.setTitle("Controlled Chaos");
 					System.out.println("FPS:" + drawCount);
-					this.player.setHealth(this.player.getHealth()-1);						//TODO: Debug HealthBar
+					//this.player.setHealth(this.player.getHealth() - 1);						//TODO: Debug HealthBar
 					drawCount = 0;
 					timer = 0;
 				}

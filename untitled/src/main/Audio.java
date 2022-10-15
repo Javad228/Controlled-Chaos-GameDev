@@ -1,4 +1,14 @@
 /*
+    Derp Nugget by Kevin MacLeod | https://incompetech.com/
+    Music promoted by https://www.chosic.com/free-music/all/
+    Creative Commons CC BY 3.0
+    https://creativecommons.org/licenses/by/3.0/
+
+    Lurking Sloth by Alexander Nakarada | https://www.serpentsoundstudios.com
+    Music promoted on https://www.chosic.com/free-music/all/
+    Creative Commons Attribution 4.0 International (CC BY 4.0)
+    https://creativecommons.org/licenses/by/4.0/
+
     Walking_On_Gravel from Caroline Ford on SoundBible:
     https://soundbible.com/1432-Walking-On-Gravel.html
 
@@ -62,19 +72,30 @@ public class Audio {
             System.out.println("opening music failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -20.0f;
-        setClipVolume(musicClip, volume);
+        setClipVolume(musicClip, musicVolume);
+        musicClip.start();
+    }
+
+    public static void settingsMusic() {
+        musicClip = getClip("untitled/audio/Background_for_a_Shoe_Commercial.wav");
+        if (musicClip == null) {
+            System.out.println("opening music failed: getClip returned null");
+            System.exit(0);
+        }
+        setClipVolume(musicClip, musicVolume);
         musicClip.start();
     }
 
     public static void stopMusic() {
-        if (musicClip != null)  musicClip.stop();
+        if (musicClip != null) {
+            musicClip.stop();
+        }
     }
 
     public static void walking() {
 
         //want to find a different clip and make it more coherent w animation
-        walkingClip = getClip("untitled/audio/NormalWood_Barefeet_Running.wav");
+        walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
         if (walkingClip == null) {
             System.out.println("walking audio failed: getClip returned null");
             System.exit(0);
@@ -85,7 +106,9 @@ public class Audio {
     }
 
     public static void stopWalking() {
-        if (walkingClip != null)    walkingClip.stop();
+        if (walkingClip != null) {
+            walkingClip.stop();
+        }
     }
 
     public static void swordHitAudio() {
@@ -97,8 +120,7 @@ public class Audio {
             System.out.println("Sword hit audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -10f; //may need changed
-        setClipVolume(swordHitClip, volume);
+        setClipVolume(swordHitClip, soundEffectVolume);
         swordHitClip.start();
     }
 
@@ -129,8 +151,7 @@ public class Audio {
             System.out.println("Item pick up audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = soundEffectVolume; //may need changed
-        setClipVolume(itemPickUpClip, volume);
+        setClipVolume(itemPickUpClip, soundEffectVolume);
         itemPickUpClip.start();
     }
 
@@ -143,8 +164,7 @@ public class Audio {
             System.out.println("Player damaged audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = soundEffectVolume; //may need changed
-        setClipVolume(playerDamagedClip, volume);
+        setClipVolume(playerDamagedClip, soundEffectVolume);
         playerDamagedClip.start();
     }
 
@@ -157,8 +177,7 @@ public class Audio {
             System.out.println("Player damaged audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = soundEffectVolume; //may need changed
-        setClipVolume(playerDamagedClip, volume);
+        setClipVolume(playerDamagedClip, soundEffectVolume);
         playerDamagedClip.start();
     }
 
@@ -170,10 +189,8 @@ public class Audio {
             System.out.println("Destroy object audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -10f; //may need changed
-        setClipVolume(destroyObjectClip, volume);
+        setClipVolume(destroyObjectClip, soundEffectVolume);
         destroyObjectClip.start();
-
     }
 
     public static void pressButtonAudio() {
@@ -184,8 +201,7 @@ public class Audio {
             System.out.println("Press button audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -10f; //may need changed
-        setClipVolume(pressButtonClip, volume);
+        setClipVolume(pressButtonClip, soundEffectVolume);
         pressButtonClip.start();
     }
 
@@ -197,8 +213,7 @@ public class Audio {
             System.out.println("Door open audio failed: getClip returned null");
             System.exit(0);
         }
-        float volume = -10f; //may need changed
-        setClipVolume(doorOpenClip, volume);
+        setClipVolume(doorOpenClip, soundEffectVolume);
         doorOpenClip.start();
     }
 }
