@@ -1,19 +1,21 @@
 package loot;
 
+import main.KeyHandler;
+
 public class Item extends Loot {
     private String description;
     private double price;
     private boolean isEquipped;
 
-    public Item() {
-        super();
+    public Item(KeyHandler keyH, int framesToWait, String[] imagePaths) {
+        super(keyH, framesToWait, imagePaths);
         this.description = "";
         this.price = 0.0;
         this.isEquipped = false;
     }
 
-    public Item(String description, double price, boolean isEquipped) {
-        super();
+    public Item(KeyHandler keyH, int framesToWait, String description, double price, boolean isEquipped, String[] imagePaths) {
+        super(keyH, framesToWait, imagePaths);
         this.description = description;
         this.price = price;
         this.isEquipped = isEquipped;

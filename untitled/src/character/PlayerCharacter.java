@@ -5,6 +5,7 @@ import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
 import loot.*;
+import save.SimpleCharacter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -106,6 +107,15 @@ public class PlayerCharacter extends Character {
             this.setLeft2(ImageIO.read(getClass().getResourceAsStream("/player_character/left_2.png")));
             this.setRight1(ImageIO.read(getClass().getResourceAsStream("/player_character/right_1.png")));
             this.setRight2(ImageIO.read(getClass().getResourceAsStream("/player_character/right_2.png")));
+
+            this.setAttackUp1(ImageIO.read(getClass().getResourceAsStream("/player_character/up_attack_1.png")));
+            this.setAttackUp2(ImageIO.read(getClass().getResourceAsStream("/player_character/up_attack_2.png")));
+            this.setAttackDown1(ImageIO.read(getClass().getResourceAsStream("/player_character/down_attack_1.png")));
+            this.setAttackDown2(ImageIO.read(getClass().getResourceAsStream("/player_character/down_attack_2.png")));
+            this.setAttackRight1(ImageIO.read(getClass().getResourceAsStream("/player_character/right_attack_1.png")));
+            this.setAttackRight2(ImageIO.read(getClass().getResourceAsStream("/player_character/right_attack_2.png")));
+            this.setAttackLeft1(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_1.png")));
+            this.setAttackLeft2(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_2.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -115,29 +125,34 @@ public class PlayerCharacter extends Character {
 
         if (keyH == null) return;
 
-        if(keyH.kPressed){
-            attacking();
-        }
+        if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
+            if (keyH.kPressed) {
+                attacking();
+                isAttacking = true;
+            } else {
+                isAttacking = false;
+            }
 
-        if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
-            int currentX = this.getxCoord();
-            int currentY = this.getyCoord();
-            int speed = this.getMovementSpeed();
-            if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
-                this.setyCoord(currentY - speed);
-                this.setDirection("up");
-            }
-            if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
-                this.setyCoord(currentY + speed);
-                this.setDirection("down");
-            }
-            if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
-                this.setxCoord(currentX - speed);
-                this.setDirection("left");
-            }
-            if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
-                this.setxCoord(currentX + speed);
-                this.setDirection("right");
+            if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
+                int currentX = this.getxCoord();
+                int currentY = this.getyCoord();
+                int speed = this.getMovementSpeed();
+                if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
+                    this.setyCoord(currentY - speed);
+                    this.setDirection("up");
+                }
+                if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
+                    this.setyCoord(currentY + speed);
+                    this.setDirection("down");
+                }
+                if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
+                    this.setxCoord(currentX - speed);
+                    this.setDirection("left");
+                }
+                if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
+                    this.setxCoord(currentX + speed);
+                    this.setDirection("right");
+                }
             }
 
             this.setSpriteCounter(this.getSpriteCounter() + 1);
@@ -150,6 +165,8 @@ public class PlayerCharacter extends Character {
                 this.setSpriteCounter(0);
             }
         }
+
+
         /* if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed && !keyH.downPressed) {
                 this.setDirection("up");
@@ -218,39 +235,78 @@ public class PlayerCharacter extends Character {
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
-        switch(this.getDirection()) {
-            case "up":
-                if (this.getSpriteNum() == 1) {
-                    image = this.getUp1();
-                }
-                if (this.getSpriteNum() == 2) {
-                    image = this.getUp2();
-                }
-                break;
-            case "down":
-                if (this.getSpriteNum() == 1) {
-                    image = this.getDown1();
-                }
-                if (this.getSpriteNum() == 2) {
-                    image = this.getDown2();
-                }
-                break;
-            case "left":
-                if (this.getSpriteNum() == 1) {
-                    image = this.getLeft1();
-                }
-                if (this.getSpriteNum() == 2) {
-                    image = this.getLeft2();
-                }
-                break;
-            case "right":
-                if (this.getSpriteNum() == 1) {
-                    image = this.getRight1();
-                }
-                if (this.getSpriteNum() == 2) {
-                    image = this.getRight2();
-                }
-                break;
+        if (!isAttacking) {
+            this.setWidth(18);
+            this.setHeight(46);
+            switch (this.getDirection()) {
+                case "up":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getUp1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getUp2();
+                    }
+                    break;
+                case "down":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getDown1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getDown2();
+                    }
+                    break;
+                case "left":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getLeft1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getLeft2();
+                    }
+                    break;
+                case "right":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getRight1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getRight2();
+                    }
+            }
+        } else {
+            this.setWidth(31);
+            this.setHeight(44);
+            switch (this.getDirection()) {
+                case "up":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getAttackUp1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getAttackUp2();
+                    }
+                    break;
+                case "down":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getAttackDown1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getAttackDown2();
+                    }
+                    break;
+                case "left":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getAttackLeft1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getAttackLeft2();
+                    }
+                    break;
+                case "right":
+                    if (this.getSpriteNum() == 1) {
+                        image = this.getAttackRight1();
+                    }
+                    if (this.getSpriteNum() == 2) {
+                        image = this.getAttackRight2();
+                    }
+            }
         }
 
         g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);

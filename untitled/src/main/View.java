@@ -39,6 +39,16 @@ public class View {
         savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.CENTER);
         savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
 
+        //temporary window for testing settings
+        /*
+        JFrame tempWindow = new JFrame();
+        tempWindow.setSize(400, 400);
+        tempWindow.getContentPane().setSize(400, 400);
+        tempWindow.setLayout(new BorderLayout());
+        tempWindow.add(settingsPage, BorderLayout.NORTH);
+        tempWindow.add(savePage, BorderLayout.SOUTH);
+        tempWindow.setVisible(true);
+         */
         JButton settingsButton = new JButton("Settings");
         settingsButton.setPreferredSize(new Dimension(50, 25));
 
