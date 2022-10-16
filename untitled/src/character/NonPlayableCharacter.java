@@ -80,7 +80,7 @@ public abstract class NonPlayableCharacter extends Character {
 
     }
 
-    public void attacking(GamePanel gamePanel) {
+    public void attacking(GamePanel gamePanel) {    // TODO: Temporary attacking method, exhibits unpredictable behavior
         int currX = this.xCoord;
         int currY = this.yCoord;
         int collisionAreaWidth = this.solidArea.width;
@@ -99,7 +99,7 @@ public abstract class NonPlayableCharacter extends Character {
         //boolean isHit = gamePanel.checker.checkEntity(gamePanel.getPlayer(), this);
 
         if (isHit) {
-            System.out.println("Player took damage");
+            //System.out.println("Player took damage");
             gamePanel.getPlayer().damagePlayer();
         }
 

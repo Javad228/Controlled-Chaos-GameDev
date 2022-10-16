@@ -49,6 +49,7 @@ public class DeathPanel extends JPanel {
         this.newGame.setPreferredSize(buttonDimension);
         this.newGame.addActionListener((a) -> {
             hideDeathPanel();
+            gp.saveData.resetSavedProgress();
             gp.newGame();
             gp.resumeThread();
         });

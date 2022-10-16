@@ -76,10 +76,16 @@ class TestHealthBar {
         initConsumableButton();
         //Main.window.add(consumable);
 
+        Point w = Main.window.getLocation();
+
+
         JFrame testFrame = new JFrame();
-        testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        testFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         testFrame.add(consumable);
         testFrame.pack();
+
+        w.setLocation(w.getX()-testFrame.getWidth(), w.getY());
+        testFrame.setLocation(w);
         testFrame.setVisible(true);
 
         gamePanel.getPlayer().setxCoord(gamePanel.getWidth()/2);

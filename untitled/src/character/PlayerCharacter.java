@@ -232,7 +232,7 @@ public class PlayerCharacter extends Character {
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
             gp.getPlayer().damage(gp.enemy.getDamagePerHit());
             gp.getPlayer().invincible = true;
-            System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
+            //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }
     }
 
