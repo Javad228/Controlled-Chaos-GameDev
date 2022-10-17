@@ -67,7 +67,7 @@ public class Audio {
     }
 
     public static void openingMusic() {
-        musicClip = getClip("untitled/audio/Derp-Nugget.wav");
+        musicClip = getClip("C:\\Users\\12154\\IdeaProjects\\Controlled-Chaos-GameDev\\untitled\\audio\\Derp-Nugget.wav");
         if (musicClip == null) {
             System.out.println("opening music failed: getClip returned null");
             System.exit(0);
@@ -91,11 +91,11 @@ public class Audio {
             musicClip.stop();
         }
     }
-
     public static void walking() {
 
         //want to find a different clip and make it more coherent w animation
-        walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
+        // copy your own absolute path of sound.wav
+        walkingClip = getClip("C:\\Users\\12154\\IdeaProjects\\Controlled-Chaos-GameDev\\untitled\\audio\\Walking_On_Gravel.wav");
         if (walkingClip == null) {
             System.out.println("walking audio failed: getClip returned null");
             System.exit(0);
@@ -104,7 +104,6 @@ public class Audio {
         walkingClip.start();
 
     }
-
     public static void stopWalking() {
         if (walkingClip != null) {
             walkingClip.stop();

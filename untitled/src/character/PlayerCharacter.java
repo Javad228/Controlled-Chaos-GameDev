@@ -46,7 +46,6 @@ public class PlayerCharacter extends Character {
         this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
-        this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -133,26 +132,25 @@ public class PlayerCharacter extends Character {
                 isAttacking = false;
             }
 
-            if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
-                int currentX = this.getxCoord();
-                int currentY = this.getyCoord();
-                int speed = this.getMovementSpeed();
-                if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
-                    this.setyCoord(currentY - speed);
-                    this.setDirection("up");
-                }
-                if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
-                    this.setyCoord(currentY + speed);
-                    this.setDirection("down");
-                }
-                if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
-                    this.setxCoord(currentX - speed);
-                    this.setDirection("left");
-                }
-                if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
-                    this.setxCoord(currentX + speed);
-                    this.setDirection("right");
-                }
+        if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
+            int currentX = this.getxCoord();
+            int currentY = this.getyCoord();
+            int speed = this.getMovementSpeed();
+            if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
+                this.setyCoord(currentY - speed);
+                this.setDirection("up");
+            }
+            if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
+                this.setyCoord(currentY + speed);
+                this.setDirection("down");
+            }
+            if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
+                this.setxCoord(currentX - speed);
+                this.setDirection("left");
+            }
+            if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
+                this.setxCoord(currentX + speed);
+                this.setDirection("right");
             }
 
             this.setSpriteCounter(this.getSpriteCounter() + 1);

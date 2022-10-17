@@ -8,7 +8,6 @@ import enemy.Slime;
 import save.SimpleWeapon;
 import loot.Effect;
 import loot.Weapon;
-import save.SaveData;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,7 +34,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public KeyHandler keyH = new KeyHandler();
 
 	Thread gameThread;
-
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 	public Weapon weapon = new Weapon(keyH, weaponImages);
 	public Effect effect = new Effect(keyH, effectImages);
@@ -170,7 +168,6 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D)g;
-
 		enemy.draw(g2);
 		player.draw(g2);
 		weapon.draw(g2, this);
