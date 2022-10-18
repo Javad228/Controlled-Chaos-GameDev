@@ -25,10 +25,11 @@ public class TileManager {
     }
 
     public void update(int roomNub) {
+        System.out.println(roomNub);
         if (roomNub == 1) {
-            //System.out.println("loaded");
+            System.out.println("loaded");
             loadMap("/maps/map1.txt");
-            //System.out.println("loaded success");
+            System.out.println("loaded success");
         }
         if (roomNub == 0) {
             loadMap("/maps/map0.txt");
@@ -41,7 +42,7 @@ public class TileManager {
             tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png")));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/wall.png")));
+            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png")));
             tile[1].collision = true;
 
             tile[2] = new Tile();

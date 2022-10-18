@@ -46,6 +46,7 @@ public class PlayerCharacter extends Character {
         this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
+        this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -84,7 +85,7 @@ public class PlayerCharacter extends Character {
 
     public void setDefaultValues() {
         this.setxCoord(100);
-        this.setyCoord(100);
+        this.setyCoord(50);
         this.setMovementSpeed(4);
         this.setDirection("down");
         this.solidArea = new Rectangle(8, 16, 32, 32);
@@ -115,13 +116,13 @@ public class PlayerCharacter extends Character {
             this.setAttackRight2(ImageIO.read(getClass().getResourceAsStream("/player_character/right_attack_2.png")));
             this.setAttackLeft1(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_1.png")));
             this.setAttackLeft2(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_2.png")));
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void update() {
-
+        gp.checker.checkRoom(this);
         if (keyH == null) return;
 
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
@@ -132,37 +133,52 @@ public class PlayerCharacter extends Character {
                 isAttacking = false;
             }
 
-        if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
-            int currentX = this.getxCoord();
-            int currentY = this.getyCoord();
-            int speed = this.getMovementSpeed();
-            if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
-                this.setyCoord(currentY - speed);
-                this.setDirection("up");
-            }
-            if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
-                this.setyCoord(currentY + speed);
-                this.setDirection("down");
-            }
-            if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
-                this.setxCoord(currentX - speed);
-                this.setDirection("left");
-            }
-            if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
-                this.setxCoord(currentX + speed);
-                this.setDirection("right");
+            if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
+                collisionOn = false;
+                gp.checker.checkTile(this);
+                int currentX = this.getxCoord();
+                int currentY = this.getyCoord();
+                int speed = this.getMovementSpeed();
+
+                if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
+//                    this.setyCoord(currentY - speed);
+                    this.setDirection("up");
+                }
+                if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
+//                    this.setyCoord(currentY + speed);
+                    this.setDirection("down");
+                }
+                if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
+//                    this.setxCoord(currentX - speed);
+                    this.setDirection("left");
+                }
+                if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
+//                    this.setxCoord(currentX + speed);
+                    this.setDirection("right");
+                }
+
+                this.setSpriteCounter(this.getSpriteCounter() + 1);
+                if (this.getSpriteCounter() > 12) {
+                    if (this.getSpriteNum() == 1) {
+                        this.setSpriteNum(2);
+                    } else if (this.getSpriteNum() == 2) {
+                        this.setSpriteNum(1);
+                    }
+                    this.setSpriteCounter(0);
+                }
+
+
+
+                if(!collisionOn){
+                    switch (direction) {
+                        case "up" -> this.setyCoord(currentY - speed);
+                        case "down" ->this.setyCoord(currentY + speed);
+                        case "left" -> this.setxCoord(currentX - speed);
+                        case "right" -> this.setxCoord(currentX + speed);
+                    }
+                }
             }
 
-            this.setSpriteCounter(this.getSpriteCounter() + 1);
-            if (this.getSpriteCounter() > 12) {
-                if (this.getSpriteNum() == 1) {
-                    this.setSpriteNum(2);
-                } else if (this.getSpriteNum() == 2) {
-                    this.setSpriteNum(1);
-                }
-                this.setSpriteCounter(0);
-            }
-        }
 
 
         /* if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
@@ -180,181 +196,183 @@ public class PlayerCharacter extends Character {
             }
         } */
 
-        this.healthBar.update(this.getHealth());
+            this.healthBar.update(this.getHealth());
+        }
     }
 
-    public void attacking(){
+        public void attacking() {
 
-        int currentWorldX = xCoord;
-        int currentWorldY = yCoord;
-        int collisionAreaWidth = solidArea.width;
-        int collisionAreaHeight = solidArea.height;
+            int currentWorldX = xCoord;
+            int currentWorldY = yCoord;
+            int collisionAreaWidth = solidArea.width;
+            int collisionAreaHeight = solidArea.height;
 
 
-        switch (direction) {
-            case "up" -> yCoord -= attackArea.height;
-            case "down" -> yCoord += attackArea.height;
-            case "left" -> xCoord -= attackArea.width;
-            case "right" -> xCoord += attackArea.width;
-        }
+            switch (direction) {
+                case "up" -> yCoord -= attackArea.height;
+                case "down" -> yCoord += attackArea.height;
+                case "left" -> xCoord -= attackArea.width;
+                case "right" -> xCoord += attackArea.width;
+            }
 
-        solidArea.width = attackArea.width;
-        solidArea.height = attackArea.height;
+            solidArea.width = attackArea.width;
+            solidArea.height = attackArea.height;
 //        System.out.println(solidArea);
-        Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+            Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
 
 //        System.out.println(isHit);
-        if(isHit){
-            Audio.enemyDamagedAudio();
-            damageMonster();
-            System.out.println("Hit");
+            if (isHit) {
+                Audio.enemyDamagedAudio();
+                damageMonster();
+                System.out.println("Hit");
+            }
+
+
+            //After checking collision, restore original data
+            xCoord = currentWorldX;
+            yCoord = currentWorldY;
+            solidArea.width = collisionAreaWidth;
+            solidArea.height = collisionAreaHeight;
         }
 
+        public void damageMonster () {
+            if (!gp.enemy.invincible) {
+                gp.enemy.health -= 1;
+                gp.enemy.invincible = true;
+                System.out.println(gp.enemy.health);
 
-        //After checking collision, restore original data
-        xCoord = currentWorldX;
-        yCoord = currentWorldY;
-        solidArea.width = collisionAreaWidth;
-        solidArea.height = collisionAreaHeight;
-    }
-
-    public void damageMonster(){
-        if(!gp.enemy.invincible){
-            gp.enemy.health -= 1;
-            gp.enemy.invincible = true;
-            System.out.println(gp.enemy.health);
-
-            if(gp.enemy.health <= 0){
-                gp.enemy.isAlive = false;
+                if (gp.enemy.health <= 0) {
+                    gp.enemy.isAlive = false;
+                }
             }
+
+        }
+        public void draw (Graphics2D g2){
+            BufferedImage image = null;
+
+            if (!isAttacking) {
+                this.setWidth(18);
+                this.setHeight(46);
+                switch (this.getDirection()) {
+                    case "up":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getUp1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getUp2();
+                        }
+                        break;
+                    case "down":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getDown1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getDown2();
+                        }
+                        break;
+                    case "left":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getLeft1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getLeft2();
+                        }
+                        break;
+                    case "right":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getRight1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getRight2();
+                        }
+                }
+            } else {
+                this.setWidth(31);
+                this.setHeight(44);
+                switch (this.getDirection()) {
+                    case "up":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getAttackUp1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getAttackUp2();
+                        }
+                        break;
+                    case "down":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getAttackDown1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getAttackDown2();
+                        }
+                        break;
+                    case "left":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getAttackLeft1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getAttackLeft2();
+                        }
+                        break;
+                    case "right":
+                        if (this.getSpriteNum() == 1) {
+                            image = this.getAttackRight1();
+                        }
+                        if (this.getSpriteNum() == 2) {
+                            image = this.getAttackRight2();
+                        }
+                }
+            }
+
+            g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
+            this.healthBar.draw(g2,
+                    this.getxCoord(),
+                    this.getyCoord() - this.healthBar.getHeight());
+
+        }
+
+        public CharacterType getCharacterType () {
+            return characterType;
+        }
+
+        public void setCharacterType (CharacterType characterType){
+            this.characterType = characterType;
+        }
+
+        public Inventory getInventory () {
+            return inventory;
+        }
+
+        public void setInventory (Inventory inventory){
+            this.inventory = inventory;
+        }
+
+        public void setGamePanel (GamePanel gp){
+            this.gp = gp;
+        }
+
+        public void setKeyHandler (KeyHandler keyH){
+            this.keyH = keyH;
+        }
+
+        public Item getStartingItem () {
+            return this.startingItem;
+        }
+
+        public void setStartingItem (Item startingItem){
+            this.startingItem = startingItem;
+        }
+
+        @Override
+        public boolean equals (Object o){
+            if (this.getClass() != o.getClass()) return false;
+
+            PlayerCharacter pc = (PlayerCharacter) o;
+            if (this.characterType != pc.getCharacterType()) return false;
+            if (!this.inventory.equals(pc.getInventory())) return false;
+            return super.equals(o);
         }
 
     }
-    public void draw(Graphics2D g2) {
-        BufferedImage image = null;
 
-        if (!isAttacking) {
-            this.setWidth(18);
-            this.setHeight(46);
-            switch (this.getDirection()) {
-                case "up":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getUp1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getUp2();
-                    }
-                    break;
-                case "down":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getDown1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getDown2();
-                    }
-                    break;
-                case "left":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getLeft1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getLeft2();
-                    }
-                    break;
-                case "right":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getRight1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getRight2();
-                    }
-            }
-        } else {
-            this.setWidth(31);
-            this.setHeight(44);
-            switch (this.getDirection()) {
-                case "up":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getAttackUp1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getAttackUp2();
-                    }
-                    break;
-                case "down":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getAttackDown1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getAttackDown2();
-                    }
-                    break;
-                case "left":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getAttackLeft1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getAttackLeft2();
-                    }
-                    break;
-                case "right":
-                    if (this.getSpriteNum() == 1) {
-                        image = this.getAttackRight1();
-                    }
-                    if (this.getSpriteNum() == 2) {
-                        image = this.getAttackRight2();
-                    }
-            }
-        }
-
-        g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
-
-        this.healthBar.draw(g2,
-                this.getxCoord(),
-                this.getyCoord()-this.healthBar.getHeight());
-
-    }
-
-    public CharacterType getCharacterType() {
-        return characterType;
-    }
-
-    public void setCharacterType(CharacterType characterType) {
-        this.characterType = characterType;
-    }
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
-
-    public void setGamePanel(GamePanel gp) {
-        this.gp = gp;
-    }
-
-    public void setKeyHandler(KeyHandler keyH) {
-        this.keyH = keyH;
-    }
-
-    public Item getStartingItem() {
-        return this.startingItem;
-    }
-
-    public void setStartingItem(Item startingItem) {
-        this.startingItem = startingItem;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this.getClass() != o.getClass()) return false;
-
-        PlayerCharacter pc = (PlayerCharacter) o;
-        if (this.characterType != pc.getCharacterType()) return false;
-        if (!this.inventory.equals(pc.getInventory())) return false;
-        return super.equals(o);
-    }
-
-}

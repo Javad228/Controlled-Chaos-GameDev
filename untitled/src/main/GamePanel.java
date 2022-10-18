@@ -3,11 +3,13 @@ package main;
 import javax.swing.*;
 
 import character.PlayerCharacter;
+import save.SaveData;
 import save.SimpleCharacter;
 import enemy.Slime;
 import save.SimpleWeapon;
 import loot.Effect;
 import loot.Weapon;
+import tile.TileManager;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 	private int fps = 60;
 	public CollisionChecker checker = new CollisionChecker(this);
+
+	TileManager tileM = new TileManager(this);
 
 	private String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
 	private String[] weaponImages = {"/weapons/wooden_sword.png"};
@@ -168,10 +172,12 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D)g;
+		tileM.draw(g2);
 		enemy.draw(g2);
 		player.draw(g2);
 		weapon.draw(g2, this);
 		effect.draw(g2, this);
+
 
 		g2.dispose();
 	}
