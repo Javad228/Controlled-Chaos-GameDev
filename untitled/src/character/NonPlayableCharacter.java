@@ -16,7 +16,6 @@ import java.awt.image.BufferedImage;
 public abstract class NonPlayableCharacter extends Character {
 
     //public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public GamePanel gamePanel;
 
     private int damagePerHit;               // Amount of damage a NonPlayableCharacter can inflict on other Characters
     private DamageType damageType;          // Type of damage a NonPlayableCharacter can inflict
@@ -30,16 +29,16 @@ public abstract class NonPlayableCharacter extends Character {
     /**
      *  Empty constructor to create a generic NonPlayableCharacter
      */
-    public NonPlayableCharacter(GamePanel gp) {
+    public NonPlayableCharacter() {
         super();
-        this.gamePanel = gp;
         this.damagePerHit = 0;
         this.damageType = DamageType.DEFAULT;
         this.attackCooldown = 1;
     }
-    public void setAction(){}
 
-    public void update(){
+    public void setAction(GamePanel gp){}
+
+    public void update(GamePanel gp){
         if(invincible){
             invincibleCounter++;
             if(invincibleCounter>30){
@@ -47,7 +46,7 @@ public abstract class NonPlayableCharacter extends Character {
                 invincibleCounter = 0;
             }
         }
-        setAction();
+        setAction(gp);
 //        System.out.println(direction);
         if(spriteNum!=1&&spriteNum!=2&&spriteNum!=6) {
             switch (direction) {
@@ -57,6 +56,8 @@ public abstract class NonPlayableCharacter extends Character {
                 case "right" -> xCoord += movementSpeed;
             }
         }
+
+        attacking(gp);
 
         int frameAdjust = 12;
         spriteCounter++;
@@ -78,6 +79,36 @@ public abstract class NonPlayableCharacter extends Character {
         }
 
     }
+
+    public void attacking(GamePanel gamePanel) {    // TODO: Temporary attacking method, exhibits unpredictable behavior
+        int currX = this.xCoord;
+        int currY = this.yCoord;
+        int collisionAreaWidth = this.solidArea.width;
+        int collisionAreaHeight = this.solidArea.height;
+
+        switch (direction) {
+            case "up" -> yCoord -= attackArea.height;
+            case "down" -> yCoord += attackArea.height;
+            case "left" -> xCoord -= attackArea.width;
+            case "right" -> xCoord += attackArea.width;
+        }
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+        boolean isHit = gamePanel.checker.checkEntityCollision(this, gamePanel.getPlayer());
+        //boolean isHit = gamePanel.checker.checkEntity(gamePanel.getPlayer(), this);
+
+        if (isHit) {
+            //System.out.println("Player took damage");
+            gamePanel.getPlayer().damagePlayer();
+        }
+
+        xCoord = currX;
+        yCoord = currY;
+        solidArea.width = collisionAreaWidth;
+        solidArea.height = collisionAreaHeight;
+    }
+
     public int getDamagePerHit() {
         return damagePerHit;
     }
@@ -94,7 +125,9 @@ public abstract class NonPlayableCharacter extends Character {
         this.attackCooldown = attackCooldown;
     }
 
-    public void drawHP(Graphics2D g2){
+
+
+    public void drawHP(Graphics2D g2, GamePanel gamePanel){
         double oneScale = (double)gamePanel.tileSize/maxHealth;
         double hpBarValue = oneScale*health;
 
@@ -109,8 +142,8 @@ public abstract class NonPlayableCharacter extends Character {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
-    public void draw(Graphics2D g2){
-        drawHP(g2);
+    public void draw(Graphics2D g2, GamePanel gamePanel){
+        drawHP(g2, gamePanel);
         BufferedImage image = null;
 
         switch(this.getDirection()) {

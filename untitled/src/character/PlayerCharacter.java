@@ -125,13 +125,30 @@ public class PlayerCharacter extends Character {
 
         if (keyH == null) return;
 
-        if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
-            if (keyH.kPressed) {
-                attacking();
-                isAttacking = true;
-            } else {
-                isAttacking = false;
+//<<<<<<< HEAD
+        if(invincible){
+            invincibleCounter++;
+            if(invincibleCounter>30){
+                invincible = false;
+                invincibleCounter = 0;
             }
+        }
+
+        if(keyH.kPressed){
+            isAttacking = true;     //TODO: Added from local
+            attacking();
+        } else {
+            isAttacking = false;    //TODO: Added from local
+        }
+//=======
+//        if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
+//            if (keyH.kPressed) {
+//                attacking();
+//                isAttacking = true;
+//            } else {
+//                isAttacking = false;
+//            }
+//>>>>>>> Cameron-Sprint1Progress
 
             if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
                 int currentX = this.getxCoord();
@@ -156,6 +173,7 @@ public class PlayerCharacter extends Character {
             }
 
             this.setSpriteCounter(this.getSpriteCounter() + 1);
+
             if (this.getSpriteCounter() > 12) {
                 if (this.getSpriteNum() == 1) {
                     this.setSpriteNum(2);
@@ -164,7 +182,7 @@ public class PlayerCharacter extends Character {
                 }
                 this.setSpriteCounter(0);
             }
-        }
+
 
 
         /* if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
@@ -203,7 +221,7 @@ public class PlayerCharacter extends Character {
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
 //        System.out.println(solidArea);
-        Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+        Boolean isHit = gp.checker.checkEntityAttack(this, gp.enemy);
 
 //        System.out.println(isHit);
         if(isHit){
@@ -212,6 +230,11 @@ public class PlayerCharacter extends Character {
             System.out.println("Hit");
         }
 
+        isHit = gp.checker.checkConsumableCollision(this, gp.apple);
+
+        if(isHit && gp.apple.isVisible) {
+            heal(gp.apple.consume());
+        }
 
         //After checking collision, restore original data
         xCoord = currentWorldX;
@@ -232,6 +255,16 @@ public class PlayerCharacter extends Character {
         }
 
     }
+
+    public void damagePlayer() {
+        if(!gp.getPlayer().invincible){
+            //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
+            gp.getPlayer().damage(gp.enemy.getDamagePerHit());
+            gp.getPlayer().invincible = true;
+            //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
+        }
+    }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
