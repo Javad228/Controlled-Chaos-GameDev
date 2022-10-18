@@ -24,8 +24,8 @@ public class Consumable extends Item {
 
     public BufferedImage consumableImage = null;
 
-    public Consumable(GamePanel gp) {
-        super();
+    public Consumable(GamePanel gp, String[] consumableImages) {
+        super(gp.keyH, 7, consumableImages);
         this.healthGiven = 20;
         this.disappearTimer = gp.getFps() * 5;
         this.disappearTimerDefault = disappearTimer;

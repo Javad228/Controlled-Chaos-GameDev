@@ -4,7 +4,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import loot.*;
 import com.google.gson.*;
-import main.GamePanel;
+import main.*;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
