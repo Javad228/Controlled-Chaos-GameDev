@@ -1,9 +1,13 @@
-package main;
+package save;
 import character.*;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import loot.*;
 import com.google.gson.*;
+import main.GamePanel;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,6 +37,7 @@ public class SaveData {
         initializeRestoreGameButton();
         initializeResetGameProgressButton();
         this.gb = new GsonBuilder();
+        gb.registerTypeAdapter(BufferedImage.class, new BufferedImageAdapter());
         gb.setPrettyPrinting();
         g = gb.create();
     }
@@ -111,7 +116,7 @@ public class SaveData {
         return true;
     }
 
-    protected boolean restoreSave() {
+    public boolean restoreSave() {
         GameSaveState gs;
 
         if ((gs=restoreGameState()) == null) {
@@ -188,12 +193,27 @@ public class SaveData {
     }
 
     private static Weapon deallocateWeapon(Weapon c) {
-        c.setGp(null);
+        //c.setGp(null);
         c.setKeyH(null);
-        c.setWoodenSword(null);
+        c.setLootImages(null);
         return c;
     }
 
+}
+
+class BufferedImageAdapter extends TypeAdapter<BufferedImage> {
+    @Override
+    public BufferedImage read(JsonReader reader) throws IOException {
+        reader.beginObject();
+        reader.endObject();
+        return null;
+    }
+
+    @Override
+    public void write(JsonWriter writer, BufferedImage image) throws IOException {
+        writer.beginObject();
+        writer.endObject();
+    }
 }
 
 /**

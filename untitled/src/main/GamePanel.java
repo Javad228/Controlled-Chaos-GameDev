@@ -3,13 +3,21 @@ package main;
 import javax.swing.*;
 
 import character.PlayerCharacter;
-import character.SimpleCharacter;
+import save.SimpleCharacter;
 import enemy.Slime;
+//<<<<<<< HEAD
 import loot.Consumable;
-import loot.SimpleWeapon;
+//import loot.SimpleWeapon;
+//=======
+import save.SimpleWeapon;
+import loot.Effect;
+//>>>>>>> Cameron-Sprint1Progress
 import loot.Weapon;
+import save.SaveData;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -26,11 +34,17 @@ public class GamePanel extends JPanel implements Runnable{
 	private int fps = 60;
 	public CollisionChecker checker = new CollisionChecker(this);
 
-	KeyHandler keyH = new KeyHandler();
+	private String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
+	private String[] weaponImages = {"/weapons/wooden_sword.png"};
+	private String[] appleImages = {"/consumables/apple.png"};
+
+	public KeyHandler keyH = new KeyHandler();
 
 	Thread gameThread;
-	private PlayerCharacter player = new PlayerCharacter(this, keyH);
-	private Weapon weapon = new Weapon(this, keyH);
+
+	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+	public Weapon weapon = new Weapon(keyH, weaponImages);
+	public Effect effect = new Effect(keyH, effectImages);
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
@@ -45,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
 	player.setxCoord(1); */
 
 	public Slime enemy = new Slime();
-	public Consumable apple = new Consumable(this);
+	public Consumable apple = new Consumable(this, appleImages);
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -67,13 +81,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void newGame() {
 		this.setPlayer(new PlayerCharacter(this, keyH));
-		this.setWeapon(new Weapon(this, keyH));
+		this.setWeapon(new Weapon(keyH, weaponImages));
 		newGameHelper();
 	}
 
 	public void newGame(SimpleCharacter sc, SimpleWeapon w) {
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
-		this.setWeapon(new Weapon(w, this, keyH));
+		this.setWeapon(new Weapon(w, keyH));
 		newGameHelper();
 	}
 
@@ -114,53 +128,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 	@Override
 	public void run() {
-
-
-		//First way to construct the game loop, led to inconsistent FPS.
-
-	/* 	double drawInterval = 1000000000/fps;					//converts from nanoseconds to seconds
-		//double nextDrawTime = System.nanoTime() + drawInterval;
-		//
-		//long timer = 0;
-		//long drawCount = 0;
-		//
-		//while(gameThread != null){
-		//	long currentTime = System.nanoTime();
-		//
-		//	timer += (nextDrawTime - currentTime);
-		//
-		//	update();
-		//	repaint();
-		//	drawCount++;
-		//
-		//	try {
-		//		double remainingTime = nextDrawTime - System.nanoTime();
-		//
-		//		remainingTime = remainingTime / 1000000;		//converts from nanoseconds to milliseconds
-		//
-		//		if (remainingTime < 0){
-		//			remainingTime = 0;
-		//		}
-		//
-		//		Thread.sleep((long)remainingTime);
-		//
-		//		nextDrawTime += drawInterval;
-
-		//	} catch (InterruptedException e) {
-		//		e.printStackTrace();
-		//	}
-
-		//	if(timer >= 1000000000){
-		//		Main.window.setTitle("Controlled Chaos");
-		//		System.out.println("FPS:" + drawCount);
-		//		drawCount = 0;
-		//		timer = 0;
-		//	}
-		//}
-		//
-
-		//double drawInterval = 1000000000./fps;					//converts from nanoseconds to seconds
-    */
 
 		double drawInterval;					//converts from nanoseconds to seconds
 		double delta = 0;
@@ -219,6 +186,7 @@ public class GamePanel extends JPanel implements Runnable{
 		enemy.update(this);
 		weapon.update();
 		apple.update();
+		effect.update();
 	}
 
 	public void paintComponent(Graphics g){
@@ -229,7 +197,8 @@ public class GamePanel extends JPanel implements Runnable{
 		apple.draw(g2, this);
 		enemy.draw(g2, this);
 		player.draw(g2);
-		weapon.draw(g2);
+		weapon.draw(g2, this);
+		effect.draw(g2, this);
 
 		g2.dispose();
 	}

@@ -32,6 +32,12 @@ public class KeyHandler implements KeyListener {
                 ((!wPressed && !sPressed && !aPressed && !dPressed) || !Audio.walkingClip.isRunning())) {
             Audio.walking();
         }
+
+        /*
+         * problem: this system is good for walking because it keeps updating while they're holding
+         * down the button, but for attacks and everything else it keeps attacking for as long as they
+         * hold the button, which results in some funky damage and sound effects
+         */
         if (code == KeyEvent.VK_K) {
             kPressed = true;
         }
@@ -62,6 +68,7 @@ public class KeyHandler implements KeyListener {
 
         //can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
+//<<<<<<< HEAD
             if (!Main.view.getSettingsPage().isVisible()) {
                 //Main.view.getSettingsPage().setVisible(true);
                 //Main.view.getGamePanel().setVisible(false);
@@ -85,6 +92,15 @@ public class KeyHandler implements KeyListener {
                 Audio.stopMusic();
                 Audio.openingMusic();
             }
+//=======
+//            Main.view.getSettingsPage().setVisible(true);
+//            Main.view.getGamePanel().setVisible(false);
+//
+//            Main.view.getGamePanel().pauseThread();
+//
+//            Audio.stopMusic();
+//            Audio.settingsMusic();
+//>>>>>>> Cameron-Sprint1Progress
         }
 
         //display sounds for now

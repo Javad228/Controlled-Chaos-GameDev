@@ -1,5 +1,8 @@
-package character;
+package save;
 
+import character.CharacterType;
+import character.Inventory;
+import character.PlayerCharacter;
 import combat.*;
 
 import java.util.ArrayList;

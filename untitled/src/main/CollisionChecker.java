@@ -67,10 +67,10 @@ public class CollisionChecker {
             target.solidArea.y = target.yCoord + target.solidArea.y;
 
             entityCollisionDirection(entity);
-//            System.out.println(entity.name);
-//            System.out.println(entity.solidArea);
-//            System.out.println(target.name);
-//            System.out.println(target.solidArea);
+            System.out.println("Player");
+            System.out.println(entity.solidArea);
+            System.out.println(target.name);
+            System.out.println(target.solidArea);
             if (entity.solidArea.intersects(target.solidArea)) {
                 if(target != entity){
                     entity.collisionOn = true;

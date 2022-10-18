@@ -56,6 +56,23 @@ public class Slime extends NonPlayableCharacter {
 
             attacking(gp);
         }
+        int currentX = this.getxCoord();
+        int currentY = this.getyCoord();
+//        System.out.println(currentX+", "+ currentY);
+
+        if (currentY > 520) {
+            this.setDirection("up");
+        }
+        if (currentY < 20) {
+            this.setDirection("down");
+        }
+        if (currentX > 714) {
+            this.setDirection("left");
+        }
+        if (currentX < 10) {
+
+            this.setDirection("right");
+        }
     }
     public void getImage(){
         try {

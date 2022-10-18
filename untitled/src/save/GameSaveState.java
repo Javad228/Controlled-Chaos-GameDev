@@ -1,15 +1,7 @@
-package main;
+package save;
 
-import character.PlayerCharacter;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import character.SimpleCharacter;
-import loot.SimpleWeapon;
-import loot.Weapon;
-
-import java.io.IOException;
+import save.SimpleCharacter;
+import save.SimpleWeapon;
 
 /**
  * GameSaveState - Private class which structures the save file format
