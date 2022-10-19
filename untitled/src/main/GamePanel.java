@@ -44,9 +44,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 
-
-	public AssetSetter assetSetter = new AssetSetter(this);
-
 	public Weapon weapon = new Weapon(keyH, weaponImages);
 	public Effect effect = new Effect(keyH, effectImages);
 

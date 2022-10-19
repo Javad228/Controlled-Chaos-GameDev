@@ -34,7 +34,6 @@ public abstract class Character {
     public double timeForInvincibility;        // Character time for invincibility after combat hit
     public Projectile projectile;
     private boolean hasThrownProjectile;
-    private boolean isAlive;
 
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -447,7 +446,7 @@ public abstract class Character {
 
     public void setHasThrownProjectile(boolean hasThrownProjectile) {
         this.hasThrownProjectile = hasThrownProjectile;
-
+    }
     public BufferedImage getAttackUp1() {
         return attackUp1;
     }
