@@ -32,6 +32,12 @@ public class KeyHandler implements KeyListener {
                 ((!wPressed && !sPressed && !aPressed && !dPressed) || !Audio.walkingClip.isRunning())) {
             Audio.walking();
         }
+
+        /*
+         * problem: this system is good for walking because it keeps updating while they're holding
+         * down the button, but for attacks and everything else it keeps attacking for as long as they
+         * hold the button, which results in some funky damage and sound effects
+         */
         if (code == KeyEvent.VK_K) {
             kPressed = true;
         }
@@ -60,8 +66,47 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
 
+        //can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
             Main.view.getSettingsPage().setVisible(true);
+            Main.view.getGamePanel().setVisible(false);
+
+            Main.view.getGamePanel().pauseThread();
+
+            Audio.stopMusic();
+            Audio.settingsMusic();
+        }
+
+        //display sounds for now
+
+        //pick up weapon or boone
+        if (code == KeyEvent.VK_1) {
+            Audio.itemPickUpAudio();
+        }
+
+        //player takes damage
+        if (code == KeyEvent.VK_2) {
+            Audio.playerDamagedAudio();
+        }
+
+        //enemy is damaged
+        if (code == KeyEvent.VK_SPACE) {
+            Audio.enemyDamagedAudio();
+        }
+
+        //object is destroyed
+        if (code == KeyEvent.VK_3) {
+            Audio.destroyObjectAudio();
+        }
+
+        //button is pressed
+        if (code == KeyEvent.VK_4) {
+            Audio.pressButtonAudio();
+        }
+
+        //door is opened
+        if (code == KeyEvent.VK_5) {
+            Audio.doorOpenAudio();
         }
     }
 
@@ -102,5 +147,33 @@ public class KeyHandler implements KeyListener {
             Audio.stopWalking();
         }
 
+    }
+
+    public void reset() {
+        kPressed = false;
+        wPressed = false;
+        sPressed = false;
+        aPressed = false;
+        dPressed = false;
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+    }
+
+    public String toBitString() {
+        StringBuilder s = new StringBuilder();
+
+        if (kPressed) s.append(1); else s.append(0);
+        if (wPressed) s.append(1); else s.append(0);
+        if (aPressed) s.append(1); else s.append(0);
+        if (sPressed) s.append(1); else s.append(0);
+        if (dPressed) s.append(1); else s.append(0);
+        if (upPressed) s.append(1); else s.append(0);
+        if (downPressed) s.append(1); else s.append(0);
+        if (leftPressed) s.append(1); else s.append(0);
+        if (rightPressed) s.append(1); else s.append(0);
+
+        return s.toString();
     }
 }

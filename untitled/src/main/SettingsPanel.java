@@ -11,21 +11,42 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     GamePanel gamePanel;
     JSlider musicSlider;
     JSlider soundEffectSlider;
+    JButton returnButton;
 
     public SettingsPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addFrameRateSelection();
         addMusicVolumeSelection();
         addSoundEffectVolumeSelection();
+        addReturnButton();
+
 
         setName("Settings");
         setBackground(Color.white);
         setVisible(true);
     }
 
+    private void addReturnButton() {
+        returnButton = new JButton("Return");
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.view.getGamePanel().setVisible(true);
+                Main.view.getSettingsPage().setVisible(false);
+
+                Main.view.getGamePanel().resumeThread();
+
+                Audio.stopMusic();
+                Audio.openingMusic();
+            }
+        });
+
+        add(returnButton);
+    }
+
     private void addSoundEffectVolumeSelection() {
         JLabel soundEffectLabel = new JLabel("Sound Effects Volume: ");
-        soundEffectLabel.setVisible(true);
 
         soundEffectSlider = new JSlider(0, 10, 5);
         soundEffectSlider.setPaintTrack(true);
@@ -41,7 +62,6 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
     public void addMusicVolumeSelection() {
         JLabel musicLabel = new JLabel("Music Volume: ");
-        musicLabel.setVisible(true);
 
         musicSlider = new JSlider(0, 10, 5);
         musicSlider.setPaintTrack(true);
@@ -65,12 +85,17 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     }
 
     public void addFrameRateSelection() {
-        JLabel frameRateLabel = new JLabel("Frame Rate: ");
-        frameRateLabel.setVisible(true);
+        String currentFrameRateStr = "Current Frame Rate = " + gamePanel.getFps();
+        JLabel currentFrameRate = new JLabel(currentFrameRateStr);
+
+        JLabel frameRateLabel = new JLabel("New Frame Rate: ");
 
         Integer[] frameRateChoices = {24, 30, 50, 60, 120};
-        final JComboBox<Integer> dropDown = new JComboBox<Integer>(frameRateChoices);
-        dropDown.setVisible(true);
+        final JComboBox<Integer> dropDown = new JComboBox<>(frameRateChoices);
+
+        add(currentFrameRate);
+        add(frameRateLabel);
+        add(dropDown);
 
         JButton applyButton = new JButton("Apply");
         applyButton.addActionListener(new ActionListener() {
@@ -78,15 +103,27 @@ public class SettingsPanel extends JPanel implements ChangeListener {
             public void actionPerformed(ActionEvent e) {
                 Integer newFrameRate = (Integer) dropDown.getSelectedItem();
                 if (newFrameRate != null) {
+                    getSettingsPanel().remove(0);
                     gamePanel.setFps(newFrameRate);
+                    String newFrameRateLabel = "Current Frame Rate = " + newFrameRate + " New Frame Rate: ";
+                    frameRateLabel.setText(newFrameRateLabel);
+                    getSettingsPanel().add(frameRateLabel, 0);
                 } else {
                     System.out.println("Frame rate update failed; fps input is null");
                 }
             }
         });
 
-        add(frameRateLabel);
-        add(dropDown);
         add(applyButton);
+
+
+        //move into own function
+        JLabel currentVSync = new JLabel("<html><br/>VSync: off<br/></html>");
+        add(currentVSync);
     }
+
+    public SettingsPanel getSettingsPanel() {
+        return this;
+    }
+
 }

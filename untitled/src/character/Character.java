@@ -1,4 +1,6 @@
-package character; /**
+package character;
+
+/*
  * Character Class - An abstract class which models a character containing basic information pertaining to the game.
  *
  * @author Cameron Hofbauer
@@ -7,6 +9,7 @@ package character; /**
 
 
 import combat.CombatType;
+import main.Audio;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +17,9 @@ import java.util.ArrayList;
 
 public abstract class Character {
     public boolean attacking = false;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
+    public boolean isAlive = true;
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
     public int health;
@@ -35,7 +41,9 @@ public abstract class Character {
     public int actionLockCounter = 0;
     public boolean collisionOn = false;
     private BufferedImage up1, up2,up3,up4,up5,up6, down1, down2,down3,down4,down5,down6, left1, left2,left3,left4,left5,left6, right1, right2,right3,right4,right5,right6;
+    private BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     public String direction = "down";
+    public boolean isAttacking = false;
 
     public int spriteCounter = 0;
 
@@ -52,8 +60,8 @@ public abstract class Character {
         this.maxHealth = 100;
         this.health = maxHealth;
         this.movementSpeed = 1;
-        this.xCoord = 0;
-        this.yCoord = 0;
+        this.xCoord = 300;
+        this.yCoord = 300;
         this.height = 50;
         this.width = 50;
         this.activeEffects = new ArrayList<>();
@@ -99,7 +107,7 @@ public abstract class Character {
         this.height = height;
         this.width = width;
         this.activeEffects = activeEffects;
-        this.type=type;
+        this.type = type;
         this.timeForInvincibility = timeForInvincibility;
         this.isAlive = isAlive;
     }
@@ -118,6 +126,9 @@ public abstract class Character {
     }
 
     public void setHealth(int health) {
+        if (this instanceof PlayerCharacter) {
+            Audio.playerDamagedAudio();
+        }
         this.health = health;
     }
 
@@ -436,5 +447,68 @@ public abstract class Character {
 
     public void setHasThrownProjectile(boolean hasThrownProjectile) {
         this.hasThrownProjectile = hasThrownProjectile;
+
+    public BufferedImage getAttackUp1() {
+        return attackUp1;
+    }
+
+    public void setAttackUp1(BufferedImage attackUp1) {
+        this.attackUp1 = attackUp1;
+    }
+
+    public BufferedImage getAttackDown1() {
+        return attackDown1;
+    }
+
+    public void setAttackDown1(BufferedImage attackDown1) {
+        this.attackDown1 = attackDown1;
+    }
+
+    public BufferedImage getAttackRight1() {
+        return attackRight1;
+    }
+
+    public void setAttackRight1(BufferedImage attackRight1) {
+        this.attackRight1 = attackRight1;
+    }
+
+    public BufferedImage getAttackLeft1() {
+        return attackLeft1;
+    }
+
+    public void setAttackLeft1(BufferedImage attackLeft1) {
+        this.attackLeft1 = attackLeft1;
+    }
+
+    public BufferedImage getAttackUp2() {
+        return attackUp2;
+    }
+
+    public void setAttackUp2(BufferedImage attackUp2) {
+        this.attackUp2 = attackUp2;
+    }
+
+    public BufferedImage getAttackDown2() {
+        return attackDown2;
+    }
+
+    public void setAttackDown2(BufferedImage attackDown2) {
+        this.attackDown2 = attackDown2;
+    }
+
+    public BufferedImage getAttackRight2() {
+        return attackRight2;
+    }
+
+    public void setAttackRight2(BufferedImage attackRight2) {
+        this.attackRight2 = attackRight2;
+    }
+
+    public BufferedImage getAttackLeft2() {
+        return attackLeft2;
+    }
+
+    public void setAttackLeft2(BufferedImage attackLeft2) {
+        this.attackLeft2 = attackLeft2;
     }
 }
