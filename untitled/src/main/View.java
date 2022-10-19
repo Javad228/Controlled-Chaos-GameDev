@@ -35,6 +35,7 @@ public class View {
         // Add Save Page
         savePage = new JPanel();
         savePage.setLayout(new BorderLayout());
+
         savePage.add(gamePanel.saveData.saveGameButton, BorderLayout.WEST);
         savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.CENTER);
         savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);

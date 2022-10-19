@@ -146,6 +146,7 @@ public class KeyHandler implements KeyListener {
         if (Audio.walkingClip != null) {
             Audio.stopWalking();
         }
+
     }
 
     public void reset() {
