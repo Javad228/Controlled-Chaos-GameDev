@@ -23,6 +23,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         addMusicVolumeSelection();
         addSoundEffectVolumeSelection();
         addSaveButtons();
+        addReturnButton();
 //=======
 //    JButton returnButton;
 //
@@ -38,7 +39,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
         setName("Settings");
         setBackground(Color.white);
-        setVisible(true);
+        setVisible(false);
     }
 
     private void addReturnButton() {
@@ -46,6 +47,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                hideSettingsPanel();
                 Main.view.getGamePanel().setVisible(true);
                 Main.view.getSettingsPage().setVisible(false);
 

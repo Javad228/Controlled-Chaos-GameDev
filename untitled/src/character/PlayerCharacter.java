@@ -134,21 +134,14 @@ public class PlayerCharacter extends Character {
             }
         }
 
-        if(keyH.kPressed){
-            isAttacking = true;     //TODO: Added from local
-            attacking();
-        } else {
-            isAttacking = false;    //TODO: Added from local
-        }
-//=======
-//        if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
-//            if (keyH.kPressed) {
-//                attacking();
-//                isAttacking = true;
-//            } else {
-//                isAttacking = false;
-//            }
-//>>>>>>> Cameron-Sprint1Progress
+        if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
+
+            if (keyH.kPressed) {
+                attacking();
+                isAttacking = true;
+            } else {
+                isAttacking = false;
+            }
 
             if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
                 int currentX = this.getxCoord();
@@ -182,7 +175,7 @@ public class PlayerCharacter extends Character {
                 }
                 this.setSpriteCounter(0);
             }
-
+        }
 
 
         /* if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
@@ -225,7 +218,7 @@ public class PlayerCharacter extends Character {
 
 //        System.out.println(isHit);
         if(isHit){
-            Audio.enemyDamagedAudio();
+            //Audio.enemyDamagedAudio();
             damageMonster();
             System.out.println("Hit");
         }
@@ -248,6 +241,7 @@ public class PlayerCharacter extends Character {
             gp.enemy.health -= 1;
             gp.enemy.invincible = true;
             System.out.println(gp.enemy.health);
+            Audio.enemyDamagedAudio();
 
             if(gp.enemy.health <= 0){
                 gp.enemy.isAlive = false;

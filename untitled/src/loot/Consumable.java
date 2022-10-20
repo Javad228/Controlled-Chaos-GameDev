@@ -12,9 +12,6 @@ public class Consumable extends Item {
     private final int healthGiven;
 
     public int frameCounter = 0;
-    public int spriteCounter = 0;
-    public boolean isBobbingUp = false;
-    public int bobDistance = 3;
     public boolean isVisible = true;
     public int disappearTimer;
     public int disappearTimerDefault;
@@ -49,23 +46,8 @@ public class Consumable extends Item {
     }
 
     public void update() {
-        if (frameCounter == 0) { // only update the animation once a ____ (depending on if statement after this)
-            if (spriteCounter == 0) { // at the bottom, need to bob up
-                isBobbingUp = true;
-                spriteCounter++;
-                setyCoord(getyCoord() + bobDistance);
-            } else if (spriteCounter == 1 && isBobbingUp) { // in the middle of bobbing up
-                spriteCounter++;
-                setyCoord(getyCoord() + bobDistance);
-            } else if (spriteCounter == 2) { // reached the top, need to go down
-                isBobbingUp = false;
-                spriteCounter--;
-                setyCoord(getyCoord() - bobDistance);
-            } else if (spriteCounter == 1 && !isBobbingUp) { // in the middle of bobbing down
-                spriteCounter--;
-                setyCoord(getyCoord() - bobDistance);
-            }
-        }
+
+        super.update();
 
         frameCounter++;
 
