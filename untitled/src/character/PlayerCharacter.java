@@ -4,10 +4,14 @@ import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
+
+import character.Arrow;
+
 import loot.*;
 import save.SimpleCharacter;
 
 import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -46,6 +50,10 @@ public class PlayerCharacter extends Character {
         this.collisionAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImage();
+
+        this.projectile = new Arrow(gp);
+        this.setHasThrownProjectile(false);
+
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
     }
 
@@ -95,6 +103,8 @@ public class PlayerCharacter extends Character {
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
 //        this.collisionAreaDefaultY = solidArea.y;
+        this.setProjectile(new Arrow(gp));
+
     }
 
     public void getPlayerImage() {
@@ -177,21 +187,36 @@ public class PlayerCharacter extends Character {
             }
         }
 
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            int currentX = this.getxCoord();
+            int currentY = this.getyCoord();
+            int movementSpeed = this.getProjectile().getMovementSpeed();
 
-        /* if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed && !keyH.downPressed) {
-                this.setDirection("up");
+                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
             }
             if (keyH.downPressed && !keyH.upPressed) {
-                this.setDirection("down");
+                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
             }
             if (keyH.leftPressed && !keyH.rightPressed) {
-                this.setDirection("left");
+                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
             }
             if (keyH.rightPressed && !keyH.leftPressed) {
-                this.setDirection("right");
+                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);               
             }
-        } */
+        }
+
+        if (this.isHasThrownProjectile()) {
+            this.getProjectile().update();
+        }
 
         this.healthBar.update(this.getHealth());
     }
@@ -250,6 +275,7 @@ public class PlayerCharacter extends Character {
 
     }
 
+
     public void damagePlayer() {
         if(!gp.getPlayer().invincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
@@ -258,6 +284,7 @@ public class PlayerCharacter extends Character {
             //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }
     }
+
 
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
@@ -337,6 +364,10 @@ public class PlayerCharacter extends Character {
         }
 
         g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
+        if (isHasThrownProjectile() && this.projectile.getIsAlive()) {
+            this.getProjectile().draw(g2);
+        }
 
         this.healthBar.draw(g2,
                 this.getxCoord(),

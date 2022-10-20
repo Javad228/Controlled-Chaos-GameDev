@@ -32,6 +32,8 @@ public abstract class Character {
     public ArrayList<String> activeEffects;    // Character active effects in game
     public CombatType type;                    // Character combat type
     public double timeForInvincibility;        // Character time for invincibility after combat hit
+    public Projectile projectile;
+    private boolean hasThrownProjectile;
 
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
@@ -64,6 +66,7 @@ public abstract class Character {
         this.activeEffects = new ArrayList<>();
         this.type = CombatType.DEFAULT;
         this.timeForInvincibility = 1;
+        this.isAlive = true;
     }
 
     /**
@@ -91,6 +94,7 @@ public abstract class Character {
      * @param activeEffects Display and apply any affects that this Character possesses
      * @param type Character Combat type
      * @param timeForInvincibility Time for invincibility given a hit occurs against this Character
+     * @param isAlive  Whether character is alive
      */
     public Character(String name, int health, int movementSpeed, int xCoord, int yCoord, int height, int width,
                      ArrayList<String> activeEffects, CombatType type, double timeForInvincibility) {
@@ -104,7 +108,9 @@ public abstract class Character {
         this.activeEffects = activeEffects;
         this.type = type;
         this.timeForInvincibility = timeForInvincibility;
+        this.isAlive = isAlive;
     }
+
 
     public String getName() {
         return name;
@@ -201,6 +207,22 @@ public abstract class Character {
 
     public void setTimeForInvincibility(double timeForInvincibility) {
         this.timeForInvincibility = timeForInvincibility;
+    }
+
+    public Projectile getProjectile() {
+        return projectile;
+    }
+
+    public void setProjectile(Projectile projectile) {
+        this.projectile = projectile;
+    }
+
+    public boolean getIsAlive() {
+        return isAlive;
+    }
+
+    public void setIsAlive(boolean isAlive) {
+        this.isAlive = isAlive;
     }
 
     public BufferedImage getUp1() {
@@ -432,6 +454,13 @@ public abstract class Character {
         this.right6 = right6;
     }
 
+    public boolean isHasThrownProjectile() {
+        return hasThrownProjectile;
+    }
+
+    public void setHasThrownProjectile(boolean hasThrownProjectile) {
+        this.hasThrownProjectile = hasThrownProjectile;
+    }
     public BufferedImage getAttackUp1() {
         return attackUp1;
     }

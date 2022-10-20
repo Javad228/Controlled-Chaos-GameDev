@@ -3,7 +3,9 @@ package main;
 import javax.swing.*;
 
 import character.PlayerCharacter;
+
 import save.SimpleCharacter;
+
 import enemy.Slime;
 //<<<<<<< HEAD
 import loot.Consumable;
@@ -16,8 +18,12 @@ import loot.Weapon;
 import save.SaveData;
 
 import java.awt.*;
+
+//import java.util.ArrayList;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -43,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+
 	public Weapon weapon = new Weapon(keyH, weaponImages);
 	public Effect effect = new Effect(keyH, effectImages);
 
