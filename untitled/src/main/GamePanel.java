@@ -7,8 +7,13 @@ import character.PlayerCharacter;
 import save.SimpleCharacter;
 
 import enemy.Slime;
+//<<<<<<< HEAD
+import loot.Consumable;
+//import loot.SimpleWeapon;
+//=======
 import save.SimpleWeapon;
 import loot.Effect;
+//>>>>>>> Cameron-Sprint1Progress
 import loot.Weapon;
 import save.SaveData;
 
@@ -37,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	private String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
 	private String[] weaponImages = {"/weapons/wooden_sword.png"};
+	private String[] appleImages = {"/consumables/apple.png"};
 
 	public KeyHandler keyH = new KeyHandler();
 
@@ -59,7 +65,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 	player.setxCoord(1); */
 
-	public Slime enemy = new Slime(this);
+	public Slime enemy = new Slime();
+	public Consumable apple = new Consumable(this, appleImages);
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -73,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable{
 		assetSetter.setNPC();
 	}
 	public void startGameThread() {
-		Audio.stopMusic();
+		//Audio.stopMusic();
 		Audio.openingMusic();
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -95,20 +102,35 @@ public class GamePanel extends JPanel implements Runnable{
 		Audio.stopWalking();
 		Audio.stopMusic();
 		Audio.openingMusic();
+		Main.view.getSettingsPage().hideSettingsPanel();
+		deathPanel.hideDeathPanel();
 		this.setFocusable(true);
 		this.requestFocusInWindow();
 		if (gameThread == null) {
 			this.gameThread = new Thread(this);
 			startGameThread();
 		}
+		enemy.setxCoord(100);
+		enemy.setyCoord(100);
+		this.resumeThread();
 	}
 
 	public void pauseThread() {
-		this.paused = true;
+		synchronized (this) {
+			this.paused = true;
+		}
 	}
 
 	public void resumeThread() {
-		this.paused = false;
+		synchronized (this) {
+			this.paused = false;
+		}
+	}
+
+	public boolean readThreadState() {
+		synchronized (this) {
+			return this.paused;
+		}
 	}
 
 	@Override
@@ -127,7 +149,7 @@ public class GamePanel extends JPanel implements Runnable{
 			timer = 0;
 			lastTime = System.nanoTime();
 
-			while (!paused) {
+			while (!readThreadState()) {
 				currentTime = System.nanoTime();
 				drawInterval = 1000000000. / fps;
 
@@ -147,14 +169,14 @@ public class GamePanel extends JPanel implements Runnable{
 				if (timer >= 1000000000) {
 					Main.window.setTitle("Controlled Chaos");
 					System.out.println("FPS:" + drawCount);
-					//this.player.setHealth(this.player.getHealth() - 1);						//TODO: Debug HealthBar
 					drawCount = 0;
 					timer = 0;
 				}
 
-				if (player.getHealth() == 0 ||
-						(player.getxCoord() == 752 && player.getyCoord() == 532)) {        //TODO: Debug DeathPanel
-					player.setHealth(0);
+				if (player.getHealth() <= 0) {
+					Audio.stopWalking();
+					Audio.stopMusic();
+					player.kill();
 					player.setDefaultValues();
 					keyH.reset();
 					player.setKeyHandler(null);
@@ -168,8 +190,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void update(){
 		player.update();
-		enemy.update();
+		enemy.update(this);
 		weapon.update();
+		apple.update();
 		effect.update();
 	}
 
@@ -178,7 +201,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 		Graphics2D g2 = (Graphics2D)g;
 
-		enemy.draw(g2);
+		apple.draw(g2, this);
+		enemy.draw(g2, this);
 		player.draw(g2);
 		weapon.draw(g2, this);
 		effect.draw(g2, this);

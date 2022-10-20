@@ -34,6 +34,7 @@ public class Loot {
         this.yCoord = 0;
         this.framesToWait = framesToWait;
         this.imagePaths = imagePaths;
+        this.getImage(imagePaths);
         this.keyH = keyH;
     }
 
