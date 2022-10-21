@@ -11,20 +11,35 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     GamePanel gamePanel;
     JSlider musicSlider;
     JSlider soundEffectSlider;
+//<<<<<<< HEAD
+    JPanel savePage;
     JButton returnButton;
 
     public SettingsPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        //setLayout(new FlowLayout());
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addFrameRateSelection();
         addMusicVolumeSelection();
         addSoundEffectVolumeSelection();
+        addSaveButtons();
         addReturnButton();
-
+//=======
+//    JButton returnButton;
+//
+//    public SettingsPanel(GamePanel gamePanel) {
+//        this.gamePanel = gamePanel;
+//
+//        addFrameRateSelection();
+//        addMusicVolumeSelection();
+//        addSoundEffectVolumeSelection();
+//        addReturnButton();
+//
+//>>>>>>> Cameron-Sprint1Progress
 
         setName("Settings");
         setBackground(Color.white);
-        setVisible(true);
+        setVisible(false);
     }
 
     private void addReturnButton() {
@@ -32,6 +47,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                hideSettingsPanel();
                 Main.view.getGamePanel().setVisible(true);
                 Main.view.getSettingsPage().setVisible(false);
 
@@ -73,6 +89,20 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
         add(musicLabel);
         add(musicSlider);
+    }
+
+    private void addSaveButtons() {
+        // Add Save Page
+        //savePage = new JPanel();
+        //savePage.setLayout(new BorderLayout());
+        //savePage.add(gamePanel.saveData.saveGameButton, BorderLayout.WEST);
+        //savePage.add(gamePanel.saveData.restoreGameButton, BorderLayout.CENTER);
+        //savePage.add(gamePanel.saveData.resetGameProgressButton, BorderLayout.EAST);
+        ///add(savePage);
+
+        add(gamePanel.saveData.saveGameButton);
+        add(gamePanel.saveData.restoreGameButton);
+        add(gamePanel.saveData.resetGameProgressButton);
     }
 
     public void stateChanged(ChangeEvent e) {
@@ -122,8 +152,32 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         add(currentVSync);
     }
 
+//<<<<<<< HEAD
+    public void showSettingsPanel() {
+        Main.view.getGamePanel().pauseThread();
+        Main.view.getWindow().remove(Main.view.getGamePanel());
+        Main.view.getWindow().add(this);
+        Main.view.getWindow().setVisible(false);
+        Main.view.getSettingsPage().setVisible(true);
+        Main.view.getWindow().setVisible(true);
+    }
+
+    public void hideSettingsPanel() {
+        if (!isVisible())   return;
+
+        Main.view.getWindow().setVisible(false);
+        Main.view.getWindow().remove(this);
+        Main.view.getWindow().add(gamePanel);
+        Main.view.getWindow().toFront();
+        Main.view.getWindow().setAutoRequestFocus(true);
+        Main.view.getWindow().setVisible(true);
+        Main.view.getWindow().requestFocusInWindow();
+        Main.view.getSettingsPage().setVisible(false);
+    }
+//=======
     public SettingsPanel getSettingsPanel() {
         return this;
+//>>>>>>> Cameron-Sprint1Progress
     }
 
 }

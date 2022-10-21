@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class Slime extends NonPlayableCharacter {
 
-    public Slime(GamePanel gp) {
-        super(gp);
+    public Slime() {
+        super();
         name = "Slime";
         movementSpeed = 1;
         maxHealth = 10;
@@ -27,14 +27,12 @@ public class Slime extends NonPlayableCharacter {
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
 
+        this.setDamagePerHit(5);
         getImage();
 
     }
-
-
-
     @Override
-    public void setAction(){
+    public void setAction(GamePanel gp){
         actionLockCounter++;
 
         if(actionLockCounter == 200){
@@ -55,6 +53,8 @@ public class Slime extends NonPlayableCharacter {
             }
 
             actionLockCounter = 0;
+
+            attacking(gp);
         }
         int currentX = this.getxCoord();
         int currentY = this.getyCoord();

@@ -1,8 +1,10 @@
 package main;
 
 import character.Character;
+
 import character.NonPlayableCharacter;
 import character.PlayerCharacter;
+import loot.Consumable;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -11,7 +13,53 @@ public class CollisionChecker {
         this.gp = gamePanel;
     }
 
-    public boolean checkEntity(Character entity, Character target){
+    public boolean checkConsumableCollision(Character entity, Consumable target) {
+        if (target == null) return false;
+
+        entity.collisionOn = false;
+        entity.solidArea.x = entity.xCoord + entity.solidArea.x;
+        entity.solidArea.y = entity.yCoord + entity.solidArea.y;
+
+        target.solidArea.x = target.getxCoord() + target.solidArea.x;
+        target.solidArea.y = target.getyCoord() + target.solidArea.y;
+
+        if (entity.solidArea.intersects(target.solidArea)) {
+            entity.collisionOn = true;
+        }
+
+        entity.solidArea.y = entity.collisionAreaDefaultY;
+        entity.solidArea.x = entity.collisionAreaDefaultX;
+        target.solidArea.x = target.collisionAreaDefaultX;
+        target.solidArea.y = target.collisionAreaDefaultY;
+
+        return entity.collisionOn;
+    }
+
+    public boolean checkEntityCollision(Character entity, Character target) {
+        if (target == null) return false;
+
+        entity.collisionOn = false;
+        entity.solidArea.x = entity.xCoord + entity.solidArea.x;
+        entity.solidArea.y = entity.yCoord + entity.solidArea.y;
+
+        target.solidArea.x = target.xCoord + target.solidArea.x;
+        target.solidArea.y = target.yCoord + target.solidArea.y;
+
+        if (entity.solidArea.intersects(target.solidArea)) {
+            if(target != entity){
+                entity.collisionOn = true;
+            }
+        }
+
+        entity.solidArea.y = entity.collisionAreaDefaultY;
+        entity.solidArea.x = entity.collisionAreaDefaultX;
+        target.solidArea.x = target.collisionAreaDefaultX;
+        target.solidArea.y = target.collisionAreaDefaultY;
+
+        return entity.collisionOn;
+    }
+
+    public boolean checkEntityAttack(Character entity, Character target){
         if(target != null){
 
             entity.collisionOn = false;

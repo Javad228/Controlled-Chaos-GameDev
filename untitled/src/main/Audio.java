@@ -82,7 +82,9 @@ public class Audio {
             System.out.println("opening music failed: getClip returned null");
             System.exit(0);
         }
+
         setClipVolume(musicClip, musicVolume);
+        musicClip.loop(Integer.MAX_VALUE);
         musicClip.start();
     }
 

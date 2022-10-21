@@ -1,5 +1,6 @@
 package main;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -24,6 +25,8 @@ public class HealthBar extends BufferedImage {
     }
 
     public void setHealth(int hp) {
+        if (hp < 0) hp = 0;
+        if (hp > 100) hp = 100;
         this.health = hp;
     }
 
@@ -58,4 +61,49 @@ public class HealthBar extends BufferedImage {
     }
 
 
+}
+
+class TestHealthBar {
+
+    static JButton consumable = new JButton("Eat Consumable (Gain HP)");
+
+    public static void main(String[] args) {
+        Main.view = new View();
+        Main.window = Main.view.getWindow();
+        Main.window.setLayout(new FlowLayout());
+        GamePanel gamePanel = Main.view.getGamePanel();
+
+        initConsumableButton();
+        //Main.window.add(consumable);
+
+        Point w = Main.window.getLocation();
+
+
+        JFrame testFrame = new JFrame();
+        testFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        testFrame.add(consumable);
+        testFrame.pack();
+
+        w.setLocation(w.getX()-testFrame.getWidth(), w.getY());
+        testFrame.setLocation(w);
+        testFrame.setVisible(true);
+
+        gamePanel.getPlayer().setxCoord(gamePanel.getWidth()/2);
+        gamePanel.getPlayer().setyCoord(gamePanel.getHeight()/2);
+        gamePanel.enemy.setxCoord(gamePanel.getWidth()/2 - gamePanel.tileSize);
+        gamePanel.enemy.setyCoord(gamePanel.getHeight()/2 - gamePanel.tileSize);
+        gamePanel.enemy.setDamagePerHit(25);
+
+        gamePanel.startGameThread();
+    }
+
+    public static void initConsumableButton() {
+        consumable.setPreferredSize(new Dimension(100, 100));
+        consumable.addActionListener((a) -> {
+            Main.view.getGamePanel().getPlayer().heal(20);
+            System.out.println(Main.view.getGamePanel().getPlayer().getHealth());
+        });
+
+        //new JFrame("Controlled Chaos").setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE).add(consumable).setVisible(true);
+    }
 }
