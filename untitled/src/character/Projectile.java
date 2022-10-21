@@ -60,7 +60,7 @@ public class Projectile extends Character {
 
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
-        Boolean isHit = gp.checker.checkEntity(this, gp.enemy);
+        Boolean isHit = gp.checker.checkEntityCollision(this, gp.enemy);
         if(isHit){
             System.out.println("Hit");
             //Potentially add if statement for piercing effects where projectile isn't destroyed
