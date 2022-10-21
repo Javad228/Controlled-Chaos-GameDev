@@ -36,6 +36,9 @@ public abstract class Character {
     private boolean hasThrownProjectile;
 
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+
+    public Rectangle solidArea_2;
+
     public int solidAreaDefaultX, solidAreaDefaultY;
     public int actionLockCounter = 0;
     public boolean collisionOn = false;
@@ -50,6 +53,8 @@ public abstract class Character {
 
     public int collisionAreaDefaultY;
     public int collisionAreaDefaultX;
+
+    public int roomNub = 0;
 
     /**
      * Empty constructor to create a generic Character

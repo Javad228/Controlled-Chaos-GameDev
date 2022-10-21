@@ -1,13 +1,16 @@
 package main;
 
 import character.Character;
+
+import character.NonPlayableCharacter;
+import character.PlayerCharacter;
 import loot.Consumable;
 
 public class CollisionChecker {
-    GamePanel gamePanel;
+    GamePanel gp;
 
     public CollisionChecker(GamePanel gamePanel){
-        this.gamePanel = gamePanel;
+        this.gp = gamePanel;
     }
 
     public boolean checkConsumableCollision(Character entity, Consumable target) {
@@ -58,6 +61,7 @@ public class CollisionChecker {
 
     public boolean checkEntityAttack(Character entity, Character target){
         if(target != null){
+
             entity.collisionOn = false;
 //            System.out.println(entity.solidArea.x);
             entity.solidArea.x = entity.xCoord + entity.solidArea.x;
@@ -93,5 +97,81 @@ public class CollisionChecker {
             case "left" -> entity.solidArea.x -= entity.movementSpeed;
             case "right" -> entity.solidArea.x += entity.movementSpeed;
         }
+    }
+
+    public void checkTile (PlayerCharacter character) {
+
+        int characterLeft = character.getxCoord() + character.solidArea.x;
+        int characterRight = character.getxCoord() + character.solidArea.x + character.solidArea.width;
+        int characterTop = character.getyCoord() + character.solidArea.y;
+        int characterBottom = character.getyCoord() + character.solidArea.y + character.solidArea.height;
+        int characterLeftCol = characterLeft/gp.tileSize;
+        int characterRightCol = characterRight/gp.tileSize;
+        int characterTopRow = characterTop/gp.tileSize;
+        int characterBottomRow = characterBottom/gp.tileSize;
+
+        int tileNum1, tileNum2;
+
+        switch (character.getDirection()) {
+            case "up" -> {
+                characterTopRow = (characterTop - character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
+                tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
+                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                    character.collisionOn = true;
+                }
+            }
+            case "down" -> {
+                characterBottomRow = (characterBottom + character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
+                tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
+                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                    character.collisionOn = true;
+                }
+            }
+            case "left" -> {
+                characterLeftCol = (characterLeft - character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
+                tileNum2 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
+                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                    character.collisionOn = true;
+                }
+            }
+            case "right" -> {
+                characterRightCol = (characterRight + character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
+                tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
+                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                    character.collisionOn = true;
+                }
+            }
+        }
+    }
+
+    public int checkRoom (PlayerCharacter character) {
+        int characterLeft = character.getxCoord() + character.solidArea.x;
+        int characterRight = character.getxCoord() + character.solidArea.x + character.solidArea.width;
+        int characterTop = character.getyCoord() + character.solidArea.y;
+        int characterBottom = character.getyCoord() + character.solidArea.y + character.solidArea.height;
+
+        if (characterLeft > 616 && characterLeft < 672 && character.roomNub == 0) {
+            if (characterBottom > 226 && characterBottom < 254) {
+                System.out.println("it's in");
+                character.roomNub = 1;
+                gp.tileM.update(1);
+                return 1;
+            }
+        }
+
+        if (characterLeft > 616 && characterLeft < 672 && character.roomNub == 1) {
+            if (characterBottom > 376 && characterBottom < 406) {
+                System.out.println("it's in");
+                character.roomNub = 0;
+                gp.tileM.update(0);
+//                System.out.println(0);
+                return 0;
+            }
+        }
+        return character.roomNub;
     }
 }

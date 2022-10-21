@@ -93,7 +93,7 @@ public class PlayerCharacter extends Character {
 
     public void setDefaultValues() {
         this.setxCoord(100);
-        this.setyCoord(100);
+        this.setyCoord(50);
         this.setMovementSpeed(4);
         this.setDirection("down");
         this.solidArea = new Rectangle(8, 16, 32, 32);
@@ -126,13 +126,13 @@ public class PlayerCharacter extends Character {
             this.setAttackRight2(ImageIO.read(getClass().getResourceAsStream("/player_character/right_attack_2.png")));
             this.setAttackLeft1(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_1.png")));
             this.setAttackLeft2(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_2.png")));
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void update() {
-
+        gp.checker.checkRoom(this);
         if (keyH == null) return;
 
 //<<<<<<< HEAD
@@ -154,38 +154,64 @@ public class PlayerCharacter extends Character {
             }
 
             if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
+                collisionOn = false;
+                gp.checker.checkTile(this);
                 int currentX = this.getxCoord();
                 int currentY = this.getyCoord();
                 int speed = this.getMovementSpeed();
+
                 if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
-                    this.setyCoord(currentY - speed);
+//                    this.setyCoord(currentY - speed);
                     this.setDirection("up");
                 }
                 if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
-                    this.setyCoord(currentY + speed);
+//                    this.setyCoord(currentY + speed);
                     this.setDirection("down");
                 }
                 if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
-                    this.setxCoord(currentX - speed);
+//                    this.setxCoord(currentX - speed);
                     this.setDirection("left");
                 }
                 if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
-                    this.setxCoord(currentX + speed);
+//                    this.setxCoord(currentX + speed);
                     this.setDirection("right");
                 }
-            }
 
-            this.setSpriteCounter(this.getSpriteCounter() + 1);
-
-            if (this.getSpriteCounter() > 12) {
-                if (this.getSpriteNum() == 1) {
-                    this.setSpriteNum(2);
-                } else if (this.getSpriteNum() == 2) {
-                    this.setSpriteNum(1);
+                this.setSpriteCounter(this.getSpriteCounter() + 1);
+                if (this.getSpriteCounter() > 12) {
+                    if (this.getSpriteNum() == 1) {
+                        this.setSpriteNum(2);
+                    } else if (this.getSpriteNum() == 2) {
+                        this.setSpriteNum(1);
+                    }
+                    this.setSpriteCounter(0);
                 }
-                this.setSpriteCounter(0);
+
+
+
+                if(!collisionOn){
+//                    switch (direction) {
+//                        case "up" -> this.setyCoord(currentY - speed);
+//                        case "down" ->this.setyCoord(currentY + speed);
+//                        case "left" -> this.setxCoord(currentX - speed);
+//                        case "right" -> this.setxCoord(currentX + speed);
+//                    }
+                    if(direction.equals("up") && currentY > 0){
+                        this.setyCoord(currentY - speed);
+                    }
+                    if(direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())){
+                        this.setyCoord(currentY + speed);
+                    }
+                    if(direction.equals("left") && currentX > 0){
+                        this.setxCoord(currentX - speed);
+                    }
+                    if(direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())){
+                        this.setxCoord(currentX + speed);
+                    }
+
+                }
             }
-        }
+
 
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             int currentX = this.getxCoord();
@@ -218,10 +244,11 @@ public class PlayerCharacter extends Character {
             this.getProjectile().update();
         }
 
-        this.healthBar.update(this.getHealth());
+            this.healthBar.update(this.getHealth());
+        }
     }
 
-    public void attacking(){
+    public void attacking() {
 
         int currentWorldX = xCoord;
         int currentWorldY = yCoord;
@@ -242,6 +269,7 @@ public class PlayerCharacter extends Character {
         Boolean isHit = gp.checker.checkEntityAttack(this, gp.enemy);
 
 //        System.out.println(isHit);
+
         if(isHit){
             //Audio.enemyDamagedAudio();
             damageMonster();
@@ -261,20 +289,19 @@ public class PlayerCharacter extends Character {
         solidArea.height = collisionAreaHeight;
     }
 
-    public void damageMonster(){
-        if(!gp.enemy.invincible){
+    public void damageMonster () {
+        if (!gp.enemy.invincible) {
             gp.enemy.health -= 1;
             gp.enemy.invincible = true;
             System.out.println(gp.enemy.health);
             Audio.enemyDamagedAudio();
 
-            if(gp.enemy.health <= 0){
+            if (gp.enemy.health <= 0) {
                 gp.enemy.isAlive = false;
             }
         }
 
     }
-
 
     public void damagePlayer() {
         if(!gp.getPlayer().invincible){
@@ -371,44 +398,44 @@ public class PlayerCharacter extends Character {
 
         this.healthBar.draw(g2,
                 this.getxCoord(),
-                this.getyCoord()-this.healthBar.getHeight());
+                this.getyCoord() - this.healthBar.getHeight());
 
     }
 
-    public CharacterType getCharacterType() {
+    public CharacterType getCharacterType () {
         return characterType;
     }
 
-    public void setCharacterType(CharacterType characterType) {
+    public void setCharacterType (CharacterType characterType){
         this.characterType = characterType;
     }
 
-    public Inventory getInventory() {
+    public Inventory getInventory () {
         return inventory;
     }
 
-    public void setInventory(Inventory inventory) {
+    public void setInventory (Inventory inventory){
         this.inventory = inventory;
     }
 
-    public void setGamePanel(GamePanel gp) {
+    public void setGamePanel (GamePanel gp){
         this.gp = gp;
     }
 
-    public void setKeyHandler(KeyHandler keyH) {
+    public void setKeyHandler (KeyHandler keyH){
         this.keyH = keyH;
     }
 
-    public Item getStartingItem() {
+    public Item getStartingItem () {
         return this.startingItem;
     }
 
-    public void setStartingItem(Item startingItem) {
+    public void setStartingItem (Item startingItem){
         this.startingItem = startingItem;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o){
         if (this.getClass() != o.getClass()) return false;
 
         PlayerCharacter pc = (PlayerCharacter) o;
@@ -418,3 +445,4 @@ public class PlayerCharacter extends Character {
     }
 
 }
+
