@@ -199,9 +199,14 @@ public class PlayerCharacter extends Character {
                 if (gp.getLootInRoom() != null){
                     ArrayList<Item> currentList = gp.getLootInRoom();
                     for (int i = 0; i < gp.getLootInRoom().size(); i++) {
-                        if (gp.checker.checkLootCollision(this, gp.getLootInRoom().get(i))) {
-                            inventory.addItem(gp.getLootInRoom().get(i));
-                            currentList.remove(i);
+                        Item item = gp.getLootInRoom().get(i);
+                        if (gp.checker.checkLootCollision(this, item)) {
+                            if (item instanceof Consumable) {
+                                heal(((Consumable) item).consume());
+                            } else {
+                                inventory.addItem(item);
+                                currentList.remove(i);
+                            }
                         }
                     }
                 }

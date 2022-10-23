@@ -96,7 +96,6 @@ public abstract class Character {
      * @param activeEffects Display and apply any affects that this Character possesses
      * @param type Character Combat type
      * @param timeForInvincibility Time for invincibility given a hit occurs against this Character
-     * @param isAlive  Whether character is alive
      */
     public Character(String name, int health, int movementSpeed, int xCoord, int yCoord, int height, int width,
                      ArrayList<String> activeEffects, CombatType type, double timeForInvincibility) {
@@ -110,7 +109,6 @@ public abstract class Character {
         this.activeEffects = activeEffects;
         this.type = type;
         this.timeForInvincibility = timeForInvincibility;
-        this.isAlive = isAlive;
     }
 
 
