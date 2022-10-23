@@ -1,30 +1,20 @@
 package main;
 
-import javax.swing.*;
-
+import ai.Pathfinding;
+import character.NonPlayableCharacter;
 import character.PlayerCharacter;
-
-import loot.*;
-import save.SaveData;
-
-import save.SimpleCharacter;
-
+import enemy.Skeleton;
 import enemy.Slime;
-//<<<<<<< HEAD
-//import loot.SimpleWeapon;
-//=======
+import loot.Consumable;
+import loot.Effect;
+import loot.Weapon;
+import save.SaveData;
+import save.SimpleCharacter;
 import save.SimpleWeapon;
-//>>>>>>> Cameron-Sprint1Progress
 import tile.TileManager;
 
+import javax.swing.*;
 import java.awt.*;
-
-//import java.util.ArrayList;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -37,22 +27,39 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow;	//576 pixels
 
 	public boolean paused = false;
+	public Pathfinding pFinder = new Pathfinding(this);
 
 	private int fps = 60;
 	public CollisionChecker checker = new CollisionChecker(this);
 
 	public TileManager tileM = new TileManager(this);
 
+	private String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
+	private String[] weaponImages = {"/weapons/wooden_sword.png"};
+	private String[] appleImages = {"/consumables/apple.png"};
+
 	public KeyHandler keyH = new KeyHandler();
+
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
-	public Slime enemy = new Slime();
 
-	private ArrayList<Item> lootInRoom;
+	public Weapon weapon = new Weapon(keyH, weaponImages);
+	public Effect effect = new Effect(keyH, effectImages);
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
+
+	//Methods to alter player:
+	/*
+ 	int playerX = player.getxCoord();
+	int playerY = player.getyCoord();
+	double playerSpeed = player.getMovementSpeed();
+
+	player.setxCoord(1); */
+	public NonPlayableCharacter[] enemies = new NonPlayableCharacter[12];
+//	public Slime enemy = new Slime();
+	public Consumable apple = new Consumable(this, appleImages);
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -61,28 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 
-		updateLootInRoom();
 	}
-
-	public void updateLootInRoom() {
-		switch(tileM.getRoomNum()) {
-			case 0:
-				String[] weaponImages = {"/weapons/wooden_sword.png"};
-				String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
-				String[] appleImages = {"/consumables/apple.png"};
-				Weapon weapon = new Weapon(keyH, weaponImages);
-				Effect effect = new Effect(keyH, effectImages);
-				Consumable apple = new Consumable(this, appleImages);
-				this.lootInRoom = new ArrayList<>();
-				this.lootInRoom.add(weapon);
-				this.lootInRoom.add(effect);
-				this.lootInRoom.add(apple);
-				break;
-			case 1:
-				this.lootInRoom = null;
-		}
-	}
-
 	public void setupGame() {
 		assetSetter.setNPC();
 	}
@@ -94,14 +80,15 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void newGame() {
+
 		this.setPlayer(new PlayerCharacter(this, keyH));
-		//this.setWeapon(new Weapon(keyH, weaponImages));
+		this.setWeapon(new Weapon(keyH, weaponImages));
 		newGameHelper();
 	}
 
 	public void newGame(SimpleCharacter sc, SimpleWeapon w) {
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
-		//this.setWeapon(new Weapon(w, keyH));
+		this.setWeapon(new Weapon(w, keyH));
 		newGameHelper();
 	}
 
@@ -117,8 +104,10 @@ public class GamePanel extends JPanel implements Runnable{
 			this.gameThread = new Thread(this);
 			startGameThread();
 		}
-		enemy.setxCoord(100);
-		enemy.setyCoord(100);
+		enemies[0].setxCoord(50);
+		enemies[0].setyCoord(50);
+		enemies[1].setxCoord(150);
+		enemies[1].setyCoord(150);
 		this.resumeThread();
 	}
 
@@ -142,6 +131,10 @@ public class GamePanel extends JPanel implements Runnable{
 
 	@Override
 	public void run() {
+		Slime enemy = new Slime();
+		Skeleton enemy1 = new Skeleton();
+		enemies[0] = enemy;
+		enemies[1] = enemy1;
 
 		double drawInterval;					//converts from nanoseconds to seconds
 		double delta = 0;
@@ -197,12 +190,12 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void update(){
 		player.update();
-		enemy.update(this);
-		if (this.lootInRoom != null) {
-			for (int i = 0; i < this.lootInRoom.size(); i++) {
-				lootInRoom.get(i).update();
-			}
+		for(int i = 0; i<2; i++){
+			enemies[i].update(this);
 		}
+		weapon.update();
+		apple.update();
+		effect.update();
 	}
 
 	public void paintComponent(Graphics g){
@@ -211,13 +204,14 @@ public class GamePanel extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D)g;
 
 		tileM.draw(g2);
-		enemy.draw(g2, this);
-		player.draw(g2);
-		if (this.lootInRoom != null) {
-			for (int i = 0; i < this.lootInRoom.size(); i++) {
-				lootInRoom.get(i).draw(g2, this);
-			}
+		apple.draw(g2, this);
+		for(int i = 0; i<2; i++){
+			enemies[i].draw(g2, this);
 		}
+		player.draw(g2);
+		weapon.draw(g2, this);
+		effect.draw(g2, this);
+
 
 		g2.dispose();
 	}
@@ -237,12 +231,11 @@ public class GamePanel extends JPanel implements Runnable{
 		this.player = player;
 	}
 
-	public ArrayList<Item> getLootInRoom() {
-		return this.lootInRoom;
+	public synchronized Weapon getWeapon() {
+		return this.weapon;
 	}
 
-	public void setLootInRoom(ArrayList<Item> lootInRoom) {
-		this.lootInRoom = lootInRoom;
+	public synchronized void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
-
 }

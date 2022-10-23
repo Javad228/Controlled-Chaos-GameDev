@@ -24,8 +24,7 @@ public abstract class NonPlayableCharacter extends Character {
     //private pattern projectilePattern     // Projectile Pattern
                                             // TODO: Update projectilePattern when fully implemented
     private double attackCooldown;          // Amount of time for a NonPlayableCharacter has to wait in between attacks
-
-
+    public boolean onPath = false;
     /**
      *  Empty constructor to create a generic NonPlayableCharacter
      */
@@ -48,12 +47,16 @@ public abstract class NonPlayableCharacter extends Character {
         }
         setAction(gp);
 //        System.out.println(direction);
-        if(spriteNum!=1&&spriteNum!=2&&spriteNum!=6) {
-            switch (direction) {
-                case "up" -> yCoord -= movementSpeed;
-                case "down" -> yCoord += movementSpeed;
-                case "left" -> xCoord -= movementSpeed;
-                case "right" -> xCoord += movementSpeed;
+        collisionOn = false;
+//        System.out.println(pathfinder);
+        if(!collisionOn) {
+            if (spriteNum != 1 && spriteNum != 2 && spriteNum != 6) {
+                switch (direction) {
+                    case "up" -> yCoord -= movementSpeed;
+                    case "down" -> yCoord += movementSpeed;
+                    case "left" -> xCoord -= movementSpeed;
+                    case "right" -> xCoord += movementSpeed;
+                }
             }
         }
 
@@ -79,7 +82,69 @@ public abstract class NonPlayableCharacter extends Character {
         }
 
     }
+    public void searchPath(int goalCol, int goalRow, GamePanel gp){
+        int startCol = (xCoord + solidArea.x)/gp.tileSize;
+        int startRow = (yCoord + solidArea.y)/gp.tileSize;
 
+        gp.pFinder.setNodes(startCol,startRow,goalCol,goalRow,this);
+
+        if(gp.pFinder.search()){
+            //next worldX and worldY
+            int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
+            int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
+            //Entity's solidArea position
+            int enLeftX = xCoord + solidArea.x;
+            int enRightX = xCoord + solidArea.x + solidArea.width;
+            int enTopY = yCoord + solidArea.y;
+            int enBottomY = yCoord + solidArea.y + solidArea.height;
+
+            if(enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize){
+                direction = "up";
+            }else if(enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize){
+                direction = "down";
+            }else if(enTopY >= nextY && enBottomY < nextY + gp.tileSize){
+                //left or right
+                if(enLeftX > nextX){
+                    direction = "left";
+                }
+                if(enLeftX < nextX){
+                    direction = "right";
+                }
+            }else if(enTopY > nextY && enLeftX > nextX){
+                //up or left
+                direction = "up";
+                collisionOn = false;
+                gp.checker.checkTile(this);
+                if(collisionOn){
+                    direction = "left";
+                }
+            }else if(enTopY > nextY && enLeftX < nextX){
+                //up or right
+                direction = "up";
+                collisionOn = false;
+                gp.checker.checkTile(this);
+                if(collisionOn){
+                    direction = "right";
+                }
+            }else if(enTopY < nextY && enLeftX > nextX){
+                //down or left
+                direction = "down";
+                collisionOn = false;
+                gp.checker.checkTile(this);
+                if(collisionOn){
+                    direction = "left";
+                }
+            }else if(enTopY < nextY && enLeftX < nextX){
+                //down or right
+                direction = "down";
+                collisionOn = false;
+                gp.checker.checkTile(this);
+                if(collisionOn){
+                    direction = "right";
+                }
+            }
+        }
+    }
     public void attacking(GamePanel gamePanel) {    // TODO: Temporary attacking method, exhibits unpredictable behavior
         int currX = this.xCoord;
         int currY = this.yCoord;
@@ -232,10 +297,5 @@ public abstract class NonPlayableCharacter extends Character {
                 g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
                 break;
         }
-
-
-
-
-
     }
 }

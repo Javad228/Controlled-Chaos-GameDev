@@ -1,19 +1,16 @@
 package character;
 
+import loot.Item;
 import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
-
-import loot.*;
 import save.SimpleCharacter;
 
 import javax.imageio.ImageIO;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -37,7 +34,7 @@ public class PlayerCharacter extends Character {
         this.inventory = new Inventory();
         this.gp = gp;
         this.keyH = keyH;
-        this.solidArea.x = 3;
+        this.solidArea.x = 0;
         this.solidArea.y = 18;
         this.setWidth(18);
         this.setHeight(46);
@@ -91,11 +88,11 @@ public class PlayerCharacter extends Character {
     }
 
     public void setDefaultValues() {
-        this.setxCoord(100);
+        this.setxCoord(50);
         this.setyCoord(50);
         this.setMovementSpeed(4);
         this.setDirection("down");
-        this.solidArea = new Rectangle(8, 16, 32, 32);
+        this.solidArea = new Rectangle(0, 16, 30, 30);
         this.attackArea.width = 36;
         this.attackArea.height = 36;
 //        this.setWidth(18);
@@ -196,20 +193,20 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
-                if (gp.getLootInRoom() != null){
-                    ArrayList<Item> currentList = gp.getLootInRoom();
-                    for (int i = 0; i < gp.getLootInRoom().size(); i++) {
-                        Item item = gp.getLootInRoom().get(i);
-                        if (gp.checker.checkLootCollision(this, item)) {
-                            if (item instanceof Consumable) {
-                                heal(((Consumable) item).consume());
-                            } else {
-                                inventory.addItem(item);
-                                currentList.remove(i);
-                            }
-                        }
-                    }
-                }
+//                if (gp.getLootInRoom() != null){
+//                    ArrayList<Item> currentList = gp.getLootInRoom();
+//                    for (int i = 0; i < gp.getLootInRoom().size(); i++) {
+//                        Item item = gp.getLootInRoom().get(i);
+//                        if (gp.checker.checkLootCollision(this, item)) {
+//                            if (item instanceof Consumable) {
+//                                heal(((Consumable) item).consume());
+//                            } else {
+//                                inventory.addItem(item);
+//                                currentList.remove(i);
+//                            }
+//                        }
+//                    }
+//                }
             }
 
 
@@ -266,7 +263,11 @@ public class PlayerCharacter extends Character {
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
 //        System.out.println(solidArea);
-        Boolean isHit = gp.checker.checkEntityAttack(this, gp.enemy);
+        Boolean isHit = false;
+        for(int i = 0; i<2; i++) {
+            isHit = gp.checker.checkEntityAttack(this, gp.enemies[i]);
+        }
+
 
 //        System.out.println(isHit);
 
@@ -292,14 +293,14 @@ public class PlayerCharacter extends Character {
     }
 
     public void damageMonster () {
-        if (!gp.enemy.isInvincible) {
-            gp.enemy.health -= 1;
-            gp.enemy.isInvincible = true;
-            System.out.println(gp.enemy.health);
+        if (!gp.enemies[0].isInvincible) {
+            gp.enemies[0].health -= 1;
+            gp.enemies[0].isInvincible = true;
+            System.out.println(gp.enemies[0].health);
             Audio.enemyDamagedAudio();
 
-            if (gp.enemy.health <= 0) {
-                gp.enemy.isAlive = false;
+            if (gp.enemies[0].health <= 0) {
+                gp.enemies[0].isAlive = false;
             }
         }
 
@@ -308,7 +309,7 @@ public class PlayerCharacter extends Character {
     public void damagePlayer() {
         if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
-            gp.getPlayer().damage(gp.enemy.getDamagePerHit());
+            gp.getPlayer().damage(gp.enemies[0].getDamagePerHit());
             gp.getPlayer().isInvincible = true;
             //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }

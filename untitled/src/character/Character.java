@@ -61,8 +61,8 @@ public abstract class Character {
         this.maxHealth = 100;
         this.health = maxHealth;
         this.movementSpeed = 1;
-        this.xCoord = 300;
-        this.yCoord = 300;
+        this.xCoord = 50;
+        this.yCoord = 50;
         this.height = 50;
         this.width = 50;
         this.activeEffects = new ArrayList<>();
