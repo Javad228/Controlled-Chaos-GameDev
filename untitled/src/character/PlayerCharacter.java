@@ -196,10 +196,13 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
-                if (gp.getLootInRoom() != null){
-                    ArrayList<Item> currentList = gp.getLootInRoom();
-                    for (int i = 0; i < gp.getLootInRoom().size(); i++) {
-                        Item item = gp.getLootInRoom().get(i);
+                // GamePanel has an arraylist of rooms. We are in the room indicated by the currentRoomNum, which
+                // corresponds to the rooms index in the arraylist. Each room has an arraylist of items. Must check if
+                // it is null before proceeding.
+                if (gp.getRooms().get(gp.getCurrentRoomNum()).getItems() != null){
+                    ArrayList<Item> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getItems();
+                    for (int i = 0; i < currentList.size(); i++) {
+                        Item item = currentList.get(i);
                         if (gp.checker.checkLootCollision(this, item)) {
                             if (item instanceof Consumable) {
                                 heal(((Consumable) item).consume());
@@ -266,15 +269,23 @@ public class PlayerCharacter extends Character {
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
 //        System.out.println(solidArea);
-        Boolean isHit = gp.checker.checkEntityAttack(this, gp.enemy);
+        if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
+            ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
+            for (int i = 0; i < currentList.size(); i++) {
+                Enemy enemy = currentList.get(i);
+                Boolean isHit = gp.checker.checkEntityAttack(this, enemy);
+                if(isHit){
+                    //Audio.enemyDamagedAudio();
+                    damageMonster(enemy);
+                    System.out.println("Hit");
+                }
+
+            }
+        }
 
 //        System.out.println(isHit);
 
-        if(isHit){
-            //Audio.enemyDamagedAudio();
-            damageMonster();
-            System.out.println("Hit");
-        }
+
 
         /*
         isHit = gp.checker.checkConsumableCollision(this, gp.apple);
@@ -291,24 +302,24 @@ public class PlayerCharacter extends Character {
         solidArea.height = collisionAreaHeight;
     }
 
-    public void damageMonster () {
-        if (!gp.enemy.isInvincible) {
-            gp.enemy.health -= 1;
-            gp.enemy.isInvincible = true;
-            System.out.println(gp.enemy.health);
+    public void damageMonster (Enemy enemy) {
+        if (!enemy.isInvincible) {
+            enemy.health -= 1;
+            enemy.isInvincible = true;
+            System.out.println(enemy.health);
             Audio.enemyDamagedAudio();
 
-            if (gp.enemy.health <= 0) {
-                gp.enemy.isAlive = false;
+            if (enemy.health <= 0) {
+                enemy.isAlive = false;
             }
         }
 
     }
 
-    public void damagePlayer() {
+    public void damagePlayer(NonPlayableCharacter entity) {
         if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
-            gp.getPlayer().damage(gp.enemy.getDamagePerHit());
+            gp.getPlayer().damage(entity.getDamagePerHit());
             gp.getPlayer().isInvincible = true;
             //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }

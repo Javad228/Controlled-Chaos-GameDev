@@ -1,5 +1,6 @@
 package enemy;
 
+import character.Enemy;
 import character.NonPlayableCharacter;
 import main.GamePanel;
 
@@ -9,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-public class Slime extends NonPlayableCharacter {
+public class Slime extends Enemy {
 
     public Slime() {
         super();

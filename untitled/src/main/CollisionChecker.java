@@ -153,23 +153,23 @@ public class CollisionChecker {
         int characterTop = character.getyCoord() + character.solidArea.y;
         int characterBottom = character.getyCoord() + character.solidArea.y + character.solidArea.height;
 
-        if (characterLeft > 616 && characterLeft < 672 && gp.tileM.getRoomNum() == 0) {
+        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 0) {
             if (characterBottom > 226 && characterBottom < 254) {
                 System.out.println("it's in");
-                gp.tileM.setRoomNum(1);
+                gp.setCurrentRoomNum(1);
                 gp.tileM.update();
                 return 1;
             }
         }
 
-        if (characterLeft > 616 && characterLeft < 672 && gp.tileM.getRoomNum() == 1) {
+        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 1) {
             if (characterBottom > 376 && characterBottom < 406) {
                 System.out.println("it's in");
-                gp.tileM.setRoomNum(0);
+                gp.setCurrentRoomNum(0);
                 gp.tileM.update();
                 return 0;
             }
         }
-        return gp.tileM.getRoomNum();
+        return gp.getCurrentRoomNum();
     }
 }

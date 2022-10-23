@@ -12,9 +12,11 @@ public class AssetSetter {
     }
 
     public void setNPC() {
+        // had to comment this out because of the room class edition. not sure what this will break...
+        /*
         gp.enemy = new Slime();
         gp.enemy.xCoord = 100;
         gp.enemy.yCoord = 100;
-
+        */
     }
 }
