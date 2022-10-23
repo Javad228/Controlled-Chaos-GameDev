@@ -5,8 +5,6 @@ import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
 
-import character.Arrow;
-
 import loot.*;
 import save.SimpleCharacter;
 
@@ -15,6 +13,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -135,11 +134,10 @@ public class PlayerCharacter extends Character {
         gp.checker.checkRoom(this);
         if (keyH == null) return;
 
-//<<<<<<< HEAD
-        if(invincible){
+        if(isInvincible){
             invincibleCounter++;
             if(invincibleCounter>30){
-                invincible = false;
+                isInvincible = false;
                 invincibleCounter = 0;
             }
         }
@@ -160,20 +158,16 @@ public class PlayerCharacter extends Character {
                 int currentY = this.getyCoord();
                 int speed = this.getMovementSpeed();
 
-                if (keyH.wPressed && !keyH.sPressed && currentY > 0) {
-//                    this.setyCoord(currentY - speed);
+                if (keyH.wPressed) {
                     this.setDirection("up");
                 }
-                if (keyH.sPressed && !keyH.wPressed && currentY < (gp.screenHeight - this.getHeight())) {
-//                    this.setyCoord(currentY + speed);
+                if (keyH.sPressed && !keyH.wPressed) {
                     this.setDirection("down");
                 }
-                if (keyH.aPressed && !keyH.dPressed && currentX > 0) {
-//                    this.setxCoord(currentX - speed);
+                if (keyH.aPressed && !keyH.dPressed) {
                     this.setDirection("left");
                 }
-                if (keyH.dPressed && !keyH.aPressed && currentX < (gp.screenWidth - this.getWidth())) {
-//                    this.setxCoord(currentX + speed);
+                if (keyH.dPressed && !keyH.aPressed) {
                     this.setDirection("right");
                 }
 
@@ -187,15 +181,7 @@ public class PlayerCharacter extends Character {
                     this.setSpriteCounter(0);
                 }
 
-
-
                 if(!collisionOn){
-//                    switch (direction) {
-//                        case "up" -> this.setyCoord(currentY - speed);
-//                        case "down" ->this.setyCoord(currentY + speed);
-//                        case "left" -> this.setxCoord(currentX - speed);
-//                        case "right" -> this.setxCoord(currentX + speed);
-//                    }
                     if(direction.equals("up") && currentY > 0){
                         this.setyCoord(currentY - speed);
                     }
@@ -208,41 +194,50 @@ public class PlayerCharacter extends Character {
                     if(direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())){
                         this.setxCoord(currentX + speed);
                     }
+                }
 
+                if (gp.getLootInRoom() != null){
+                    ArrayList<Item> currentList = gp.getLootInRoom();
+                    for (int i = 0; i < gp.getLootInRoom().size(); i++) {
+                        if (gp.checker.checkLootCollision(this, gp.getLootInRoom().get(i))) {
+                            inventory.addItem(gp.getLootInRoom().get(i));
+                            currentList.remove(i);
+                        }
+                    }
                 }
             }
 
 
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            int currentX = this.getxCoord();
-            int currentY = this.getyCoord();
-            int movementSpeed = this.getProjectile().getMovementSpeed();
+            if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+                int currentX = this.getxCoord();
+                int currentY = this.getyCoord();
+                int movementSpeed = this.getProjectile().getMovementSpeed();
 
-            if (keyH.upPressed && !keyH.downPressed) {
-                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                if (keyH.upPressed && !keyH.downPressed) {
+                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
+                if (keyH.downPressed && !keyH.upPressed) {
+                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
+                if (keyH.leftPressed && !keyH.rightPressed) {
+                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
+                if (keyH.rightPressed && !keyH.leftPressed) {
+                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
             }
-            if (keyH.downPressed && !keyH.upPressed) {
-                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
-            }
-            if (keyH.leftPressed && !keyH.rightPressed) {
-                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
-            }
-            if (keyH.rightPressed && !keyH.leftPressed) {
-                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);               
-            }
-        }
 
-        if (this.isHasThrownProjectile()) {
-            this.getProjectile().update();
-        }
+            if (this.isHasThrownProjectile()) {
+                this.getProjectile().update();
+            }
 
             this.healthBar.update(this.getHealth());
         }
@@ -276,11 +271,13 @@ public class PlayerCharacter extends Character {
             System.out.println("Hit");
         }
 
+        /*
         isHit = gp.checker.checkConsumableCollision(this, gp.apple);
 
         if(isHit && gp.apple.isVisible) {
             heal(gp.apple.consume());
         }
+         */
 
         //After checking collision, restore original data
         xCoord = currentWorldX;
@@ -290,9 +287,9 @@ public class PlayerCharacter extends Character {
     }
 
     public void damageMonster () {
-        if (!gp.enemy.invincible) {
+        if (!gp.enemy.isInvincible) {
             gp.enemy.health -= 1;
-            gp.enemy.invincible = true;
+            gp.enemy.isInvincible = true;
             System.out.println(gp.enemy.health);
             Audio.enemyDamagedAudio();
 
@@ -304,10 +301,10 @@ public class PlayerCharacter extends Character {
     }
 
     public void damagePlayer() {
-        if(!gp.getPlayer().invincible){
+        if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
             gp.getPlayer().damage(gp.enemy.getDamagePerHit());
-            gp.getPlayer().invincible = true;
+            gp.getPlayer().isInvincible = true;
             //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }
     }

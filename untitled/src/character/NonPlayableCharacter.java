@@ -39,10 +39,10 @@ public abstract class NonPlayableCharacter extends Character {
     public void setAction(GamePanel gp){}
 
     public void update(GamePanel gp){
-        if(invincible){
+        if(isInvincible){
             invincibleCounter++;
             if(invincibleCounter>30){
-                invincible = false;
+                isInvincible = false;
                 invincibleCounter = 0;
             }
         }
@@ -136,7 +136,7 @@ public abstract class NonPlayableCharacter extends Character {
         g2.setColor(new Color(255, 0, 30));
         g2.fillRect(xCoord, yCoord - 3 , (int) hpBarValue, 10);
 
-        if(invincible){
+        if(isInvincible){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
         }else{
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));

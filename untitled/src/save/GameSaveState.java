@@ -20,4 +20,10 @@ public class GameSaveState {
         this.player = player;
         this.weapon = weapon;
     }
+
+    // 10/22 - put this in temporarily to get rid of an error within SaveData.java. Currently trying to decouple the
+    // presence of items in the room from the GamePanel class. ~KA
+    public GameSaveState(SimpleCharacter player) {
+        this.player = player;
+    }
 }

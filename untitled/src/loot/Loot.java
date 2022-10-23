@@ -17,6 +17,9 @@ public class Loot {
     private String[] imagePaths;
     private BufferedImage[] lootImages;
     private int framesToWait;
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public int collisionAreaDefaultX = solidArea.x;
+    public int collisionAreaDefaultY = solidArea.y;
     // the following variables are used for bobbing motion
     private int spritePosition = 0; // gives current position of weapon in its movement
     private boolean isBobbingUp = true;

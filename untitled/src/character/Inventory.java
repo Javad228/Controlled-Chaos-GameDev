@@ -31,6 +31,9 @@ public class Inventory {
         this.coinAmount = coinAmount;
     }
 
+    public void addItem(Item item) {
+        this.listOfItems.add(item);
+    }
 
     public int getNumberOfSlots() {
         return numberOfSlots;
