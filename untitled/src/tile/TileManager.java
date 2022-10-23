@@ -15,24 +15,31 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
+    private int roomNum;
+    private Object[] loot;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[10];
         mapTileNum = new int[gp.maxScreenCol+1][gp.maxScreenRow+1];
+        this.roomNum = 0;   // might need to change based on saved progress
         getTileImage();
-        update(0);
+        update();
     }
 
-    public void update(int roomNub) {
-        System.out.println(roomNub);
-        if (roomNub == 1) {
+    public void update() {
+        System.out.println(roomNum);
+        if (roomNum == 1) {
             System.out.println("loaded");
             loadMap("/maps/map1.txt");
             System.out.println("loaded success");
         }
-        if (roomNub == 0) {
+        if (roomNum == 0) {
             loadMap("/maps/map0.txt");
+        }
+
+        if (gp.tileM != null){
+            gp.updateLootInRoom();
         }
     }
 
@@ -105,5 +112,21 @@ public class TileManager {
                 y += gp.tileSize;
             }
         }
+    }
+
+    public int getRoomNum() {
+        return roomNum;
+    }
+
+    public void setRoomNum(int roomNum) {
+        this.roomNum = roomNum;
+    }
+
+    public Object[] getLoot() {
+        return loot;
+    }
+
+    public void setLoot(Object[] loot) {
+        this.loot = loot;
     }
 }

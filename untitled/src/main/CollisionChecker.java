@@ -2,9 +2,8 @@ package main;
 
 import character.Character;
 
-import character.NonPlayableCharacter;
 import character.PlayerCharacter;
-import loot.Consumable;
+import loot.Loot;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -13,7 +12,7 @@ public class CollisionChecker {
         this.gp = gamePanel;
     }
 
-    public boolean checkConsumableCollision(Character entity, Consumable target) {
+    public boolean checkLootCollision(Character entity, Loot target) {
         if (target == null) return false;
 
         entity.collisionOn = false;
@@ -154,24 +153,23 @@ public class CollisionChecker {
         int characterTop = character.getyCoord() + character.solidArea.y;
         int characterBottom = character.getyCoord() + character.solidArea.y + character.solidArea.height;
 
-        if (characterLeft > 616 && characterLeft < 672 && character.roomNub == 0) {
+        if (characterLeft > 616 && characterLeft < 672 && gp.tileM.getRoomNum() == 0) {
             if (characterBottom > 226 && characterBottom < 254) {
                 System.out.println("it's in");
-                character.roomNub = 1;
-                gp.tileM.update(1);
+                gp.tileM.setRoomNum(1);
+                gp.tileM.update();
                 return 1;
             }
         }
 
-        if (characterLeft > 616 && characterLeft < 672 && character.roomNub == 1) {
+        if (characterLeft > 616 && characterLeft < 672 && gp.tileM.getRoomNum() == 1) {
             if (characterBottom > 376 && characterBottom < 406) {
                 System.out.println("it's in");
-                character.roomNub = 0;
-                gp.tileM.update(0);
-//                System.out.println(0);
+                gp.tileM.setRoomNum(0);
+                gp.tileM.update();
                 return 0;
             }
         }
-        return character.roomNub;
+        return gp.tileM.getRoomNum();
     }
 }

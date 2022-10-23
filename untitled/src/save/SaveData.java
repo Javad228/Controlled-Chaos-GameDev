@@ -106,7 +106,8 @@ public class SaveData {
     public boolean saveGameState() {
         try {
             FileWriter f = new FileWriter(file);
-            f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
+            f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()))));
+            //f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
             f.close();
             return false;
         } catch (IOException e) {

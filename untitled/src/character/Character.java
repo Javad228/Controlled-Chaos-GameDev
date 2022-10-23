@@ -16,8 +16,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Character {
-    public boolean attacking = false;
-    public boolean invincible = false;
+    public boolean isInvincible = false;
     public int invincibleCounter = 0;
     public boolean isAlive = true;
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
@@ -53,8 +52,6 @@ public abstract class Character {
 
     public int collisionAreaDefaultY;
     public int collisionAreaDefaultX;
-
-    public int roomNub = 0;
 
     /**
      * Empty constructor to create a generic Character
@@ -99,7 +96,6 @@ public abstract class Character {
      * @param activeEffects Display and apply any affects that this Character possesses
      * @param type Character Combat type
      * @param timeForInvincibility Time for invincibility given a hit occurs against this Character
-     * @param isAlive  Whether character is alive
      */
     public Character(String name, int health, int movementSpeed, int xCoord, int yCoord, int height, int width,
                      ArrayList<String> activeEffects, CombatType type, double timeForInvincibility) {
@@ -113,7 +109,6 @@ public abstract class Character {
         this.activeEffects = activeEffects;
         this.type = type;
         this.timeForInvincibility = timeForInvincibility;
-        this.isAlive = isAlive;
     }
 
 

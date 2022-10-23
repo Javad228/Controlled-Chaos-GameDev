@@ -15,9 +15,6 @@ public class Consumable extends Item {
     public boolean isVisible = true;
     public int disappearTimer;
     public int disappearTimerDefault;
-    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
-    public int collisionAreaDefaultX = solidArea.x;
-    public int collisionAreaDefaultY = solidArea.y;
 
     public BufferedImage consumableImage = null;
 
