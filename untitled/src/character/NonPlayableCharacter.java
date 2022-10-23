@@ -39,26 +39,6 @@ public abstract class NonPlayableCharacter extends Character {
     public void setAction(GamePanel gp){}
 
     public void update(GamePanel gp){
-        if(isInvincible){
-            invincibleCounter++;
-            if(invincibleCounter>30){
-                isInvincible = false;
-                invincibleCounter = 0;
-            }
-        }
-        setAction(gp);
-//        System.out.println(direction);
-        if(spriteNum!=1&&spriteNum!=2&&spriteNum!=6) {
-            switch (direction) {
-                case "up" -> yCoord -= movementSpeed;
-                case "down" -> yCoord += movementSpeed;
-                case "left" -> xCoord -= movementSpeed;
-                case "right" -> xCoord += movementSpeed;
-            }
-        }
-
-        attacking(gp);
-
         int frameAdjust = 12;
         spriteCounter++;
         if(spriteCounter > frameAdjust){
@@ -77,6 +57,30 @@ public abstract class NonPlayableCharacter extends Character {
             }
             spriteCounter = 0;
         }
+
+        if (!this.getIsAlive()) { // if dead, then don't update the position
+            return;
+        }
+
+        if(isInvincible){
+            invincibleCounter++;
+            if(invincibleCounter>30){
+                isInvincible = false;
+                invincibleCounter = 0;
+            }
+        }
+        setAction(gp);
+//        System.out.println(direction);
+        if(spriteNum !=1 && spriteNum !=2 && spriteNum !=6) {
+            switch (direction) {
+                case "up" -> yCoord -= movementSpeed;
+                case "down" -> yCoord += movementSpeed;
+                case "left" -> xCoord -= movementSpeed;
+                case "right" -> xCoord += movementSpeed;
+            }
+        }
+
+        attacking(gp);
 
     }
 
@@ -145,6 +149,34 @@ public abstract class NonPlayableCharacter extends Character {
     public void draw(Graphics2D g2, GamePanel gamePanel){
         drawHP(g2, gamePanel);
         BufferedImage image = null;
+
+        if (!getIsAlive()) {
+            // configure animations
+            // after animations are done remove from room
+            switch(this.getSpriteNum()) {
+                case 1:
+                    image = this.getDeath1();
+                    break;
+                case 2:
+                    image = this.getDeath2();
+                    break;
+                case 3:
+                    image = this.getDeath3();
+                    break;
+                case 4:
+                    image = this.getDeath4();
+                    break;
+                case 5:
+                    image = this.getDeath5();
+                    break;
+                case 6: // out of sprites, remove enemy from room and exit method
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
+                    return;
+            }
+            g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
+            return;
+        }
 
         switch(this.getDirection()) {
             case "up":
@@ -232,10 +264,6 @@ public abstract class NonPlayableCharacter extends Character {
                 g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
                 break;
         }
-
-
-
-
 
     }
 }
