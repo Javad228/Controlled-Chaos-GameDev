@@ -89,7 +89,7 @@ public class PlayerCharacter extends Character {
 
     public void setDefaultValues() {
         this.setxCoord(50);
-        this.setyCoord(50);
+        this.setyCoord(200);
         this.setMovementSpeed(4);
         this.setDirection("down");
         this.solidArea = new Rectangle(0, 16, 30, 30);
@@ -138,7 +138,36 @@ public class PlayerCharacter extends Character {
                 invincibleCounter = 0;
             }
         }
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            int currentX = this.getxCoord();
+            int currentY = this.getyCoord();
+            int movementSpeed = this.getProjectile().getMovementSpeed();
 
+            if (keyH.upPressed && !keyH.downPressed) {
+                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.downPressed && !keyH.upPressed) {
+                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.leftPressed && !keyH.rightPressed) {
+                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.rightPressed && !keyH.leftPressed) {
+                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+        }
+
+        if (this.isHasThrownProjectile()) {
+            this.getProjectile().update();
+        }
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
             if (keyH.kPressed) {
@@ -210,36 +239,7 @@ public class PlayerCharacter extends Character {
             }
 
 
-            if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-                int currentX = this.getxCoord();
-                int currentY = this.getyCoord();
-                int movementSpeed = this.getProjectile().getMovementSpeed();
 
-                if (keyH.upPressed && !keyH.downPressed) {
-                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.downPressed && !keyH.upPressed) {
-                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.leftPressed && !keyH.rightPressed) {
-                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.rightPressed && !keyH.leftPressed) {
-                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-            }
-
-            if (this.isHasThrownProjectile()) {
-                this.getProjectile().update();
-            }
 
             this.healthBar.update(this.getHealth());
         }
@@ -274,7 +274,7 @@ public class PlayerCharacter extends Character {
         if(isHit){
             //Audio.enemyDamagedAudio();
             damageMonster();
-            System.out.println("Hit");
+//            System.out.println("Hit");
         }
 
         /*
@@ -296,7 +296,7 @@ public class PlayerCharacter extends Character {
         if (!gp.enemies[0].isInvincible) {
             gp.enemies[0].health -= 1;
             gp.enemies[0].isInvincible = true;
-            System.out.println(gp.enemies[0].health);
+//            System.out.println(gp.enemies[0].health);
             Audio.enemyDamagedAudio();
 
             if (gp.enemies[0].health <= 0) {

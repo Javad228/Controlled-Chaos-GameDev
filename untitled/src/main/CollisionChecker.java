@@ -1,8 +1,6 @@
 package main;
 
 import character.Character;
-
-import character.NonPlayableCharacter;
 import character.PlayerCharacter;
 import loot.Loot;
 
@@ -141,7 +139,7 @@ public class CollisionChecker {
                 }
             }
         }
-        System.out.println(character.collisionOn);
+//        System.out.println(character.collisionOn);
     }
 
     public void checkPath (Character character,int[][] maze) {
@@ -165,7 +163,7 @@ public class CollisionChecker {
 //                    maze[characterLeftCol][characterTopRow1 - 1] = 9;
 //                    maze[characterLeftCol][characterTopRow1] = 9;
                     character.setDirection("up");
-                    System.out.println("up");
+//                    System.out.println("up");
                 }
             }
         }
@@ -174,7 +172,7 @@ public class CollisionChecker {
 //                maze[characterLeftCol][characterBottomRow1+1] = 9;
 //                maze[characterLeftCol][characterBottomRow1] = 9;
                 character.setDirection("down");
-                System.out.println("down");
+//                System.out.println("down");
             }
         }
         if(maze[characterLeftCol1][characterBottomRow]==5 || maze[characterLeftCol1][characterBottomRow]==9){
@@ -182,7 +180,7 @@ public class CollisionChecker {
 //                maze[characterLeftCol1-1][characterBottomRow]=9;
 //                maze[characterLeftCol1][characterBottomRow]=9;
                 character.setDirection("left");
-                System.out.println("left");
+//                System.out.println("left");
             }
 
         }
@@ -191,7 +189,7 @@ public class CollisionChecker {
 //                maze[characterRightCol1+1][characterBottomRow]=9;
 //                maze[characterRightCol1][characterBottomRow]=9;
                 character.setDirection("right");
-                System.out.println("right");
+//                System.out.println("right");
             }
 
         }
@@ -202,7 +200,7 @@ public class CollisionChecker {
             }
             result.append("\n");
         }
-        System.out.println(result);
+//        System.out.println(result);
         switch (character.getDirection()) {
             case "up" -> {
                 characterTopRow = (characterTop - character.getMovementSpeed()) / gp.tileSize;
@@ -219,8 +217,8 @@ public class CollisionChecker {
                 if (tileNum1 != 5 || tileNum2 != 5) {
                     character.collisionOn = true;
                 }
-                System.out.println(characterTopRow);
-                System.out.println(characterBottomRow);
+//                System.out.println(characterTopRow);
+//                System.out.println(characterBottomRow);
             }
             case "left" -> {
                 characterLeftCol = (characterLeft - character.getMovementSpeed()) / gp.tileSize;
@@ -239,7 +237,7 @@ public class CollisionChecker {
                 }
             }
         }
-        System.out.println(character.collisionOn);
+//        System.out.println(character.collisionOn);
     }
     public int checkRoom (PlayerCharacter character) {
         int characterLeft = character.getxCoord() + character.solidArea.x;

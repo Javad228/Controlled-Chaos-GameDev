@@ -15,8 +15,9 @@ import java.awt.image.BufferedImage;
 
 public abstract class NonPlayableCharacter extends Character {
 
-    //public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
 
+
+    //public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     private int damagePerHit;               // Amount of damage a NonPlayableCharacter can inflict on other Characters
     private DamageType damageType;          // Type of damage a NonPlayableCharacter can inflict
     //private script pathfindingScript      // Pathfinding Script
@@ -25,6 +26,7 @@ public abstract class NonPlayableCharacter extends Character {
                                             // TODO: Update projectilePattern when fully implemented
     private double attackCooldown;          // Amount of time for a NonPlayableCharacter has to wait in between attacks
     public boolean onPath = false;
+    public boolean canMove = true;
     /**
      *  Empty constructor to create a generic NonPlayableCharacter
      */
@@ -50,12 +52,14 @@ public abstract class NonPlayableCharacter extends Character {
         collisionOn = false;
 //        System.out.println(pathfinder);
         if(!collisionOn) {
-            if (spriteNum != 1 && spriteNum != 2 && spriteNum != 6) {
-                switch (direction) {
-                    case "up" -> yCoord -= movementSpeed;
-                    case "down" -> yCoord += movementSpeed;
-                    case "left" -> xCoord -= movementSpeed;
-                    case "right" -> xCoord += movementSpeed;
+            if(canMove) {
+                if (spriteNum != 1 && spriteNum != 2 && spriteNum != 6) {
+                    switch (direction) {
+                        case "up" -> yCoord -= movementSpeed;
+                        case "down" -> yCoord += movementSpeed;
+                        case "left" -> xCoord -= movementSpeed;
+                        case "right" -> xCoord += movementSpeed;
+                    }
                 }
             }
         }
@@ -208,6 +212,9 @@ public abstract class NonPlayableCharacter extends Character {
         }
     }
     public void draw(Graphics2D g2, GamePanel gamePanel){
+        if (this.isHasThrownProjectile()) {
+            this.getProjectile().draw(g2);
+        }
         drawHP(g2, gamePanel);
         BufferedImage image = null;
 

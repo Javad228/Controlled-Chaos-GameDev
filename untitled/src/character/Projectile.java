@@ -29,6 +29,7 @@ public class Projectile extends Character {
     }
 
     public void update() {
+
         if (isMoving) {
             switch (direction) {
                 case "up":
@@ -66,6 +67,7 @@ public class Projectile extends Character {
             //Potentially add if statement for piercing effects where projectile isn't destroyed
             this.setIsAlive(false);
         }
+
 
         //After checking collision, restore original data
         xCoord = currentWorldX;

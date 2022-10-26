@@ -28,7 +28,7 @@ public class TileManager {
     }
 
     public void update() {
-        System.out.println(roomNum);
+//        System.out.println(roomNum);
         if (roomNum == 1) {
             System.out.println("loaded");
             loadMap("/maps/map2.txt");

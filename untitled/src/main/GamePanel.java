@@ -5,6 +5,7 @@ import character.NonPlayableCharacter;
 import character.PlayerCharacter;
 import enemy.Skeleton;
 import enemy.Slime;
+import enemy.Wizard;
 import loot.Consumable;
 import loot.Effect;
 import loot.Weapon;
@@ -104,10 +105,6 @@ public class GamePanel extends JPanel implements Runnable{
 			this.gameThread = new Thread(this);
 			startGameThread();
 		}
-		enemies[0].setxCoord(50);
-		enemies[0].setyCoord(50);
-		enemies[1].setxCoord(150);
-		enemies[1].setyCoord(150);
 		this.resumeThread();
 	}
 
@@ -133,8 +130,10 @@ public class GamePanel extends JPanel implements Runnable{
 	public void run() {
 		Slime enemy = new Slime();
 		Skeleton enemy1 = new Skeleton();
+		Wizard enemy2 = new Wizard(this);
 		enemies[0] = enemy;
 		enemies[1] = enemy1;
+		enemies[2] = enemy2;
 
 		double drawInterval;					//converts from nanoseconds to seconds
 		double delta = 0;
@@ -190,7 +189,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void update(){
 		player.update();
-		for(int i = 0; i<2; i++){
+		for(int i = 0; i<3; i++){
 			enemies[i].update(this);
 		}
 		weapon.update();
@@ -205,7 +204,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		tileM.draw(g2);
 		apple.draw(g2, this);
-		for(int i = 0; i<2; i++){
+		for(int i = 0; i<3; i++){
 			enemies[i].draw(g2, this);
 		}
 		player.draw(g2);

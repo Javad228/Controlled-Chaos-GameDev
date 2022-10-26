@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Character {
+    public int attackType = 0;
     public boolean isInvincible = false;
     public int invincibleCounter = 0;
     public boolean isAlive = true;
