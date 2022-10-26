@@ -2,6 +2,7 @@ package loot;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.Main;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,8 +23,8 @@ public class Consumable extends Item {
     public Consumable(KeyHandler keyH, String[] consumableImages) {
         super(keyH, 7, consumableImages);
         this.healthGiven = 20;
-        //this.disappearTimer = gp.getFps() * 5;
-        //this.disappearTimerDefault = disappearTimer;
+        this.disappearTimer = 60 * 5;   //TODO: Set constant timer to respawn item instead of user-set FPS
+        this.disappearTimerDefault = disappearTimer;
 
         setDefaultValues();
         getConsumableImage();
@@ -54,12 +55,12 @@ public class Consumable extends Item {
             frameCounter = 0;
         }
 
-        /*
+
         if (!isVisible && --disappearTimer == 0) {
             isVisible = true;
             disappearTimer = disappearTimerDefault;
         }
-        */
+
     }
 
     public void getConsumableImage() {

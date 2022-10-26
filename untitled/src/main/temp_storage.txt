@@ -1,0 +1,112 @@
+{
+  "player": {
+    "name": "",
+    "health": 100,
+    "maxHealth": 100,
+    "movementSpeed": 4,
+    "xCoord": 548,
+    "yCoord": 254,
+    "activeEffects": [],
+    "combatType": "DEFAULT",
+    "currentRoom": "Test",
+    "inventory": {
+      "numberOfSlots": 10,
+      "listOfItems": [
+        {
+          "description": "",
+          "price": 0.0,
+          "isEquipped": false,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 200,
+          "yCoord": 200,
+          "keyH": {
+            "kPressed": false,
+            "wPressed": false,
+            "sPressed": false,
+            "aPressed": false,
+            "dPressed": false,
+            "upPressed": false,
+            "downPressed": false,
+            "leftPressed": false,
+            "rightPressed": false
+          },
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "lootImages": [
+            {}
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": false,
+          "frameCounter": 6,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "speedMultiplier": 1,
+          "damageModifier": 1,
+          "effectTimer": 0,
+          "customEffect": 1,
+          "description": "",
+          "price": 0.0,
+          "isEquipped": false,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 300,
+          "yCoord": 300,
+          "keyH": {
+            "kPressed": false,
+            "wPressed": false,
+            "sPressed": false,
+            "aPressed": false,
+            "dPressed": false,
+            "upPressed": false,
+            "downPressed": false,
+            "leftPressed": false,
+            "rightPressed": false
+          },
+          "imagePaths": [
+            "/effects/invincibility_1.png",
+            "/effects/invincibility_2.png",
+            "/effects/invincibility_3.png"
+          ],
+          "lootImages": [
+            {},
+            {},
+            {}
+          ],
+          "framesToWait": 20,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 3,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 2,
+          "isExpanding": true
+        }
+      ],
+      "coinAmount": 0
+    },
+    "characterType": "DEFAULT"
+  }
+}
