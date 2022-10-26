@@ -1,0 +1,17 @@
+private int[][] readFile() {
+        try {
+            Scanner scan = new Scanner(new File("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\res\\maps\\asdc.txt"));
+            nRows = scan.nextInt();
+            nCols = scan.nextInt();
+            maze = new int[nRows][nCols];
+            for(int i=0;i<nRows;i++){
+                for(int j=0;j<nCols;j++){
+                    maze[i][j] = scan.nextInt();
+                }
+            }
+            scan.close();
+            return maze;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }

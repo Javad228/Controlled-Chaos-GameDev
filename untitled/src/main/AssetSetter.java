@@ -1,5 +1,5 @@
 package main;
-import enemy.Slime;
+
 public class AssetSetter {
     GamePanel gp;
 
@@ -12,9 +12,7 @@ public class AssetSetter {
     }
 
     public void setNPC() {
-        gp.enemy = new Slime();
-        gp.enemy.xCoord = 100;
-        gp.enemy.yCoord = 100;
+
 
     }
 }

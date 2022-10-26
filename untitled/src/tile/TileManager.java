@@ -28,19 +28,19 @@ public class TileManager {
     }
 
     public void update() {
-        System.out.println(roomNum);
+//        System.out.println(roomNum);
         if (roomNum == 1) {
             System.out.println("loaded");
-            loadMap("/maps/map1.txt");
+            loadMap("/maps/map2.txt");
             System.out.println("loaded success");
         }
         if (roomNum == 0) {
-            loadMap("/maps/map0.txt");
+            loadMap("/maps/map2.txt");
         }
 
-        if (gp.tileM != null){
-            gp.updateLootInRoom();
-        }
+//        if (gp.tileM != null){
+//            gp.updateLootInRoom();
+//        }
     }
 
     public void getTileImage() {
@@ -78,6 +78,7 @@ public class TileManager {
                     int num = Integer.parseInt(numbers[col]);
 
                     mapTileNum[col][row] = num;
+
                     col++;
                 }
 
@@ -86,6 +87,8 @@ public class TileManager {
                     row++;
                 }
             }
+
+
             br.close();
         } catch(Exception e) {
 

@@ -90,10 +90,11 @@ class TestHealthBar {
 
         gamePanel.getPlayer().setxCoord(gamePanel.getWidth()/2);
         gamePanel.getPlayer().setyCoord(gamePanel.getHeight()/2);
-        gamePanel.enemy.setxCoord(gamePanel.getWidth()/2 - gamePanel.tileSize);
-        gamePanel.enemy.setyCoord(gamePanel.getHeight()/2 - gamePanel.tileSize);
-        gamePanel.enemy.setDamagePerHit(25);
-
+        for(int i = 0; i<2; i++){
+            gamePanel.enemies[i].setxCoord(gamePanel.getWidth()/2 - gamePanel.tileSize);
+            gamePanel.enemies[i].setyCoord(gamePanel.getHeight()/2 - gamePanel.tileSize);
+            gamePanel.enemies[i].setDamagePerHit(25);
+        }
         gamePanel.startGameThread();
     }
 
