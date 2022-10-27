@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
 		assetSetter.setNPC();
 	}
 	public void startGameThread() {
-		//Audio.stopMusic();
+		Audio.stopMusic();
 		Audio.openingMusic();
 		gameThread = new Thread(this);
 		gameThread.start();
