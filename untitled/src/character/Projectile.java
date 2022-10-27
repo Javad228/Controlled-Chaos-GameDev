@@ -1,6 +1,7 @@
 package character;
 
 import main.GamePanel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -28,7 +29,7 @@ public class Projectile extends Character {
         //this.user = user;
     }
 
-    public void update() {
+    public void update(Character entity) {
 
         if (isMoving) {
             switch (direction) {

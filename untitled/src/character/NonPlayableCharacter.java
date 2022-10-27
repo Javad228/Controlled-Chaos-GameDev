@@ -5,6 +5,7 @@ import main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 /**
  * NonPlayableCharacter - An abstract class which defines attributes for a character that is not created by the user.
@@ -53,13 +54,24 @@ public abstract class NonPlayableCharacter extends Character {
 //        System.out.println(pathfinder);
         if(!collisionOn) {
             if(canMove) {
-                if (spriteNum != 1 && spriteNum != 2 && spriteNum != 6) {
+                if(Objects.equals(this.name, "Slime")) {
+                    if (spriteNum != 1 && spriteNum != 2 && spriteNum != 6) {
+                        switch (direction) {
+                            case "up" -> yCoord -= movementSpeed;
+                            case "down" -> yCoord += movementSpeed;
+                            case "left" -> xCoord -= movementSpeed;
+                            case "right" -> xCoord += movementSpeed;
+                        }
+                    }
+                }else{
+
                     switch (direction) {
                         case "up" -> yCoord -= movementSpeed;
                         case "down" -> yCoord += movementSpeed;
                         case "left" -> xCoord -= movementSpeed;
                         case "right" -> xCoord += movementSpeed;
                     }
+
                 }
             }
         }

@@ -35,11 +35,11 @@ public class PlayerCharacter extends Character {
         this.gp = gp;
         this.keyH = keyH;
         this.solidArea.x = 0;
-        this.solidArea.y = 18;
+        this.solidArea.y = 10;
         this.setWidth(18);
         this.setHeight(46);
         this.solidArea.width = 9;
-        this.solidArea.height = 23;
+        this.solidArea.height = 18;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
@@ -166,7 +166,7 @@ public class PlayerCharacter extends Character {
         }
 
         if (this.isHasThrownProjectile()) {
-            this.getProjectile().update();
+            this.getProjectile().update(this);
         }
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
