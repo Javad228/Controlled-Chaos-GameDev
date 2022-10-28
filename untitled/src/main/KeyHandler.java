@@ -74,8 +74,10 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_S){if (gp.inventory.slotRow != 3) {gp.inventory.slotRow++;}}
             if(code == KeyEvent.VK_D){if (gp.inventory.slotCol != 4) {gp.inventory.slotCol++;}}
 //            if(code == KeyEvent.VK_ENTER){gp.player.selectItem();}
+        }else{
+            if (code == KeyEvent.VK_C){gp.gameState = 4;}
         }
-        if (code == KeyEvent.VK_C){gp.gameState = 4;}
+
 
         //can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
