@@ -204,8 +204,11 @@ public class PlayerCharacter extends Character {
                     for (int i = 0; i < currentList.size(); i++) {
                         Item item = currentList.get(i);
                         if (gp.checker.checkLootCollision(this, item)) {
-                            if (item instanceof Consumable) {
+                            if (item instanceof Consumable && ((Consumable) item).isVisible) {
                                 heal(((Consumable) item).consume());
+                                if (((Consumable) item).isConsumed) currentList.remove(item);   // Remove consumable
+                                                                                                // from item list once
+                                                                                                // consumed
                             } else {
                                 inventory.addItem(item);
                                 currentList.remove(i);

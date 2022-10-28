@@ -2,17 +2,18 @@ package loot;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.Main;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Consumable extends Item {
 
     private final int healthGiven;
-
+    private boolean isRespawnable;
+    public boolean isConsumed;
     public int frameCounter = 0;
     public boolean isVisible = true;
     public int disappearTimer;
@@ -25,15 +26,24 @@ public class Consumable extends Item {
         this.healthGiven = 20;
         this.disappearTimer = 60 * 5;   //TODO: Set constant timer to respawn item instead of user-set FPS
         this.disappearTimerDefault = disappearTimer;
+        this.isRespawnable = true;
+        this.isConsumed = false;
 
         setDefaultValues();
         getConsumableImage();
     }
 
+    public Consumable(KeyHandler keyH, String[] consumableImages, boolean isRespawnable) {
+        this(keyH, consumableImages);
+        this.isRespawnable = isRespawnable;
+    }
+
     public Consumable(String name, LootType lootType, int xCoord, int yCoord,
-                      String description, double price, boolean isEquipped, int healthGiven) {
+                      String description, double price, boolean isEquipped, int healthGiven, boolean isRespawnable) {
         super(name, lootType, xCoord, yCoord, description, price, isEquipped);
         this.healthGiven = healthGiven;
+        this.isRespawnable = isRespawnable;
+        this.isConsumed = false;
 
         setDefaultValues();
         getConsumableImage();
@@ -56,7 +66,7 @@ public class Consumable extends Item {
         }
 
 
-        if (!isVisible && --disappearTimer == 0) {
+        if (isRespawnable && !isVisible && --disappearTimer == 0) {
             isVisible = true;
             disappearTimer = disappearTimerDefault;
         }
@@ -65,7 +75,8 @@ public class Consumable extends Item {
 
     public void getConsumableImage() {
         try {
-            this.consumableImage = ImageIO.read(getClass().getResourceAsStream("/consumables/apple.png"));
+            this.consumableImage =
+                    ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/consumables/apple.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -82,6 +93,7 @@ public class Consumable extends Item {
 
     public int consume() {
         this.isVisible = false;
+        if (!isRespawnable) this.isConsumed = true;
         return getHealthGiven();
     }
 }
