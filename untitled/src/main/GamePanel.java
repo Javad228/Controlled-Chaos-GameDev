@@ -1,6 +1,7 @@
 package main;
 
 import ai.Pathfinding;
+import character.Inventory;
 import character.NonPlayableCharacter;
 import character.PlayerCharacter;
 import enemy.Skeleton;
@@ -29,6 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public boolean paused = false;
 	public Pathfinding pFinder = new Pathfinding(this);
+	public int gameState;
 
 	private int fps = 60;
 	public CollisionChecker checker = new CollisionChecker(this);
@@ -39,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private String[] weaponImages = {"/weapons/wooden_sword.png"};
 	private String[] appleImages = {"/consumables/apple.png"};
 
-	public KeyHandler keyH = new KeyHandler();
+	public KeyHandler keyH = new KeyHandler(this);
 
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
@@ -50,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
+	public Inventory inventory = new Inventory(this);
 
 	//Methods to alter player:
 	/*
@@ -204,12 +207,14 @@ public class GamePanel extends JPanel implements Runnable{
 
 		tileM.draw(g2);
 		apple.draw(g2, this);
+		player.draw(g2);
 		for(int i = 0; i<3; i++){
 			enemies[i].draw(g2, this);
 		}
-		player.draw(g2);
+
 		weapon.draw(g2, this);
 		effect.draw(g2, this);
+		inventory.draw(g2);
 
 
 		g2.dispose();
