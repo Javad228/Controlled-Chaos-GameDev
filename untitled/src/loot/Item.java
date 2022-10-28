@@ -2,10 +2,14 @@ package loot;
 
 import main.KeyHandler;
 
+import java.awt.image.BufferedImage;
+
 public class Item extends Loot {
     private String description;
     private double price;
     private boolean isEquipped;
+    public BufferedImage still;
+    public int amount;
 
     public Item(KeyHandler keyH, int framesToWait, String[] imagePaths) {
         super(keyH, framesToWait, imagePaths);

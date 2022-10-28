@@ -31,7 +31,7 @@ public class PlayerCharacter extends Character {
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
         this.characterType = CharacterType.DEFAULT;
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(gp);
         this.gp = gp;
         this.keyH = keyH;
         this.solidArea.x = 0;
@@ -95,6 +95,15 @@ public class PlayerCharacter extends Character {
         this.solidArea = new Rectangle(0, 16, 30, 30);
         this.attackArea.width = 36;
         this.attackArea.height = 36;
+        String[] stringArray = {"/weapons/wooden_sword.png"};
+        String[] stringArray1 = {"/weapons/wooden_sword.png"};
+        Item item = new Item(keyH,7,stringArray);
+        item.setDescription("wooden sword");
+        Item item1 = new Item(keyH,7,stringArray1);
+        item1.setDescription("wooden sword #2");
+
+        this.getInventory().addItem(item);
+        this.getInventory().addItem(item1);
 //        this.setWidth(18);
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;

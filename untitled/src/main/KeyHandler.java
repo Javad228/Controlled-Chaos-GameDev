@@ -1,13 +1,15 @@
 package main;
 
-import character.Character;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class KeyHandler implements KeyListener {
 
+    private GamePanel gp;
+
+    public KeyHandler(GamePanel gp) {
+        this.gp = gp;
+    }
     public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed;
 
     //TODO implement movement and attack
@@ -65,6 +67,15 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
+        if (gp.gameState == 4) {
+            if (code == KeyEvent.VK_C){gp.gameState = 1;}
+            if(code == KeyEvent.VK_W) {if (gp.inventory.slotRow != 0) {gp.inventory.slotRow--;}}
+            if(code == KeyEvent.VK_A) {if (gp.inventory.slotCol != 0) {gp.inventory.slotCol--;}}
+            if(code == KeyEvent.VK_S){if (gp.inventory.slotRow != 3) {gp.inventory.slotRow++;}}
+            if(code == KeyEvent.VK_D){if (gp.inventory.slotCol != 4) {gp.inventory.slotCol++;}}
+//            if(code == KeyEvent.VK_ENTER){gp.player.selectItem();}
+        }
+        if (code == KeyEvent.VK_C){gp.gameState = 4;}
 
         //can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
