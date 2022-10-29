@@ -241,7 +241,9 @@ public class GamePanel extends JPanel implements Runnable{
 		if (rooms.get(currentRoomNum).getEnemies() != null) {
 			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
 				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
-				enemy.draw(g2, this);
+				if (enemy != null) {
+					enemy.draw(g2, this);
+				}
 			}
 		}
 
