@@ -33,8 +33,6 @@ public class Wizard extends NonPlayableCharacter {
 
     @Override
     public void setAction(GamePanel gp){
-
-
             int goalCol = (gp.player.xCoord + gp.player.solidArea.x) / gp.tileSize;
             int goalRow = (gp.player.yCoord + gp.player.solidArea.y) / gp.tileSize;
             int startCol = (xCoord + solidArea.x) / gp.tileSize;
@@ -45,9 +43,12 @@ public class Wizard extends NonPlayableCharacter {
                     if (Math.abs(goalRow - startRow) < 5) {
                         int nope = 0;
                         for (int i = 0; i < 3; i++) {
-                            if (gp.tileM.mapTileNum[goalCol][goalRow + i] == 1) {
-                                nope = 1;
+                            if(goalRow+i<gp.tileM.mapTileNum[goalCol].length){
+                                if (gp.tileM.mapTileNum[goalCol][goalRow + i] == 1) {
+                                    nope = 1;
+                                }
                             }
+
                         }
                         if (nope == 1) {
                             counter = 1;
@@ -86,8 +87,10 @@ public class Wizard extends NonPlayableCharacter {
                     if (Math.abs(goalCol - startCol) < 5) {
                         int nope = 0;
                         for (int i = 0; i < 3; i++) {
-                            if (gp.tileM.mapTileNum[goalCol + i][goalRow] == 1) {
-                                nope = 1;
+                            if(goalCol+i<gp.tileM.mapTileNum[goalRow].length) {
+                                if (gp.tileM.mapTileNum[goalCol + i][goalRow] == 1) {
+                                    nope = 1;
+                                }
                             }
                         }
                         if (nope == 1) {
