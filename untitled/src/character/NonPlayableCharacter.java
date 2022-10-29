@@ -16,8 +16,6 @@ import java.util.Objects;
 
 public abstract class NonPlayableCharacter extends Character {
 
-
-
     //public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     private int damagePerHit;               // Amount of damage a NonPlayableCharacter can inflict on other Characters
     private DamageType damageType;          // Type of damage a NonPlayableCharacter can inflict
@@ -41,6 +39,29 @@ public abstract class NonPlayableCharacter extends Character {
     public void setAction(GamePanel gp){}
 
     public void update(GamePanel gp){
+        int frameAdjust = 12;
+        spriteCounter++;
+        if(spriteCounter > frameAdjust){
+            if(spriteNum == 1){
+                spriteNum = 2;
+            } else if (spriteNum == 2){
+                spriteNum = 3;
+            } else if (spriteNum == 3){
+                spriteNum = 4;
+            } else if (spriteNum == 4){
+                spriteNum = 5;
+            }else if (spriteNum == 5){
+                spriteNum = 6;
+            }else if (spriteNum == 6){
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
+
+        if (!this.getIsAlive()) { // if dead, then don't update the position
+            return;
+        }
+
         if(isInvincible){
             invincibleCounter++;
             if(invincibleCounter>30){
@@ -77,25 +98,6 @@ public abstract class NonPlayableCharacter extends Character {
         }
 
         attacking(gp);
-
-        int frameAdjust = 12;
-        spriteCounter++;
-        if(spriteCounter > frameAdjust){
-            if(spriteNum == 1){
-                spriteNum = 2;
-            } else if (spriteNum == 2){
-                spriteNum = 3;
-            } else if (spriteNum == 3){
-                spriteNum = 4;
-            } else if (spriteNum == 4){
-                spriteNum = 5;
-            }else if (spriteNum == 5){
-                spriteNum = 6;
-            }else if (spriteNum == 6){
-                spriteNum = 1;
-            }
-            spriteCounter = 0;
-        }
 
     }
     public void searchPath(int goalCol, int goalRow, GamePanel gp){
@@ -181,7 +183,7 @@ public abstract class NonPlayableCharacter extends Character {
 
         if (isHit) {
             //System.out.println("Player took damage");
-            gamePanel.getPlayer().damagePlayer();
+            gamePanel.getPlayer().damagePlayer(this);
         }
 
         xCoord = currX;
@@ -229,6 +231,34 @@ public abstract class NonPlayableCharacter extends Character {
         }
         drawHP(g2, gamePanel);
         BufferedImage image = null;
+
+        if (!getIsAlive()) {
+            // configure animations
+            // after animations are done remove from room
+            switch(this.getSpriteNum()) {
+                case 1:
+                    image = this.getDeath1();
+                    break;
+                case 2:
+                    image = this.getDeath2();
+                    break;
+                case 3:
+                    image = this.getDeath3();
+                    break;
+                case 4:
+                    image = this.getDeath4();
+                    break;
+                case 5:
+                    image = this.getDeath5();
+                    break;
+                case 6: // out of sprites, remove enemy from room and exit method
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
+                    return;
+            }
+            g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
+            return;
+        }
 
         switch(this.getDirection()) {
             case "up":
@@ -316,5 +346,6 @@ public abstract class NonPlayableCharacter extends Character {
                 g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
                 break;
         }
+
     }
 }

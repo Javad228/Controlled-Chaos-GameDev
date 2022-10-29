@@ -1,8 +1,11 @@
 package main;
 
+import character.Enemy;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * HealthBar - A Graphical Element, as part of the PlayerCharacter class,
@@ -60,7 +63,6 @@ public class HealthBar extends BufferedImage {
         g2.fillRect(charX-14, charY-3, (int) scaledHP, 10);
     }
 
-
 }
 
 class TestHealthBar {
@@ -90,11 +92,17 @@ class TestHealthBar {
 
         gamePanel.getPlayer().setxCoord(gamePanel.getWidth()/2);
         gamePanel.getPlayer().setyCoord(gamePanel.getHeight()/2);
-        for(int i = 0; i<2; i++){
-            gamePanel.enemies[i].setxCoord(gamePanel.getWidth()/2 - gamePanel.tileSize);
-            gamePanel.enemies[i].setyCoord(gamePanel.getHeight()/2 - gamePanel.tileSize);
-            gamePanel.enemies[i].setDamagePerHit(25);
+
+        if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies() != null){
+            ArrayList<Enemy> currentList = gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies();
+            for (int i = 0; i < currentList.size(); i++) {
+                Enemy enemy = currentList.get(i);
+                enemy.setxCoord(gamePanel.getWidth()/2 - gamePanel.tileSize);
+                enemy.setyCoord(gamePanel.getHeight()/2 - gamePanel.tileSize);
+                enemy.setDamagePerHit(25);
+            }
         }
+
         gamePanel.startGameThread();
     }
 

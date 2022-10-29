@@ -1,5 +1,6 @@
 package character;
 
+import loot.Consumable;
 import loot.Item;
 import main.Audio;
 import main.GamePanel;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -175,7 +177,7 @@ public class PlayerCharacter extends Character {
         }
 
         if (this.isHasThrownProjectile()) {
-            this.getProjectile().update(this);
+            this.getProjectile().update();
         }
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
@@ -231,24 +233,24 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
-//                if (gp.getLootInRoom() != null){
-//                    ArrayList<Item> currentList = gp.getLootInRoom();
-//                    for (int i = 0; i < gp.getLootInRoom().size(); i++) {
-//                        Item item = gp.getLootInRoom().get(i);
-//                        if (gp.checker.checkLootCollision(this, item)) {
-//                            if (item instanceof Consumable) {
-//                                heal(((Consumable) item).consume());
-//                            } else {
-//                                inventory.addItem(item);
-//                                currentList.remove(i);
-//                            }
-//                        }
-//                    }
-//                }
+                // GamePanel has an arraylist of rooms. We are in the room indicated by the currentRoomNum, which
+                // corresponds to the rooms index in the arraylist. Each room has an arraylist of items. Must check if
+                // it is null before proceeding.
+                if (gp.getRooms().get(gp.getCurrentRoomNum()).getItems() != null){
+                    ArrayList<Item> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getItems();
+                    for (int i = 0; i < currentList.size(); i++) {
+                        Item item = currentList.get(i);
+                        if (gp.checker.checkLootCollision(this, item)) {
+                            if (item instanceof Consumable && ((Consumable) item).isVisible) {
+                                heal(((Consumable) item).consume());
+                            } else {
+                                inventory.addItem(item);
+                                currentList.remove(i);
+                            }
+                        }
+                    }
+                }
             }
-
-
-
 
             this.healthBar.update(this.getHealth());
         }
@@ -272,19 +274,23 @@ public class PlayerCharacter extends Character {
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
 //        System.out.println(solidArea);
-        Boolean isHit = false;
-        for(int i = 0; i<2; i++) {
-            isHit = gp.checker.checkEntityAttack(this, gp.enemies[i]);
-        }
+        if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
+            ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
+            for (int i = 0; i < currentList.size(); i++) {
+                Enemy enemy = currentList.get(i);
+                Boolean isHit = gp.checker.checkEntityAttack(this, enemy);
+                if(isHit){
+                    //Audio.enemyDamagedAudio();
+                    damageMonster(enemy);
+                    System.out.println("Hit");
+                }
 
+            }
+        }
 
 //        System.out.println(isHit);
 
-        if(isHit){
-            //Audio.enemyDamagedAudio();
-            damageMonster();
-//            System.out.println("Hit");
-        }
+
 
         /*
         isHit = gp.checker.checkConsumableCollision(this, gp.apple);
@@ -301,24 +307,24 @@ public class PlayerCharacter extends Character {
         solidArea.height = collisionAreaHeight;
     }
 
-    public void damageMonster () {
-        if (!gp.enemies[0].isInvincible) {
-            gp.enemies[0].health -= 1;
-            gp.enemies[0].isInvincible = true;
-//            System.out.println(gp.enemies[0].health);
+    public void damageMonster (Enemy enemy) {
+        if (!enemy.isInvincible) {
+            enemy.health -= 1;
+            enemy.isInvincible = true;
+            System.out.println(enemy.health);
             Audio.enemyDamagedAudio();
 
-            if (gp.enemies[0].health <= 0) {
-                gp.enemies[0].isAlive = false;
+            if (enemy.health <= 0) {
+                enemy.isAlive = false;
             }
         }
 
     }
 
-    public void damagePlayer() {
+    public void damagePlayer(NonPlayableCharacter entity) {
         if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
-            gp.getPlayer().damage(gp.enemies[0].getDamagePerHit());
+            gp.getPlayer().damage(entity.getDamagePerHit());
             gp.getPlayer().isInvincible = true;
             //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }
