@@ -1,6 +1,7 @@
 package character;
 
 import main.GamePanel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class Projectile extends Character {
                 }
             }
         }
+
 
         //After checking collision, restore original data
         xCoord = currentWorldX;

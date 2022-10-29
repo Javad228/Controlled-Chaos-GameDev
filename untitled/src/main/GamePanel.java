@@ -1,5 +1,8 @@
 package main;
 
+import ai.Pathfinding;
+import character.Inventory;
+import character.NonPlayableCharacter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,12 +11,21 @@ import java.util.ArrayList;
 
 import character.Enemy;
 import character.PlayerCharacter;
+import enemy.Skeleton;
+import enemy.Slime;
+import enemy.Wizard;
+import loot.Consumable;
+import loot.Effect;
+import loot.Weapon;
 import enemy.Slime;
 import loot.*;
 import save.SaveData;
 import save.SimpleCharacter;
 import save.SimpleWeapon;
 import tile.TileManager;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -25,6 +37,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow;	//576 pixels
 
 	public boolean paused = false;
+	public Pathfinding pFinder = new Pathfinding(this);
+	public int gameState;
+
 	private int fps = 60;
 
 	public CollisionChecker checker = new CollisionChecker(this);
@@ -41,6 +56,14 @@ public class GamePanel extends JPanel implements Runnable{
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
+	/*
+	public Inventory inventory = new Inventory(this);
+
+	Public NonPlayableCharacter[] enemies = new NonPlayableCharacter[12];
+//	public Slime enemy = new Slime();
+	public Consumable apple = new Consumable(this, appleImages);
+
+	 */
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -122,6 +145,14 @@ public class GamePanel extends JPanel implements Runnable{
 
 	@Override
 	public void run() {
+		/*
+		Slime enemy = new Slime();
+		Skeleton enemy1 = new Skeleton();
+		Wizard enemy2 = new Wizard(this);
+		enemies[0] = enemy;
+		enemies[1] = enemy1;
+		enemies[2] = enemy2;
+		*/
 
 		double drawInterval;					//converts from nanoseconds to seconds
 		double delta = 0;
@@ -213,6 +244,9 @@ public class GamePanel extends JPanel implements Runnable{
 				item.draw(g2, this);
 			}
 		}
+
+		//inventory.draw(g2);
+
 
 		g2.dispose();
 	}

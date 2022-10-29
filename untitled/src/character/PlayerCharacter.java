@@ -1,19 +1,16 @@
 package character;
 
+import loot.Item;
 import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
-
-import loot.*;
 import save.SimpleCharacter;
 
 import javax.imageio.ImageIO;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -34,15 +31,15 @@ public class PlayerCharacter extends Character {
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
         this.characterType = CharacterType.DEFAULT;
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(gp);
         this.gp = gp;
         this.keyH = keyH;
-        this.solidArea.x = 3;
-        this.solidArea.y = 18;
+        this.solidArea.x = 0;
+        this.solidArea.y = 10;
         this.setWidth(18);
         this.setHeight(46);
         this.solidArea.width = 9;
-        this.solidArea.height = 23;
+        this.solidArea.height = 18;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
@@ -91,13 +88,22 @@ public class PlayerCharacter extends Character {
     }
 
     public void setDefaultValues() {
-        this.setxCoord(100);
-        this.setyCoord(50);
+        this.setxCoord(50);
+        this.setyCoord(200);
         this.setMovementSpeed(4);
         this.setDirection("down");
-        this.solidArea = new Rectangle(8, 16, 32, 32);
+        this.solidArea = new Rectangle(0, 16, 30, 30);
         this.attackArea.width = 36;
         this.attackArea.height = 36;
+        String[] stringArray = {"/weapons/wooden_sword.png"};
+        String[] stringArray1 = {"/weapons/wooden_sword.png"};
+        Item item = new Item(keyH,7,stringArray);
+        item.setDescription("wooden sword");
+        Item item1 = new Item(keyH,7,stringArray1);
+        item1.setDescription("wooden sword #2");
+
+        this.getInventory().addItem(item);
+        this.getInventory().addItem(item1);
 //        this.setWidth(18);
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
@@ -141,7 +147,36 @@ public class PlayerCharacter extends Character {
                 invincibleCounter = 0;
             }
         }
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            int currentX = this.getxCoord();
+            int currentY = this.getyCoord();
+            int movementSpeed = this.getProjectile().getMovementSpeed();
 
+            if (keyH.upPressed && !keyH.downPressed) {
+                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.downPressed && !keyH.upPressed) {
+                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.leftPressed && !keyH.rightPressed) {
+                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.rightPressed && !keyH.leftPressed) {
+                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+        }
+
+        if (this.isHasThrownProjectile()) {
+            this.getProjectile().update(this);
+        }
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
             if (keyH.kPressed) {
@@ -213,38 +248,6 @@ public class PlayerCharacter extends Character {
                         }
                     }
                 }
-            }
-
-
-            if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-                int currentX = this.getxCoord();
-                int currentY = this.getyCoord();
-                int movementSpeed = this.getProjectile().getMovementSpeed();
-
-                if (keyH.upPressed && !keyH.downPressed) {
-                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.downPressed && !keyH.upPressed) {
-                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.leftPressed && !keyH.rightPressed) {
-                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.rightPressed && !keyH.leftPressed) {
-                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-            }
-
-            if (this.isHasThrownProjectile()) {
-                this.getProjectile().update();
             }
 
             this.healthBar.update(this.getHealth());

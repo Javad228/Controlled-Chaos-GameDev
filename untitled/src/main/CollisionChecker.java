@@ -1,7 +1,6 @@
 package main;
 
 import character.Character;
-
 import character.PlayerCharacter;
 import loot.Loot;
 
@@ -70,10 +69,6 @@ public class CollisionChecker {
             target.solidArea.y = target.yCoord + target.solidArea.y;
 
             entityCollisionDirection(entity);
-            System.out.println("Player");
-            System.out.println(entity.solidArea);
-            System.out.println(target.name);
-            System.out.println(target.solidArea);
             if (entity.solidArea.intersects(target.solidArea)) {
                 if(target != entity){
                     entity.collisionOn = true;
@@ -98,8 +93,7 @@ public class CollisionChecker {
         }
     }
 
-    public void checkTile (PlayerCharacter character) {
-
+    public void checkTile (Character character) {
         int characterLeft = character.getxCoord() + character.solidArea.x;
         int characterRight = character.getxCoord() + character.solidArea.x + character.solidArea.width;
         int characterTop = character.getyCoord() + character.solidArea.y;
@@ -145,8 +139,106 @@ public class CollisionChecker {
                 }
             }
         }
+//        System.out.println(character.collisionOn);
     }
 
+    public void checkPath (Character character,int[][] maze) {
+        int characterLeft = character.getxCoord() + character.solidArea.x;
+        int characterRight = character.getxCoord() + character.solidArea.x + character.solidArea.width;
+        int characterTop = character.getyCoord() + character.solidArea.y;
+        int characterBottom = character.getyCoord() + character.solidArea.y + character.solidArea.height;
+        int characterLeftCol = characterLeft/gp.tileSize;
+        int characterRightCol = characterRight/gp.tileSize;
+        int characterTopRow = characterTop/gp.tileSize;
+        int characterBottomRow = characterBottom/gp.tileSize;
+
+        int tileNum1, tileNum2;
+        int characterTopRow1 = (characterTop - character.getMovementSpeed()) / gp.tileSize;
+        int characterBottomRow1 = (characterBottom + character.getMovementSpeed()) / gp.tileSize;
+        int characterLeftCol1 = (characterLeft - character.getMovementSpeed()) / gp.tileSize;
+        int characterRightCol1 = (characterRight + character.getMovementSpeed()) / gp.tileSize;
+        if(maze[characterLeftCol][characterTopRow1]==5 || maze[characterLeftCol][characterTopRow1]==9 ){
+            if(characterTopRow1!=0) {
+                if (maze[characterLeftCol][characterTopRow1 - 1] == 5){
+//                    maze[characterLeftCol][characterTopRow1 - 1] = 9;
+//                    maze[characterLeftCol][characterTopRow1] = 9;
+                    character.setDirection("up");
+//                    System.out.println("up");
+                }
+            }
+        }
+        if(maze[characterLeftCol][characterBottomRow1]==5 || maze[characterLeftCol][characterBottomRow1]==9){
+            if(maze[characterLeftCol][characterBottomRow1+1]==5){
+//                maze[characterLeftCol][characterBottomRow1+1] = 9;
+//                maze[characterLeftCol][characterBottomRow1] = 9;
+                character.setDirection("down");
+//                System.out.println("down");
+            }
+        }
+        if(maze[characterLeftCol1][characterBottomRow]==5 || maze[characterLeftCol1][characterBottomRow]==9){
+            if(maze[characterLeftCol1-1][characterBottomRow]==5){
+//                maze[characterLeftCol1-1][characterBottomRow]=9;
+//                maze[characterLeftCol1][characterBottomRow]=9;
+                character.setDirection("left");
+//                System.out.println("left");
+            }
+
+        }
+        if(maze[characterRightCol1][characterBottomRow]==5 || maze[characterRightCol1][characterBottomRow]==9){
+            if(maze[characterRightCol1+1][characterBottomRow]==5){
+//                maze[characterRightCol1+1][characterBottomRow]=9;
+//                maze[characterRightCol1][characterBottomRow]=9;
+                character.setDirection("right");
+//                System.out.println("right");
+            }
+
+        }
+        StringBuilder result = new StringBuilder("\n");
+        for(int row = 0; row< maze.length;row++){
+            for(int column =0; column<maze[row].length;column++){
+                result.append(maze[row][column]).append(" ");
+            }
+            result.append("\n");
+        }
+//        System.out.println(result);
+        switch (character.getDirection()) {
+            case "up" -> {
+                characterTopRow = (characterTop - character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = maze[characterLeftCol][characterTopRow];
+                tileNum2 = maze[characterRightCol][characterTopRow];
+                if (tileNum1 != 5 || tileNum2 != 5) {
+                    character.collisionOn = true;
+                }
+            }
+            case "down" -> {
+                characterBottomRow = (characterBottom + character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = maze[characterLeftCol][characterBottomRow];
+                tileNum2 = maze[characterRightCol][characterBottomRow];
+                if (tileNum1 != 5 || tileNum2 != 5) {
+                    character.collisionOn = true;
+                }
+//                System.out.println(characterTopRow);
+//                System.out.println(characterBottomRow);
+            }
+            case "left" -> {
+                characterLeftCol = (characterLeft - character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = maze[characterLeftCol][characterTopRow];
+                tileNum2 = maze[characterLeftCol][characterBottomRow];
+                if (tileNum1 != 5 || tileNum2 != 5) {
+                    character.collisionOn = true;
+                }
+            }
+            case "right" -> {
+                characterRightCol = (characterRight + character.getMovementSpeed()) / gp.tileSize;
+                tileNum1 = maze[characterRightCol][characterTopRow];
+                tileNum2 = maze[characterRightCol][characterBottomRow];
+                if (tileNum1 != 5 || tileNum2 != 5) {
+                    character.collisionOn = true;
+                }
+            }
+        }
+//        System.out.println(character.collisionOn);
+    }
     public int checkRoom (PlayerCharacter character) {
         int characterLeft = character.getxCoord() + character.solidArea.x;
         int characterRight = character.getxCoord() + character.solidArea.x + character.solidArea.width;
