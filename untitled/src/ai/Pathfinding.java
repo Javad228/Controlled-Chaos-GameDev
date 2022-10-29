@@ -53,6 +53,7 @@ public class Pathfinding {
     public void setNodes(int startCol, int startRow, int goalCol, int goalRow, NonPlayableCharacter entity) {
         resetNodes();
         //setup
+
         startNode = nodes[startCol][startRow];
         currentNode = startNode;
         goalNode = nodes[goalCol][goalRow];

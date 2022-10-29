@@ -209,7 +209,9 @@ public class GamePanel extends JPanel implements Runnable{
 		apple.draw(g2, this);
 		player.draw(g2);
 		for(int i = 0; i<3; i++){
-			enemies[i].draw(g2, this);
+			if(enemies[i]!=null) {
+				enemies[i].draw(g2, this);
+			}
 		}
 
 		weapon.draw(g2, this);
