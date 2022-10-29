@@ -1,5 +1,6 @@
 package enemy;
 
+import character.Enemy;
 import character.NonPlayableCharacter;
 import main.GamePanel;
 
@@ -9,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
-public class Slime extends NonPlayableCharacter {
+public class Slime extends Enemy {
 
     public Slime() {
         super();
@@ -100,6 +101,11 @@ public class Slime extends NonPlayableCharacter {
             this.setRight4(ImageIO.read(getClass().getResourceAsStream("/Slime/tile010.png")));
             this.setRight5(ImageIO.read(getClass().getResourceAsStream("/Slime/tile011.png")));
             this.setRight6(ImageIO.read(getClass().getResourceAsStream("/Slime/tile012.png")));
+            this.setDeath1(ImageIO.read(getClass().getResourceAsStream("/Slime/tile028.png")));
+            this.setDeath2(ImageIO.read(getClass().getResourceAsStream("/Slime/tile029.png")));
+            this.setDeath3(ImageIO.read(getClass().getResourceAsStream("/Slime/tile030.png")));
+            this.setDeath4(ImageIO.read(getClass().getResourceAsStream("/Slime/tile031.png")));
+            this.setDeath5(ImageIO.read(getClass().getResourceAsStream("/Slime/tile032.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }

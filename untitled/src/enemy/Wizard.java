@@ -1,6 +1,5 @@
 package enemy;
 
-import character.Arrow;
 import character.NonPlayableCharacter;
 import main.GamePanel;
 
@@ -27,102 +26,114 @@ public class Wizard extends NonPlayableCharacter {
         this.width = 60;
         this.height = 60;
         this.setDamagePerHit(5);
-        this.setProjectile(new Arrow(gp));
+        this.setProjectile(new SlimeBall(gp));
         getImage();
 
     }
 
     @Override
     public void setAction(GamePanel gp){
+            int goalCol = (gp.player.xCoord + gp.player.solidArea.x) / gp.tileSize;
+            int goalRow = (gp.player.yCoord + gp.player.solidArea.y) / gp.tileSize;
+            int startCol = (xCoord + solidArea.x) / gp.tileSize;
+            int startRow = (yCoord + solidArea.y) / gp.tileSize;
 
-        int goalCol = (gp.player.xCoord + gp.player.solidArea.x)/gp.tileSize;
-        int goalRow = (gp.player.yCoord + gp.player.solidArea.y)/gp.tileSize;
-        int startCol = (xCoord + solidArea.x)/gp.tileSize;
-        int startRow = (yCoord + solidArea.y)/gp.tileSize;
-
-        if(goalCol==startCol || goalRow==startRow){
-            if(goalCol==startCol){
-                if(Math.abs(goalRow-startRow) < 5){
-                    int nope = 0;
-                    for(int i = 0;i<3;i++){
-                        if(gp.tileM.mapTileNum[goalCol][goalRow+i] == 1){
-                            nope = 1;
-                        }
-                    }
-                    if(nope == 1){
-                        counter=1;
-                        canMove = true;
-                        searchPath(goalCol,goalRow,gp);
-                    }else{
-                        int currentX = this.getxCoord();
-                        int currentY = this.getyCoord();
-                        int movementSpeed = this.getProjectile().getMovementSpeed();
-                        canMove = false;
-                        if(this.getProjectile().isAlive) {
-                            if (goalRow < startRow) {
-                                System.out.println("up arrow");
-                                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                this.setHasThrownProjectile(true);
-                            } else {
-                                System.out.println("down arrow");
-                                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                this.setHasThrownProjectile(true);
+            if (goalCol == startCol || goalRow == startRow) {
+                if (goalCol == startCol) {
+                    if (Math.abs(goalRow - startRow) < 5) {
+                        int nope = 0;
+                        for (int i = 0; i < 3; i++) {
+                            if(goalRow+i<gp.tileM.mapTileNum[goalCol].length){
+                                if (gp.tileM.mapTileNum[goalCol][goalRow + i] == 1) {
+                                    nope = 1;
+                                }
                             }
-                            counter=0;
+
                         }
-                        System.out.println("shoot");
-                    }
-                }else{
-                    counter=1;
-                    canMove = true;
-                    searchPath(goalCol,goalRow,gp);
-                }
-            }
-            if(goalRow==startRow){
-                if(Math.abs(goalCol-startCol) < 5){
-                    int nope = 0;
-                    for(int i = 0;i<3;i++){
-                        if(gp.tileM.mapTileNum[goalCol+i][goalRow] == 1){
-                            nope = 1;
-                        }
-                    }
-                    if(nope == 1){
-                        counter=1;
-                        canMove = true;
-                        searchPath(goalCol,goalRow,gp);
-                    }else{
-                        int currentX = this.getxCoord();
-                        int currentY = this.getyCoord();
-                        int movementSpeed = this.getProjectile().getMovementSpeed();
-                        canMove = false;
-                        if(counter ==1) {
-                            if (goalCol < startCol) {
-                                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                this.setHasThrownProjectile(true);
-                            } else {
-                                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                this.setHasThrownProjectile(true);
+                        if (nope == 1) {
+                            counter = 1;
+                            canMove = true;
+                            searchPath(goalCol, goalRow, gp);
+                        } else {
+                            int currentX = this.getxCoord();
+                            int currentY = this.getyCoord();
+                            int movementSpeed = this.getProjectile().getMovementSpeed();
+                            canMove = false;
+                            actionLockCounter++;
+
+                            if(actionLockCounter == 70){
+                                if (goalRow < startRow) {
+                                    System.out.println("up arrow");
+                                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    this.setHasThrownProjectile(true);
+                                } else {
+                                    System.out.println("down arrow");
+                                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    this.setHasThrownProjectile(true);
+                                }
+                                counter = 0;
+                                actionLockCounter = 0;
+
                             }
-                            counter=0;
+                            System.out.println("shoot");
                         }
-                        System.out.println("shoot");
+                    } else {
+                        counter = 1;
+                        canMove = true;
+                        searchPath(goalCol, goalRow, gp);
                     }
-                }else{
-                    counter=1;
-                    canMove = true;
-                    searchPath(goalCol,goalRow,gp);
                 }
+                if (goalRow == startRow) {
+                    if (Math.abs(goalCol - startCol) < 5) {
+                        int nope = 0;
+                        for (int i = 0; i < 3; i++) {
+                            if(goalCol+i<gp.tileM.mapTileNum[goalRow].length) {
+                                if (gp.tileM.mapTileNum[goalCol + i][goalRow] == 1) {
+                                    nope = 1;
+                                }
+                            }
+                        }
+                        if (nope == 1) {
+                            counter = 1;
+                            canMove = true;
+                            searchPath(goalCol, goalRow, gp);
+                        } else {
+                            int currentX = this.getxCoord();
+                            int currentY = this.getyCoord();
+                            int movementSpeed = this.getProjectile().getMovementSpeed();
+                            canMove = false;
+                            actionLockCounter++;
+
+                            if(actionLockCounter == 70){
+                                if (goalCol < startCol) {
+                                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    this.setHasThrownProjectile(true);
+                                } else {
+                                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    this.setHasThrownProjectile(true);
+                                }
+                                counter = 0;
+                                actionLockCounter = 0;
+                            }
+                            System.out.println("shoot");
+                        }
+                    } else {
+                        counter = 1;
+                        canMove = true;
+                        searchPath(goalCol, goalRow, gp);
+                    }
+                }
+            } else {
+                counter = 1;
+                canMove = true;
+                searchPath(goalCol, goalRow, gp);
             }
-        }else{
-            counter=1;
-            canMove = true;
-            searchPath(goalCol,goalRow,gp);
-        }
-        if (this.isHasThrownProjectile()) {
-            this.getProjectile().update();
+            if (this.isHasThrownProjectile()) {
+                this.getProjectile().update();
+            }
         }
 
-    }
+
 
     public void getImage(){
         try {
