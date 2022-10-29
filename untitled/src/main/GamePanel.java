@@ -5,27 +5,15 @@ import character.Inventory;
 import character.NonPlayableCharacter;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import character.Enemy;
 import character.PlayerCharacter;
-import enemy.Skeleton;
-import enemy.Slime;
-import enemy.Wizard;
-import loot.Consumable;
-import loot.Effect;
-import loot.Weapon;
-import enemy.Slime;
 import loot.*;
 import save.SaveData;
 import save.SimpleCharacter;
 import save.SimpleWeapon;
 import tile.TileManager;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSizes = 16;							//16x16 tile
@@ -241,6 +229,7 @@ public class GamePanel extends JPanel implements Runnable{
 		if (rooms.get(currentRoomNum).getEnemies() != null) {
 			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
 				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
+
 				if (enemy != null) {
 					enemy.draw(g2, this);
 				}
