@@ -126,7 +126,7 @@ public class Wizard extends NonPlayableCharacter {
                 searchPath(goalCol, goalRow, gp);
             }
             if (this.isHasThrownProjectile()) {
-                this.getProjectile().update(this);
+                this.getProjectile().update();
             }
         }
 

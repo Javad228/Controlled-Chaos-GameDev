@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public CollisionChecker checker = new CollisionChecker(this);
 	public TileManager tileM = new TileManager(this);
-	public KeyHandler keyH = new KeyHandler();
+	public KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 
@@ -56,9 +56,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
-	/*
 	public Inventory inventory = new Inventory(this);
 
+/*
 	Public NonPlayableCharacter[] enemies = new NonPlayableCharacter[12];
 //	public Slime enemy = new Slime();
 	public Consumable apple = new Consumable(this, appleImages);
@@ -73,8 +73,8 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 
 		rooms = new ArrayList<>();
-		rooms.add(new Room(0, keyH));
-		rooms.add(new Room(1, keyH));
+		rooms.add(new Room(0, keyH, this));
+		rooms.add(new Room(1, keyH, this));
 	}
 
 	public void setupGame() {
@@ -221,6 +221,13 @@ public class GamePanel extends JPanel implements Runnable{
 				item.update();
 			}
 		}
+
+		if (rooms.get(currentRoomNum).getNPCs() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getNPCs().size(); i++) {
+				NonPlayableCharacter npc = rooms.get(currentRoomNum).getNPCs().get(i);
+				npc.update(this);
+			}
+		}
 	}
 
 	public void paintComponent(Graphics g){
@@ -245,8 +252,14 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 
-		//inventory.draw(g2);
+		if (rooms.get(currentRoomNum).getNPCs() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getNPCs().size(); i++) {
+				NonPlayableCharacter npc = rooms.get(currentRoomNum).getNPCs().get(i);
+				npc.draw(g2, this);
+			}
+		}
 
+		inventory.draw(g2);
 
 		g2.dispose();
 	}

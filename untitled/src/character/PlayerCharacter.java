@@ -1,5 +1,6 @@
 package character;
 
+import loot.Consumable;
 import loot.Item;
 import main.Audio;
 import main.GamePanel;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -175,7 +177,7 @@ public class PlayerCharacter extends Character {
         }
 
         if (this.isHasThrownProjectile()) {
-            this.getProjectile().update(this);
+            this.getProjectile().update();
         }
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 

@@ -1,7 +1,10 @@
 package main;
 
 import character.Enemy;
+import character.NonPlayableCharacter;
+import enemy.Skeleton;
 import enemy.Slime;
+import enemy.Wizard;
 import loot.Consumable;
 import loot.Effect;
 import loot.Item;
@@ -13,13 +16,17 @@ public class Room {
     private int roomNum;
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
+    private ArrayList<NonPlayableCharacter> NPCs;
     private KeyHandler keyH;
+    private GamePanel gp;
 
-    public Room(int roomNum, KeyHandler keyH) {
+    public Room(int roomNum, KeyHandler keyH, GamePanel gp) {
         this.roomNum = roomNum;
         this.keyH = keyH;
+        this.gp = gp;
         initializeItems();
         initializeEnemies();
+        initializeNPCs();
     }
 
     private void initializeItems() {
@@ -52,6 +59,18 @@ public class Room {
         }
     }
 
+    private void initializeNPCs() {
+        switch(roomNum) {
+            case 0:
+                NPCs = new ArrayList<>();
+                NPCs.add(new Skeleton());
+                NPCs.add(new Wizard(this.gp));
+                break;
+            case 1:
+                enemies = null;
+        }
+    }
+
     public ArrayList<Item> getItems() {
         return items;
     }
@@ -66,5 +85,13 @@ public class Room {
 
     public void setEnemies(ArrayList<Enemy> enemies) {
         this.enemies = enemies;
+    }
+
+    public ArrayList<NonPlayableCharacter> getNPCs() {
+        return NPCs;
+    }
+
+    public void setNPCs(ArrayList<NonPlayableCharacter> NPCs) {
+        this.NPCs = NPCs;
     }
 }
