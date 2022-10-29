@@ -30,7 +30,7 @@ public class Room {
                 String[] appleImages = {"/consumables/apple.png"};
                 Weapon weapon = new Weapon(keyH, weaponImages);
                 Effect effect = new Effect(keyH, effectImages);
-                Consumable apple = new Consumable(keyH, appleImages);
+                Consumable apple = new Consumable(keyH, appleImages, false);
                 items = new ArrayList<>();
                 items.add(weapon);
                 items.add(effect);
