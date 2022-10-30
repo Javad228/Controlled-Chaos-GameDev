@@ -1,7 +1,13 @@
 package main;
 
+import tile.Tile;
+import tile.TileManager;
+
+import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.util.Objects;
 
 public class KeyHandler implements KeyListener {
 
@@ -43,6 +49,17 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_K) {
             kPressed = true;
         }
+
+        if (code == KeyEvent.VK_E) {
+            if (gp.getPlayer().getCurrentTile().tileType == Tile.BUTTON) {
+                try {
+                    TileManager.tile[Tile.BUTTON].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_down.png")));
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
+
         if (code == KeyEvent.VK_W) {
             wPressed = true;
         }
@@ -55,6 +72,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             dPressed = true;
         }
+
         if (code == KeyEvent.VK_UP) {
             upPressed = true;
         }
@@ -67,6 +85,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_RIGHT) {
             rightPressed = true;
         }
+
         if (gp.gameState == 4) {
             if (code == KeyEvent.VK_C){gp.gameState = 1;}
             if(code == KeyEvent.VK_W) {if (gp.inventory.slotRow != 0) {gp.inventory.slotRow--;}}
@@ -74,7 +93,7 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_S){if (gp.inventory.slotRow != 3) {gp.inventory.slotRow++;}}
             if(code == KeyEvent.VK_D){if (gp.inventory.slotCol != 4) {gp.inventory.slotCol++;}}
 //            if(code == KeyEvent.VK_ENTER){gp.player.selectItem();}
-        }else{
+        } else{
             if (code == KeyEvent.VK_C){gp.gameState = 4;}
         }
 
