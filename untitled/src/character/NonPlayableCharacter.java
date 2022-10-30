@@ -57,57 +57,32 @@ public abstract class NonPlayableCharacter extends Character {
             }
         }
 
-        attacking(gp);
 
         int frameAdjust = 12;
         spriteCounter++;
         if(spriteCounter > frameAdjust){
-            if(spriteNum == 1){
-                spriteNum = 2;
-            } else if (spriteNum == 2){
-                spriteNum = 3;
-            } else if (spriteNum == 3){
-                spriteNum = 4;
-            } else if (spriteNum == 4){
-                spriteNum = 5;
-            }else if (spriteNum == 5){
-                spriteNum = 6;
-            }else if (spriteNum == 6){
-                spriteNum = 1;
-            }
+        //    if(spriteNum == 1){
+        //        spriteNum = 2;
+        //    } else if (spriteNum == 2){
+        //        spriteNum = 3;
+        //    } else if (spriteNum == 3){
+        //        spriteNum = 4;
+        //    } else if (spriteNum == 4){
+        //        spriteNum = 5;
+        //    }else if (spriteNum == 5){
+        //        spriteNum = 6;
+        //    }else if (spriteNum == 6){
+        //        spriteNum = 1;
+        //    }
+        // Removed unnecessary conditional statements
+
+            spriteNum = ((spriteNum)%6+1);
+
             spriteCounter = 0;
         }
 
     }
 
-    public void attacking(GamePanel gamePanel) {    // TODO: Temporary attacking method, exhibits unpredictable behavior
-        int currX = this.xCoord;
-        int currY = this.yCoord;
-        int collisionAreaWidth = this.solidArea.width;
-        int collisionAreaHeight = this.solidArea.height;
-
-        switch (direction) {
-            case "up" -> yCoord -= attackArea.height;
-            case "down" -> yCoord += attackArea.height;
-            case "left" -> xCoord -= attackArea.width;
-            case "right" -> xCoord += attackArea.width;
-        }
-
-        solidArea.width = attackArea.width;
-        solidArea.height = attackArea.height;
-        boolean isHit = gamePanel.checker.checkEntityCollision(this, gamePanel.getPlayer());
-        //boolean isHit = gamePanel.checker.checkEntity(gamePanel.getPlayer(), this);
-
-        if (isHit) {
-            //System.out.println("Player took damage");
-            gamePanel.getPlayer().damagePlayer();
-        }
-
-        xCoord = currX;
-        yCoord = currY;
-        solidArea.width = collisionAreaWidth;
-        solidArea.height = collisionAreaHeight;
-    }
 
     public int getDamagePerHit() {
         return damagePerHit;

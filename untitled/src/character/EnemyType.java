@@ -4,5 +4,8 @@ package character;
  *
  */
 public enum EnemyType {
-    DEFAULT
+    DEFAULT,
+    SMALL,
+    MEDIUM,
+    LARGE
 }
