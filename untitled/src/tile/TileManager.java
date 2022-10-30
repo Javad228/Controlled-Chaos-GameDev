@@ -31,9 +31,9 @@ public class TileManager {
         int roomNum = gp.getCurrentRoomNum();
 //        System.out.println(roomNum);
         if (roomNum == 1) {
-            System.out.println("loaded");
+            //System.out.println("loaded");
             loadMap("/maps/map1.txt");
-            System.out.println("loaded success");
+            //System.out.println("loaded success");
         } else if (roomNum == 0) {
             loadMap("/maps/map0.txt");
         } else if (roomNum == 2) {
