@@ -32,11 +32,12 @@ public class TileManager {
 //        System.out.println(roomNum);
         if (roomNum == 1) {
             System.out.println("loaded");
-            loadMap("/maps/mapset" + gp.player.roomsetNub + "/map1.txt");
+            loadMap("/maps/map1.txt");
             System.out.println("loaded success");
-        }
-        if (roomNum == 0) {
-            loadMap("/maps/mapset" + gp.player.roomsetNub + "/map2.txt");
+        } else if (roomNum == 0) {
+            loadMap("/maps/map0.txt");
+        } else if (roomNum == 2) {
+            loadMap("/maps/map2.txt");
         }
 
         /*

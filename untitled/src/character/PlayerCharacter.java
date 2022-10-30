@@ -165,6 +165,26 @@ public class PlayerCharacter extends Character {
         return tile;
     }
 
+    public Tile getCurrentTile() {
+        int xCoord = this.getxCoord();
+        int yCoord = this.getyCoord();
+
+        int col = xCoord/gp.tileSize;
+        int row = yCoord/gp.tileSize;
+
+        int tileNum = gp.tileM.mapTileNum[col][row];
+
+        Tile tile = gp.tileM.tile[tileNum];
+
+        //if (tile.damageTile) {
+            //System.out.printf("xCoord: %d\n", xCoord);
+            //System.out.printf("yCoord: %d\n", yCoord);
+            //System.out.printf("tileNum: %d\n", tileNum);
+        //}
+
+        return tile;
+    }
+
     public void getPlayerImage() {
         try {
             this.setUp1(ImageIO.read(getClass().getResourceAsStream("/player_character/up_1.png")));
@@ -267,7 +287,6 @@ public class PlayerCharacter extends Character {
         if (shotAvailableTimer < shotTimerMax) {
             shotAvailableTimer++;
         }
-
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
             if (keyH.kPressed) {
