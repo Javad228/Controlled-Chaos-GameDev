@@ -111,7 +111,6 @@ public class TileManager {
 
         }
     }
-
     public void draw(Graphics2D g2) {
         int col = 0;
         int row = 0;

@@ -374,7 +374,7 @@ public class PlayerCharacter extends Character {
                 if(isHit){
                     //Audio.enemyDamagedAudio();
                     damageMonster(enemy);
-                    System.out.println("Hit");
+                    //System.out.println("Hit");
                 }
 
             }
@@ -403,7 +403,7 @@ public class PlayerCharacter extends Character {
         if (!enemy.isInvincible) {
             enemy.health -= 1;
             enemy.isInvincible = true;
-            System.out.println(enemy.health);
+            //System.out.println(enemy.health);
             Audio.enemyDamagedAudio();
 
             if (enemy.health <= 0) {
