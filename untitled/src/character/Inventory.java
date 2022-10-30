@@ -40,7 +40,7 @@ public class Inventory {
 
     public void draw(Graphics2D g2){
         this.g2 = g2;
-        System.out.println(gp.gameState);
+        //System.out.println(gp.gameState);
         if (gp.gameState == 4){
             drawInventory();
         }
@@ -52,8 +52,8 @@ public class Inventory {
         final int frameWidth = gp.tileSize*6;
         final int frameHeight = gp.tileSize*5;
         drawSubWindow(frameX,frameY,frameWidth,frameHeight);
-        System.out.println(slotCol);
-        System.out.println(slotRow);
+        //System.out.println(slotCol);
+        //System.out.println(slotRow);
         //Slots
         final int slotXstart = frameX + 20;
         final int slotYstart = frameY + 20;

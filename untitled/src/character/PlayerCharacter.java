@@ -8,6 +8,7 @@ import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
 import save.SimpleCharacter;
+import tile.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -34,6 +35,7 @@ public class PlayerCharacter extends Character {
     private boolean isDying;                // Used for performing death animation
 
     private BufferedImage[] deathImages;
+    private Tile currentTile;
 
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -58,6 +60,7 @@ public class PlayerCharacter extends Character {
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
         this.deathImages = new BufferedImage[3];
+        this.currentTile = null;
         setDefaultValues();
         getPlayerImage();
 
@@ -87,6 +90,7 @@ public class PlayerCharacter extends Character {
         this.setSpriteNum(pc.getSpriteNum());
         this.setStartingItem(pc.getStartingItem());
         this.healthBar = pc.healthBar;
+        this.currentTile = pc.currentTile;
         this.numCoins = pc.numCoins;
     }
 
@@ -103,6 +107,7 @@ public class PlayerCharacter extends Character {
         this.inventory = c.inventory;
         this.characterType = c.characterType;
         this.numCoins = c.getNumCoins();
+        this.currentTile = null;
     }
 
     public void setDefaultValues() {
@@ -128,6 +133,26 @@ public class PlayerCharacter extends Character {
 //        this.collisionAreaDefaultY = solidArea.y;
         this.setProjectile(new Arrow(gp));
 
+    }
+
+    public Tile getCurrentTile() {
+        int xCoord = this.getxCoord();
+        int yCoord = this.getyCoord();
+
+        int col = xCoord/gp.tileSize;
+        int row = yCoord/gp.tileSize;
+
+        int tileNum = gp.tileM.mapTileNum[col][row];
+
+        Tile tile = gp.tileM.tile[tileNum];
+
+        //if (tile.damageTile) {
+            //System.out.printf("xCoord: %d\n", xCoord);
+            //System.out.printf("yCoord: %d\n", yCoord);
+            //System.out.printf("tileNum: %d\n", tileNum);
+        //}
+
+        return tile;
     }
 
     public void getPlayerImage() {

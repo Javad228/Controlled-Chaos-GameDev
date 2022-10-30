@@ -63,28 +63,6 @@ public class View {
         tempWindow.setVisible(true);
          */
 
-        // temporary button to get to settings
-
-        JButton settingsButton = new JButton("Settings");
-        settingsButton.setPreferredSize(new Dimension(50, 25));
-
-        settingsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Main.view.getSettingsPage().setVisible(true);
-                Main.view.getGamePanel().setVisible(false);
-                Main.view.coinLabel.setVisible(false);
-
-                Main.view.getGamePanel().pauseThread();
-
-                Audio.stopMusic();
-                Audio.settingsMusic();
-            }
-        });
-
-        window.add(settingsButton, BorderLayout.SOUTH);
-
-
         window.setVisible(true);                                    // currently opens up the game window
     }
 

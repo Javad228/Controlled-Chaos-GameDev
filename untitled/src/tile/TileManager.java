@@ -62,7 +62,7 @@ public class TileManager {
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike-over-grass.png")));
-
+            tile[3].damageTile = true;
 
         }catch (IOException e) {
             e.printStackTrace();

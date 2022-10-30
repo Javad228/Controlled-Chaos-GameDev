@@ -3,8 +3,11 @@ package main;
 import character.Character;
 import character.PlayerCharacter;
 import loot.Loot;
+import tile.Tile;
 
 public class CollisionChecker {
+    static final int trapDamage = 2;
+
     GamePanel gp;
 
     public CollisionChecker(GamePanel gamePanel){
@@ -110,36 +113,31 @@ public class CollisionChecker {
                 characterTopRow = (characterTop - character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-                    character.collisionOn = true;
-                }
             }
             case "down" -> {
                 characterBottomRow = (characterBottom + character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-                    character.collisionOn = true;
-                }
             }
             case "left" -> {
                 characterLeftCol = (characterLeft - character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-                    character.collisionOn = true;
-                }
             }
             case "right" -> {
                 characterRightCol = (characterRight + character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-                    character.collisionOn = true;
-                }
+            } default -> {
+                System.out.println("Error with block collision.");
+                return;
             }
         }
-//        System.out.println(character.collisionOn);
+
+        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+            character.collisionOn = true;
+        }
+
     }
 
     public void checkPath (Character character,int[][] maze) {
@@ -247,7 +245,7 @@ public class CollisionChecker {
 
         if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 0) {
             if (characterBottom > 226 && characterBottom < 254) {
-                System.out.println("it's in");
+                //System.out.println("it's in");
                 gp.setCurrentRoomNum(1);
                 gp.tileM.update();
                 return 1;
@@ -256,7 +254,7 @@ public class CollisionChecker {
 
         if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 1) {
             if (characterBottom > 376 && characterBottom < 406) {
-                System.out.println("it's in");
+                //System.out.println("it's in");
                 gp.setCurrentRoomNum(0);
                 gp.tileM.update();
                 return 0;
