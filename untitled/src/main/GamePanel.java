@@ -34,9 +34,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker checker = new CollisionChecker(this);
 	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
-	transient Thread gameThread;
+	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 
+	//public Slime enemy = new Slime();
+	//private ArrayList<Item> lootInRoom;
 	private ArrayList<Room> rooms; // list of rooms. the index of the room is its room number
 	private int currentRoomNum = 0;
 
@@ -44,6 +46,13 @@ public class GamePanel extends JPanel implements Runnable{
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
 	public Inventory inventory = new Inventory(this);
+
+/*
+	Public NonPlayableCharacter[] enemies = new NonPlayableCharacter[12];
+//	public Slime enemy = new Slime();
+	public Consumable apple = new Consumable(this, appleImages);
+
+	 */
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -70,11 +79,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void newGame() {
 		this.setPlayer(new PlayerCharacter(this, keyH));
+		//this.setWeapon(new Weapon(keyH, weaponImages));
 		newGameHelper();
 	}
 
 	public void newGame(SimpleCharacter sc, SimpleWeapon w) {
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
+		//this.setWeapon(new Weapon(w, keyH));
 		newGameHelper();
 	}
 
@@ -123,6 +134,15 @@ public class GamePanel extends JPanel implements Runnable{
 
 	@Override
 	public void run() {
+		/*
+		Slime enemy = new Slime();
+		Skeleton enemy1 = new Skeleton();
+		Wizard enemy2 = new Wizard(this);
+		enemies[0] = enemy;
+		enemies[1] = enemy1;
+		enemies[2] = enemy2;
+		*/
+
 		double drawInterval;					//converts from nanoseconds to seconds
 		double delta = 0;
 		long lastTime = System.nanoTime();
@@ -159,11 +179,12 @@ public class GamePanel extends JPanel implements Runnable{
 
 				if (timer >= 1000000000) {
 					Main.window.setTitle("Controlled Chaos");
+					//System.out.println("FPS:" + drawCount);
 					drawCount = 0;
 					timer = 0;
 				}
 
-				if (player.getHealth() <= 0 && !player.isAlive) {
+				if (player.getHealth() <= 0) {
 					Audio.stopWalking();
 					Audio.stopMusic();
 					player.kill();
@@ -171,6 +192,7 @@ public class GamePanel extends JPanel implements Runnable{
 					keyH.reset();
 					player.setKeyHandler(null);
 					deathPanel.showDeathPanel();
+					//Main.view.getWindow().set
 					this.pauseThread();
 				}
 			}
