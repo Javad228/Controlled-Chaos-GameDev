@@ -1,8 +1,10 @@
 package enemy;
 
+
 import character.*;
 
 import loot.LootType;
+
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -100,6 +102,11 @@ public class Slime extends Enemy {
             this.setRight4(ImageIO.read(getClass().getResourceAsStream("/Slime/tile010.png")));
             this.setRight5(ImageIO.read(getClass().getResourceAsStream("/Slime/tile011.png")));
             this.setRight6(ImageIO.read(getClass().getResourceAsStream("/Slime/tile012.png")));
+            this.setDeath1(ImageIO.read(getClass().getResourceAsStream("/Slime/tile028.png")));
+            this.setDeath2(ImageIO.read(getClass().getResourceAsStream("/Slime/tile029.png")));
+            this.setDeath3(ImageIO.read(getClass().getResourceAsStream("/Slime/tile030.png")));
+            this.setDeath4(ImageIO.read(getClass().getResourceAsStream("/Slime/tile031.png")));
+            this.setDeath5(ImageIO.read(getClass().getResourceAsStream("/Slime/tile032.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Character {
+    public int attackType = 0;
     public boolean isInvincible = false;
     public int invincibleCounter = 0;
     public boolean isAlive = true;
@@ -43,6 +44,7 @@ public abstract class Character {
     public boolean collisionOn = false;
     private BufferedImage up1, up2,up3,up4,up5,up6, down1, down2,down3,down4,down5,down6, left1, left2,left3,left4,left5,left6, right1, right2,right3,right4,right5,right6;
     private BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
+    private BufferedImage death1, death2, death3, death4, death5;
     public String direction = "down";
     public boolean isAttacking = false;
 
@@ -61,14 +63,13 @@ public abstract class Character {
         this.maxHealth = 100;
         this.health = maxHealth;
         this.movementSpeed = 1;
-        this.xCoord = 300;
-        this.yCoord = 300;
+        this.xCoord = 50;
+        this.yCoord = 50;
         this.height = 50;
         this.width = 50;
         this.activeEffects = new ArrayList<>();
         this.type = CombatType.DEFAULT;
         this.timeForInvincibility = 1;
-        this.isAlive = true;
     }
 
     /**
@@ -531,5 +532,45 @@ public abstract class Character {
 
     public void setAttackLeft2(BufferedImage attackLeft2) {
         this.attackLeft2 = attackLeft2;
+    }
+
+    public BufferedImage getDeath1() {
+        return death1;
+    }
+
+    public void setDeath1(BufferedImage death1) {
+        this.death1 = death1;
+    }
+
+    public BufferedImage getDeath2() {
+        return death2;
+    }
+
+    public void setDeath2(BufferedImage death2) {
+        this.death2 = death2;
+    }
+
+    public BufferedImage getDeath3() {
+        return death3;
+    }
+
+    public void setDeath3(BufferedImage death3) {
+        this.death3 = death3;
+    }
+
+    public BufferedImage getDeath4() {
+        return death4;
+    }
+
+    public void setDeath4(BufferedImage death4) {
+        this.death4 = death4;
+    }
+
+    public BufferedImage getDeath5() {
+        return death5;
+    }
+
+    public void setDeath5(BufferedImage death5) {
+        this.death5 = death5;
     }
 }

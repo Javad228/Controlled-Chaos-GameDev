@@ -1,8 +1,10 @@
 package character;
 
 import main.GamePanel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Projectile extends Character {
 
@@ -60,12 +62,19 @@ public class Projectile extends Character {
 
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
-        Boolean isHit = gp.checker.checkEntityCollision(this, gp.enemy);
-        if(isHit){
-            System.out.println("Hit");
-            //Potentially add if statement for piercing effects where projectile isn't destroyed
-            this.setIsAlive(false);
+        if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
+            ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
+            for (int i = 0; i < currentList.size(); i++) {
+                Enemy enemy = currentList.get(i);
+                Boolean isHit = gp.checker.checkEntityAttack(this, enemy);
+                if(isHit){
+                    System.out.println("Hit");
+                    //Potentially add if statement for piercing effects where projectile isn't destroyed
+                    this.setIsAlive(false);
+                }
+            }
         }
+
 
         //After checking collision, restore original data
         xCoord = currentWorldX;

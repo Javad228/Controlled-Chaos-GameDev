@@ -1,15 +1,14 @@
 package character;
 
+import loot.Consumable;
+import loot.Item;
 import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
-
-import loot.*;
 import save.SimpleCharacter;
 
 import javax.imageio.ImageIO;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -38,16 +37,21 @@ public class PlayerCharacter extends Character {
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
         this.characterType = CharacterType.DEFAULT;
-        this.inventory = new Inventory();
+        this.inventory = new Inventory(gp);
         this.gp = gp;
         this.keyH = keyH;
+//<<<<<<< Cameron-DamageByEnemies
         this.isDying = false;
-        this.solidArea.x = 3;
-        this.solidArea.y = 18;
+//        this.solidArea.x = 3;
+//        this.solidArea.y = 18;
+//=======
+        this.solidArea.x = 0;
+        this.solidArea.y = 10;
+//>>>>>>> Cameron-Merge-DamageByEnemies
         this.setWidth(18);
         this.setHeight(46);
         this.solidArea.width = 9;
-        this.solidArea.height = 23;
+        this.solidArea.height = 18;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
@@ -98,13 +102,22 @@ public class PlayerCharacter extends Character {
     }
 
     public void setDefaultValues() {
-        this.setxCoord(100);
-        this.setyCoord(50);
+        this.setxCoord(50);
+        this.setyCoord(200);
         this.setMovementSpeed(4);
         this.setDirection("down");
-        this.solidArea = new Rectangle(8, 16, 32, 32);
+        this.solidArea = new Rectangle(0, 16, 30, 30);
         this.attackArea.width = 36;
         this.attackArea.height = 36;
+        String[] stringArray = {"/weapons/wooden_sword.png"};
+        String[] stringArray1 = {"/weapons/wooden_sword.png"};
+        Item item = new Item(keyH,7,stringArray);
+        item.setDescription("wooden sword");
+        Item item1 = new Item(keyH,7,stringArray1);
+        item1.setDescription("wooden sword #2");
+
+        this.getInventory().addItem(item);
+        this.getInventory().addItem(item1);
 //        this.setWidth(18);
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
@@ -187,7 +200,36 @@ public class PlayerCharacter extends Character {
                 invincibleCounter = 0;
             }
         }
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            int currentX = this.getxCoord();
+            int currentY = this.getyCoord();
+            int movementSpeed = this.getProjectile().getMovementSpeed();
 
+            if (keyH.upPressed && !keyH.downPressed) {
+                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.downPressed && !keyH.upPressed) {
+                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.leftPressed && !keyH.rightPressed) {
+                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+            if (keyH.rightPressed && !keyH.leftPressed) {
+                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                this.setHasThrownProjectile(true);
+                //gp.projectileList.add(projectile);
+            }
+        }
+
+        if (this.isHasThrownProjectile()) {
+            this.getProjectile().update();
+        }
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
             if (keyH.kPressed) {
@@ -242,12 +284,15 @@ public class PlayerCharacter extends Character {
                     }
                 }
 
-                if (gp.getLootInRoom() != null){
-                    ArrayList<Item> currentList = gp.getLootInRoom();
-                    for (int i = 0; i < gp.getLootInRoom().size(); i++) {
-                        Item item = gp.getLootInRoom().get(i);
+                // GamePanel has an arraylist of rooms. We are in the room indicated by the currentRoomNum, which
+                // corresponds to the rooms index in the arraylist. Each room has an arraylist of items. Must check if
+                // it is null before proceeding.
+                if (gp.getRooms().get(gp.getCurrentRoomNum()).getItems() != null){
+                    ArrayList<Item> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getItems();
+                    for (int i = 0; i < currentList.size(); i++) {
+                        Item item = currentList.get(i);
                         if (gp.checker.checkLootCollision(this, item)) {
-                            if (item instanceof Consumable) {
+                            if (item instanceof Consumable && ((Consumable) item).isVisible) {
                                 heal(((Consumable) item).consume());
                             } else {
                                 inventory.addItem(item);
@@ -258,6 +303,7 @@ public class PlayerCharacter extends Character {
                 }
             }
 
+//<<<<<<< Cameron-DamageByEnemies
 
             if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
                 int currentX = this.getxCoord();
@@ -290,6 +336,9 @@ public class PlayerCharacter extends Character {
                 this.getProjectile().update();
             }
 
+//=======
+            this.healthBar.update(this.getHealth());
+//>>>>>>> Cameron-Merge-DamageByEnemies
         }
     }
 
@@ -311,15 +360,23 @@ public class PlayerCharacter extends Character {
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
 //        System.out.println(solidArea);
-        Boolean isHit = gp.checker.checkEntityAttack(this, gp.enemy);
+        if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
+            ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
+            for (int i = 0; i < currentList.size(); i++) {
+                Enemy enemy = currentList.get(i);
+                Boolean isHit = gp.checker.checkEntityAttack(this, enemy);
+                if(isHit){
+                    //Audio.enemyDamagedAudio();
+                    damageMonster(enemy);
+                    System.out.println("Hit");
+                }
+
+            }
+        }
 
 //        System.out.println(isHit);
 
-        if(isHit){
-            //Audio.enemyDamagedAudio();
-            damageMonster();
-            System.out.println("Hit");
-        }
+
 
         /*
         isHit = gp.checker.checkConsumableCollision(this, gp.apple);
@@ -336,24 +393,24 @@ public class PlayerCharacter extends Character {
         solidArea.height = collisionAreaHeight;
     }
 
-    public void damageMonster () {
-        if (!gp.enemy.isInvincible) {
-            gp.enemy.health -= 1;
-            gp.enemy.isInvincible = true;
-            System.out.println(gp.enemy.health);
+    public void damageMonster (Enemy enemy) {
+        if (!enemy.isInvincible) {
+            enemy.health -= 1;
+            enemy.isInvincible = true;
+            System.out.println(enemy.health);
             Audio.enemyDamagedAudio();
 
-            if (gp.enemy.health <= 0) {
-                gp.enemy.isAlive = false;
+            if (enemy.health <= 0) {
+                enemy.isAlive = false;
             }
         }
 
     }
 
-    public void damagePlayer() {
+    public void damagePlayer(NonPlayableCharacter entity) {
         if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
-            gp.getPlayer().damage(gp.enemy.getDamagePerHit());
+            gp.getPlayer().damage(entity.getDamagePerHit());
             gp.getPlayer().isInvincible = true;
             //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }
