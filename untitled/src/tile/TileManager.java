@@ -13,8 +13,8 @@ import java.util.Objects;
 public class TileManager {
 
     GamePanel gp;
-    public Tile[] tile;
-    public int[][] mapTileNum;
+    public static Tile[] tile;
+    public static int[][] mapTileNum;
     //private int roomNum;
     private Object[] loot;
 
@@ -31,9 +31,9 @@ public class TileManager {
         int roomNum = gp.getCurrentRoomNum();
 //        System.out.println(roomNum);
         if (roomNum == 1) {
-            System.out.println("loaded");
+            //System.out.println("loaded");
             loadMap("/maps/map1.txt");
-            System.out.println("loaded success");
+            //System.out.println("loaded success");
         } else if (roomNum == 0) {
             loadMap("/maps/map0.txt");
         } else if (roomNum == 2) {
@@ -49,20 +49,28 @@ public class TileManager {
 
     public void getTileImage() {
         try {
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png")));
+            tile[Tile.GRASS] = new Tile();
+            tile[Tile.GRASS].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png")));
+            tile[Tile.GRASS].tileType = Tile.GRASS;
 
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png")));
-            tile[1].collision = true;
+            tile[Tile.STONE] = new Tile();
+            tile[Tile.STONE].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/stone.png")));
+            tile[Tile.STONE].collision = true;
+            tile[Tile.STONE].tileType = Tile.STONE;
 
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png")));
-            //tile[2].collision = true;
+            tile[Tile.DOOR] = new Tile();
+            tile[Tile.DOOR].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png")));
+            tile[Tile.DOOR].tileType = Tile.DOOR;
 
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike-over-grass.png")));
-            tile[3].damageTile = true;
+            tile[Tile.TRAP] = new Tile();
+            tile[Tile.TRAP].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike-over-grass.png")));
+            tile[Tile.TRAP].damageTile = true;
+            tile[Tile.TRAP].tileType = Tile.TRAP;
+
+            tile[Tile.BUTTON] = new Tile();
+            tile[Tile.BUTTON].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_up.png")));
+            tile[Tile.BUTTON].collision = false;
+            tile[Tile.BUTTON].tileType = Tile.BUTTON;
 
         }catch (IOException e) {
             e.printStackTrace();
