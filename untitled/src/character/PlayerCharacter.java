@@ -1,5 +1,6 @@
 package character;
 
+import loot.Coin;
 import loot.Consumable;
 import loot.Item;
 import main.Audio;
@@ -28,6 +29,7 @@ public class PlayerCharacter extends Character {
     private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
+    private int numCoins;
 
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -245,11 +247,25 @@ public class PlayerCharacter extends Character {
                                 heal(((Consumable) item).consume());
                             } else {
                                 inventory.addItem(item);
-                                currentList.remove(i);
                             }
+                            currentList.remove(i);
+                            Audio.itemPickUpAudio();
                         }
                     }
                 }
+
+                if (gp.getRooms().get(gp.getCurrentRoomNum()).getCoins() != null){
+                    ArrayList<Coin> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getCoins();
+                    for (int i = 0; i < currentList.size(); i++) {
+                        Coin coin = currentList.get(i);
+                        if (gp.checker.checkLootCollision(this, coin)) {
+                            this.numCoins = this.numCoins + coin.getValue();
+                            currentList.remove(i);
+                            Audio.itemPickUpAudio();
+                        }
+                    }
+                }
+                // TODO: add loop like above but for coins
             }
 
             this.healthBar.update(this.getHealth());
@@ -462,5 +478,12 @@ public class PlayerCharacter extends Character {
         return super.equals(o);
     }
 
+    public int getNumCoins() {
+        return numCoins;
+    }
+
+    public void setNumCoins(int numCoins) {
+        this.numCoins = numCoins;
+    }
 }
 

@@ -1,15 +1,16 @@
 package enemy;
 
+import character.Enemy;
 import character.NonPlayableCharacter;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Skeleton extends NonPlayableCharacter {
+public class Skeleton extends Enemy {
 
-    public Skeleton() {
-        super();
+    public Skeleton(GamePanel gp) {
+        super(gp);
         name = "Skeleton";
         movementSpeed = 1;
         maxHealth = 10;

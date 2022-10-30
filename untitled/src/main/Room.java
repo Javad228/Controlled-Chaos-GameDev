@@ -5,10 +5,7 @@ import character.NonPlayableCharacter;
 import enemy.Skeleton;
 import enemy.Slime;
 import enemy.Wizard;
-import loot.Consumable;
-import loot.Effect;
-import loot.Item;
-import loot.Weapon;
+import loot.*;
 
 import java.util.ArrayList;
 
@@ -17,6 +14,7 @@ public class Room {
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
     private ArrayList<NonPlayableCharacter> NPCs;
+    private ArrayList<Coin> coins;
     private KeyHandler keyH;
     private GamePanel gp;
 
@@ -27,6 +25,7 @@ public class Room {
         initializeItems();
         initializeEnemies();
         initializeNPCs();
+        initializeCoins();
     }
 
     private void initializeItems() {
@@ -52,7 +51,9 @@ public class Room {
         switch(roomNum) {
             case 0:
                 enemies = new ArrayList<>();
-                enemies.add(new Slime());
+                enemies.add(new Slime(this.gp));
+                enemies.add(new Skeleton(this.gp));
+                enemies.add(new Wizard(this.gp));
                 break;
             case 1:
                 enemies = null;
@@ -60,6 +61,8 @@ public class Room {
     }
 
     private void initializeNPCs() {
+        NPCs = null;
+        /* Add something like this here when we have friendly NPCs
         switch(roomNum) {
             case 0:
                 NPCs = new ArrayList<>();
@@ -67,7 +70,21 @@ public class Room {
                 NPCs.add(new Wizard(this.gp));
                 break;
             case 1:
-                enemies = null;
+                NPCs = null;
+        }
+        */
+    }
+
+    private void initializeCoins() {
+        switch(roomNum) {
+            case 0:
+                String[] coinImages = {"/items/coin.png"};
+                Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
+                coins = new ArrayList<>();
+                coins.add(coin);
+                break;
+            case 1:
+                coins = null;
         }
     }
 
@@ -93,5 +110,13 @@ public class Room {
 
     public void setNPCs(ArrayList<NonPlayableCharacter> NPCs) {
         this.NPCs = NPCs;
+    }
+
+    public ArrayList<Coin> getCoins() {
+        return coins;
+    }
+
+    public void setCoins(ArrayList<Coin> coins) {
+        this.coins = coins;
     }
 }

@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class Slime extends Enemy {
 
-    public Slime() {
-        super();
+    public Slime(GamePanel gp) {
+        super(gp);
         name = "Slime";
         movementSpeed = 1;
         maxHealth = 10;

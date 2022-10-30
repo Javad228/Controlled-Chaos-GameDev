@@ -18,6 +18,10 @@ public class Item extends Loot {
         this.isEquipped = false;
     }
 
+    public Item(KeyHandler keyH, int framesToWait, String[] imagePaths, int xCoord, int yCoord) {
+        super(keyH, framesToWait, imagePaths, xCoord, yCoord);
+    }
+
     public Item(KeyHandler keyH, int framesToWait, String description, double price, boolean isEquipped, String[] imagePaths) {
         super(keyH, framesToWait, imagePaths);
         this.description = description;

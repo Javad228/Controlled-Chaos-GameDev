@@ -1,15 +1,16 @@
 package enemy;
 
+import character.Enemy;
 import character.NonPlayableCharacter;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Wizard extends NonPlayableCharacter {
+public class Wizard extends Enemy {
     private int counter = 1;
     public Wizard(GamePanel gp) {
-        super();
+        super(gp);
         name = "Wizard";
         movementSpeed = 1;
         maxHealth = 10;

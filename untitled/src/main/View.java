@@ -21,7 +21,7 @@ public class View {
         window.setTitle("Controlled Chaos");
 
         gamePanel = new GamePanel();
-        window.add(gamePanel);
+        window.add(gamePanel, BorderLayout.CENTER);
         window.addKeyListener(gamePanel.keyH);
 
         window.pack();
@@ -53,6 +53,9 @@ public class View {
         tempWindow.add(savePage, BorderLayout.SOUTH);
         tempWindow.setVisible(true);
          */
+
+        // temporary button to get to settings
+        /*
         JButton settingsButton = new JButton("Settings");
         settingsButton.setPreferredSize(new Dimension(50, 25));
 
@@ -68,7 +71,9 @@ public class View {
                 Audio.settingsMusic();
             }
         });
+
         window.add(settingsButton, BorderLayout.SOUTH);
+        */
 
         window.setVisible(true);                                    // currently opens up the game window
     }

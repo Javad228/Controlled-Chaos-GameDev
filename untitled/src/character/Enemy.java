@@ -7,8 +7,8 @@ public class Enemy extends NonPlayableCharacter {
     private EnemyType enemyType;
     private LootType lootType;
 
-    public Enemy() {
-        super();
+    public Enemy(GamePanel gp) {
+        super(gp);
         this.enemyType = EnemyType.DEFAULT;
         this.lootType = LootType.DEFAULT;
     }
