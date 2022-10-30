@@ -63,11 +63,11 @@ public class Wizard extends NonPlayableCharacter {
 
                             if(actionLockCounter == 70){
                                 if (goalRow < startRow) {
-                                    System.out.println("up arrow");
+                                    //System.out.println("up arrow");
                                     this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
                                     this.setHasThrownProjectile(true);
                                 } else {
-                                    System.out.println("down arrow");
+                                    //System.out.println("down arrow");
                                     this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
                                     this.setHasThrownProjectile(true);
                                 }
@@ -75,7 +75,7 @@ public class Wizard extends NonPlayableCharacter {
                                 actionLockCounter = 0;
 
                             }
-                            System.out.println("shoot");
+                            //System.out.println("shoot");
                         }
                     } else {
                         counter = 1;

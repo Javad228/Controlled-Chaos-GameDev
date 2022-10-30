@@ -183,7 +183,7 @@ public abstract class NonPlayableCharacter extends Character {
 
         if (isHit) {
             //System.out.println("Player took damage");
-            gamePanel.getPlayer().damagePlayer(this);
+            gamePanel.getPlayer().damagePlayer(this.getDamagePerHit());
         }
 
         xCoord = currX;

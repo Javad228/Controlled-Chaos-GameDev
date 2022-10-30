@@ -16,6 +16,7 @@ import save.SimpleWeapon;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
+	final static int trapDamage = 2;
 	final int originalTileSizes = 16;							//16x16 tile
 	final int scale = 3;
 	public final int tileSize = originalTileSizes * scale;		//48x48 tile
@@ -170,11 +171,14 @@ public class GamePanel extends JPanel implements Runnable{
 					repaint();
 					delta--;
 					drawCount++;
+
+					if (player.getCurrentTile().damageTile) {
+						player.damagePlayer(trapDamage);
+					}
 				}
 
 				if (timer >= 1000000000) {
 					Main.window.setTitle("Controlled Chaos");
-					System.out.println("FPS:" + drawCount);
 					drawCount = 0;
 					timer = 0;
 				}

@@ -7,6 +7,7 @@ import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
 import save.SimpleCharacter;
+import tile.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -28,6 +29,7 @@ public class PlayerCharacter extends Character {
     private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
+    private Tile currentTile;
 
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -46,6 +48,7 @@ public class PlayerCharacter extends Character {
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
+        this.currentTile = null;
         setDefaultValues();
         getPlayerImage();
 
@@ -73,6 +76,7 @@ public class PlayerCharacter extends Character {
         this.setSpriteNum(pc.getSpriteNum());
         this.setStartingItem(pc.getStartingItem());
         this.healthBar = pc.healthBar;
+        this.currentTile = pc.currentTile;
     }
 
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
@@ -87,6 +91,7 @@ public class PlayerCharacter extends Character {
         this.type = c.combatType;
         this.inventory = c.inventory;
         this.characterType = c.characterType;
+        this.currentTile = null;
     }
 
     public void setDefaultValues() {
@@ -112,6 +117,26 @@ public class PlayerCharacter extends Character {
 //        this.collisionAreaDefaultY = solidArea.y;
         this.setProjectile(new Arrow(gp));
 
+    }
+
+    public Tile getCurrentTile() {
+        int xCoord = this.getxCoord();
+        int yCoord = this.getyCoord();
+
+        int col = xCoord/gp.tileSize;
+        int row = yCoord/gp.tileSize;
+
+        int tileNum = gp.tileM.mapTileNum[col][row];
+
+        Tile tile = gp.tileM.tile[tileNum];
+
+        //if (tile.damageTile) {
+            //System.out.printf("xCoord: %d\n", xCoord);
+            //System.out.printf("yCoord: %d\n", yCoord);
+            //System.out.printf("tileNum: %d\n", tileNum);
+        //}
+
+        return tile;
     }
 
     public void getPlayerImage() {
@@ -282,7 +307,7 @@ public class PlayerCharacter extends Character {
                 if(isHit){
                     //Audio.enemyDamagedAudio();
                     damageMonster(enemy);
-                    System.out.println("Hit");
+                    //System.out.println("Hit");
                 }
 
             }
@@ -311,7 +336,7 @@ public class PlayerCharacter extends Character {
         if (!enemy.isInvincible) {
             enemy.health -= 1;
             enemy.isInvincible = true;
-            System.out.println(enemy.health);
+            //System.out.println(enemy.health);
             Audio.enemyDamagedAudio();
 
             if (enemy.health <= 0) {
@@ -321,10 +346,10 @@ public class PlayerCharacter extends Character {
 
     }
 
-    public void damagePlayer(NonPlayableCharacter entity) {
+    public void damagePlayer(int damageAmount) {
         if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
-            gp.getPlayer().damage(entity.getDamagePerHit());
+            gp.getPlayer().damage(damageAmount);
             gp.getPlayer().isInvincible = true;
             //System.out.println(gp.getPlayer().getHealth());     //TODO DEBUG PlayerCharacter Invincibility
         }
