@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -28,6 +29,9 @@ public class PlayerCharacter extends Character {
     private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
+    private boolean isDying;                // Used for performing death animation
+
+    private BufferedImage[] deathImages;
 
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -36,8 +40,14 @@ public class PlayerCharacter extends Character {
         this.inventory = new Inventory(gp);
         this.gp = gp;
         this.keyH = keyH;
+//<<<<<<< Cameron-DamageByEnemies
+        this.isDying = false;
+//        this.solidArea.x = 3;
+//        this.solidArea.y = 18;
+//=======
         this.solidArea.x = 0;
         this.solidArea.y = 10;
+//>>>>>>> Cameron-Merge-DamageByEnemies
         this.setWidth(18);
         this.setHeight(46);
         this.solidArea.width = 9;
@@ -46,6 +56,7 @@ public class PlayerCharacter extends Character {
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
+        this.deathImages = new BufferedImage[3];
         setDefaultValues();
         getPlayerImage();
 
@@ -60,6 +71,7 @@ public class PlayerCharacter extends Character {
         this.inventory = pc.getInventory();
         this.gp = pc.gp;
         this.keyH = pc.keyH;
+        this.isDying = false;
         this.setName(pc.getName());
         this.setHealth(pc.getHealth());
         this.setMovementSpeed(pc.getMovementSpeed());
@@ -133,6 +145,14 @@ public class PlayerCharacter extends Character {
             this.setAttackRight2(ImageIO.read(getClass().getResourceAsStream("/player_character/right_attack_2.png")));
             this.setAttackLeft1(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_1.png")));
             this.setAttackLeft2(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_2.png")));
+
+            // Get Death Animation Images
+            this.deathImages[0] = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_1.png")));
+            this.deathImages[1] = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_2.png")));
+            this.deathImages[2] = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_3.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -140,6 +160,37 @@ public class PlayerCharacter extends Character {
 
     public void update() {
         gp.checker.checkRoom(this);
+
+        this.healthBar.update(this.getHealth());
+
+        // Escape clause for death animation
+        // Only update the sprite counter
+        if (getHealth() <= 0) {
+
+            // If this is the first instance of performing the death animation,
+            // set values to perform death animation as intended
+            if (!isDying()) {
+                setSpriteNum(0);
+                setSpriteCounter(0);
+            }
+
+            setIsDying(true);
+
+            setSpriteCounter(getSpriteCounter() + 1);   // Increment sprite counter
+
+            if (getSpriteNum() < 2 && getSpriteCounter() == 20) {
+                setSpriteNum(getSpriteNum() + 1);   // Increment sprite num for animation
+                setSpriteCounter(0);
+            }
+
+            if (getSpriteNum() > 1 && getSpriteCounter() == 40) {
+                setIsAlive(false);  // Flag for the death panel to be shown
+            }
+
+            /*Alternate spriteCounter incrementation here*/
+            return;
+        }
+
         if (keyH == null) return;
 
         if(isInvincible){
@@ -252,7 +303,42 @@ public class PlayerCharacter extends Character {
                 }
             }
 
+//<<<<<<< Cameron-DamageByEnemies
+
+            if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+                int currentX = this.getxCoord();
+                int currentY = this.getyCoord();
+                int movementSpeed = this.getProjectile().getMovementSpeed();
+
+                if (keyH.upPressed && !keyH.downPressed) {
+                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
+                if (keyH.downPressed && !keyH.upPressed) {
+                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
+                if (keyH.leftPressed && !keyH.rightPressed) {
+                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
+                if (keyH.rightPressed && !keyH.leftPressed) {
+                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                    this.setHasThrownProjectile(true);
+                    //gp.projectileList.add(projectile);
+                }
+            }
+
+            if (this.isHasThrownProjectile()) {
+                this.getProjectile().update();
+            }
+
+//=======
             this.healthBar.update(this.getHealth());
+//>>>>>>> Cameron-Merge-DamageByEnemies
         }
     }
 
@@ -334,6 +420,38 @@ public class PlayerCharacter extends Character {
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
+        this.healthBar.draw(g2,
+                this.getxCoord(),
+                this.getyCoord() - this.healthBar.getHeight());
+
+        // If player is signaled to do death animation, show death animation
+        if (isDying()) {
+            this.setWidth(31);
+            this.setHeight(44);
+
+            image = this.deathImages[this.getSpriteNum()];
+
+            switch (getSpriteNum()) {       // Set width and height parameters according to death image
+                                            // selected
+                case 0 -> {
+                    this.setWidth(32);
+                    this.setHeight(64);
+                }
+                case 1 -> {
+                    this.setWidth(37);
+                    this.setHeight(74);
+                }
+                case 2 -> {
+                    this.setWidth(47);
+                    this.setHeight(94);
+                }
+            }
+
+            g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
+            return;
+        }
+
         if (!isAttacking) {
             this.setWidth(18);
             this.setHeight(46);
@@ -414,10 +532,6 @@ public class PlayerCharacter extends Character {
             this.getProjectile().draw(g2);
         }
 
-        this.healthBar.draw(g2,
-                this.getxCoord(),
-                this.getyCoord() - this.healthBar.getHeight());
-
     }
 
     public CharacterType getCharacterType () {
@@ -450,6 +564,14 @@ public class PlayerCharacter extends Character {
 
     public void setStartingItem (Item startingItem){
         this.startingItem = startingItem;
+    }
+
+    public void setIsDying(boolean isDying) {
+        this.isDying = isDying;
+    }
+
+    public boolean isDying() {
+        return this.isDying;
     }
 
     @Override

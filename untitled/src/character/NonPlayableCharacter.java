@@ -39,22 +39,48 @@ public abstract class NonPlayableCharacter extends Character {
     public void setAction(GamePanel gp){}
 
     public void update(GamePanel gp){
+//<<<<<<< Cameron-DamageByEnemies
+        if(isInvincible){
+            invincibleCounter++;
+            if(invincibleCounter>30){
+                isInvincible = false;
+                invincibleCounter = 0;
+            }
+        }
+        setAction(gp);
+//        System.out.println(direction);
+        if(spriteNum!=1&&spriteNum!=2&&spriteNum!=6) {
+            switch (direction) {
+                case "up" -> yCoord -= movementSpeed;
+                case "down" -> yCoord += movementSpeed;
+                case "left" -> xCoord -= movementSpeed;
+                case "right" -> xCoord += movementSpeed;
+            }
+        }
+
+
+//=======
+//>>>>>>> Cameron-Merge-DamageByEnemies
         int frameAdjust = 12;
         spriteCounter++;
         if(spriteCounter > frameAdjust){
-            if(spriteNum == 1){
-                spriteNum = 2;
-            } else if (spriteNum == 2){
-                spriteNum = 3;
-            } else if (spriteNum == 3){
-                spriteNum = 4;
-            } else if (spriteNum == 4){
-                spriteNum = 5;
-            }else if (spriteNum == 5){
-                spriteNum = 6;
-            }else if (spriteNum == 6){
-                spriteNum = 1;
-            }
+        //    if(spriteNum == 1){
+        //        spriteNum = 2;
+        //    } else if (spriteNum == 2){
+        //        spriteNum = 3;
+        //    } else if (spriteNum == 3){
+        //        spriteNum = 4;
+        //    } else if (spriteNum == 4){
+        //        spriteNum = 5;
+        //    }else if (spriteNum == 5){
+        //        spriteNum = 6;
+        //    }else if (spriteNum == 6){
+        //        spriteNum = 1;
+        //    }
+        // Removed unnecessary conditional statements
+
+            spriteNum = ((spriteNum)%6+1);
+
             spriteCounter = 0;
         }
 
@@ -98,8 +124,8 @@ public abstract class NonPlayableCharacter extends Character {
         }
 
         attacking(gp);
-
     }
+    
     public void searchPath(int goalCol, int goalRow, GamePanel gp){
         int startCol = (xCoord + solidArea.x)/gp.tileSize;
         int startRow = (yCoord + solidArea.y)/gp.tileSize;

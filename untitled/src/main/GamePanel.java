@@ -179,7 +179,7 @@ public class GamePanel extends JPanel implements Runnable{
 					timer = 0;
 				}
 
-				if (player.getHealth() <= 0) {
+				if (player.getHealth() <= 0 && !player.isAlive) {
 					Audio.stopWalking();
 					Audio.stopMusic();
 					player.kill();
