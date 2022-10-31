@@ -1,5 +1,6 @@
 package character;
 
+import loot.Coin;
 import loot.Consumable;
 import loot.Item;
 import main.Audio;
@@ -29,6 +30,7 @@ public class PlayerCharacter extends Character {
     private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
+    private int numCoins;
     private boolean isDying;                // Used for performing death animation
 
     private BufferedImage[] deathImages;
@@ -47,7 +49,6 @@ public class PlayerCharacter extends Character {
 //=======
         this.solidArea.x = 0;
         this.solidArea.y = 10;
-//>>>>>>> Cameron-Merge-DamageByEnemies
         this.setWidth(18);
         this.setHeight(46);
         this.solidArea.width = 9;
@@ -64,6 +65,7 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
+        this.numCoins = 0;
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -85,6 +87,7 @@ public class PlayerCharacter extends Character {
         this.setSpriteNum(pc.getSpriteNum());
         this.setStartingItem(pc.getStartingItem());
         this.healthBar = pc.healthBar;
+        this.numCoins = pc.numCoins;
     }
 
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
@@ -99,6 +102,7 @@ public class PlayerCharacter extends Character {
         this.type = c.combatType;
         this.inventory = c.inventory;
         this.characterType = c.characterType;
+        this.numCoins = c.getNumCoins();
     }
 
     public void setDefaultValues() {
@@ -111,9 +115,9 @@ public class PlayerCharacter extends Character {
         this.attackArea.height = 36;
         String[] stringArray = {"/weapons/wooden_sword.png"};
         String[] stringArray1 = {"/weapons/wooden_sword.png"};
-        Item item = new Item(keyH,7,stringArray);
+        Item item = new Item(7,stringArray);
         item.setDescription("wooden sword");
-        Item item1 = new Item(keyH,7,stringArray1);
+        Item item1 = new Item(7,stringArray1);
         item1.setDescription("wooden sword #2");
 
         this.getInventory().addItem(item);
@@ -296,8 +300,21 @@ public class PlayerCharacter extends Character {
                                 heal(((Consumable) item).consume());
                             } else {
                                 inventory.addItem(item);
-                                currentList.remove(i);
                             }
+                            currentList.remove(i);
+                            Audio.itemPickUpAudio();
+                        }
+                    }
+                }
+
+                if (gp.getRooms().get(gp.getCurrentRoomNum()).getCoins() != null){
+                    ArrayList<Coin> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getCoins();
+                    for (int i = 0; i < currentList.size(); i++) {
+                        Coin coin = currentList.get(i);
+                        if (gp.checker.checkLootCollision(this, coin)) {
+                            this.numCoins = this.numCoins + coin.getValue();
+                            currentList.remove(i);
+                            Audio.itemPickUpAudio();
                         }
                     }
                 }
@@ -548,5 +565,12 @@ public class PlayerCharacter extends Character {
         return super.equals(o);
     }
 
+    public int getNumCoins() {
+        return numCoins;
+    }
+
+    public void setNumCoins(int numCoins) {
+        this.numCoins = numCoins;
+    }
 }
 

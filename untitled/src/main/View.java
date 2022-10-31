@@ -12,6 +12,8 @@ public class View {
     private SettingsPanel settingsPage;
     private JPanel savePage;
 
+    private JLabel coinLabel;
+
     public View () {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,8 +22,15 @@ public class View {
         window.setResizable(false);
         window.setTitle("Controlled Chaos");
 
+        coinLabel = new JLabel();
+        coinLabel.setOpaque(true);
+        coinLabel.setBackground(Color.BLACK);
+        coinLabel.setForeground(Color.WHITE);
+        window.add(coinLabel);
         gamePanel = new GamePanel();
         window.add(gamePanel);
+        coinLabel.setBounds(0, 0, 100, 25);
+
         window.addKeyListener(gamePanel.keyH);
 
         window.pack();
@@ -53,6 +62,9 @@ public class View {
         tempWindow.add(savePage, BorderLayout.SOUTH);
         tempWindow.setVisible(true);
          */
+
+        // temporary button to get to settings
+
         JButton settingsButton = new JButton("Settings");
         settingsButton.setPreferredSize(new Dimension(50, 25));
 
@@ -61,6 +73,7 @@ public class View {
             public void actionPerformed(ActionEvent e) {
                 Main.view.getSettingsPage().setVisible(true);
                 Main.view.getGamePanel().setVisible(false);
+                Main.view.coinLabel.setVisible(false);
 
                 Main.view.getGamePanel().pauseThread();
 
@@ -68,9 +81,18 @@ public class View {
                 Audio.settingsMusic();
             }
         });
+
         window.add(settingsButton, BorderLayout.SOUTH);
 
+
         window.setVisible(true);                                    // currently opens up the game window
+    }
+
+    public void updateCoinLabel(Graphics2D g2) {
+        coinLabel.setText(Integer.toString(gamePanel.player.getNumCoins()));
+        //Main.view.getCoinLabel().setBounds(this.screenWidth - 100, 0, 100, 25);
+        //this.coinLabel.setHorizontalAlignment(JLabel.RIGHT);
+        this.coinLabel.update(g2);
     }
 
     public JFrame getWindow() {
@@ -85,4 +107,11 @@ public class View {
         return settingsPage;
     }
 
+    public JLabel getCoinLabel() {
+        return coinLabel;
+    }
+
+    public void setCoinLabel(JLabel coinLabel) {
+        this.coinLabel = coinLabel;
+    }
 }

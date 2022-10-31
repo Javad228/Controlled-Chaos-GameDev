@@ -1,5 +1,7 @@
 package enemy;
 
+import character.Enemy;
+import character.NonPlayableCharacter;
 import character.*;
 import loot.LootType;
 import main.GamePanel;
