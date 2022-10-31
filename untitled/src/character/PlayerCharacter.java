@@ -265,7 +265,6 @@ public class PlayerCharacter extends Character {
                         }
                     }
                 }
-                // TODO: add loop like above but for coins
             }
 
             this.healthBar.update(this.getHealth());

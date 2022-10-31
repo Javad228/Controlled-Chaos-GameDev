@@ -20,8 +20,15 @@ public class View {
         window.setResizable(false);
         window.setTitle("Controlled Chaos");
 
+        JLabel coinLabel = new JLabel();
+        coinLabel.setOpaque(true);
+        coinLabel.setBackground(Color.BLACK);
+        coinLabel.setBounds(100, 100, 50, 50);
+        window.add(coinLabel);
+
         gamePanel = new GamePanel();
-        window.add(gamePanel, BorderLayout.CENTER);
+        window.add(gamePanel);
+
         window.addKeyListener(gamePanel.keyH);
 
         window.pack();

@@ -41,7 +41,7 @@ public class HealthBar extends BufferedImage {
 
     public void draw(Graphics2D g2, int charX, int charY) {
 
-        if (this.getHealth() == 100) return;
+        //if (this.getHealth() == 100) return;
 
         // Removed bottom double for-loop due to graphical issues
         //for (int y = charY; y < height+charY; y++) {
