@@ -13,7 +13,7 @@ public class Loot {
     private LootType lootType;
     private int xCoord;                         // x-position in a room
     private int yCoord;                         // y-position in a room
-    transient KeyHandler keyH;
+    //transient KeyHandler keyH;
     private String[] imagePaths;
     private transient BufferedImage[] lootImages;
     private int framesToWait;
@@ -30,7 +30,7 @@ public class Loot {
     private int spriteCounter = 0;
     private boolean isExpanding = true;
 
-    public Loot(KeyHandler keyH, int framesToWait, String[] imagePaths) {
+    public Loot(int framesToWait, String[] imagePaths) {
         this.name = "";
         this.lootType = LootType.DEFAULT;
         this.xCoord = 0;
@@ -38,10 +38,9 @@ public class Loot {
         this.framesToWait = framesToWait;
         this.imagePaths = imagePaths;
         this.getImage(imagePaths);
-        this.keyH = keyH;
     }
 
-    public Loot(KeyHandler keyH, int framesToWait, String[] imagePaths, int xCoord, int yCoord) {
+    public Loot(int framesToWait, String[] imagePaths, int xCoord, int yCoord) {
         this.name = "";
         this.lootType = LootType.DEFAULT;
         this.xCoord = 0;
@@ -49,7 +48,6 @@ public class Loot {
         this.framesToWait = framesToWait;
         this.imagePaths = imagePaths;
         this.getImage(imagePaths);
-        this.keyH = keyH;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
     }
@@ -170,6 +168,7 @@ public class Loot {
         this.lootImages = lootImages;
     }
 
+    /*
     public KeyHandler getkeyH() {
         return keyH;
     }
@@ -178,6 +177,8 @@ public class Loot {
         this.keyH = keyH;
     }
 
+
+     */
     public String[] getImagePaths() {
         return this.imagePaths;
     }

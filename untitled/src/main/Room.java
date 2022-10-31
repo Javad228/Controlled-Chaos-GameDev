@@ -36,10 +36,10 @@ public class Room {
                 String[] appleImages = {"/consumables/apple.png"};
                 String[] bootImages = {"/items/boot.png"};
 
-                Weapon weapon = new Weapon(keyH, weaponImages);
-                Effect effect = new Effect(keyH, effectImages);
-                Consumable apple = new Consumable(keyH, appleImages, false);
-                PassiveItem boot = new PassiveItem(keyH, bootImages);
+                Weapon weapon = new Weapon(weaponImages);
+                Effect effect = new Effect(effectImages);
+                Consumable apple = new Consumable(appleImages, false);
+                PassiveItem boot = new PassiveItem(bootImages);
 
                 items = new ArrayList<>();
                 items.add(weapon);
@@ -57,8 +57,8 @@ public class Room {
         switch(roomNum) {
             case 0:
                 enemies = new ArrayList<>();
-                enemies.add(new Slime(this.gp));
-                enemies.add(new Skeleton(this.gp));
+                enemies.add(new Slime());
+                enemies.add(new Skeleton());
                 enemies.add(new Wizard(this.gp));
                 break;
             case 1:
@@ -85,7 +85,8 @@ public class Room {
         switch(roomNum) {
             case 0:
                 String[] coinImages = {"/items/coin.png"};
-                Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
+                //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
+                Coin coin = new Coin(7, coinImages, 600, 500, 1);
                 coins = new ArrayList<>();
                 coins.add(coin);
                 break;

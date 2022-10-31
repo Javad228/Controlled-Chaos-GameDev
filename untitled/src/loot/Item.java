@@ -11,19 +11,19 @@ public class Item extends Loot {
     public transient BufferedImage still;
     public int amount;
 
-    public Item(KeyHandler keyH, int framesToWait, String[] imagePaths) {
-        super(keyH, framesToWait, imagePaths);
+    public Item(int framesToWait, String[] imagePaths) {
+        super(framesToWait, imagePaths);
         this.description = "";
         this.price = 0.0;
         this.isEquipped = false;
     }
 
-    public Item(KeyHandler keyH, int framesToWait, String[] imagePaths, int xCoord, int yCoord) {
-        super(keyH, framesToWait, imagePaths, xCoord, yCoord);
+    public Item(int framesToWait, String[] imagePaths, int xCoord, int yCoord) {
+        super(framesToWait, imagePaths, xCoord, yCoord);
     }
 
-    public Item(KeyHandler keyH, int framesToWait, String description, double price, boolean isEquipped, String[] imagePaths) {
-        super(keyH, framesToWait, imagePaths);
+    public Item(int framesToWait, String description, double price, boolean isEquipped, String[] imagePaths) {
+        super(framesToWait, imagePaths);
         this.description = description;
         this.price = price;
         this.isEquipped = isEquipped;

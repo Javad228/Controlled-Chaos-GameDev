@@ -69,13 +69,11 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void newGame() {
 		this.setPlayer(new PlayerCharacter(this, keyH));
-		//this.setWeapon(new Weapon(keyH, weaponImages));
 		newGameHelper();
 	}
 
 	public void newGame(SimpleCharacter sc, SimpleWeapon w) {
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
-		//this.setWeapon(new Weapon(w, keyH));
 		newGameHelper();
 	}
 
@@ -169,7 +167,6 @@ public class GamePanel extends JPanel implements Runnable{
 					keyH.reset();
 					player.setKeyHandler(null);
 					deathPanel.showDeathPanel();
-					//Main.view.getWindow().set
 					this.pauseThread();
 				}
 			}
@@ -247,6 +244,8 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 
 		inventory.draw(g2);
+
+		Main.view.updateCoinLabel(g2);
 
 		g2.dispose();
 	}

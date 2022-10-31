@@ -5,8 +5,8 @@ import main.KeyHandler;
 public class Coin extends Loot {
     private int value;
 
-    public Coin(KeyHandler keyH, int framesToWait, String[] imagePaths, int xCoord, int yCoord, int value) {
-        super(keyH, framesToWait, imagePaths, xCoord, yCoord);
+    public Coin(int framesToWait, String[] imagePaths, int xCoord, int yCoord, int value) {
+        super(framesToWait, imagePaths, xCoord, yCoord);
         this.value = value;
     }
 

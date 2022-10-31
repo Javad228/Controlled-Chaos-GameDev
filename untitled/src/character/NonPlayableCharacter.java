@@ -35,7 +35,7 @@ public abstract class NonPlayableCharacter extends Character {
     /**
      *  Empty constructor to create a generic NonPlayableCharacter
      */
-    public NonPlayableCharacter(GamePanel gp) {
+    public NonPlayableCharacter() {
         super();
         this.damagePerHit = 0;
         this.damageType = DamageType.DEFAULT;
@@ -250,7 +250,8 @@ public abstract class NonPlayableCharacter extends Character {
                     break;
                 case 6: // out of sprites, remove enemy from room and exit method
                     gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
-                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(gp.keyH, 7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
+
                     return;
             }
             g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);

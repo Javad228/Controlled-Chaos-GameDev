@@ -65,6 +65,7 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
+        this.numCoins = 0;
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -86,6 +87,7 @@ public class PlayerCharacter extends Character {
         this.setSpriteNum(pc.getSpriteNum());
         this.setStartingItem(pc.getStartingItem());
         this.healthBar = pc.healthBar;
+        this.numCoins = pc.numCoins;
     }
 
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
@@ -100,6 +102,7 @@ public class PlayerCharacter extends Character {
         this.type = c.combatType;
         this.inventory = c.inventory;
         this.characterType = c.characterType;
+        this.numCoins = c.getNumCoins();
     }
 
     public void setDefaultValues() {
@@ -112,9 +115,9 @@ public class PlayerCharacter extends Character {
         this.attackArea.height = 36;
         String[] stringArray = {"/weapons/wooden_sword.png"};
         String[] stringArray1 = {"/weapons/wooden_sword.png"};
-        Item item = new Item(keyH,7,stringArray);
+        Item item = new Item(7,stringArray);
         item.setDescription("wooden sword");
-        Item item1 = new Item(keyH,7,stringArray1);
+        Item item1 = new Item(7,stringArray1);
         item1.setDescription("wooden sword #2");
 
         this.getInventory().addItem(item);
