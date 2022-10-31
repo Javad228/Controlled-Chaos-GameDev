@@ -8,7 +8,7 @@ public class Item extends Loot {
     private String description;
     private double price;
     private boolean isEquipped;
-    public BufferedImage still;
+    public transient BufferedImage still;
     public int amount;
 
     public Item(KeyHandler keyH, int framesToWait, String[] imagePaths) {
