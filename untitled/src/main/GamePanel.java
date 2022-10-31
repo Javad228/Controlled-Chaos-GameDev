@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker checker = new CollisionChecker(this);
 	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
-	Thread gameThread;
+	transient Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 
 	private ArrayList<Room> rooms; // list of rooms. the index of the room is its room number
@@ -161,7 +161,7 @@ public class GamePanel extends JPanel implements Runnable{
 					timer = 0;
 				}
 
-				if (player.getHealth() <= 0) {
+				if (player.getHealth() <= 0 && !player.isAlive) {
 					Audio.stopWalking();
 					Audio.stopMusic();
 					player.kill();

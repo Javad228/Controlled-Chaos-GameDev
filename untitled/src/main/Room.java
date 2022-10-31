@@ -14,9 +14,9 @@ public class Room {
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
     private ArrayList<NonPlayableCharacter> NPCs;
+    private transient KeyHandler keyH;
+    private transient GamePanel gp;
     private ArrayList<Coin> coins;
-    private KeyHandler keyH;
-    private GamePanel gp;
 
     public Room(int roomNum, KeyHandler keyH, GamePanel gp) {
         this.roomNum = roomNum;

@@ -2,6 +2,8 @@ package enemy;
 
 import character.Enemy;
 import character.NonPlayableCharacter;
+import character.*;
+import loot.LootType;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -10,7 +12,7 @@ import java.io.IOException;
 public class Wizard extends Enemy {
     private int counter = 1;
     public Wizard(GamePanel gp) {
-        super(gp);
+        super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
         maxHealth = 10;
@@ -26,7 +28,7 @@ public class Wizard extends Enemy {
         this.collisionAreaDefaultY = solidArea.y;
         this.width = 60;
         this.height = 60;
-        this.setDamagePerHit(5);
+        this.setDamagePerHit(15);
         this.setProjectile(new SlimeBall(gp));
         getImage();
 

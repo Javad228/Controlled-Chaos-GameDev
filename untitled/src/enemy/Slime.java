@@ -1,7 +1,10 @@
 package enemy;
 
-import character.Enemy;
-import character.NonPlayableCharacter;
+
+import character.*;
+
+import loot.LootType;
+
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -12,8 +15,8 @@ import java.util.Random;
 
 public class Slime extends Enemy {
 
-    public Slime(GamePanel gp) {
-        super(gp);
+    public Slime() {
+        super(EnemyType.SMALL, LootType.DEFAULT);   //TODO DEBUG
         name = "Slime";
         movementSpeed = 1;
         maxHealth = 10;
@@ -54,8 +57,6 @@ public class Slime extends Enemy {
             }
 
             actionLockCounter = 0;
-
-            attacking(gp);
         }
         int currentX = this.getxCoord();
         int currentY = this.getyCoord();
@@ -109,6 +110,44 @@ public class Slime extends Enemy {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // Update method relative to Slime Enemy
+    // Slime will attack when it is on the ground (spriteNum == 1, 2, 6)
+    public void update(GamePanel gp) {
+        super.update(gp);
+
+        if (this.spriteNum < 2 || this.spriteNum == 6)  attacking(gp);
+    }
+
+    // Attacking method pertaining to the Slime Enemy
+    public void attacking(GamePanel gamePanel) {
+        int currX = this.xCoord;
+        int currY = this.yCoord;
+        int collisionAreaWidth = this.solidArea.width;
+        int collisionAreaHeight = this.solidArea.height;
+
+        //switch (direction) {
+        //   case "up" -> yCoord -= attackArea.height;
+        //    case "down" -> yCoord += attackArea.height;
+        //    case "left" -> xCoord -= attackArea.width;
+        //    case "right" -> xCoord += attackArea.width;
+        //}
+
+        solidArea.width = attackArea.width;
+        solidArea.height = attackArea.height;
+        boolean isHit = gamePanel.checker.checkEntityCollision(this, gamePanel.getPlayer());
+        //boolean isHit = gamePanel.checker.checkEntity(gamePanel.getPlayer(), this);
+
+        if (isHit) {
+            //System.out.println("Player took damage");
+            gamePanel.getPlayer().damagePlayer(this);
+        }
+
+        xCoord = currX;
+        yCoord = currY;
+        solidArea.width = collisionAreaWidth;
+        solidArea.height = collisionAreaHeight;
     }
 
 }
