@@ -95,6 +95,13 @@ public class Room {
         }
     }
 
+    private void initializeButtonsAndTraps() {
+        switch(roomNum) {
+            case 0:
+
+        }
+    }
+
     public ArrayList<Item> getItems() {
         return items;
     }
