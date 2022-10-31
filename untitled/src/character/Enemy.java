@@ -22,9 +22,9 @@ public class Enemy extends NonPlayableCharacter {
 
         // Override attackArea assignment based on the EnemyType inputted
         switch (enemyType) {
-            case SMALL -> this.attackArea = new Rectangle(48,48);
-            case MEDIUM -> this.attackArea = new Rectangle(96,96);
-            case LARGE -> this.attackArea = new Rectangle(144,144);
+            case SMALL -> this.attackArea = new Rectangle(30,30);
+            case MEDIUM -> this.attackArea = new Rectangle(40,40);
+            case LARGE -> this.attackArea = new Rectangle(50,50);
             case DEFAULT -> {}
             default -> {
                 System.out.println("Enemy Constructor: EnemyType invalid\n");

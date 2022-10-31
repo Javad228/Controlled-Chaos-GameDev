@@ -16,8 +16,8 @@ public class HealthBar extends BufferedImage {
     private final int maxHealth;
     private int width;
     private int height;
-    private final Color red = Color.RED;
-    private final Color blank = new Color(70, 70, 70);
+    private transient final Color red = Color.RED;
+    private transient final Color blank = new Color(70, 70, 70);
 
     public HealthBar(int hp, int maxHealth, int width, int height) {
         super(width, height, TYPE_INT_RGB);

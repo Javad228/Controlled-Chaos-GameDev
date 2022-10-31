@@ -303,42 +303,6 @@ public class PlayerCharacter extends Character {
                 }
             }
 
-//<<<<<<< Cameron-DamageByEnemies
-
-            if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-                int currentX = this.getxCoord();
-                int currentY = this.getyCoord();
-                int movementSpeed = this.getProjectile().getMovementSpeed();
-
-                if (keyH.upPressed && !keyH.downPressed) {
-                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.downPressed && !keyH.upPressed) {
-                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.leftPressed && !keyH.rightPressed) {
-                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-                if (keyH.rightPressed && !keyH.leftPressed) {
-                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                    this.setHasThrownProjectile(true);
-                    //gp.projectileList.add(projectile);
-                }
-            }
-
-            if (this.isHasThrownProjectile()) {
-                this.getProjectile().update();
-            }
-
-//=======
-            this.healthBar.update(this.getHealth());
-//>>>>>>> Cameron-Merge-DamageByEnemies
         }
     }
 
