@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker checker = new CollisionChecker(this);
 	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
-	Thread gameThread;
+	transient Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
 
 	//public Slime enemy = new Slime();
@@ -179,7 +179,7 @@ public class GamePanel extends JPanel implements Runnable{
 					timer = 0;
 				}
 
-				if (player.getHealth() <= 0) {
+				if (player.getHealth() <= 0 && !player.isAlive) {
 					Audio.stopWalking();
 					Audio.stopMusic();
 					player.kill();

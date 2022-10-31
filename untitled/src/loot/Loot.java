@@ -13,9 +13,9 @@ public class Loot {
     private LootType lootType;
     private int xCoord;                         // x-position in a room
     private int yCoord;                         // y-position in a room
-    KeyHandler keyH;
+    transient KeyHandler keyH;
     private String[] imagePaths;
-    private BufferedImage[] lootImages;
+    private transient BufferedImage[] lootImages;
     private int framesToWait;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int collisionAreaDefaultX = solidArea.x;
@@ -171,5 +171,13 @@ public class Loot {
 
     public void setImagePaths(String[] imagePaths) {
         this.imagePaths = imagePaths;
+    }
+
+    public int getFrameCounter() {
+        return this.frameCounter;
+    }
+
+    public void setFrameCounter(int frameCounter) {
+        this.frameCounter = frameCounter;
     }
 }

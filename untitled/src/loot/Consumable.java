@@ -1,5 +1,6 @@
 package loot;
 
+import main.Audio;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -15,7 +16,6 @@ public class Consumable extends Item {
 
     private boolean isRespawnable;
     public boolean isConsumed;
-    public int frameCounter = 0;
     public boolean isVisible = true;
     public int disappearTimer;
     public int disappearTimerDefault;
@@ -59,12 +59,6 @@ public class Consumable extends Item {
 
         super.update();
 
-        frameCounter++;
-
-        // reset the frame counter when we reach 20 frames
-        if (frameCounter == 20) {
-            frameCounter = 0;
-        }
 
         if (isRespawnable && !isVisible && --disappearTimer == 0) {
             isVisible = true;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class Inventory {
-    GamePanel gp;
+    transient GamePanel gp;
     Graphics2D g2;
     private int numberOfSlots;                  // Number of slots to store items
     private ArrayList<Item> listOfItems;        // List of Items in this character.Inventory Object
