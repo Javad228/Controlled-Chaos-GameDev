@@ -1,5 +1,7 @@
 package enemy;
 
+import character.Enemy;
+import character.NonPlayableCharacter;
 import character.*;
 import loot.LootType;
 import main.GamePanel;
@@ -9,6 +11,8 @@ import java.io.IOException;
 
 public class Skeleton extends Enemy {
 
+    //public Skeleton(GamePanel gp) {
+    //    super(gp);
     public Skeleton() {
         super(EnemyType.MEDIUM, LootType.DEFAULT);
         name = "Skeleton";

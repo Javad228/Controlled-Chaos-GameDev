@@ -1,10 +1,14 @@
 package character;
 
 import combat.DamageType;
+import loot.Coin;
+import loot.Item;
 import main.GamePanel;
+import main.KeyHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.security.Key;
 import java.util.Objects;
 
 /**
@@ -26,6 +30,8 @@ public abstract class NonPlayableCharacter extends Character {
     private double attackCooldown;          // Amount of time for a NonPlayableCharacter has to wait in between attacks
     public boolean onPath = false;
     public boolean canMove = true;
+    private GamePanel gp;
+
     /**
      *  Empty constructor to create a generic NonPlayableCharacter
      */
@@ -34,6 +40,7 @@ public abstract class NonPlayableCharacter extends Character {
         this.damagePerHit = 0;
         this.damageType = DamageType.DEFAULT;
         this.attackCooldown = 1;
+        this.gp = gp;
     }
 
     public void setAction(GamePanel gp){}
@@ -243,6 +250,8 @@ public abstract class NonPlayableCharacter extends Character {
                     break;
                 case 6: // out of sprites, remove enemy from room and exit method
                     gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
+
                     return;
             }
             g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
@@ -337,5 +346,13 @@ public abstract class NonPlayableCharacter extends Character {
                 break;
         }
 
+    }
+
+    public GamePanel getGp() {
+        return gp;
+    }
+
+    public void setGp(GamePanel gp) {
+        this.gp = gp;
     }
 }
