@@ -5,6 +5,7 @@ import character.Inventory;
 import character.NonPlayableCharacter;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import character.Enemy;
@@ -29,6 +30,9 @@ public class GamePanel extends JPanel implements Runnable{
 	public int gameState;
 
 	private int fps = 60;
+	private Time startRunTime;		// Measure first time from start/resumption of run.
+									// End time is not kept as a variable.
+	private Time currentRunTime;	// Measure elapsed time
 
 	public CollisionChecker checker = new CollisionChecker(this);
 	public TileManager tileM = new TileManager(this);
@@ -59,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
+		this.currentRunTime = new Time(0);
 
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
@@ -77,14 +82,14 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void newGame() {
+		this.currentRunTime = new Time(0);	// Reset game timer to 0
 		this.setPlayer(new PlayerCharacter(this, keyH));
-		//this.setWeapon(new Weapon(keyH, weaponImages));
 		newGameHelper();
 	}
 
-	public void newGame(SimpleCharacter sc, SimpleWeapon w) {
+	public void newGame(SimpleCharacter sc, Time t) {
+		this.currentRunTime = t;
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
-		//this.setWeapon(new Weapon(w, keyH));
 		newGameHelper();
 	}
 
@@ -115,12 +120,14 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void pauseThread() {
 		synchronized (this) {
+			currentRunTime = new Time(currentRunTime.getTime() + (System.nanoTime() - startRunTime.getTime()));
 			this.paused = true;
 		}
 	}
 
 	public void resumeThread() {
 		synchronized (this) {
+			startRunTime = new Time(System.nanoTime());
 			this.paused = false;
 		}
 	}
@@ -148,6 +155,8 @@ public class GamePanel extends JPanel implements Runnable{
 		long currentTime;
 		long timer = 0;
 		int drawCount = 0;
+
+		startRunTime = new Time(System.nanoTime());
 		
 		while(gameThread != null){
 
@@ -285,5 +294,13 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void setRooms(ArrayList<Room> rooms) {
 		this.rooms = rooms;
+	}
+
+	public Time getCurrentRunTime() {
+		return this.currentRunTime;
+	}
+
+	public void setCurrentRunTime(Time currentRunTime) {
+		this.currentRunTime = currentRunTime;
 	}
 }

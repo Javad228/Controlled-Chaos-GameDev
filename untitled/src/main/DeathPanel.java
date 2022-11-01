@@ -37,13 +37,17 @@ public class DeathPanel extends JPanel {
     private void initDeathTitle() {
         this.deathTitle = new JTextArea("You Died");
         this.deathTitle.setMinimumSize(buttonDimension);
+        this.deathTitle.setPreferredSize(buttonDimension);
         this.deathTitle.setEditable(false);
         this.deathTitle.setBackground(this.getBackground());
         this.gc.fill = GridBagConstraints.HORIZONTAL;
-        this.gc.weightx = 0.5;
+        //this.gc.weightx = 0.5;
+        this.gc.weightx = 0.75;
         this.gc.gridx = 1;
         this.gc.gridy = 0;
         this.add(new JPanel().add(deathTitle), gc);
+        this.deathTitle.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+        this.deathTitle.setAlignmentY(JTextArea.BOTTOM_ALIGNMENT);
     }
 
     private void initNewGame() {
@@ -78,9 +82,7 @@ public class DeathPanel extends JPanel {
     private void initQuitGame() {
         this.quitGame = new JButton("Quit Game");
         this.quitGame.setPreferredSize(buttonDimension);
-        this.quitGame.addActionListener((a) -> {
-            System.exit(0);
-        });
+        this.quitGame.addActionListener((a) -> System.exit(0));
         this.gc.gridx = 2;
         this.gc.gridy = 1;
         this.add(quitGame, gc);

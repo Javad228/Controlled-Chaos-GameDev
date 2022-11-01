@@ -3,8 +3,7 @@ package main;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class View {
     private JFrame window;
@@ -23,6 +22,27 @@ public class View {
         gamePanel = new GamePanel();
         window.add(gamePanel);
         window.addKeyListener(gamePanel.keyH);
+
+        window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
+            @Override
+            public void windowClosing(WindowEvent e) {
+                gamePanel.pauseThread();
+
+                if (JOptionPane.showConfirmDialog(null, "Save?", "Controlled Chaos",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                    // Note: Returns false if save is successful
+                    if (gamePanel.saveData.saveGameState())
+                        JOptionPane.showMessageDialog(null, "Save Failed!\nExiting game!",
+                                "Controlled Chaos", JOptionPane.ERROR_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(null, "Game Saved Successfully!\nExiting game",
+                            "Controlled Chaos", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                super.windowClosing(e);
+            }
+        });
 
         window.pack();
 

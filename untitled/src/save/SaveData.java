@@ -9,6 +9,7 @@ import main.*;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -106,7 +107,7 @@ public class SaveData {
     public boolean saveGameState() {
         try {
             FileWriter f = new FileWriter(file);
-            f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()))));
+            f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), gp.getCurrentRunTime())));
             //f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
             f.close();
             return false;
@@ -127,7 +128,7 @@ public class SaveData {
             return false;
         }
 
-        gp.newGame(gs.player, gs.weapon);
+        gp.newGame(gs.player, new Time(gs.currentRunTimeNS));
         System.out.println("Game restore Succeeded");
         return true;
     }
@@ -156,6 +157,7 @@ public class SaveData {
             FileWriter f = new FileWriter(file);
             f.write("");
             f.close();
+            gp.setCurrentRunTime(new Time(0));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -228,5 +230,10 @@ class TestSaveData {
         //if (!newChar.equals(character)) throw new AssertionError();
         //else System.out.println("Yay!");
 
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
     }
 }
