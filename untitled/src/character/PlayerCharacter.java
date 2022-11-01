@@ -422,6 +422,16 @@ public class PlayerCharacter extends Character {
         }
     }
 
+    public void damagePlayerInt(int damageAmount) {
+        if(!gp.getPlayer().isInvincible){
+            //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
+            gp.getPlayer().damage(damageAmount);
+            gp.getPlayer().isInvincible = true;
+
+            //Needs same invincibility debugging as above method
+        }
+    }
+
 
     public void draw(Graphics2D g2) {
         BufferedImage image = null;

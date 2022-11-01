@@ -97,7 +97,7 @@ public class Room {
         }
     }
 
-    private void initializeButtonsAndTraps() {
+    private void initializeButtons() {
         switch(roomNum) {
             case 0:
 

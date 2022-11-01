@@ -141,7 +141,7 @@ public class Slime extends Enemy {
 
         if (isHit) {
             //System.out.println("Player took damage");
-            gamePanel.getPlayer().damagePlayer(this.getDamagePerHit());
+            gamePanel.getPlayer().damagePlayer(this);
         }
 
         xCoord = currX;
