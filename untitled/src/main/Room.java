@@ -6,6 +6,7 @@ import enemy.Skeleton;
 import enemy.Slime;
 import enemy.Wizard;
 import loot.*;
+import tile.Button;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Room {
     private ArrayList<NonPlayableCharacter> NPCs;
     private transient KeyHandler keyH;
     private transient GamePanel gp;
+    private ArrayList<Button> buttons;
     private ArrayList<Coin> coins;
 
     public Room(int roomNum, KeyHandler keyH, GamePanel gp) {

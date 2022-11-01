@@ -63,7 +63,7 @@ public class TileManager {
             tile[Tile.DOOR].tileType = Tile.DOOR;
 
             tile[Tile.TRAP] = new Tile();
-            tile[Tile.TRAP].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike-over-grass.png")));
+            tile[Tile.TRAP].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_up.png")));
             tile[Tile.TRAP].damageTile = true;
             tile[Tile.TRAP].tileType = Tile.TRAP;
 
