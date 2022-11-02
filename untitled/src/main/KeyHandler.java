@@ -1,5 +1,6 @@
 package main;
 
+import character.PlayerCharacter;
 import tile.Tile;
 import tile.TileManager;
 
@@ -51,11 +52,15 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_E) {
-            if (gp.getPlayer().getCurrentTile().tileType == Tile.BUTTON) {
-                try {
-                    TileManager.tile[Tile.BUTTON].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_down.png")));
-                } catch (IOException exception) {
-                    exception.printStackTrace();
+            Tile currentTile = gp.getPlayer().getCurrentTile();
+            if (currentTile.getTileType() == Tile.BUTTON) {
+                System.out.println("button registered as clicked");
+                if (gp.getCurrentRoomNum() == 2) {
+                    System.out.println("in room 2");
+                    gp.getRooms().get(2).getButtons().get(0).toggle();
+                    if (gp.getPlayer().getCurrentTile().getRow() == 0 && gp.getPlayer().getCurrentTile().getCol() == 2) {
+                        //put in here later
+                    }
                 }
             }
         }

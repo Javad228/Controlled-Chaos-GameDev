@@ -134,7 +134,7 @@ public class CollisionChecker {
             }
         }
 
-        if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+        if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
             character.collisionOn = true;
         }
 
@@ -255,11 +255,13 @@ public class CollisionChecker {
         if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 1) {
             if (characterBottom > 376 && characterBottom < 406) {
                 //System.out.println("it's in");
-                gp.setCurrentRoomNum(0);
+                gp.setCurrentRoomNum(2);
                 gp.tileM.update();
                 return 0;
             }
         }
+
+
         return gp.getCurrentRoomNum();
     }
 }

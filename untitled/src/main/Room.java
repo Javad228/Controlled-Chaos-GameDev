@@ -7,6 +7,7 @@ import enemy.Slime;
 import enemy.Wizard;
 import loot.*;
 import tile.Button;
+import tile.TrapTile;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class Room {
         initializeEnemies();
         initializeNPCs();
         initializeCoins();
+        initializeButtons();
     }
 
     private void initializeItems() {
@@ -52,6 +54,8 @@ public class Room {
                 break;
             case 1:
                 items = null;
+            case 2:
+                items = null;
         }
     }
 
@@ -64,6 +68,8 @@ public class Room {
                 enemies.add(new Wizard(this.gp));
                 break;
             case 1:
+                enemies = null;
+            case 2:
                 enemies = null;
         }
     }
@@ -94,18 +100,42 @@ public class Room {
                 break;
             case 1:
                 coins = null;
+            case 2:
+                coins = null;
         }
     }
 
     private void initializeButtons() {
         switch(roomNum) {
             case 0:
+                buttons = null;
+            case 1:
+                buttons = null;
+            case 2:
+                buttons = new ArrayList<>(5);
+                Button button1 = new Button();
+                button1.setOn(false);
+                button1.setx(2 * gp.tileSize);
+                button1.sety(2 * gp.tileSize);
+
+                for (int i = 0; i < gp.maxScreenRow; i++) {
+                    TrapTile trapTile = new TrapTile();
+                    trapTile.setx(2 * gp.tileSize);
+                    trapTile.sety(i * gp.tileSize);
+                    button1.addTile(trapTile);
+                }
+
+                buttons.add(button1);
 
         }
     }
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public ArrayList<Button> getButtons() {
+        return buttons;
     }
 
     public void setItems(ArrayList<Item> items) {

@@ -16,7 +16,7 @@ import save.SimpleWeapon;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
-	final static int trapDamage = 2;
+	final static int trapDamage = 5;
 	final int originalTileSizes = 16;							//16x16 tile
 	final int scale = 3;
 	public final int tileSize = originalTileSizes * scale;		//48x48 tile
@@ -28,11 +28,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public boolean paused = false;
 	public Pathfinding pFinder = new Pathfinding(this);
 	public int gameState;
+	public static Graphics2D g2;
 
 	private int fps = 60;
 
 	public CollisionChecker checker = new CollisionChecker(this);
-	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
@@ -69,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
+		rooms.add(new Room(2, keyH, this));
 	}
 
 	public void setupGame() {
@@ -177,7 +178,7 @@ public class GamePanel extends JPanel implements Runnable{
 					delta--;
 					drawCount++;
 
-					if (player.getCurrentTile().damageTile) {
+					if (player.getCurrentTile().isDamageTile()) {
 						player.damagePlayerInt(trapDamage);
 					}
 				}
@@ -250,7 +251,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 
-		Graphics2D g2 = (Graphics2D)g;
+		g2 = (Graphics2D)g;
 
 		tileM.draw(g2);
 		player.draw(g2);

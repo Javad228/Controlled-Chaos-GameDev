@@ -9,6 +9,7 @@ import main.HealthBar;
 import main.KeyHandler;
 import save.SimpleCharacter;
 import tile.Tile;
+import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -76,7 +77,8 @@ public class PlayerCharacter extends Character {
 //<<<<<<< Bolun-layout
 
         Random r = new Random();
-        roomsetNub = r.nextInt(1,3);
+        //roomsetNub = r.nextInt(2) + 1;
+        roomsetNub = 2;
 //=======
         this.numCoins = 0;
 //>>>>>>> main
@@ -152,29 +154,9 @@ public class PlayerCharacter extends Character {
         int col = xCoord/gp.tileSize;
         int row = yCoord/gp.tileSize;
 
-        int tileNum = gp.tileM.mapTileNum[col][row];
+        int tileNum = TileManager.mapTileNum[col][row];
 
-        Tile tile = gp.tileM.tile[tileNum];
-
-        //if (tile.damageTile) {
-            //System.out.printf("xCoord: %d\n", xCoord);
-            //System.out.printf("yCoord: %d\n", yCoord);
-            //System.out.printf("tileNum: %d\n", tileNum);
-        //}
-
-        return tile;
-    }
-
-    public Tile getCurrentTile() {
-        int xCoord = this.getxCoord();
-        int yCoord = this.getyCoord();
-
-        int col = xCoord/gp.tileSize;
-        int row = yCoord/gp.tileSize;
-
-        int tileNum = gp.tileM.mapTileNum[col][row];
-
-        Tile tile = gp.tileM.tile[tileNum];
+        Tile tile = TileManager.tile[tileNum];
 
         //if (tile.damageTile) {
             //System.out.printf("xCoord: %d\n", xCoord);
