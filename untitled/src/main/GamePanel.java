@@ -1,14 +1,12 @@
 package main;
 
 import ai.Pathfinding;
-import character.Inventory;
-import character.NonPlayableCharacter;
+import character.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import character.Enemy;
-import character.PlayerCharacter;
 import loot.*;
 import save.SaveData;
 import save.SimpleCharacter;
@@ -35,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+	public ArrayList<Projectile> projectileList = new ArrayList<>();
 
 	//public Slime enemy = new Slime();
 	//private ArrayList<Item> lootInRoom;
@@ -216,6 +215,17 @@ public class GamePanel extends JPanel implements Runnable{
 				npc.update(this);
 			}
 		}
+
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).isAlive) {
+					projectileList.get(i).update(this);
+				}
+				if (!projectileList.get(i).isAlive) {
+					projectileList.remove(i);
+				}
+			}
+		}
 	}
 
 	public void paintComponent(Graphics g){
@@ -247,6 +257,14 @@ public class GamePanel extends JPanel implements Runnable{
 			for (int i = 0; i < rooms.get(currentRoomNum).getNPCs().size(); i++) {
 				NonPlayableCharacter npc = rooms.get(currentRoomNum).getNPCs().get(i);
 				npc.draw(g2, this);
+			}
+		}
+
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).isAlive) {
+					projectileList.get(i).draw(g2);
+				}
 			}
 		}
 

@@ -28,7 +28,8 @@ public class PlayerCharacter extends Character {
     private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
-
+    private int shotAvailableTimer = 0;
+    private int shotTimerMax = 50;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
@@ -49,7 +50,6 @@ public class PlayerCharacter extends Character {
         setDefaultValues();
         getPlayerImage();
 
-        this.projectile = new Arrow(gp);
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
@@ -110,7 +110,6 @@ public class PlayerCharacter extends Character {
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
 //        this.collisionAreaDefaultY = solidArea.y;
-        this.setProjectile(new Arrow(gp));
 
     }
 
@@ -152,33 +151,32 @@ public class PlayerCharacter extends Character {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             int currentX = this.getxCoord();
             int currentY = this.getyCoord();
-            int movementSpeed = this.getProjectile().getMovementSpeed();
 
-            if (keyH.upPressed && !keyH.downPressed) {
-                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "up"); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
-            if (keyH.downPressed && !keyH.upPressed) {
-                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.downPressed && !keyH.upPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "down"); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
-            if (keyH.leftPressed && !keyH.rightPressed) {
-                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.leftPressed && !keyH.rightPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "left"); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
-            if (keyH.rightPressed && !keyH.leftPressed) {
-                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.rightPressed && !keyH.leftPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "right"); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
         }
-
-        if (this.isHasThrownProjectile()) {
-            this.getProjectile().update();
+        if (shotAvailableTimer < shotTimerMax) {
+            shotAvailableTimer++;
         }
+
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
             if (keyH.kPressed) {
@@ -409,10 +407,6 @@ public class PlayerCharacter extends Character {
         }
 
         g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
-
-        if (isHasThrownProjectile() && this.projectile.getIsAlive()) {
-            this.getProjectile().draw(g2);
-        }
 
         this.healthBar.draw(g2,
                 this.getxCoord(),

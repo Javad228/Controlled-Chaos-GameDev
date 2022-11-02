@@ -16,8 +16,8 @@ public class Arrow extends Projectile {
     private BufferedImage arrowRight;
     private BufferedImage arrowLeft;
 
-    public Arrow(GamePanel gp) {
-        super(gp);
+    public Arrow(GamePanel gp, int xCoord, int yCoord, String direction) {
+        super(gp, xCoord, yCoord, direction);
         this.gp = gp;
 
         setDefaultValues();
@@ -26,10 +26,7 @@ public class Arrow extends Projectile {
 
     public void setDefaultValues() {
         this.setName("Arrow");
-        this.setxCoord(50);
-        this.setyCoord(50);
         this.setMovementSpeed(5);
-        this.setDirection("down");
         this.setWidth(7);
         this.setHeight(26);
         this.setHealth(80);
