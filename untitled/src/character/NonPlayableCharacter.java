@@ -223,9 +223,7 @@ public abstract class NonPlayableCharacter extends Character {
         }
     }
     public void draw(Graphics2D g2, GamePanel gamePanel){
-        if (this.isHasThrownProjectile()) {
-            this.getProjectile().draw(g2);
-        }
+
         drawHP(g2, gamePanel);
         BufferedImage image = null;
 

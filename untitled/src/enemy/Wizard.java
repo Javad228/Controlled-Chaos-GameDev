@@ -2,8 +2,12 @@ package enemy;
 
 import character.Enemy;
 import character.NonPlayableCharacter;
+
+import character.Projectile;
+
 import character.*;
 import loot.LootType;
+
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -28,8 +32,9 @@ public class Wizard extends Enemy {
         this.collisionAreaDefaultY = solidArea.y;
         this.width = 60;
         this.height = 60;
+
         this.setDamagePerHit(15);
-        this.setProjectile(new SlimeBall(gp));
+
         getImage();
 
     }
@@ -60,19 +65,17 @@ public class Wizard extends Enemy {
                         } else {
                             int currentX = this.getxCoord();
                             int currentY = this.getyCoord();
-                            int movementSpeed = this.getProjectile().getMovementSpeed();
+                            //int movementSpeed = projectile.getMovementSpeed();
                             canMove = false;
                             actionLockCounter++;
 
                             if(actionLockCounter == 70){
                                 if (goalRow < startRow) {
                                     System.out.println("up arrow");
-                                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 } else {
                                     System.out.println("down arrow");
-                                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
                                 actionLockCounter = 0;
@@ -103,16 +106,15 @@ public class Wizard extends Enemy {
                         } else {
                             int currentX = this.getxCoord();
                             int currentY = this.getyCoord();
-                            int movementSpeed = this.getProjectile().getMovementSpeed();
                             canMove = false;
                             actionLockCounter++;
 
                             if(actionLockCounter == 70){
                                 if (goalCol < startCol) {
-                                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 } else {
-                                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
@@ -131,9 +133,7 @@ public class Wizard extends Enemy {
                 canMove = true;
                 searchPath(goalCol, goalRow, gp);
             }
-            if (this.isHasThrownProjectile()) {
-                this.getProjectile().update();
-            }
+
         }
 
 

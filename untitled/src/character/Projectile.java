@@ -12,12 +12,10 @@ public class Projectile extends Character {
     private BufferedImage projectileImage;
     private boolean isMoving;
 
-    public Projectile(GamePanel gp) {
+    public Projectile(GamePanel gp, int xCoord, int yCoord, String direction) {
         super();
         this.gp = gp;
-    }
-
-    public void set(int xCoord, int yCoord, String direction, int movementSpeed) {  //CombatType type
+                                                                //CombatType type
                                                                 //boolean isInvincible
                                                                 //Entity user (whether it damages the player or enemies)
         this.setxCoord(xCoord);
@@ -26,11 +24,19 @@ public class Projectile extends Character {
         this.setMovementSpeed(movementSpeed);
         this.setMoving(true);
         this.setIsAlive(true);
+        this.maxHealth = 300;
+        this.health = this.maxHealth;
+        gp.projectileList.add(this);
+
         //this.type = RANGED;
         //this.user = user;
     }
 
-    public void update() {
+    public void update(GamePanel gp) {
+        health--;
+        if (health < 1) {
+            this.kill();
+        }
         if (isMoving) {
             switch (direction) {
                 case "up":
