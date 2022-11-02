@@ -173,7 +173,7 @@ public class GamePanel extends JPanel implements Runnable{
 					drawCount++;
 
 					if (player.getCurrentTile().damageTile) {
-						player.damagePlayer(trapDamage);
+						player.damagePlayerInt(trapDamage);
 					}
 				}
 
