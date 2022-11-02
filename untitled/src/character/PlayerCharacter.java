@@ -70,13 +70,10 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
-//<<<<<<< Bolun-layout
 
         Random r = new Random();
-        roomsetNub = r.nextInt(1,3);
-//=======
+        roomsetNub = r.nextInt(3);
         this.numCoins = 0;
-//>>>>>>> main
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
