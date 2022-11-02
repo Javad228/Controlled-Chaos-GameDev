@@ -59,7 +59,7 @@ public class SaveData {
             }
             Main.view.getSettingsPage().hideSettingsPanel();
             Main.view.getGamePanel().resumeThread();
-            Main.view.getCoinLabel().setVisible(true);
+            Main.view.getCoinPanel().setVisible(true);
             Main.view.getGamePanel().setVisible(true);
             Audio.stopMusic();
             Audio.openingMusic();
@@ -95,7 +95,7 @@ public class SaveData {
                         "Reset Game Progress", JOptionPane.INFORMATION_MESSAGE);
                 Main.view.getSettingsPage().hideSettingsPanel();
                 Main.view.getGamePanel().setVisible(true);
-                Main.view.getCoinLabel().setVisible(true);
+                Main.view.getCoinPanel().setVisible(true);
                 Main.view.getGamePanel().resumeThread();
                 Audio.stopMusic();
                 Audio.openingMusic();

@@ -29,11 +29,14 @@ public class GamePanel extends JPanel implements Runnable{
 	private int fps = 60;
 
 	public CollisionChecker checker = new CollisionChecker(this);
-	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	transient Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+//<<<<<<< Bolun-layout
+	public TileManager tileM = new TileManager(this);
+//=======
 	public ArrayList<Projectile> projectileList = new ArrayList<>();
+//>>>>>>> main
 
 	private ArrayList<Room> rooms; // list of rooms. the index of the room is its room number
 	private int currentRoomNum = 0;
