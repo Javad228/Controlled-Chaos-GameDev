@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class Wizard extends Enemy {
     private int counter = 1;
-    public Wizard(GamePanel gp) {
+    public Wizard(GamePanel gp, int xCoord, int yCoord) {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
@@ -32,6 +32,8 @@ public class Wizard extends Enemy {
         this.collisionAreaDefaultY = solidArea.y;
         this.width = 60;
         this.height = 60;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
 
         this.setDamagePerHit(15);
 
@@ -72,10 +74,10 @@ public class Wizard extends Enemy {
                             if(actionLockCounter == 70){
                                 if (goalRow < startRow) {
                                     System.out.println("up arrow");
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 } else {
                                     System.out.println("down arrow");
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
                                 actionLockCounter = 0;
@@ -111,10 +113,10 @@ public class Wizard extends Enemy {
 
                             if(actionLockCounter == 70){
                                 if (goalCol < startCol) {
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 } else {
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;

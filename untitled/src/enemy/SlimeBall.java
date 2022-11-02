@@ -16,8 +16,8 @@ public class SlimeBall extends Projectile {
     private BufferedImage arrowRight;
     private BufferedImage arrowLeft;
 
-    public SlimeBall(GamePanel gp, int xCoord, int yCoord, String direction) {
-        super(gp, xCoord, yCoord, direction);
+    public SlimeBall(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting) {
+        super(gp, xCoord, yCoord, direction, isPlayerShooting);
         this.gp = gp;
 
         setDefaultValues();
@@ -30,6 +30,7 @@ public class SlimeBall extends Projectile {
         this.setWidth(200);
         this.setHeight(200);
         this.setHealth(200);
+        this.setDamage(20);
         //this.setDamage(2);
         //this.isInvincible(true);
     }
