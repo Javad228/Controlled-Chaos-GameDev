@@ -1,15 +1,13 @@
 package main;
 
 import ai.Pathfinding;
-import character.Inventory;
-import character.NonPlayableCharacter;
+import character.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.Time;
 import java.util.ArrayList;
 
-import character.Enemy;
-import character.PlayerCharacter;
 import loot.*;
 import save.SaveData;
 import save.SimpleCharacter;
@@ -35,13 +33,15 @@ public class GamePanel extends JPanel implements Runnable{
 	private Time currentRunTime;	// Measure elapsed time
 
 	public CollisionChecker checker = new CollisionChecker(this);
-	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	transient Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+//<<<<<<< Bolun-layout
+	public TileManager tileM = new TileManager(this);
+//=======
+	public ArrayList<Projectile> projectileList = new ArrayList<>();
+//>>>>>>> main
 
-	//public Slime enemy = new Slime();
-	//private ArrayList<Item> lootInRoom;
 	private ArrayList<Room> rooms; // list of rooms. the index of the room is its room number
 	private int currentRoomNum = 0;
 
@@ -49,13 +49,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
 	public Inventory inventory = new Inventory(this);
-
-/*
-	Public NonPlayableCharacter[] enemies = new NonPlayableCharacter[12];
-//	public Slime enemy = new Slime();
-	public Consumable apple = new Consumable(this, appleImages);
-
-	 */
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -98,15 +91,21 @@ public class GamePanel extends JPanel implements Runnable{
 	public void newGame() {
 		this.currentRunTime = new Time(0);	// Reset game timer to 0
 		this.setPlayer(new PlayerCharacter(this, keyH));
+//TODO: <<<<<<< Cameron-PlayerTime
 		initializeRooms();
+//=======
+//>>>>>>> Cameron-Merge-PlayerTime
 		newGameHelper();
 	}
 
 	public void newGame(SimpleCharacter sc, Time t, ArrayList<Room> rooms, int currentRoomNum) {
 		this.currentRunTime = t;
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
+//TODO: <<<<<<< Cameron-PlayerTime
 		this.rooms = rooms;
 		this.currentRoomNum = currentRoomNum;
+//=======
+//>>>>>>> Cameron-Merge-PlayerTime
 		newGameHelper();
 	}
 
@@ -148,15 +147,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 	@Override
 	public void run() {
-		/*
-		Slime enemy = new Slime();
-		Skeleton enemy1 = new Skeleton();
-		Wizard enemy2 = new Wizard(this);
-		enemies[0] = enemy;
-		enemies[1] = enemy1;
-		enemies[2] = enemy2;
-		*/
-
 		double drawInterval;					//converts from nanoseconds to seconds
 		double delta = 0;
 		long lastTime = System.nanoTime();
@@ -204,8 +194,12 @@ public class GamePanel extends JPanel implements Runnable{
 					keyH.reset();
 					player.setKeyHandler(null);
 					deathPanel.showDeathPanel();
+//TODO: <<<<<<< Cameron-PlayerTime
 					//Main.view.getWindow().set
 					//this.pauseThread();
+//=======
+					this.pauseThread();
+//>>>>>>> Cameron-Merge-PlayerTime
 				}
 			}
 		}
@@ -234,6 +228,25 @@ public class GamePanel extends JPanel implements Runnable{
 			for (int i = 0; i < rooms.get(currentRoomNum).getNPCs().size(); i++) {
 				NonPlayableCharacter npc = rooms.get(currentRoomNum).getNPCs().get(i);
 				npc.update(this);
+			}
+		}
+
+
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).isAlive) {
+					projectileList.get(i).update(this);
+				}
+				if (!projectileList.get(i).isAlive) {
+					projectileList.remove(i);
+				}
+			}
+		}
+
+		if (rooms.get(currentRoomNum).getCoins() != null) {
+			for (int j = 0; j < rooms.get(currentRoomNum).getCoins().size(); j++) {
+				Coin coin = rooms.get(currentRoomNum).getCoins().get(j);
+				coin.update();
 			}
 		}
 	}
@@ -270,7 +283,24 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).isAlive) {
+					projectileList.get(i).draw(g2);
+				}
+			}
+		}
+
+		if (rooms.get(currentRoomNum).getCoins() != null) {
+			for (int k = 0; k < rooms.get(currentRoomNum).getCoins().size(); k++) {
+				Coin coin = rooms.get(currentRoomNum).getCoins().get(k);
+				coin.draw(g2, this);
+			}
+		}
+
 		inventory.draw(g2);
+
+		Main.view.updateCoinLabel(g2);
 
 		g2.dispose();
 	}

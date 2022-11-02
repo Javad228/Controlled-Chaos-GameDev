@@ -32,11 +32,11 @@ public class TileManager {
 //        System.out.println(roomNum);
         if (roomNum == 1) {
             System.out.println("loaded");
-            loadMap("/maps/map2.txt");
+            loadMap("/maps/mapset" + gp.player.roomsetNub + "/map1.txt");
             System.out.println("loaded success");
         }
         if (roomNum == 0) {
-            loadMap("/maps/map2.txt");
+            loadMap("/maps/mapset" + gp.player.roomsetNub + "/map2.txt");
         }
 
         /*
@@ -58,6 +58,10 @@ public class TileManager {
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png")));
             //tile[2].collision = true;
+
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/tree.png")));
+            tile[3].collision = true;
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,6 +101,7 @@ public class TileManager {
 
         }
     }
+
     public void draw(Graphics2D g2) {
         int col = 0;
         int row = 0;

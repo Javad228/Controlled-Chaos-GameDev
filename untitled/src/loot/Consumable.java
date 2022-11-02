@@ -22,8 +22,8 @@ public class Consumable extends Item {
 
     public transient BufferedImage consumableImage = null;
 
-    public Consumable(KeyHandler keyH, String[] consumableImages) {
-        super(keyH, 7, consumableImages);
+    public Consumable(String[] consumableImages) {
+        super(7, consumableImages);
         this.healthGiven = 20;
         this.disappearTimer = 60 * 5;   //TODO: Set constant timer to respawn item instead of user-set FPS
         this.disappearTimerDefault = disappearTimer;
@@ -34,8 +34,8 @@ public class Consumable extends Item {
         getConsumableImage();
     }
 
-    public Consumable(KeyHandler keyH, String[] consumableImages, boolean isRespawnable) {
-        this(keyH, consumableImages);
+    public Consumable(String[] consumableImages, boolean isRespawnable) {
+        this(consumableImages);
         this.isRespawnable = isRespawnable;
     }
 
@@ -60,7 +60,6 @@ public class Consumable extends Item {
         //if (consumableImage.)
 
         super.update();
-
 
         if (isRespawnable && !isVisible && --disappearTimer == 0) {
             isVisible = true;

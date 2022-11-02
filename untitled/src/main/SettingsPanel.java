@@ -37,6 +37,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
                 hideSettingsPanel();
                 Main.view.getGamePanel().setVisible(true);
                 Main.view.getSettingsPage().setVisible(false);
+                Main.view.getCoinPanel().setVisible(true);
 
                 Main.view.getGamePanel().resumeThread();
 
@@ -141,7 +142,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 
     public void showSettingsPanel() {
         Main.view.getGamePanel().pauseThread();
-        Main.view.getWindow().remove(Main.view.getGamePanel());
+        //Main.view.getWindow().remove(Main.view.getGamePanel());
         Main.view.getWindow().add(this);
         Main.view.getWindow().setVisible(false);
         Main.view.getSettingsPage().setVisible(true);
@@ -149,6 +150,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     }
 
     public void hideSettingsPanel() {
+
         //if (!isVisible())   return;
         //
         //Main.view.getWindow().setVisible(false);

@@ -1,5 +1,6 @@
 package character;
 
+import loot.Coin;
 import loot.Consumable;
 import loot.Item;
 import main.Audio;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -30,10 +32,16 @@ public class PlayerCharacter extends Character {
     private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
+
+    private int shotAvailableTimer = 0;
+    private int shotTimerMax = 50;
+
+    private int numCoins;
     private boolean isDying;                // Used for performing death animation
 
     private transient BufferedImage[] deathImages;
 
+    public int roomsetNub;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
@@ -56,10 +64,13 @@ public class PlayerCharacter extends Character {
         setDefaultValues();
         getPlayerImage();
 
-        this.projectile = new Arrow(gp);
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
+
+        Random r = new Random();
+        roomsetNub = r.nextInt(3);
+        this.numCoins = 0;
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -81,6 +92,7 @@ public class PlayerCharacter extends Character {
         this.setSpriteNum(pc.getSpriteNum());
         this.setStartingItem(pc.getStartingItem());
         this.healthBar = pc.healthBar;
+        this.numCoins = pc.numCoins;
     }
 
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
@@ -95,6 +107,7 @@ public class PlayerCharacter extends Character {
         this.type = c.combatType;
         this.inventory = c.inventory;
         this.characterType = c.characterType;
+        this.numCoins = c.getNumCoins();
     }
 
     public void setDefaultValues() {
@@ -107,9 +120,9 @@ public class PlayerCharacter extends Character {
         this.attackArea.height = 36;
         String[] stringArray = {"/weapons/wooden_sword.png"};
         String[] stringArray1 = {"/weapons/wooden_sword.png"};
-        Item item = new Item(keyH,7,stringArray);
+        Item item = new Item(7,stringArray);
         item.setDescription("wooden sword");
-        Item item1 = new Item(keyH,7,stringArray1);
+        Item item1 = new Item(7,stringArray1);
         item1.setDescription("wooden sword #2");
 
         this.getInventory().addItem(item);
@@ -118,7 +131,6 @@ public class PlayerCharacter extends Character {
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
 //        this.collisionAreaDefaultY = solidArea.y;
-        this.setProjectile(new Arrow(gp));
 
     }
 
@@ -199,33 +211,32 @@ public class PlayerCharacter extends Character {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             int currentX = this.getxCoord();
             int currentY = this.getyCoord();
-            int movementSpeed = this.getProjectile().getMovementSpeed();
 
-            if (keyH.upPressed && !keyH.downPressed) {
-                this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "up", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
-            if (keyH.downPressed && !keyH.upPressed) {
-                this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.downPressed && !keyH.upPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "down", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
-            if (keyH.leftPressed && !keyH.rightPressed) {
-                this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.leftPressed && !keyH.rightPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "left", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
-            if (keyH.rightPressed && !keyH.leftPressed) {
-                this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+            if (keyH.rightPressed && !keyH.leftPressed && (shotAvailableTimer == shotTimerMax)) {
+                Arrow arrow = new Arrow(gp, currentX, currentY, "right", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
-                //gp.projectileList.add(projectile);
+                shotAvailableTimer = 0;
             }
         }
-
-        if (this.isHasThrownProjectile()) {
-            this.getProjectile().update();
+        if (shotAvailableTimer < shotTimerMax) {
+            shotAvailableTimer++;
         }
+
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
             if (keyH.kPressed) {
@@ -292,8 +303,21 @@ public class PlayerCharacter extends Character {
                                 heal(((Consumable) item).consume());
                             } else {
                                 inventory.addItem(item);
-                                currentList.remove(i);
                             }
+                            currentList.remove(i);
+                            Audio.itemPickUpAudio();
+                        }
+                    }
+                }
+
+                if (gp.getRooms().get(gp.getCurrentRoomNum()).getCoins() != null){
+                    ArrayList<Coin> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getCoins();
+                    for (int i = 0; i < currentList.size(); i++) {
+                        Coin coin = currentList.get(i);
+                        if (gp.checker.checkLootCollision(this, coin)) {
+                            this.numCoins = this.numCoins + coin.getValue();
+                            currentList.remove(i);
+                            Audio.itemPickUpAudio();
                         }
                     }
                 }
@@ -365,6 +389,11 @@ public class PlayerCharacter extends Character {
             }
         }
 
+    }
+
+    public void damagePlayer(Projectile projectile) {
+        gp.getPlayer().damage(projectile.getDamage());
+        gp.getPlayer().isInvincible = true;
     }
 
     public void damagePlayer(NonPlayableCharacter entity) {
@@ -488,9 +517,10 @@ public class PlayerCharacter extends Character {
 
         g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
 
-        if (isHasThrownProjectile() && this.projectile.getIsAlive()) {
-            this.getProjectile().draw(g2);
-        }
+
+        this.healthBar.draw(g2,
+                this.getxCoord(),
+                this.getyCoord() - this.healthBar.getHeight());
 
     }
 
@@ -544,5 +574,12 @@ public class PlayerCharacter extends Character {
         return super.equals(o);
     }
 
+    public int getNumCoins() {
+        return numCoins;
+    }
+
+    public void setNumCoins(int numCoins) {
+        this.numCoins = numCoins;
+    }
 }
 

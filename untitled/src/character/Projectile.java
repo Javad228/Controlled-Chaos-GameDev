@@ -11,13 +11,13 @@ public class Projectile extends Character {
     transient GamePanel gp;
     private transient BufferedImage projectileImage;
     private boolean isMoving;
+    private int damage;
+    private boolean isPlayerShooting;
 
-    public Projectile(GamePanel gp) {
+    public Projectile(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting) {
         super();
         this.gp = gp;
-    }
-
-    public void set(int xCoord, int yCoord, String direction, int movementSpeed) {  //CombatType type
+                                                                //CombatType type
                                                                 //boolean isInvincible
                                                                 //Entity user (whether it damages the player or enemies)
         this.setxCoord(xCoord);
@@ -26,11 +26,20 @@ public class Projectile extends Character {
         this.setMovementSpeed(movementSpeed);
         this.setMoving(true);
         this.setIsAlive(true);
+        this.maxHealth = 300;
+        this.health = this.maxHealth;
+        this.isPlayerShooting = isPlayerShooting;
+        gp.projectileList.add(this);
+
         //this.type = RANGED;
         //this.user = user;
     }
 
-    public void update() {
+    public void update(GamePanel gp) {
+        health--;
+        if (health < 1) {
+            this.kill();
+        }
         if (isMoving) {
             switch (direction) {
                 case "up":
@@ -62,19 +71,29 @@ public class Projectile extends Character {
 
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
-        if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
-            ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
-            for (int i = 0; i < currentList.size(); i++) {
-                Enemy enemy = currentList.get(i);
-                Boolean isHit = gp.checker.checkEntityAttack(this, enemy);
-                if(isHit){
-                    System.out.println("Hit");
-                    //Potentially add if statement for piercing effects where projectile isn't destroyed
-                    this.setIsAlive(false);
+
+        if (this.isPlayerShooting) {
+            if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
+                ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
+                for (int i = 0; i < currentList.size(); i++) {
+                    Enemy enemy = currentList.get(i);
+                    Boolean isHit = gp.checker.checkEntityAttack(this, enemy);
+                    if(isHit) {
+                        currentList.get(i).setHealth(currentList.get(i).getHealth() - this.damage);
+                        //Potentially add if statement for piercing effects where projectile isn't destroyed
+                        this.setIsAlive(false);
+                    }
                 }
             }
         }
+        else {
+            boolean isHit = gp.checker.checkEntityCollision(this, gp.getPlayer());
 
+            if (isHit) {
+                gp.getPlayer().damagePlayer(this);
+                this.setIsAlive(false);
+            }
+        }
 
         //After checking collision, restore original data
         xCoord = currentWorldX;
@@ -101,5 +120,21 @@ public class Projectile extends Character {
 
     public void setMoving(boolean moving) {
         isMoving = moving;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public boolean getIsPlayerShooting() {
+        return isPlayerShooting;
+    }
+
+    public void setIsPlayerShooting(boolean isPlayerShooting) {
+        this.isPlayerShooting = isPlayerShooting;
     }
 }

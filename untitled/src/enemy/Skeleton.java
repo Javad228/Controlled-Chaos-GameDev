@@ -1,5 +1,7 @@
 package enemy;
 
+import character.Enemy;
+import character.NonPlayableCharacter;
 import character.*;
 import loot.LootType;
 import main.GamePanel;
@@ -10,7 +12,9 @@ import java.io.IOException;
 
 public class Skeleton extends Enemy {
 
-    public Skeleton() {
+    //public Skeleton(GamePanel gp) {
+    //    super(gp);
+    public Skeleton(int xCoord, int yCoord) {
         super(EnemyType.MEDIUM, LootType.DEFAULT);
         name = "Skeleton";
         movementSpeed = 1;
@@ -25,6 +29,8 @@ public class Skeleton extends Enemy {
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
 
         this.setDamagePerHit(10);
         getImage();

@@ -93,6 +93,7 @@ public class DeathPanel extends JPanel {
         Main.view.getWindow().remove(Main.view.getGamePanel());
         Main.view.getWindow().add(this);
         Main.view.getWindow().setVisible(false);
+        Main.view.getCoinPanel().setVisible(false);
         Main.view.getWindow().setVisible(true);
         Audio.stopMusic();
         Audio.stopWalking();

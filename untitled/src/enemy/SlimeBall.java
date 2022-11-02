@@ -16,8 +16,8 @@ public class SlimeBall extends Projectile {
     private transient BufferedImage arrowRight;
     private transient BufferedImage arrowLeft;
 
-    public SlimeBall(GamePanel gp) {
-        super(gp);
+    public SlimeBall(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting) {
+        super(gp, xCoord, yCoord, direction, isPlayerShooting);
         this.gp = gp;
 
         setDefaultValues();
@@ -26,13 +26,11 @@ public class SlimeBall extends Projectile {
 
     public void setDefaultValues() {
         this.setName("SlimeBall");
-        this.setxCoord(50);
-        this.setyCoord(50);
-        this.setMovementSpeed(4);
-        this.setDirection("down");
+        this.setMovementSpeed(2);
         this.setWidth(200);
         this.setHeight(200);
-        this.setHealth(80);
+        this.setHealth(200);
+        this.setDamage(20);
         //this.setDamage(2);
         //this.isInvincible(true);
     }

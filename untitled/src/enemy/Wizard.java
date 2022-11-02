@@ -1,7 +1,13 @@
 package enemy;
 
+import character.Enemy;
+import character.NonPlayableCharacter;
+
+import character.Projectile;
+
 import character.*;
 import loot.LootType;
+
 import main.GamePanel;
 import main.Main;
 import save.SimpleEnemy;
@@ -11,7 +17,7 @@ import java.io.IOException;
 
 public class Wizard extends Enemy {
     private int counter = 1;
-    public Wizard(GamePanel gp) {
+    public Wizard(GamePanel gp, int xCoord, int yCoord) {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
@@ -28,8 +34,11 @@ public class Wizard extends Enemy {
         this.collisionAreaDefaultY = solidArea.y;
         this.width = 60;
         this.height = 60;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+
         this.setDamagePerHit(15);
-        this.setProjectile(new SlimeBall(gp));
+
         getImage();
 
     }
@@ -72,19 +81,17 @@ public class Wizard extends Enemy {
                         } else {
                             int currentX = this.getxCoord();
                             int currentY = this.getyCoord();
-                            int movementSpeed = this.getProjectile().getMovementSpeed();
+                            //int movementSpeed = projectile.getMovementSpeed();
                             canMove = false;
                             actionLockCounter++;
 
                             if(actionLockCounter == 70){
                                 if (goalRow < startRow) {
                                     System.out.println("up arrow");
-                                    this.getProjectile().set(currentX, currentY, "up", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 } else {
                                     System.out.println("down arrow");
-                                    this.getProjectile().set(currentX, currentY, "down", movementSpeed); //RANGED, true (isInvinicible), this (user)
-                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
                                 actionLockCounter = 0;
@@ -115,16 +122,15 @@ public class Wizard extends Enemy {
                         } else {
                             int currentX = this.getxCoord();
                             int currentY = this.getyCoord();
-                            int movementSpeed = this.getProjectile().getMovementSpeed();
                             canMove = false;
                             actionLockCounter++;
 
                             if(actionLockCounter == 70){
                                 if (goalCol < startCol) {
-                                    this.getProjectile().set(currentX, currentY, "left", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 } else {
-                                    this.getProjectile().set(currentX, currentY, "right", movementSpeed); //RANGED, true (isInvinicible), this (user)
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
@@ -143,9 +149,7 @@ public class Wizard extends Enemy {
                 canMove = true;
                 searchPath(goalCol, goalRow, gp);
             }
-            if (this.isHasThrownProjectile()) {
-                this.getProjectile().update();
-            }
+
         }
 
     @Override

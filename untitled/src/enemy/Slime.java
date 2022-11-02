@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class Slime extends Enemy {
 
-    public Slime() {
+    public Slime(int xCoord, int yCoord) {
         super(EnemyType.SMALL, LootType.DEFAULT);   //TODO DEBUG
         name = "Slime";
         movementSpeed = 1;
@@ -31,6 +31,8 @@ public class Slime extends Enemy {
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
 
         this.setDamagePerHit(5);
         getImage();

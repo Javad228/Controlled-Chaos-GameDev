@@ -1,5 +1,7 @@
 /.idea/
 /target/
+
 #Cameron's .gitignore
 /untitled/src/test.java
+
 .gitignore

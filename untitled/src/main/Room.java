@@ -13,6 +13,7 @@ public class Room {
     private ArrayList<Friendly> NPCs;
     private transient KeyHandler keyH;
     private transient GamePanel gp;
+    private ArrayList<Coin> coins;
 
     public Room(int roomNum, KeyHandler keyH, GamePanel gp) {
         this.roomNum = roomNum;
@@ -21,6 +22,7 @@ public class Room {
         initializeItems();
         initializeEnemies();
         initializeNPCs();
+        initializeCoins();
     }
 
     private void initializeItems() {
@@ -31,10 +33,10 @@ public class Room {
                 String[] appleImages = {"/consumables/apple.png"};
                 String[] bootImages = {"/items/boot.png"};
 
-                Weapon weapon = new Weapon(keyH, weaponImages);
-                Effect effect = new Effect(keyH, effectImages);
-                Consumable apple = new Consumable(keyH, appleImages, false);
-                PassiveItem boot = new PassiveItem(keyH, bootImages);
+                Weapon weapon = new Weapon(weaponImages);
+                Effect effect = new Effect(effectImages);
+                Consumable apple = new Consumable(appleImages, false);
+                PassiveItem boot = new PassiveItem(bootImages);
 
                 items = new ArrayList<>();
                 items.add(weapon);
@@ -56,9 +58,15 @@ public class Room {
         switch(roomNum) {
             case 0:
                 enemies = new ArrayList<>();
-                enemies.add(new Slime());
-                enemies.add(new Skeleton());
-                enemies.add(new Wizard(this.gp));
+//TODO: <<<<<<< Cameron-PlayerTime
+//                enemies.add(new Slime());
+//                enemies.add(new Skeleton());
+//                enemies.add(new Wizard(this.gp));
+//=======
+                enemies.add(new Slime(100, 100));
+                enemies.add(new Skeleton(500, 500));
+                enemies.add(new Wizard(this.gp, 100, 500));
+//>>>>>>> Cameron-Merge-PlayerTime
                 break;
             case 1:
                 enemies = null;
@@ -66,14 +74,33 @@ public class Room {
     }
 
     private void initializeNPCs() {
+        NPCs = null;
+        /* Add something like this here when we have friendly NPCs
         switch(roomNum) {
             case 0:
                 NPCs = new ArrayList<>();
                 break;
             case 1:
-                enemies = null;
+                NPCs = null;
+        }
+        */
+    }
+
+    private void initializeCoins() {
+        switch(roomNum) {
+            case 0:
+                String[] coinImages = {"/items/coin.png"};
+                //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
+                Coin coin = new Coin(7, coinImages, 600, 500, 1);
+                coins = new ArrayList<>();
+                coins.add(coin);
+                break;
+            case 1:
+                coins = null;
         }
     }
+
+
 
     public ArrayList<Item> getItems() {
         return items;
@@ -101,5 +128,12 @@ public class Room {
 
     public int getRoomNum() {
         return this.roomNum;
+
+    public ArrayList<Coin> getCoins() {
+        return coins;
+    }
+
+    public void setCoins(ArrayList<Coin> coins) {
+        this.coins = coins;
     }
 }
