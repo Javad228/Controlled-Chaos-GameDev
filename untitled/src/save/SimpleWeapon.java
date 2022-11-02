@@ -1,6 +1,6 @@
 package save;
 
-import loot.Weapon;
+import loot.Sword;
 
 /**
  * SimpleWeapon
@@ -15,10 +15,10 @@ public class SimpleWeapon {
     public String[] imagePaths;
     //TODO: Insert weapon attributes here
 
-    public SimpleWeapon(Weapon weapon) {
-        this.description = weapon.getDescription();
-        this.price = weapon.getPrice();
-        this.isEquipped = weapon.isEquipped();
-        this.imagePaths = weapon.getImagePaths();
+    public SimpleWeapon(Sword sword) {
+        this.description = sword.getDescription();
+        this.price = sword.getPrice();
+        this.isEquipped = sword.isEquipped();
+        this.imagePaths = sword.getImagePaths();
     }
 }
