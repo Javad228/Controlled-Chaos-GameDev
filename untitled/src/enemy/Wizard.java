@@ -77,17 +77,17 @@ public class Wizard extends Enemy {
 
                             if(actionLockCounter == 70){
                                 if (goalRow < startRow) {
-                                    System.out.println("up arrow");
+                                    //System.out.println("up arrow");
                                     SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 } else {
-                                    System.out.println("down arrow");
+                                    //System.out.println("down arrow");
                                     SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
                                 actionLockCounter = 0;
 
                             }
-                            System.out.println("shoot");
+                            //System.out.println("shoot");
                         }
                     } else {
                         counter = 1;
@@ -126,7 +126,7 @@ public class Wizard extends Enemy {
                                 counter = 0;
                                 actionLockCounter = 0;
                             }
-                            System.out.println("shoot");
+                            //System.out.println("shoot");
                         }
                     } else {
                         counter = 1;

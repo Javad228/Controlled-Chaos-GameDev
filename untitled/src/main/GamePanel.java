@@ -27,19 +27,16 @@ public class GamePanel extends JPanel implements Runnable{
 	public int gameState;
 
 	private int fps = 60;
+	private int currentRoomNum = 1;
 
 	public CollisionChecker checker = new CollisionChecker(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	transient Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
-//<<<<<<< Bolun-layout
 	public TileManager tileM = new TileManager(this);
-//=======
 	public ArrayList<Projectile> projectileList = new ArrayList<>();
-//>>>>>>> main
 
 	private ArrayList<Room> rooms; // list of rooms. the index of the room is its room number
-	private int currentRoomNum = 0;
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
@@ -56,6 +53,9 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
+		rooms.add(new Room(2, keyH, this));
+		rooms.add(new Room(3, keyH, this));
+		rooms.add(new Room(4, keyH, this));
 	}
 
 	public void setupGame() {
@@ -96,8 +96,9 @@ public class GamePanel extends JPanel implements Runnable{
 			// assuming this is to set the position of enemies after starting a new game. probably needs to change
 			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
 				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
-				enemy.setxCoord(100);
+				/*enemy.setxCoord(100);
 				enemy.setyCoord(100);
+				 */
 			}
 		}
 

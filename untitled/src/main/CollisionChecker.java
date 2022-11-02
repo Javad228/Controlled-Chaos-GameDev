@@ -245,23 +245,82 @@ public class CollisionChecker {
         int characterTop = character.getyCoord() + character.solidArea.y;
         int characterBottom = character.getyCoord() + character.solidArea.y + character.solidArea.height;
 
-        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 0) {
-            if (characterBottom > 226 && characterBottom < 254) {
-                System.out.println("it's in");
-                gp.setCurrentRoomNum(1);
-                gp.tileM.update();
-                return 1;
-            }
-        }
-
         if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 1) {
             if (characterBottom > 376 && characterBottom < 406) {
                 System.out.println("it's in");
-                gp.setCurrentRoomNum(0);
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
                 gp.tileM.update();
-                return 0;
+                return gp.getCurrentRoomNum() + 1;
             }
         }
+
+        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 2) {
+            if (characterBottom > 70 && characterBottom < 100) {
+                System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                gp.tileM.backward = true;
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() - 1;
+            }
+        }
+
+        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 2) {
+            if (characterBottom > 376 && characterBottom < 406) {
+                System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() + 1;
+            }
+        }
+
+        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 3) {
+            if (characterBottom > 70 && characterBottom < 100) {
+                System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                gp.tileM.backward = true;
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() - 1;
+            }
+        }
+
+        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 3) {
+            if (characterBottom > 376 && characterBottom < 406) {
+                System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() + 1;
+            }
+        }
+
+        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 4) {
+            if (characterBottom > 70 && characterBottom < 100) {
+                System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                gp.tileM.backward = true;
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() - 1;
+            }
+        }
+
+        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 4) {
+            if (characterBottom > 376 && characterBottom < 406) {
+                System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() + 1;
+            }
+        }
+
+        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 5) {
+            if (characterBottom > 70 && characterBottom < 100) {
+                System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                gp.tileM.backward = true;
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() - 1;
+            }
+        }
+
         return gp.getCurrentRoomNum();
     }
 }

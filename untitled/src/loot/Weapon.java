@@ -6,30 +6,31 @@ import save.SimpleWeapon;
 
 public class Weapon extends Item {
     // TODO: add new fields, modify constructor(s) as necessary
+    private transient GamePanel gp;
 
-    public Weapon(String[] imagePaths) {
-        super(7, imagePaths);
+    public Weapon(int framesToWait, String[] imagePaths) {
+        super(7 , imagePaths);
 
-        setDefaultValues();
+        //setDefaultValues();
         getImage(imagePaths);
     }
 
-    public Weapon(Weapon w) {
-        super(w.getName(), w.getLootType(), w.getxCoord(), w.getyCoord(),
-                w.getDescription(), w.getPrice(), w.isEquipped());
+    public Weapon(Weapon p) {
+        super(p.getName(), p.getLootType(), p.getxCoord(), p.getyCoord(),
+                p.getDescription(), p.getPrice(), p.isEquipped());
         setDefaultValues();
-        this.setLootImages(w.getLootImages());
+        this.setLootImages(p.getLootImages());
     }
 
-    public Weapon(SimpleWeapon weapon, KeyHandler keyH) {
-        super(7, weapon.description, weapon.price, weapon.isEquipped, weapon.imagePaths);
+    public Weapon(SimpleWeapon p, KeyHandler keyH) {
+        super(7, p.description, p.price, p.isEquipped, p.imagePaths);
 
         setDefaultValues();
         getImage(this.getImagePaths());
     }
 
     public void setDefaultValues() {
-        this.setxCoord(200);
-        this.setyCoord(200);
+        this.setxCoord(100);
+        this.setyCoord(500);
     }
 }

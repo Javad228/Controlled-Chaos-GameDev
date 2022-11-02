@@ -40,7 +40,7 @@ public class Inventory {
 
     public void draw(Graphics2D g2){
         this.g2 = g2;
-        System.out.println(gp.gameState);
+        //System.out.println(gp.gameState);
         if (gp.gameState == 4){
             drawInventory();
         }
