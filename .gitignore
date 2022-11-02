@@ -189,3 +189,5 @@ target/classes/items/coin.png
 target/classes/player_character/death_1.png
 target/classes/player_character/death_2.png
 target/classes/player_character/death_3.png
+target/classes/character/Enemy$1.class
+target/classes/loot/Coin.class

@@ -57,9 +57,9 @@ public class Room {
         switch(roomNum) {
             case 0:
                 enemies = new ArrayList<>();
-                enemies.add(new Slime());
-                enemies.add(new Skeleton());
-                enemies.add(new Wizard(this.gp));
+                enemies.add(new Slime(100, 100));
+                enemies.add(new Skeleton(500, 500));
+                enemies.add(new Wizard(this.gp, 100, 500));
                 break;
             case 1:
                 enemies = null;

@@ -39,8 +39,6 @@ public class PlayerCharacter extends Character {
 
     private BufferedImage[] deathImages;
 
-
-
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
         this.characterType = CharacterType.DEFAULT;
@@ -212,22 +210,22 @@ public class PlayerCharacter extends Character {
             int currentY = this.getyCoord();
 
             if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "up"); //RANGED, true (isInvincible), this (user)
+                Arrow arrow = new Arrow(gp, currentX, currentY, "up", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.downPressed && !keyH.upPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "down"); //RANGED, true (isInvincible), this (user)
+                Arrow arrow = new Arrow(gp, currentX, currentY, "down", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.leftPressed && !keyH.rightPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "left"); //RANGED, true (isInvincible), this (user)
+                Arrow arrow = new Arrow(gp, currentX, currentY, "left", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.rightPressed && !keyH.leftPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "right"); //RANGED, true (isInvincible), this (user)
+                Arrow arrow = new Arrow(gp, currentX, currentY, "right", true); //RANGED, true (isInvincible), this (user)
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
@@ -388,6 +386,11 @@ public class PlayerCharacter extends Character {
             }
         }
 
+    }
+
+    public void damagePlayer(Projectile projectile) {
+        gp.getPlayer().damage(projectile.getDamage());
+        gp.getPlayer().isInvincible = true;
     }
 
     public void damagePlayer(NonPlayableCharacter entity) {
