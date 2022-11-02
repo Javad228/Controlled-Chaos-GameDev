@@ -83,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Audio.stopWalking();
 		Audio.stopMusic();
 		Audio.openingMusic();
-		Main.view.getSettingsPage().hideSettingsPanel();
+		Main.view.getSettingsPanel().hideSettingsPanel();
 		deathPanel.hideDeathPanel();
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -155,7 +155,7 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 
 				if (timer >= 1000000000) {
-					Main.window.setTitle("Controlled Chaos");
+					Main.view.getWindow().setTitle("Controlled Chaos");
 					System.out.println("FPS:" + drawCount);
 					drawCount = 0;
 					timer = 0;
