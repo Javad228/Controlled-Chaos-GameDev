@@ -47,6 +47,7 @@ public class SlimeSlinger extends Weapon {
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
             player.setProjectileName("SlimeBall");
+            player.setShotAvailableTimer(0);
             player.setShotTimerMax(25);
         }
     }

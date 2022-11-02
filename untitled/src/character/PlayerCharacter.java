@@ -214,7 +214,6 @@ public class PlayerCharacter extends Character {
 
             if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
                 shoot(this.getProjectileName(), gp, currentX, currentY, "up", true);
-                System.out.println(this.getProjectileName());
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
@@ -305,9 +304,9 @@ public class PlayerCharacter extends Character {
                             }
                             else {
                                 inventory.addItem(item);
-                               // if (!(item instanceof Weapon)) {
+                                if (!(item instanceof Weapon)) {
                                     item.setEquipped(true);
-                               // }
+                                }
                             }
                             currentList.remove(i);
                             Audio.itemPickUpAudio();
@@ -605,5 +604,9 @@ public class PlayerCharacter extends Character {
     public void setProjectileName(String projectileName) {
         this.projectileName = projectileName;
     }
+
+    public int getShotAvailableTimer() { return shotAvailableTimer; }
+
+    public void setShotAvailableTimer(int shotAvailableTimer) { this.shotAvailableTimer = shotAvailableTimer; }
 }
 
