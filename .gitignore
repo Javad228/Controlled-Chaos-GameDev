@@ -191,3 +191,13 @@ target/classes/player_character/death_2.png
 target/classes/player_character/death_3.png
 target/classes/character/Enemy$1.class
 target/classes/loot/Coin.class
+target/classes/items/coin_icon.png
+target/classes/maps/mapset1/map1.txt
+target/classes/maps/mapset1/map2.txt
+target/classes/maps/mapset2/map1.txt
+target/classes/maps/mapset2/map2.txt
+target/classes/items/slingshot.png
+target/classes/loot/Boot.class
+target/classes/loot/SlimeSlinger.class
+target/classes/loot/Sword.class
+.idea/uiDesigner.xml

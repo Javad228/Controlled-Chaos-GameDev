@@ -1,8 +1,7 @@
 package character;
 
-import loot.Coin;
-import loot.Consumable;
-import loot.Item;
+import enemy.SlimeBall;
+import loot.*;
 import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
@@ -32,6 +31,7 @@ public class PlayerCharacter extends Character {
     private GamePanel gp;
     private KeyHandler keyH;
 
+    private String projectileName = "Arrow";
     private int shotAvailableTimer = 0;
     private int shotTimerMax = 50;
 
@@ -48,11 +48,8 @@ public class PlayerCharacter extends Character {
         this.inventory = new Inventory(gp);
         this.gp = gp;
         this.keyH = keyH;
-//<<<<<<< Cameron-DamageByEnemies
         this.isDying = false;
-//        this.solidArea.x = 3;
-//        this.solidArea.y = 18;
-//=======
+
         this.solidArea.x = 0;
         this.solidArea.y = 10;
         this.setWidth(18);
@@ -70,13 +67,10 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
-//<<<<<<< Bolun-layout
 
         Random r = new Random();
-        roomsetNub = r.nextInt(1,3);
-//=======
+        roomsetNub = r.nextInt(3);
         this.numCoins = 0;
-//>>>>>>> main
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -219,22 +213,23 @@ public class PlayerCharacter extends Character {
             int currentY = this.getyCoord();
 
             if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "up", true); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "up", true);
+                System.out.println(this.getProjectileName());
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.downPressed && !keyH.upPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "down", true); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "down", true);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.leftPressed && !keyH.rightPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "left", true); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "left", true);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.rightPressed && !keyH.leftPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "right", true); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "right", true);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
@@ -307,8 +302,12 @@ public class PlayerCharacter extends Character {
                         if (gp.checker.checkLootCollision(this, item)) {
                             if (item instanceof Consumable && ((Consumable) item).isVisible) {
                                 heal(((Consumable) item).consume());
-                            } else {
+                            }
+                            else {
                                 inventory.addItem(item);
+                               // if (!(item instanceof Weapon)) {
+                                    item.setEquipped(true);
+                               // }
                             }
                             currentList.remove(i);
                             Audio.itemPickUpAudio();
@@ -339,7 +338,6 @@ public class PlayerCharacter extends Character {
         int collisionAreaWidth = solidArea.width;
         int collisionAreaHeight = solidArea.height;
 
-
         switch (direction) {
             case "up" -> yCoord -= attackArea.height;
             case "down" -> yCoord += attackArea.height;
@@ -349,7 +347,6 @@ public class PlayerCharacter extends Character {
 
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
-//        System.out.println(solidArea);
         if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
             ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
             for (int i = 0; i < currentList.size(); i++) {
@@ -365,8 +362,6 @@ public class PlayerCharacter extends Character {
         }
 
 //        System.out.println(isHit);
-
-
 
         /*
         isHit = gp.checker.checkConsumableCollision(this, gp.apple);
@@ -411,6 +406,14 @@ public class PlayerCharacter extends Character {
         }
     }
 
+    public void shoot(String projectileName, GamePanel gp, int currentX, int currentY, String direction, boolean isPlayerShooting) {
+        if (projectileName.equals("Arrow")) {
+            Arrow arrow = new Arrow(gp, currentX, currentY, direction, isPlayerShooting); //RANGED, true (isInvincible), this (user)
+        }
+        if (projectileName.equals("SlimeBall")) {
+            SlimeBall slimeBall = new SlimeBall(gp, currentX, currentY, direction, isPlayerShooting);
+        }
+    }
 
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
@@ -527,7 +530,6 @@ public class PlayerCharacter extends Character {
         this.healthBar.draw(g2,
                 this.getxCoord(),
                 this.getyCoord() - this.healthBar.getHeight());
-
     }
 
     public CharacterType getCharacterType () {
@@ -586,6 +588,22 @@ public class PlayerCharacter extends Character {
 
     public void setNumCoins(int numCoins) {
         this.numCoins = numCoins;
+    }
+
+    public int getShotTimerMax() {
+        return shotTimerMax;
+    }
+
+    public void setShotTimerMax(int shotTimerMax) {
+        this.shotTimerMax = shotTimerMax;
+    }
+
+    public String getProjectileName() {
+        return projectileName;
+    }
+
+    public void setProjectileName(String projectileName) {
+        this.projectileName = projectileName;
     }
 }
 
