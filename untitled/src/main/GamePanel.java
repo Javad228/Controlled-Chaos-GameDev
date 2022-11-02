@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public int gameState;
 
 	private int fps = 60;
+	private int currentRoomNum = 1;
 
 	public CollisionChecker checker = new CollisionChecker(this);
 	public KeyHandler keyH = new KeyHandler(this);
@@ -36,7 +37,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public ArrayList<Projectile> projectileList = new ArrayList<>();
 
 	private ArrayList<Room> rooms; // list of rooms. the index of the room is its room number
-	private int currentRoomNum = 0;
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
@@ -53,6 +53,9 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
+		rooms.add(new Room(2, keyH, this));
+		rooms.add(new Room(3, keyH, this));
+		rooms.add(new Room(4, keyH, this));
 	}
 
 	public void setupGame() {
@@ -80,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Audio.stopWalking();
 		Audio.stopMusic();
 		Audio.openingMusic();
-		Main.view.getSettingsPage().hideSettingsPanel();
+		Main.view.getSettingsPanel().hideSettingsPanel();
 		deathPanel.hideDeathPanel();
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -153,7 +156,7 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 
 				if (timer >= 1000000000) {
-					Main.window.setTitle("Controlled Chaos");
+					Main.view.getWindow().setTitle("Controlled Chaos");
 					System.out.println("FPS:" + drawCount);
 					drawCount = 0;
 					timer = 0;
