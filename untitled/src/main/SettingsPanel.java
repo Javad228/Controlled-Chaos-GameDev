@@ -14,16 +14,18 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 //<<<<<<< HEAD
     JPanel savePage;
     JButton returnButton;
+    private String priorPage;
 
     public SettingsPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        //setLayout(new FlowLayout());
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addFrameRateSelection();
         addMusicVolumeSelection();
         addSoundEffectVolumeSelection();
         addSaveButtons();
         addReturnButton();
+        priorPage = "";
+
 //=======
 //    JButton returnButton;
 //
@@ -47,15 +49,12 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                hideSettingsPanel();
-                Main.view.getGamePanel().setVisible(true);
-                Main.view.getSettingsPage().setVisible(false);
-                Main.view.getCoinPanel().setVisible(true);
-
-                Main.view.getGamePanel().resumeThread();
-
-                Audio.stopMusic();
-                Audio.openingMusic();
+                if (priorPage.equals("Main Menu")) {
+                    Main.view.showMainMenuPanel();
+                } else if (priorPage.equals("Game Panel")) {
+                    Main.view.showGamePanel();
+                    Main.view.getGamePanel().resumeThread();
+                }
             }
         });
 
@@ -159,7 +158,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         //Main.view.getWindow().remove(Main.view.getGamePanel());
         Main.view.getWindow().add(this);
         Main.view.getWindow().setVisible(false);
-        Main.view.getSettingsPage().setVisible(true);
+        Main.view.getSettingsPanel().setVisible(true);
         Main.view.getWindow().setVisible(true);
     }
 
@@ -172,7 +171,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         Main.view.getWindow().setAutoRequestFocus(true);
         Main.view.getWindow().setVisible(true);
         Main.view.getWindow().requestFocusInWindow();
-        Main.view.getSettingsPage().setVisible(false);
+        Main.view.getSettingsPanel().setVisible(false);
     }
 //=======
     public SettingsPanel getSettingsPanel() {
@@ -180,4 +179,11 @@ public class SettingsPanel extends JPanel implements ChangeListener {
 //>>>>>>> Cameron-Sprint1Progress
     }
 
+    public String getPriorPage() {
+        return priorPage;
+    }
+
+    public void setPriorPage(String priorPage) {
+        this.priorPage = priorPage;
+    }
 }
