@@ -6,11 +6,11 @@ public class Effect extends Item {
     private int speedMultiplier;
     private int damageModifier;
     private int effectTimer;
-    private int customEffect; // what is this? is it supposed to be an int? ~KA
+    private int customEffect;
 
 
-    public Effect(KeyHandler keyH, String[] imagePaths) {
-        super(keyH, 20, imagePaths);
+    public Effect(String[] imagePaths) {
+        super(20, imagePaths);
         this.speedMultiplier = 1;
         this.damageModifier = 1;
         this.effectTimer = 0;
@@ -20,8 +20,8 @@ public class Effect extends Item {
         getImage(imagePaths);
     }
 
-    public Effect(KeyHandler keyH, int speedMultiplier, int damageModifier, int effectTimer, int customEffect) {
-        super(keyH, 20, new String[0]);
+    public Effect(int speedMultiplier, int damageModifier, int effectTimer, int customEffect) {
+        super(20, new String[0]);
         this.speedMultiplier = speedMultiplier;
         this.damageModifier = damageModifier;
         this.effectTimer = effectTimer;
