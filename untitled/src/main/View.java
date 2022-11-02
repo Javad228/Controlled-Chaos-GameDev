@@ -1,18 +1,21 @@
 package main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class View {
     private JFrame window;
     private GamePanel gamePanel;
     private SettingsPanel settingsPage;
     private JPanel savePage;
-
-    private JLabel coinLabel;
+    private JPanel coinPanel;
 
     public View () {
         window = new JFrame();
@@ -22,19 +25,19 @@ public class View {
         window.setResizable(false);
         window.setTitle("Controlled Chaos");
 
-        coinLabel = new JLabel();
-        coinLabel.setOpaque(true);
-        coinLabel.setBackground(Color.BLACK);
-        coinLabel.setForeground(Color.WHITE);
-        window.add(coinLabel);
+        coinPanel = new JPanel();
+        coinPanel.setOpaque(true);
+        coinPanel.setLayout(new FlowLayout());
+        LineBorder line = new LineBorder(Color.BLACK, 2, true);
+        coinPanel.setBorder(line);
+        window.add(coinPanel);
+
         gamePanel = new GamePanel();
         window.add(gamePanel);
-        coinLabel.setBounds(0, 0, 100, 25);
+        coinPanel.setBounds(0, 0, 75, 30);
 
         window.addKeyListener(gamePanel.keyH);
-
         window.pack();
-
         window.setLocationRelativeTo(null);
 
         //set up settings page
@@ -73,7 +76,7 @@ public class View {
             public void actionPerformed(ActionEvent e) {
                 Main.view.getSettingsPage().setVisible(true);
                 Main.view.getGamePanel().setVisible(false);
-                Main.view.coinLabel.setVisible(false);
+                Main.view.coinPanel.setVisible(false);
 
                 Main.view.getGamePanel().pauseThread();
 
@@ -89,10 +92,24 @@ public class View {
     }
 
     public void updateCoinLabel(Graphics2D g2) {
-        coinLabel.setText(Integer.toString(gamePanel.player.getNumCoins()));
-        //Main.view.getCoinLabel().setBounds(this.screenWidth - 100, 0, 100, 25);
-        //this.coinLabel.setHorizontalAlignment(JLabel.RIGHT);
-        this.coinLabel.update(g2);
+        int numCoins = gamePanel.player.getNumCoins();
+
+        JLabel numCoinsLabel = new JLabel(Integer.toString(numCoins));
+        JLabel coinIconLabel = new JLabel();
+
+        try {
+            BufferedImage icon = ImageIO.read(getClass().getResourceAsStream("/items/coin_icon.png"));
+            coinIconLabel.setIcon(new ImageIcon(icon));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        coinPanel.removeAll();
+        coinIconLabel.setBounds(6, 6, 23,18);
+        numCoinsLabel.setBounds(35, 2, 50,25);
+        coinPanel.add(numCoinsLabel);
+        coinPanel.add(coinIconLabel);
+        coinPanel.update(g2);
     }
 
     public JFrame getWindow() {
@@ -107,11 +124,11 @@ public class View {
         return settingsPage;
     }
 
-    public JLabel getCoinLabel() {
-        return coinLabel;
+    public JPanel getCoinPanel() {
+        return coinPanel;
     }
 
-    public void setCoinLabel(JLabel coinLabel) {
-        this.coinLabel = coinLabel;
+    public void setCoinPanel(JPanel coinPanel) {
+        this.coinPanel = coinPanel;
     }
 }
