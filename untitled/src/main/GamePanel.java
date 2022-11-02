@@ -1,14 +1,12 @@
 package main;
 
 import ai.Pathfinding;
-import character.Inventory;
-import character.NonPlayableCharacter;
+import character.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import character.Enemy;
-import character.PlayerCharacter;
 import loot.*;
 import save.SaveData;
 import save.SimpleCharacter;
@@ -32,10 +30,14 @@ public class GamePanel extends JPanel implements Runnable{
 	private int fps = 60;
 
 	public CollisionChecker checker = new CollisionChecker(this);
-	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+//<<<<<<< Bolun-layout
+	public TileManager tileM = new TileManager(this);
+//=======
+	public ArrayList<Projectile> projectileList = new ArrayList<>();
+//>>>>>>> main
 
 	//public Slime enemy = new Slime();
 	//private ArrayList<Item> lootInRoom;
@@ -222,9 +224,21 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 
+
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).isAlive) {
+					projectileList.get(i).update(this);
+				}
+				if (!projectileList.get(i).isAlive) {
+					projectileList.remove(i);
+				}
+			}
+		}
+
 		if (rooms.get(currentRoomNum).getCoins() != null) {
-			for (int i = 0; i < rooms.get(currentRoomNum).getCoins().size(); i++) {
-				Coin coin = rooms.get(currentRoomNum).getCoins().get(i);
+			for (int j = 0; j < rooms.get(currentRoomNum).getCoins().size(); j++) {
+				Coin coin = rooms.get(currentRoomNum).getCoins().get(j);
 				coin.update();
 			}
 		}
@@ -262,9 +276,17 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 
+		for (int i = 0; i < projectileList.size(); i++) {
+			if (projectileList.get(i) != null) {
+				if (projectileList.get(i).isAlive) {
+					projectileList.get(i).draw(g2);
+				}
+			}
+		}
+
 		if (rooms.get(currentRoomNum).getCoins() != null) {
-			for (int i = 0; i < rooms.get(currentRoomNum).getCoins().size(); i++) {
-				Coin coin = rooms.get(currentRoomNum).getCoins().get(i);
+			for (int k = 0; k < rooms.get(currentRoomNum).getCoins().size(); k++) {
+				Coin coin = rooms.get(currentRoomNum).getCoins().get(k);
 				coin.draw(g2, this);
 			}
 		}

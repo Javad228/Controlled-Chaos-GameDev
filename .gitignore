@@ -184,3 +184,8 @@ target/classes/wizard/projectile/tile009.png
 target/classes/items/boot.png
 target/classes/loot/PassiveItem.class
 target/classes/save/SimplePassiveItem.class
+.idea/vcs.xml
+target/classes/items/coin.png
+target/classes/player_character/death_1.png
+target/classes/player_character/death_2.png
+target/classes/player_character/death_3.png
