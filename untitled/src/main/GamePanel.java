@@ -31,10 +31,10 @@ public class GamePanel extends JPanel implements Runnable{
 	private int fps = 60;
 
 	public CollisionChecker checker = new CollisionChecker(this);
-	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	transient Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+	public TileManager tileM = new TileManager(this);
 
 	//public Slime enemy = new Slime();
 	//private ArrayList<Item> lootInRoom;

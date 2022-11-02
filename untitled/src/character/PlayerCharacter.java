@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * PlayerCharacter - A class which models a user-controlled character and contains attributes for a Character.
@@ -32,7 +33,7 @@ public class PlayerCharacter extends Character {
     private boolean isDying;                // Used for performing death animation
 
     private BufferedImage[] deathImages;
-
+    public int roomsetNub;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
@@ -64,6 +65,9 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
+
+        Random r = new Random();
+        roomsetNub = r.nextInt(1,3);
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
