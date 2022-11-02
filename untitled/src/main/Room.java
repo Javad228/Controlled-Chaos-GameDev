@@ -30,7 +30,7 @@ public class Room {
 
     private void initializeItems() {
         switch(roomNum) {
-            case 0:
+            case 3:
                 String[] weaponImages = {"/weapons/wooden_sword.png"};
                 String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
                 String[] appleImages = {"/consumables/apple.png"};
@@ -48,21 +48,21 @@ public class Room {
                 items.add(boot);
 
                 break;
-            case 1:
+            case 2:
                 items = null;
         }
     }
 
     private void initializeEnemies() {
         switch(roomNum) {
-            case 0:
+            case 1:
+                break;
+            case 2:
                 enemies = new ArrayList<>();
                 enemies.add(new Slime(100, 100));
                 enemies.add(new Skeleton(500, 500));
                 enemies.add(new Wizard(this.gp, 100, 500));
                 break;
-            case 1:
-                enemies = null;
         }
     }
 
@@ -83,14 +83,14 @@ public class Room {
 
     private void initializeCoins() {
         switch(roomNum) {
-            case 0:
+            case 1:
                 String[] coinImages = {"/items/coin.png"};
                 //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
                 Coin coin = new Coin(7, coinImages, 600, 500, 1);
                 coins = new ArrayList<>();
                 coins.add(coin);
                 break;
-            case 1:
+            case 2:
                 coins = null;
         }
     }

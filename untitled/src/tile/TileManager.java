@@ -15,8 +15,8 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][] mapTileNum;
-    //private int roomNum;
     private Object[] loot;
+    public boolean backward = false;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -32,11 +32,55 @@ public class TileManager {
 //        System.out.println(roomNum);
         if (roomNum == 1) {
             System.out.println("loaded");
-            loadMap("/maps/mapset" + gp.player.roomsetNub + "/map1.txt");
+            loadMap("/maps/mapset" + gp.player.roomsetNub + "/starting1.txt");
+            gp.player.setxCoord(20);
+            gp.player.setyCoord(50);
+            if (backward) {
+                gp.player.setxCoord(600);
+                gp.player.setyCoord(380);
+                backward = false;
+            }
             System.out.println("loaded success");
         }
-        if (roomNum == 0) {
-            loadMap("/maps/mapset" + gp.player.roomsetNub + "/map2.txt");
+        if (roomNum == 2) {
+            loadMap("/maps/mapset" + gp.player.roomsetNub + "/enemy2.txt");
+            gp.player.setxCoord(40);
+            gp.player.setyCoord(80);
+            if (backward) {
+                gp.player.setxCoord(600);
+                gp.player.setyCoord(380);
+                backward = false;
+            }
+        }
+        if (roomNum == 3) {
+            loadMap("/maps/mapset" + gp.player.roomsetNub + "/item3.txt");
+            gp.player.setxCoord(40);
+            gp.player.setyCoord(80);
+            if (backward) {
+                gp.player.setxCoord(600);
+                gp.player.setyCoord(380);
+                backward = false;
+            }
+        }
+        if (roomNum == 4) {
+            loadMap("/maps/mapset" + gp.player.roomsetNub + "/traps4.txt");
+            gp.player.setxCoord(40);
+            gp.player.setyCoord(80);
+            if (backward) {
+                gp.player.setxCoord(600);
+                gp.player.setyCoord(380);
+                backward = false;
+            }
+        }
+        if (roomNum == 5) {
+            loadMap("/maps/mapset" + gp.player.roomsetNub + "/boss5.txt");
+            gp.player.setxCoord(40);
+            gp.player.setyCoord(80);
+            if (backward) {
+                gp.player.setxCoord(600);
+                gp.player.setyCoord(380);
+                backward = false;
+            }
         }
 
         /*
