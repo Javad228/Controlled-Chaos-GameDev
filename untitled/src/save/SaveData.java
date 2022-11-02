@@ -28,9 +28,11 @@ public class SaveData {
     private static GamePanel gp;
     private static final String file = "untitled/src/main/temp_storage.txt";
 //  private final String separator = "\n-=-=-=-=-=-=-\n";
-    private GsonBuilder gb;
-    private Gson g;
+    private final GsonBuilder gb;
+    private final Gson g;
 
+    //
+    //
     public SaveData(GamePanel gp) {
         SaveData.gp = gp;
         initializeSaveGameButton();
@@ -57,6 +59,8 @@ public class SaveData {
             }
             Main.view.getSettingsPage().hideSettingsPanel();
             Main.view.getGamePanel().resumeThread();
+            Main.view.getCoinLabel().setVisible(true);
+            Main.view.getGamePanel().setVisible(true);
             Audio.stopMusic();
             Audio.openingMusic();
         });
@@ -85,10 +89,13 @@ public class SaveData {
                     "Resetting game progress will erase all progress made\nAre you sure?", "Confirm Reset",
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 resetSavedProgress();
+                gp.newGame();
                 System.out.println("Saved Progress Reset");
                 JOptionPane.showMessageDialog(resetGameProgressButton, "Game Progress Reset",
                         "Reset Game Progress", JOptionPane.INFORMATION_MESSAGE);
                 Main.view.getSettingsPage().hideSettingsPanel();
+                Main.view.getGamePanel().setVisible(true);
+                Main.view.getCoinLabel().setVisible(true);
                 Main.view.getGamePanel().resumeThread();
                 Audio.stopMusic();
                 Audio.openingMusic();
@@ -118,9 +125,9 @@ public class SaveData {
     }
 
     public boolean restoreSave() {
-        GameSaveState gs;
+        GameSaveState gs = restoreGameState();
 
-        if ((gs=restoreGameState()) == null) {
+        if (gs == null) {
             gp.newGame();
             if (gp.paused) System.out.println("Game restore Failed\nUsing starting values");
             else System.out.println("Game restore Failed");
@@ -162,44 +169,6 @@ public class SaveData {
             return false;
         }
     }
-
-    private static PlayerCharacter deallocateCharacter(PlayerCharacter c) {
-        c.setGamePanel(null);
-        c.setKeyHandler(null);
-        c.setUp1(null);
-        c.setUp2(null);
-        c.setUp3(null);
-        c.setUp4(null);
-        c.setUp5(null);
-        c.setUp6(null);
-        c.setDown1(null);
-        c.setDown2(null);
-        c.setDown3(null);
-        c.setDown4(null);
-        c.setDown5(null);
-        c.setDown6(null);
-        c.setLeft1(null);
-        c.setLeft2(null);
-        c.setLeft3(null);
-        c.setLeft4(null);
-        c.setLeft5(null);
-        c.setLeft6(null);
-        c.setRight1(null);
-        c.setRight2(null);
-        c.setRight3(null);
-        c.setRight4(null);
-        c.setRight5(null);
-        c.setRight6(null);
-        return c;
-    }
-
-    private static Weapon deallocateWeapon(Weapon c) {
-        //c.setGp(null);
-        c.setKeyH(null);
-        c.setLootImages(null);
-        return c;
-    }
-
 }
 
 class BufferedImageAdapter extends TypeAdapter<BufferedImage> {

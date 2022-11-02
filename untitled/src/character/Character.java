@@ -49,7 +49,6 @@ public abstract class Character {
     public boolean isAttacking = false;
 
     public int spriteCounter = 0;
-
     public int spriteNum = 1;
 
     public int collisionAreaDefaultY;
@@ -133,18 +132,25 @@ public abstract class Character {
     }
 
     public void damage(int damageTaken) {
-        if (damageTaken > this.health) kill();
+        if (damageTaken > this.health) setHealth(0);
         else setHealth(this.health-damageTaken);
     }
 
     public void heal(int healthRegained) {
+        if (this.health == this.maxHealth)  return;
         if (healthRegained >= this.maxHealth-this.health) setHealth(this.maxHealth);
         else setHealth(this.health+healthRegained);
     }
 
+    /**
+     * kill(): Sets the <code>isAlive</code> boolean variable to <code>false</code>.
+     * Used for the GameThread to determine that the player death
+     * animation is finished.
+     *
+     * Important: This method does not set the player health to 0.
+     */
     public void kill() {
-        this.setHealth(0);
-        this.isAlive = false;
+        this.setIsAlive(false);
     }
 
     public int getMovementSpeed() {

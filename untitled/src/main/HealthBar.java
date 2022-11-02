@@ -16,8 +16,8 @@ public class HealthBar extends BufferedImage {
     private final int maxHealth;
     private int width;
     private int height;
-    private final Color red = Color.RED;
-    private final Color blank = new Color(70, 70, 70);
+    private transient final Color red = Color.RED;
+    private transient final Color blank = new Color(70, 70, 70);
 
     public HealthBar(int hp, int maxHealth, int width, int height) {
         super(width, height, TYPE_INT_RGB);
@@ -41,7 +41,7 @@ public class HealthBar extends BufferedImage {
 
     public void draw(Graphics2D g2, int charX, int charY) {
 
-        if (this.getHealth() == 100) return;
+        //if (this.getHealth() == 100) return;
 
         // Removed bottom double for-loop due to graphical issues
         //for (int y = charY; y < height+charY; y++) {

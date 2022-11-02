@@ -19,6 +19,7 @@ public class SimpleCharacter {
     public String currentRoom;
     public Inventory inventory;
     public CharacterType characterType;
+    private int numCoins;
 
     public SimpleCharacter(PlayerCharacter c) {
         this.name = c.getName();
@@ -32,5 +33,14 @@ public class SimpleCharacter {
         this.currentRoom = "Test";
         this.inventory = c.getInventory();
         this.characterType = c.getCharacterType();
+        this.numCoins = c.getNumCoins();
+    }
+
+    public int getNumCoins() {
+        return numCoins;
+    }
+
+    public void setNumCoins(int numCoins) {
+        this.numCoins = numCoins;
     }
 }

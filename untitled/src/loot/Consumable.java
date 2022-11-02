@@ -1,5 +1,6 @@
 package loot;
 
+import main.Audio;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -15,15 +16,14 @@ public class Consumable extends Item {
 
     private boolean isRespawnable;
     public boolean isConsumed;
-    public int frameCounter = 0;
     public boolean isVisible = true;
     public int disappearTimer;
     public int disappearTimerDefault;
 
     public BufferedImage consumableImage = null;
 
-    public Consumable(KeyHandler keyH, String[] consumableImages) {
-        super(keyH, 7, consumableImages);
+    public Consumable(String[] consumableImages) {
+        super(7, consumableImages);
         this.healthGiven = 20;
         this.disappearTimer = 60 * 5;   //TODO: Set constant timer to respawn item instead of user-set FPS
         this.disappearTimerDefault = disappearTimer;
@@ -34,8 +34,8 @@ public class Consumable extends Item {
         getConsumableImage();
     }
 
-    public Consumable(KeyHandler keyH, String[] consumableImages, boolean isRespawnable) {
-        this(keyH, consumableImages);
+    public Consumable(String[] consumableImages, boolean isRespawnable) {
+        this(consumableImages);
         this.isRespawnable = isRespawnable;
     }
 
@@ -58,13 +58,6 @@ public class Consumable extends Item {
     public void update() {
 
         super.update();
-
-        frameCounter++;
-
-        // reset the frame counter when we reach 20 frames
-        if (frameCounter == 20) {
-            frameCounter = 0;
-        }
 
         if (isRespawnable && !isVisible && --disappearTimer == 0) {
             isVisible = true;

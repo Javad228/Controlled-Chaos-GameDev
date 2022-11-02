@@ -1,15 +1,20 @@
 package enemy;
 
+import character.Enemy;
 import character.NonPlayableCharacter;
+import character.*;
+import loot.LootType;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class Skeleton extends NonPlayableCharacter {
+public class Skeleton extends Enemy {
 
+    //public Skeleton(GamePanel gp) {
+    //    super(gp);
     public Skeleton() {
-        super();
+        super(EnemyType.MEDIUM, LootType.DEFAULT);
         name = "Skeleton";
         movementSpeed = 1;
         maxHealth = 10;
@@ -24,7 +29,7 @@ public class Skeleton extends NonPlayableCharacter {
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
 
-        this.setDamagePerHit(5);
+        this.setDamagePerHit(10);
         getImage();
 
     }

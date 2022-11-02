@@ -13,9 +13,9 @@ public class Loot {
     private LootType lootType;
     private int xCoord;                         // x-position in a room
     private int yCoord;                         // y-position in a room
-    KeyHandler keyH;
+    //transient KeyHandler keyH;
     private String[] imagePaths;
-    private BufferedImage[] lootImages;
+    private transient BufferedImage[] lootImages;
     private int framesToWait;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int collisionAreaDefaultX = solidArea.x;
@@ -30,7 +30,7 @@ public class Loot {
     private int spriteCounter = 0;
     private boolean isExpanding = true;
 
-    public Loot(KeyHandler keyH, int framesToWait, String[] imagePaths) {
+    public Loot(int framesToWait, String[] imagePaths) {
         this.name = "";
         this.lootType = LootType.DEFAULT;
         this.xCoord = 0;
@@ -38,7 +38,18 @@ public class Loot {
         this.framesToWait = framesToWait;
         this.imagePaths = imagePaths;
         this.getImage(imagePaths);
-        this.keyH = keyH;
+    }
+
+    public Loot(int framesToWait, String[] imagePaths, int xCoord, int yCoord) {
+        this.name = "";
+        this.lootType = LootType.DEFAULT;
+        this.xCoord = 0;
+        this.yCoord = 0;
+        this.framesToWait = framesToWait;
+        this.imagePaths = imagePaths;
+        this.getImage(imagePaths);
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
     }
 
     public Loot(String name, LootType lootType, int xCoord, int yCoord) {
@@ -157,6 +168,7 @@ public class Loot {
         this.lootImages = lootImages;
     }
 
+    /*
     public KeyHandler getkeyH() {
         return keyH;
     }
@@ -165,11 +177,21 @@ public class Loot {
         this.keyH = keyH;
     }
 
+
+     */
     public String[] getImagePaths() {
         return this.imagePaths;
     }
 
     public void setImagePaths(String[] imagePaths) {
         this.imagePaths = imagePaths;
+    }
+
+    public int getFrameCounter() {
+        return this.frameCounter;
+    }
+
+    public void setFrameCounter(int frameCounter) {
+        this.frameCounter = frameCounter;
     }
 }
