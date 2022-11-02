@@ -147,14 +147,17 @@ public class PlayerCharacter extends Character {
 
     }
 
+    public int getRow() {
+        return yCoord/gp.tileSize;
+    }
+
+    public int getCol() {
+        return xCoord/gp.tileSize;
+    }
+
     public Tile getCurrentTile() {
-        int xCoord = this.getxCoord();
-        int yCoord = this.getyCoord();
 
-        int col = xCoord/gp.tileSize;
-        int row = yCoord/gp.tileSize;
-
-        int tileNum = TileManager.mapTileNum[col][row];
+        int tileNum = TileManager.mapTileNum[getCol()][getRow()];
 
         Tile tile = TileManager.tile[tileNum];
 

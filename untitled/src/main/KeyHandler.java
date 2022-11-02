@@ -1,8 +1,10 @@
 package main;
 
 import character.PlayerCharacter;
+import tile.Button;
 import tile.Tile;
 import tile.TileManager;
+import tile.TrapTile;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
@@ -54,12 +56,15 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_E) {
             Tile currentTile = gp.getPlayer().getCurrentTile();
             if (currentTile.getTileType() == Tile.BUTTON) {
-                System.out.println("button registered as clicked");
                 if (gp.getCurrentRoomNum() == 2) {
-                    System.out.println("in room 2");
-                    gp.getRooms().get(2).getButtons().get(0).toggle();
-                    if (gp.getPlayer().getCurrentTile().getRow() == 0 && gp.getPlayer().getCurrentTile().getCol() == 2) {
-                        //put in here later
+                    if (((gp.getPlayer().getRow() >= 1) && (gp.getPlayer().getRow() <= 3)) &&
+                        ((gp.getPlayer().getCol() >= 1) && (gp.getPlayer().getCol() <= 3))) {
+                        Button button = gp.getRooms().get(2).getButtons().get(0);
+                        button.toggle();
+                        for (int i = 0; i < button.getTrapTiles().size(); i++) {
+                            TrapTile trapTile = button.getTrapTiles().get(i);
+                            trapTile.toggleTrap(i, 4);
+                        }
                     }
                 }
             }

@@ -31,35 +31,11 @@ public class Button extends Tile{
     }
 
     public void toggle() {
-        if (trapTiles.size() == 0) {
-            return;
-        }
-
         if (isOn) {
-            for (int i = 0; i < trapTiles.size(); i++) {
-                Tile tile = trapTiles.get(i);
-                try {
-                    this.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_down.png"))));
-                    TileManager.tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_up.png"))));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("image reading failed when toggling switch off");
-                }
-                tile.setDamageTile(false);
-            }
+            TileManager.mapTileNum[this.getRow()][this.getCol()] = 7;
             isOn = false;
         } else {
-            for (int i = 0; i < trapTiles.size(); i++) {
-                Tile tile = trapTiles.get(i);
-                try {
-                    this.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_up.png"))));
-                    TileManager.tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_down.png"))));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("image reading failed when toggling switch on");
-                }
-                tile.setDamageTile(true);
-            }
+            TileManager.mapTileNum[this.getRow()][this.getCol()] = 5;
             isOn = true;
         }
     }

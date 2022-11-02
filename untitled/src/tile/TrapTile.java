@@ -24,19 +24,14 @@ public class TrapTile extends Tile {
         this.isOn = isOn;
     }
 
-    public void toggleTrap() {
-        try {
-
-            if (this.isOn) {
-                //tileManager.drawTile(Inventory.g2, TileManager.tile[6], this.get);
-                this.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_down.png"))));
-                TileManager.draw(GamePanel.g2);
-            } else {
-                this.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_up.png"))));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("couldn't find trap image when toggling");
+    public void toggleTrap(int row, int col) {
+        if (this.isOn) {
+            TileManager.mapTileNum[col][row] = 6;
+            isOn = false;
+        } else {
+            TileManager.mapTileNum[col][row] = 4;
+            isOn = true;
         }
+
     }
 }
