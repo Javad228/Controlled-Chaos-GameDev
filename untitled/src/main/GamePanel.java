@@ -204,12 +204,13 @@ public class GamePanel extends JPanel implements Runnable{
 				if (!projectileList.get(i).isAlive) {
 					projectileList.remove(i);
 				}
+			}
+		}
 
 		if (rooms.get(currentRoomNum).getCoins() != null) {
-			for (int i = 0; i < rooms.get(currentRoomNum).getCoins().size(); i++) {
-				Coin coin = rooms.get(currentRoomNum).getCoins().get(i);
+			for (int j = 0; j < rooms.get(currentRoomNum).getCoins().size(); j++) {
+				Coin coin = rooms.get(currentRoomNum).getCoins().get(j);
 				coin.update();
-
 			}
 		}
 	}
@@ -251,12 +252,13 @@ public class GamePanel extends JPanel implements Runnable{
 				if (projectileList.get(i).isAlive) {
 					projectileList.get(i).draw(g2);
 				}
+			}
+		}
 
 		if (rooms.get(currentRoomNum).getCoins() != null) {
-			for (int i = 0; i < rooms.get(currentRoomNum).getCoins().size(); i++) {
-				Coin coin = rooms.get(currentRoomNum).getCoins().get(i);
+			for (int k = 0; k < rooms.get(currentRoomNum).getCoins().size(); k++) {
+				Coin coin = rooms.get(currentRoomNum).getCoins().get(k);
 				coin.draw(g2, this);
-
 			}
 		}
 
