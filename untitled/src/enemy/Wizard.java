@@ -11,7 +11,9 @@ import loot.LootType;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Wizard extends Enemy {
     private int counter = 1;
@@ -34,8 +36,10 @@ public class Wizard extends Enemy {
         this.height = 60;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
+        setNumDeathSprites(12);
+        setDeathImages(new BufferedImage[getNumDeathSprites()]); // should be in super()
 
-        this.setDamagePerHit(15);
+        this.setDamagePerHit(1); // originally 15
 
         getImage();
 
@@ -166,6 +170,33 @@ public class Wizard extends Enemy {
             this.setRight4(ImageIO.read(getClass().getResourceAsStream("/wizard/character/run/tile004.png")));
             this.setRight5(ImageIO.read(getClass().getResourceAsStream("/wizard/character/run/tile006.png")));
             this.setRight6(ImageIO.read(getClass().getResourceAsStream("/wizard/character/run/tile007.png")));
+
+
+            // Get Death Animation Images
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile000.png"))), 0);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile001.png"))), 1);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile002.png"))), 2);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile003.png"))), 3);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile004.png"))), 4);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile005.png"))), 5);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile006.png"))), 6);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile007.png"))), 7);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile008.png"))), 8);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile009.png"))), 9);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile010.png"))), 10);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile011.png"))), 11);
         } catch(IOException e) {
             e.printStackTrace();
         }

@@ -38,8 +38,6 @@ public class PlayerCharacter extends Character {
     private int numCoins;
     private boolean isDying;                // Used for performing death animation
 
-    private BufferedImage[] deathImages;
-
     public int roomsetNub;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -63,7 +61,7 @@ public class PlayerCharacter extends Character {
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
-        this.deathImages = new BufferedImage[3];
+        setDeathImages(new BufferedImage[3]); // should be in super()
         setDefaultValues();
         getPlayerImage();
 
@@ -158,12 +156,12 @@ public class PlayerCharacter extends Character {
             this.setAttackLeft2(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_2.png")));
 
             // Get Death Animation Images
-            this.deathImages[0] = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/death_1.png")));
-            this.deathImages[1] = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/death_2.png")));
-            this.deathImages[2] = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/death_3.png")));
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_1.png"))), 0);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_2.png"))), 1);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_3.png"))), 2);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -421,7 +419,7 @@ public class PlayerCharacter extends Character {
             this.setWidth(31);
             this.setHeight(44);
 
-            image = this.deathImages[this.getSpriteNum()];
+            image = getDeathImage(this.getSpriteNum());
 
             switch (getSpriteNum()) {       // Set width and height parameters according to death image
                                             // selected

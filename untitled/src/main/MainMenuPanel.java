@@ -15,6 +15,8 @@ public class MainMenuPanel extends JPanel {
         add(Box.createVerticalStrut(50));
         addNewRunButton();
         add(Box.createVerticalStrut(10));
+        addStatsButton();
+        add(Box.createVerticalStrut(10));
         addSettingsButton();
 
         setName("Main Menu");
@@ -43,6 +45,20 @@ public class MainMenuPanel extends JPanel {
             }
         });
         add(newRunButton);
+    }
+
+    private void addStatsButton() {
+        JButton statsButton = new JButton("Stats");
+        statsButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        statsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        statsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+        });
+        add(statsButton);
     }
 
     private void addSettingsButton() {

@@ -31,6 +31,8 @@ public abstract class NonPlayableCharacter extends Character {
     public boolean onPath = false;
     public boolean canMove = true;
     private GamePanel gp;
+    private int numDeathSprites;
+    private boolean isDying = false;
 
     /**
      *  Empty constructor to create a generic NonPlayableCharacter
@@ -48,15 +50,24 @@ public abstract class NonPlayableCharacter extends Character {
     public void update(GamePanel gp){
         int frameAdjust = 12;
         spriteCounter++;
+        if (!this.getIsAlive()) { // if dead, then don't update the position
+            if (!isDying) {
+                spriteNum = 0;
+                isDying = true;
+            }
+            if(spriteCounter > frameAdjust){
+                spriteNum++;
+                spriteCounter = 0;
+            }
+
+            return;
+        }
+
         if(spriteCounter > frameAdjust){
 
             spriteNum = ((spriteNum)%6+1);
 
             spriteCounter = 0;
-        }
-
-        if (!this.getIsAlive()) { // if dead, then don't update the position
-            return;
         }
 
         if(isInvincible){
@@ -230,28 +241,15 @@ public abstract class NonPlayableCharacter extends Character {
         if (!getIsAlive()) {
             // configure animations
             // after animations are done remove from room
-            switch(this.getSpriteNum()) {
-                case 1:
-                    image = this.getDeath1();
-                    break;
-                case 2:
-                    image = this.getDeath2();
-                    break;
-                case 3:
-                    image = this.getDeath3();
-                    break;
-                case 4:
-                    image = this.getDeath4();
-                    break;
-                case 5:
-                    image = this.getDeath5();
-                    break;
-                case 6: // out of sprites, remove enemy from room and exit method
-                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
-                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
+            if (this.getSpriteNum() < this.getDeathImages().length) {
+                image = getDeathImage(this.getSpriteNum());
+            } else {
+                gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
+                gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
 
-                    return;
+                return;
             }
+
             g2.drawImage(image, this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
 
             return;
@@ -352,5 +350,21 @@ public abstract class NonPlayableCharacter extends Character {
 
     public void setGp(GamePanel gp) {
         this.gp = gp;
+    }
+
+    public int getNumDeathSprites() {
+        return numDeathSprites;
+    }
+
+    public void setNumDeathSprites(int numDeathSprites) {
+        this.numDeathSprites = numDeathSprites;
+    }
+
+    public boolean isDying() {
+        return isDying;
+    }
+
+    public void setDying(boolean dying) {
+        isDying = dying;
     }
 }
