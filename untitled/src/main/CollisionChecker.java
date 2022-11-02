@@ -4,6 +4,8 @@ import character.Character;
 import character.PlayerCharacter;
 import loot.Loot;
 
+import java.awt.*;
+
 public class CollisionChecker {
     GamePanel gp;
 
@@ -29,6 +31,45 @@ public class CollisionChecker {
         entity.solidArea.x = entity.collisionAreaDefaultX;
         target.solidArea.x = target.collisionAreaDefaultX;
         target.solidArea.y = target.collisionAreaDefaultY;
+
+        return entity.collisionOn;
+    }
+
+    public boolean checkLootApproach(Character entity, Loot target) {
+        if (target == null) return false;
+
+        entity.collisionOn = false;
+        entity.solidArea.x = entity.xCoord;
+        entity.solidArea.y = entity.yCoord;
+
+        int entityDefaultWidth = entity.solidArea.width;
+        int entityDefaultHeight = entity.solidArea.height;
+
+        entity.solidArea.width = 2 * gp.tileSize;
+        entity.solidArea.height = 2 * gp.tileSize;
+
+        target.solidArea.x = target.getxCoord();
+        target.solidArea.y = target.getyCoord();
+
+        int targetDefaultWidth = target.solidArea.width;
+        int targetDefaultHeight = target.solidArea.height;
+
+        target.solidArea.width = 2 * gp.tileSize;
+        target.solidArea.height = 2 * gp.tileSize;
+
+        if (entity.solidArea.intersects(target.solidArea)) {
+            entity.collisionOn = true;
+        }
+
+        entity.solidArea.y = entity.collisionAreaDefaultY;
+        entity.solidArea.x = entity.collisionAreaDefaultX;
+        entity.solidArea.width = entityDefaultWidth;
+        entity.solidArea.height = entityDefaultHeight;
+
+        target.solidArea.x = target.collisionAreaDefaultX;
+        target.solidArea.y = target.collisionAreaDefaultY;
+        target.solidArea.width = targetDefaultWidth;
+        target.solidArea.height = targetDefaultHeight;
 
         return entity.collisionOn;
     }

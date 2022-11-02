@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -38,7 +39,7 @@ public class PlayerCharacter extends Character {
     private int numCoins;
     private boolean isDying;                // Used for performing death animation
 
-    private BufferedImage[] deathImages;
+    private transient BufferedImage[] deathImages;
 
     public int roomsetNub;
 
@@ -48,11 +49,7 @@ public class PlayerCharacter extends Character {
         this.inventory = new Inventory(gp);
         this.gp = gp;
         this.keyH = keyH;
-//<<<<<<< Cameron-DamageByEnemies
         this.isDying = false;
-//        this.solidArea.x = 3;
-//        this.solidArea.y = 18;
-//=======
         this.solidArea.x = 0;
         this.solidArea.y = 10;
         this.setWidth(18);
