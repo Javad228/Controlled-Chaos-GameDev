@@ -42,7 +42,7 @@ public class GameStatisticsPanel extends JPanel {
     }
 
     public void hideStatisticsPanel() {
-
+        Main.view.hidePanel(this);
     }
 
     /**

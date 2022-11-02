@@ -32,7 +32,7 @@ public class PlayerCharacter extends Character {
     private KeyHandler keyH;
     private boolean isDying;                // Used for performing death animation
 
-    private BufferedImage[] deathImages;
+    private transient BufferedImage[] deathImages;
 
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {

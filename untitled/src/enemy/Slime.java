@@ -6,6 +6,7 @@ import character.*;
 import loot.LootType;
 
 import main.GamePanel;
+import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,6 +36,19 @@ public class Slime extends Enemy {
         getImage();
 
     }
+
+    public Slime(SimpleEnemy enemy) {
+        this();
+        this.name = enemy.name;
+        this.health = enemy.health;
+        this.maxHealth = enemy.maxHealth;
+        this.movementSpeed = enemy.movementSpeed;
+        this.xCoord = enemy.xCoord;
+        this.yCoord = enemy.yCoord;
+        this.activeEffects = enemy.activeEffects;
+        this.setDamagePerHit(enemy.damagePerHit);
+    }
+
     @Override
     public void setAction(GamePanel gp){
         actionLockCounter++;
@@ -114,7 +128,10 @@ public class Slime extends Enemy {
 
     // Update method relative to Slime Enemy
     // Slime will attack when it is on the ground (spriteNum == 1, 2, 6)
+    @Override
     public void update(GamePanel gp) {
+        if (getUp1() == null) getImage();
+
         super.update(gp);
 
         if (this.spriteNum < 2 || this.spriteNum == 6)  attacking(gp);
@@ -149,5 +166,7 @@ public class Slime extends Enemy {
         solidArea.width = collisionAreaWidth;
         solidArea.height = collisionAreaHeight;
     }
-
+    public Object getSubClass() {
+        return Slime.class;
+    }
 }

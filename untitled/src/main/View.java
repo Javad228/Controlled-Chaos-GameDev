@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class View {
     private JFrame window;
@@ -13,7 +14,8 @@ public class View {
 
     public View () {
         window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);    // This close operation will be overridden in
+                                                                        // the added window listener
         //window.setLayout(new ScrollPaneLayout());
         window.setPreferredSize(new Dimension(800, 600));
         window.setResizable(false);
@@ -26,21 +28,38 @@ public class View {
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
             @Override
             public void windowClosing(WindowEvent e) {
-                gamePanel.pauseThread();
-
-                if (JOptionPane.showConfirmDialog(null, "Save?", "Controlled Chaos",
-                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                    // Note: Returns false if save is successful
-                    if (gamePanel.saveData.saveGameState())
-                        JOptionPane.showMessageDialog(null, "Save Failed!\nExiting game!",
-                                "Controlled Chaos", JOptionPane.ERROR_MESSAGE);
-                    else
-                        JOptionPane.showMessageDialog(null, "Game Saved Successfully!\nExiting game",
-                            "Controlled Chaos", JOptionPane.INFORMATION_MESSAGE);
+                // If the gamepanel is not in view, simply perform ordinary close operation
+                if (getWindow().getContentPane().getComponentZOrder(gamePanel) == -1) {
+                    super.windowClosing(e);
+                    System.exit(0);
                 }
 
-                super.windowClosing(e);
+                // Pause game execution
+                gamePanel.pauseThread();
+
+                // Show save prompt
+                switch (JOptionPane.showConfirmDialog(null, "Save?", "Controlled Chaos",
+                        JOptionPane.YES_NO_CANCEL_OPTION)) {
+
+                    case JOptionPane.YES_OPTION -> {
+                        // Note: Returns false if save is successful
+                        if (gamePanel.saveData.saveGameState())
+                            JOptionPane.showMessageDialog(null, "Save Failed!\nExiting game!",
+                                    "Controlled Chaos", JOptionPane.ERROR_MESSAGE);
+                        else
+                            JOptionPane.showMessageDialog(null, "Game Saved Successfully!\nExiting game",
+                                    "Controlled Chaos", JOptionPane.INFORMATION_MESSAGE);
+                        super.windowClosing(e);
+                        System.exit(0);
+                    }
+
+                    case JOptionPane.NO_OPTION -> {
+                        super.windowClosing(e);
+                        System.exit(0);
+                    }
+
+                    case JOptionPane.CANCEL_OPTION -> gamePanel.resumeThread();
+                }
             }
         });
 
@@ -103,6 +122,37 @@ public class View {
 
     public SettingsPanel getSettingsPage() {
         return settingsPage;
+    }
+
+    public void showPanel(JPanel panel) {
+
+    }
+
+    /**
+     * hidePanel() - Method to hide desired component that is inside the View.java Window
+     * If the component does not exist within the View container, this method does nothing.
+     * This method serves to reduce instances of redundant code between related JPanels with
+     * the View and GamePanel classes
+     *
+     * @param panel Panel to hide in the View
+     */
+    public void hidePanel(JPanel panel) {
+        // If component is not a part of this window,
+        // return without performing any action
+        if (this.getWindow().getContentPane().getComponentZOrder(panel) == -1)   return;
+
+        // If the gamePanel is null or if the inputted panel is already hidden,
+        // return without performing any action
+        if (gamePanel == null || !panel.isVisible())    return;
+
+        this.getWindow().setVisible(false);
+        panel.setVisible(false);
+        this.getWindow().remove(panel);
+        this.getWindow().add(gamePanel);
+        this.getWindow().toFront();
+        this.getWindow().setAutoRequestFocus(true);
+        this.getWindow().setVisible(true);
+        this.getWindow().requestFocusInWindow();
     }
 
 }

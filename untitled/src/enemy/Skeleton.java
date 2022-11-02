@@ -3,6 +3,7 @@ package enemy;
 import character.*;
 import loot.LootType;
 import main.GamePanel;
+import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -28,6 +29,18 @@ public class Skeleton extends Enemy {
         this.setDamagePerHit(10);
         getImage();
 
+    }
+
+    public Skeleton(SimpleEnemy enemy) {
+        this();
+        this.name = enemy.name;
+        this.health = enemy.health;
+        this.maxHealth = enemy.maxHealth;
+        this.movementSpeed = enemy.movementSpeed;
+        this.xCoord = enemy.xCoord;
+        this.yCoord = enemy.yCoord;
+        this.activeEffects = enemy.activeEffects;
+        this.setDamagePerHit(enemy.damagePerHit);
     }
     @Override
     public void setAction(GamePanel gp){
@@ -119,7 +132,14 @@ public class Skeleton extends Enemy {
 //            }
 //        }
     }
-    public void getImage(){
+
+    @Override
+    public void update(GamePanel gp) {
+        if (getUp1() == null)   getImage();
+        super.update(gp);
+    }
+
+    public void getImage() {
         try {
             this.setUp1(ImageIO.read(getClass().getResourceAsStream("/Skeleton/tile002.png")));
             this.setUp2(ImageIO.read(getClass().getResourceAsStream("/Skeleton/tile004.png")));
@@ -150,4 +170,7 @@ public class Skeleton extends Enemy {
         }
     }
 
+    public Object getSubClass() {
+        return Skeleton.class;
+    }
 }

@@ -89,6 +89,7 @@ public class DeathPanel extends JPanel {
     }
 
     public void showDeathPanel() {
+        Main.view.getGamePanel().pauseThread();
         Main.view.getWindow().remove(Main.view.getGamePanel());
         Main.view.getWindow().add(this);
         Main.view.getWindow().setVisible(false);
@@ -98,17 +99,17 @@ public class DeathPanel extends JPanel {
     }
 
     public void hideDeathPanel() {
-        if (!isVisible())   return;
+        //if (!isVisible())   return;
+        //
+        //Main.view.getWindow().setVisible(false);
+        //Main.view.getWindow().remove(this);
+        //Main.view.getWindow().add(gp);
+        //Main.view.getWindow().toFront();
+        //Main.view.getWindow().setAutoRequestFocus(true);
+        //Main.view.getWindow().setVisible(true);
+        //Main.view.getWindow().requestFocusInWindow();
 
-        Main.view.getWindow().setVisible(false);
-        Main.view.getWindow().remove(this);
-        Main.view.getWindow().add(gp);
-        Main.view.getWindow().toFront();
-        //Main.view.getWindow().repaint();
-        //Main.view.getWindow().validate();
-        Main.view.getWindow().setAutoRequestFocus(true);
-        Main.view.getWindow().setVisible(true);
-        Main.view.getWindow().requestFocusInWindow();
+        Main.view.hidePanel(this);
     }
 
 }

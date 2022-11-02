@@ -2,6 +2,8 @@ package character;
 
 import loot.LootType;
 import main.GamePanel;
+import save.SimpleEnemy;
+import save.SimpleEnemyClassification;
 
 import java.awt.*;
 
@@ -46,5 +48,9 @@ public class Enemy extends NonPlayableCharacter {
 
     public void setLootType(LootType lootType) {
         this.lootType = lootType;
+    }
+
+    public Object getSubClass() {
+        return null;
     }
 }

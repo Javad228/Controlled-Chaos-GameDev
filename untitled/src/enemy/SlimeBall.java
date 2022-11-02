@@ -10,11 +10,11 @@ import java.io.IOException;
 
 public class SlimeBall extends Projectile {
 
-    GamePanel gp;
-    private BufferedImage arrowUp;
-    private BufferedImage arrowDown;
-    private BufferedImage arrowRight;
-    private BufferedImage arrowLeft;
+    transient GamePanel gp;
+    private transient BufferedImage arrowUp;
+    private transient BufferedImage arrowDown;
+    private transient BufferedImage arrowRight;
+    private transient BufferedImage arrowLeft;
 
     public SlimeBall(GamePanel gp) {
         super(gp);
@@ -46,6 +46,12 @@ public class SlimeBall extends Projectile {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void update() {
+        if (getArrowUp() == null)   getImage();
+
+        super.update();
     }
 
     public void draw(Graphics2D g2) {

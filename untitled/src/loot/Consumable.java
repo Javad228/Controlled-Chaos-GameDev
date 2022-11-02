@@ -20,7 +20,7 @@ public class Consumable extends Item {
     public int disappearTimer;
     public int disappearTimerDefault;
 
-    public BufferedImage consumableImage = null;
+    public transient BufferedImage consumableImage = null;
 
     public Consumable(KeyHandler keyH, String[] consumableImages) {
         super(keyH, 7, consumableImages);
@@ -56,6 +56,8 @@ public class Consumable extends Item {
     }
 
     public void update() {
+
+        //if (consumableImage.)
 
         super.update();
 

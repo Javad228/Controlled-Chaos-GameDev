@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Projectile extends Character {
 
-    GamePanel gp;
-    private BufferedImage projectileImage;
+    transient GamePanel gp;
+    private transient BufferedImage projectileImage;
     private boolean isMoving;
 
     public Projectile(GamePanel gp) {

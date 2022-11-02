@@ -2,7 +2,7 @@ package save;
 import character.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import loot.*;
+import enemy.*;
 import com.google.gson.*;
 import main.*;
 
@@ -38,7 +38,7 @@ public class SaveData {
         initializeRestoreGameButton();
         initializeResetGameProgressButton();
         this.gb = new GsonBuilder();
-        gb.registerTypeAdapter(BufferedImage.class, new BufferedImageAdapter());
+        //gb.registerTypeAdapter(BufferedImage.class, new BufferedImageAdapter());
         gb.setPrettyPrinting();
         g = gb.create();
     }
@@ -70,7 +70,7 @@ public class SaveData {
 
         restoreGameButton.addActionListener((a) -> {
             if (gp.deathPanel.isShowing()) return;
-            if (Main.view.getSettingsPage().isShowing()) Main.view.getSettingsPage().setVisible(false);
+            if (Main.view.getSettingsPage().isShowing()) Main.view.getSettingsPage().hideSettingsPanel();
             if (restoreSave()) JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Succeeded");
             else JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Failed\nRestoring to Default Save");
         });
@@ -107,7 +107,12 @@ public class SaveData {
     public boolean saveGameState() {
         try {
             FileWriter f = new FileWriter(file);
-            f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), gp.getCurrentRunTime())));
+            f.write(g.toJson(
+                    new GameSaveState(
+                            new SimpleCharacter(gp.getPlayer()),
+                            gp.getCurrentRunTime(),
+                            gp.getRooms(),
+                            gp.getCurrentRoomNum())));
             //f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
             f.close();
             return false;
@@ -123,12 +128,12 @@ public class SaveData {
 
         if ((gs=restoreGameState()) == null) {
             gp.newGame();
-            if (gp.paused) System.out.println("Game restore Failed\nUsing starting values");
+            if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
             else System.out.println("Game restore Failed");
             return false;
         }
 
-        gp.newGame(gs.player, new Time(gs.currentRunTimeNS));
+        gp.newGame(gs.player, new Time(gs.currentRunTimeNS), initializeRooms(gs.rooms), gs.currentRoomNum);
         System.out.println("Game restore Succeeded");
         return true;
     }
@@ -163,6 +168,42 @@ public class SaveData {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private ArrayList<Room> initializeRooms(ArrayList<SimpleRoom> rooms) {
+        ArrayList<Room> returnable = new ArrayList<>();
+        int i = 0;
+
+        for (SimpleRoom s : rooms) {
+            Room thisRoom = new Room(i, gp.keyH, gp);
+
+            thisRoom.setItems(s.items);
+
+            ArrayList<Enemy> enemies = new ArrayList<>();
+            if (s.enemies != null) {
+                for (SimpleEnemy enemy : s.enemies) {
+                    if (enemy.classification.equals(SimpleEnemyClassification.SKELETON)) {
+                        //Skeleton skeleton = new Skeleton(enemy);
+                        //enemies.add(skeleton);
+                        enemies.add(new Skeleton(enemy));
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.SLIME)) {
+                        //Slime slime = new Slime(enemy);
+                        enemies.add(new Slime(enemy));
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.WIZARD)) {
+                        //Wizard wizard = new Wizard(enemy);
+                        //enemies.add(wizard);
+                        enemies.add(new Wizard(enemy));
+                    } else {
+                        System.out.println("Generic enemy encountered!");
+                    }
+                }
+            }
+
+            thisRoom.setEnemies(enemies);
+            returnable.add(thisRoom);
+            i++;
+        }
+        return returnable;
     }
 }
 
@@ -230,10 +271,5 @@ class TestSaveData {
         //if (!newChar.equals(character)) throw new AssertionError();
         //else System.out.println("Yay!");
 
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 }

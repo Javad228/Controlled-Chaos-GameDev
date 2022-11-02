@@ -1,10 +1,7 @@
 package main;
 
-import character.Enemy;
-import character.NonPlayableCharacter;
-import enemy.Skeleton;
-import enemy.Slime;
-import enemy.Wizard;
+import character.*;
+import enemy.*;
 import loot.*;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ public class Room {
     private int roomNum;
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
-    private ArrayList<NonPlayableCharacter> NPCs;
+    private ArrayList<Friendly> NPCs;
     private transient KeyHandler keyH;
     private transient GamePanel gp;
 
@@ -45,6 +42,10 @@ public class Room {
                 items.add(apple);
                 items.add(boot);
 
+                // Test
+                weapon.setDescription("Basic sword that swings and misses sometimes, but we won't talk about that...");
+                boot.setDescription("Basic Boot");
+
                 break;
             case 1:
                 items = null;
@@ -56,6 +57,8 @@ public class Room {
             case 0:
                 enemies = new ArrayList<>();
                 enemies.add(new Slime());
+                enemies.add(new Skeleton());
+                enemies.add(new Wizard(this.gp));
                 break;
             case 1:
                 enemies = null;
@@ -66,8 +69,6 @@ public class Room {
         switch(roomNum) {
             case 0:
                 NPCs = new ArrayList<>();
-                NPCs.add(new Skeleton());
-                NPCs.add(new Wizard(this.gp));
                 break;
             case 1:
                 enemies = null;
@@ -90,11 +91,15 @@ public class Room {
         this.enemies = enemies;
     }
 
-    public ArrayList<NonPlayableCharacter> getNPCs() {
+    public ArrayList<Friendly> getNPCs() {
         return NPCs;
     }
 
-    public void setNPCs(ArrayList<NonPlayableCharacter> NPCs) {
+    public void setNPCs(ArrayList<Friendly> NPCs) {
         this.NPCs = NPCs;
+    }
+
+    public int getRoomNum() {
+        return this.roomNum;
     }
 }

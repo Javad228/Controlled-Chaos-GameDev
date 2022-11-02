@@ -65,9 +65,23 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		this.currentRunTime = new Time(0);
 
+		initializeRooms();
+	}
+
+	private void initializeRooms() {
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
+
+		// First run will set enemy coordinates
+		if (rooms.get(currentRoomNum).getEnemies() != null){
+			// assuming this is to set the position of enemies after starting a new game. probably needs to change
+			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
+				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
+				enemy.setxCoord(100);
+				enemy.setyCoord(100);
+			}
+		}
 	}
 
 	public void setupGame() {
@@ -84,12 +98,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public void newGame() {
 		this.currentRunTime = new Time(0);	// Reset game timer to 0
 		this.setPlayer(new PlayerCharacter(this, keyH));
+		initializeRooms();
 		newGameHelper();
 	}
 
-	public void newGame(SimpleCharacter sc, Time t) {
+	public void newGame(SimpleCharacter sc, Time t, ArrayList<Room> rooms, int currentRoomNum) {
 		this.currentRunTime = t;
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
+		this.rooms = rooms;
+		this.currentRoomNum = currentRoomNum;
 		newGameHelper();
 	}
 
@@ -104,15 +121,6 @@ public class GamePanel extends JPanel implements Runnable{
 		if (gameThread == null) {
 			this.gameThread = new Thread(this);
 			startGameThread();
-		}
-
-		if (rooms.get(currentRoomNum).getEnemies() != null){
-			// assuming this is to set the position of enemies after starting a new game. probably needs to change
-			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
-				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
-				enemy.setxCoord(100);
-				enemy.setyCoord(100);
-			}
 		}
 
 		this.resumeThread();
@@ -197,7 +205,7 @@ public class GamePanel extends JPanel implements Runnable{
 					player.setKeyHandler(null);
 					deathPanel.showDeathPanel();
 					//Main.view.getWindow().set
-					this.pauseThread();
+					//this.pauseThread();
 				}
 			}
 		}
@@ -207,8 +215,11 @@ public class GamePanel extends JPanel implements Runnable{
 		player.update();
 		if (rooms.get(currentRoomNum).getEnemies() != null){
 			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
-				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
-				enemy.update(this);
+				//Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
+				//enemy.update(this);
+
+				// Above was producing unintended behavior
+				rooms.get(currentRoomNum).getEnemies().get(i).update(this);
 			}
 		}
 
