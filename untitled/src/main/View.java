@@ -114,8 +114,15 @@ public class View {
         Main.view.getWindow().add(Main.view.getGamePanel());
         Main.view.getGamePanel().setVisible(true);
         Main.view.getCoinPanel().setVisible(true);
-        //Main.view.getGamePanel().resumeThread();
         Main.view.getWindow().requestFocusInWindow();
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+    }
+
+    public void showStatsPanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getStatsPanel());
+        Main.view.getStatsPanel().setVisible(true);
         Main.view.getWindow().revalidate();
         Main.view.getWindow().repaint();
     }
@@ -175,5 +182,13 @@ public class View {
 
     public void setSettingsButton(JButton settingsButton) {
         this.settingsButton = settingsButton;
+    }
+
+    public JPanel getStatsPanel() {
+        return statsPanel;
+    }
+
+    public void setStatsPanel(JPanel statsPanel) {
+        this.statsPanel = statsPanel;
     }
 }
