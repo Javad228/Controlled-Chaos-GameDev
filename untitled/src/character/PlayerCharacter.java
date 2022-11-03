@@ -31,7 +31,7 @@ public class PlayerCharacter extends Character {
     private GamePanel gp;
     private KeyHandler keyH;
 
-    private String projectileName = "Arrow";
+    private String projectileName = "Bomb";
     private int shotAvailableTimer = 0;
     private int shotTimerMax = 50;
 
@@ -409,6 +409,9 @@ public class PlayerCharacter extends Character {
         }
         if (projectileName.equals("SlimeBall")) {
             SlimeBall slimeBall = new SlimeBall(gp, currentX, currentY, direction, isPlayerShooting);
+        }
+        if (projectileName.equals("Bomb")) {
+            Bomb bomb = new Bomb(gp, currentX, currentY, direction, isPlayerShooting);
         }
     }
 
