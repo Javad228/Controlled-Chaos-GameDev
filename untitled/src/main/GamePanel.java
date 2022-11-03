@@ -91,21 +91,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public void newGame() {
 		this.currentRunTime = new Time(0);	// Reset game timer to 0
 		this.setPlayer(new PlayerCharacter(this, keyH));
-//TODO: <<<<<<< Cameron-PlayerTime
 		initializeRooms();
-//=======
-//>>>>>>> Cameron-Merge-PlayerTime
 		newGameHelper();
 	}
 
 	public void newGame(SimpleCharacter sc, Time t, ArrayList<Room> rooms, int currentRoomNum) {
 		this.currentRunTime = t;
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
-//TODO: <<<<<<< Cameron-PlayerTime
 		this.rooms = rooms;
 		this.currentRoomNum = currentRoomNum;
-//=======
-//>>>>>>> Cameron-Merge-PlayerTime
 		newGameHelper();
 	}
 
@@ -143,6 +137,14 @@ public class GamePanel extends JPanel implements Runnable{
 		synchronized (this) {
 			return this.paused;
 		}
+	}
+
+	/**
+	 * terminateGameThread() - Method used for testing the GameThread.
+	 * This method finalizes test execution by terminating the gameThread.
+	 */
+	public void terminateGameThread() {
+		this.gameThread = null;
 	}
 
 	@Override
@@ -198,7 +200,7 @@ public class GamePanel extends JPanel implements Runnable{
 					//Main.view.getWindow().set
 					//this.pauseThread();
 //=======
-					this.pauseThread();
+					//this.pauseThread();
 //>>>>>>> Cameron-Merge-PlayerTime
 				}
 			}

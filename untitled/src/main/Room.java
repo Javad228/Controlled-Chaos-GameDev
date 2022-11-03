@@ -44,7 +44,7 @@ public class Room {
                 items.add(apple);
                 items.add(boot);
 
-                // Test
+                // Item description test TODO
                 weapon.setDescription("Basic sword that swings and misses sometimes, but we won't talk about that...");
                 boot.setDescription("Basic Boot");
 
@@ -58,15 +58,9 @@ public class Room {
         switch(roomNum) {
             case 0:
                 enemies = new ArrayList<>();
-//TODO: <<<<<<< Cameron-PlayerTime
-//                enemies.add(new Slime());
-//                enemies.add(new Skeleton());
-//                enemies.add(new Wizard(this.gp));
-//=======
                 enemies.add(new Slime(100, 100));
                 enemies.add(new Skeleton(500, 500));
                 enemies.add(new Wizard(this.gp, 100, 500));
-//>>>>>>> Cameron-Merge-PlayerTime
                 break;
             case 1:
                 enemies = null;
@@ -128,6 +122,7 @@ public class Room {
 
     public int getRoomNum() {
         return this.roomNum;
+    }
 
     public ArrayList<Coin> getCoins() {
         return coins;

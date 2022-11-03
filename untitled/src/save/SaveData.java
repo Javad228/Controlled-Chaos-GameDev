@@ -178,27 +178,24 @@ public class SaveData {
     }
 
     private ArrayList<Room> initializeRooms(ArrayList<SimpleRoom> rooms) {
-        ArrayList<Room> returnable = new ArrayList<>();
+        ArrayList<Room> returnableRoomList = new ArrayList<>();
         int i = 0;
 
-        for (SimpleRoom s : rooms) {
+        for (SimpleRoom savedRoom : rooms) {
             Room thisRoom = new Room(i, gp.keyH, gp);
 
-            thisRoom.setItems(s.items);
+            thisRoom.setItems(savedRoom.items);
 
             ArrayList<Enemy> enemies = new ArrayList<>();
-            if (s.enemies != null) {
-                for (SimpleEnemy enemy : s.enemies) {
+
+            if (savedRoom.enemies != null) {
+
+                for (SimpleEnemy enemy : savedRoom.enemies) {
                     if (enemy.classification.equals(SimpleEnemyClassification.SKELETON)) {
-                        //Skeleton skeleton = new Skeleton(enemy);
-                        //enemies.add(skeleton);
                         enemies.add(new Skeleton(enemy));
                     } else if (enemy.classification.equals(SimpleEnemyClassification.SLIME)) {
-                        //Slime slime = new Slime(enemy);
                         enemies.add(new Slime(enemy));
                     } else if (enemy.classification.equals(SimpleEnemyClassification.WIZARD)) {
-                        //Wizard wizard = new Wizard(enemy);
-                        //enemies.add(wizard);
                         enemies.add(new Wizard(enemy));
                     } else {
                         System.out.println("Generic enemy encountered!");
@@ -207,10 +204,13 @@ public class SaveData {
             }
 
             thisRoom.setEnemies(enemies);
-            returnable.add(thisRoom);
+            thisRoom.setCoins(savedRoom.coins);
+
+            returnableRoomList.add(thisRoom);
             i++;
         }
-        return returnable;
+
+        return returnableRoomList;
     }
 }
 

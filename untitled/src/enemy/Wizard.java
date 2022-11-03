@@ -44,13 +44,11 @@ public class Wizard extends Enemy {
     }
 
     public Wizard(SimpleEnemy enemy) {
-        this(Main.view.getGamePanel());
+        this(Main.view.getGamePanel(), enemy.xCoord, enemy.yCoord);
         this.name = enemy.name;
         this.health = enemy.health;
         this.maxHealth = enemy.maxHealth;
         this.movementSpeed = enemy.movementSpeed;
-        this.xCoord = enemy.xCoord;
-        this.yCoord = enemy.yCoord;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);
     }

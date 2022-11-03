@@ -89,14 +89,16 @@ public class DeathPanel extends JPanel {
     }
 
     public void showDeathPanel() {
-        Main.view.getGamePanel().pauseThread();
-        Main.view.getWindow().remove(Main.view.getGamePanel());
-        Main.view.getWindow().add(this);
-        Main.view.getWindow().setVisible(false);
-        Main.view.getCoinPanel().setVisible(false);
-        Main.view.getWindow().setVisible(true);
+        //Main.view.getGamePanel().pauseThread();
+        //Main.view.getWindow().remove(Main.view.getGamePanel());
+        //Main.view.getWindow().add(this);
+        //Main.view.getWindow().setVisible(false);
+        //Main.view.getCoinPanel().setVisible(false);
+        //Main.view.getWindow().setVisible(true);
         Audio.stopMusic();
         Audio.stopWalking();
+
+        Main.view.showPanel(this);
     }
 
     public void hideDeathPanel() {

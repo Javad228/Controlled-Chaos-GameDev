@@ -46,10 +46,10 @@ public class SlimeBall extends Projectile {
         }
     }
 
-    public void update() {
+    public void update(GamePanel gp) {
         if (getArrowUp() == null)   getImage();
 
-        super.update();
+        super.update(gp);
     }
 
     public void draw(Graphics2D g2) {

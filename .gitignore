@@ -1,3 +1,6 @@
 /out/
 /.idea/
 /target/
+
+#Cameron's .gitignore
+/src/test.java

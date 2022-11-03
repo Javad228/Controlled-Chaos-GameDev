@@ -132,7 +132,7 @@ public class View {
             }
         });
 
-        window.add(settingsButton, BorderLayout.SOUTH);
+        //window.add(settingsButton, BorderLayout.SOUTH);
 
 
         window.setVisible(true);                                    // currently opens up the game window
@@ -172,7 +172,12 @@ public class View {
     }
 
     public void showPanel(JPanel panel) {
-
+        getGamePanel().pauseThread();
+        getWindow().remove(getGamePanel());
+        getWindow().add(panel);
+        getWindow().setVisible(false);
+        panel.setVisible(true);
+        getWindow().setVisible(true);
     }
 
     /**

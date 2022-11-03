@@ -141,12 +141,14 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     }
 
     public void showSettingsPanel() {
-        Main.view.getGamePanel().pauseThread();
+        //Main.view.getGamePanel().pauseThread();
         //Main.view.getWindow().remove(Main.view.getGamePanel());
-        Main.view.getWindow().add(this);
-        Main.view.getWindow().setVisible(false);
-        Main.view.getSettingsPage().setVisible(true);
-        Main.view.getWindow().setVisible(true);
+        //Main.view.getWindow().add(this);
+        //Main.view.getWindow().setVisible(false);
+        //Main.view.getSettingsPage().setVisible(true);
+        //Main.view.getWindow().setVisible(true);
+
+        Main.view.showPanel(this);
     }
 
     public void hideSettingsPanel() {

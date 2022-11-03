@@ -1,6 +1,7 @@
 package save;
 
 import character.Enemy;
+import loot.Coin;
 import loot.Item;
 import main.Room;
 
@@ -11,6 +12,7 @@ public class SimpleRoom {
     public ArrayList<Item> items;
     public ArrayList<SimpleEnemy> enemies;
     public ArrayList<SimpleFriendly> friendlies;
+    public ArrayList<Coin> coins;
 
     public SimpleRoom(Room room) {
         this.roomNum = room.getRoomNum();
@@ -27,5 +29,7 @@ public class SimpleRoom {
         this.friendlies = new ArrayList<>();
 
         //TODO: Implement friendly NPC saving functionality later
+
+        this.coins = room.getCoins();
     }
 }
