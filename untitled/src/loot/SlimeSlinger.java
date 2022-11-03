@@ -2,20 +2,22 @@ package loot;
 
 import character.PlayerCharacter;
 import main.GamePanel;
+import main.KeyHandler;
+import save.SimpleWeapon;
 
 public class SlimeSlinger extends Weapon {
     // TODO: add new fields, modify constructor(s) as necessary
 
     private transient GamePanel gp;
-    //private int xCoord;
-    //private int yCoord;
-    //private boolean isEquippedOnPlayer;
+    private int xCoord;
+    private int yCoord;
+    private boolean isEquipped;
 
     public SlimeSlinger(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
         super(7 , imagePaths);
         this.gp = gp;
-        this.setxCoord(xCoord);
-        this.setyCoord(yCoord);
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
 
         //setDefaultValues();
         getImage(imagePaths);
@@ -41,8 +43,7 @@ public class SlimeSlinger extends Weapon {
     }*/
 
     public void setEquipped(boolean equipped) {
-        super.setEquipped(equipped);
-
+        isEquipped = equipped;
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
             player.setProjectileName("SlimeBall");

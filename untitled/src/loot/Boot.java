@@ -2,19 +2,21 @@ package loot;
 
 import character.PlayerCharacter;
 import main.GamePanel;
+import main.KeyHandler;
+import save.SimplePassiveItem;
 
 public class Boot extends PassiveItem {
 
     private transient GamePanel gp;
-    //private int xCoord;
-    //private int yCoord;
-    //private boolean isEquippedOnPlayer;
+    private int xCoord;
+    private int yCoord;
+    private boolean isEquipped;
 
     public Boot(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
         super(7 , imagePaths);
         this.gp = gp;
-        setxCoord(xCoord);
-        setyCoord(yCoord);
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
 
         //setDefaultValues();
         getImage(imagePaths);
@@ -40,8 +42,7 @@ public class Boot extends PassiveItem {
     }*/
 
     public void setEquipped(boolean equipped) {
-        super.setEquipped(equipped);
-
+        isEquipped = equipped;
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
             player.setMovementSpeed(player.getMovementSpeed() * 2);

@@ -7,13 +7,11 @@ import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
 import save.SimpleCharacter;
-import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -39,10 +37,7 @@ public class PlayerCharacter extends Character {
 
     private int numCoins;
     private boolean isDying;                // Used for performing death animation
-    private ArrayList<SimpleEnemy> enemiesKilled;
 
-    private transient BufferedImage[] deathImages;
-    
     public int roomsetNub;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -74,7 +69,6 @@ public class PlayerCharacter extends Character {
         Random r = new Random();
         roomsetNub = r.nextInt(3);
         this.numCoins = 0;
-        enemiesKilled = new ArrayList<>();
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -97,7 +91,6 @@ public class PlayerCharacter extends Character {
         this.setStartingItem(pc.getStartingItem());
         this.healthBar = pc.healthBar;
         this.numCoins = pc.numCoins;
-        enemiesKilled = new ArrayList<>(pc.getEnemiesKilled());
     }
 
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
@@ -113,7 +106,6 @@ public class PlayerCharacter extends Character {
         this.inventory = c.inventory;
         this.characterType = c.characterType;
         this.numCoins = c.getNumCoins();
-        enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
     }
 
     public void setDefaultValues() {
@@ -392,18 +384,6 @@ public class PlayerCharacter extends Character {
 
             if (enemy.health <= 0) {
                 enemy.isAlive = false;
-                boolean isNewEnemyKilled = true;
-
-                for (int i = 0; i < enemiesKilled.size(); i++) {
-                    if (enemiesKilled.get(i).getName() == enemy.getName()) {
-                        isNewEnemyKilled = false;
-                        break;
-                    }
-                }
-
-                if (isNewEnemyKilled) {
-                    enemiesKilled.add(new SimpleEnemy(enemy.getName(), "input a description..."));
-                }
             }
         }
 
@@ -629,13 +609,5 @@ public class PlayerCharacter extends Character {
     public int getShotAvailableTimer() { return shotAvailableTimer; }
 
     public void setShotAvailableTimer(int shotAvailableTimer) { this.shotAvailableTimer = shotAvailableTimer; }
-
-    public ArrayList<SimpleEnemy> getEnemiesKilled() {
-        return enemiesKilled;
-    }
-
-    public void setEnemiesKilled(ArrayList<SimpleEnemy> enemiesKilled) {
-        this.enemiesKilled = enemiesKilled;
-    }
 }
 

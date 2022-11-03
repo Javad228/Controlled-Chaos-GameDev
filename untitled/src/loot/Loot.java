@@ -73,7 +73,6 @@ public class Loot {
 
     // update position of loot
     public void update() {
-        if (lootImages == null) getImage(imagePaths);
         if (frameCounter == 0) { // only update the animation once every ___ frames (depending on if statement after this)
             if (lootImages.length == 1) { // loot is bobbing up and down
                 if (spritePosition == 0) { // at the bottom, need to bob up
@@ -119,7 +118,6 @@ public class Loot {
     }
 
     public void draw(Graphics2D g2, GamePanel gp) {
-        if (lootImages == null) getImage(imagePaths);
         /*
         if (lootImages.length == 1) { // if there is only one image then we just want to bob up and down.
             g2.drawImage(lootImages[0], this.getxCoord(), this.getyCoord(), gp.tileSize, gp.tileSize, null);

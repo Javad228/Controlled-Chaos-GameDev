@@ -1,11 +1,4 @@
-/out/
-/.idea/
-/target/
 
-#Cameron's .gitignore
-/src/test.java
-
-#Existing .gitignore
 .idea/compiler.xml
 .idea/misc.xml
 .idea/modules.xml
@@ -236,5 +229,3 @@ target/classes/items/bomb/tile008.png
 target/classes/items/bomb/tile009.png
 target/classes/items/bomb/tile010.png
 target/classes/items/bomb/tile011.png
-
-

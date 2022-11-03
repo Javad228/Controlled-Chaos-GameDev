@@ -1,7 +1,6 @@
 package save;
 
 import character.CharacterType;
-import character.Enemy;
 import character.Inventory;
 import character.PlayerCharacter;
 import combat.*;
@@ -21,7 +20,6 @@ public class SimpleCharacter {
     public Inventory inventory;
     public CharacterType characterType;
     private int numCoins;
-    private ArrayList<SimpleEnemy> enemiesKilled;
 
     public SimpleCharacter(PlayerCharacter c) {
         this.name = c.getName();
@@ -36,7 +34,6 @@ public class SimpleCharacter {
         this.inventory = c.getInventory();
         this.characterType = c.getCharacterType();
         this.numCoins = c.getNumCoins();
-        this.enemiesKilled = c.getEnemiesKilled();
     }
 
     public int getNumCoins() {
@@ -45,13 +42,5 @@ public class SimpleCharacter {
 
     public void setNumCoins(int numCoins) {
         this.numCoins = numCoins;
-    }
-
-    public ArrayList<SimpleEnemy> getEnemiesKilled() {
-        return enemiesKilled;
-    }
-
-    public void setEnemiesKilled(ArrayList<SimpleEnemy> enemiesKilled) {
-        this.enemiesKilled = enemiesKilled;
     }
 }

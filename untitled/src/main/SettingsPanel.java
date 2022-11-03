@@ -11,6 +11,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     GamePanel gamePanel;
     JSlider musicSlider;
     JSlider soundEffectSlider;
+//<<<<<<< HEAD
     JPanel savePage;
     JButton returnButton;
     private String priorPage;
@@ -25,6 +26,18 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         addReturnButton();
         priorPage = "";
 
+//=======
+//    JButton returnButton;
+//
+//    public SettingsPanel(GamePanel gamePanel) {
+//        this.gamePanel = gamePanel;
+//
+//        addFrameRateSelection();
+//        addMusicVolumeSelection();
+//        addSoundEffectVolumeSelection();
+//        addReturnButton();
+//
+//>>>>>>> Cameron-Sprint1Progress
 
         setName("Settings");
         setBackground(Color.white);
@@ -139,35 +152,31 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         add(currentVSync);
     }
 
+//<<<<<<< HEAD
     public void showSettingsPanel() {
-        //Main.view.getGamePanel().pauseThread();
+        Main.view.getGamePanel().pauseThread();
         //Main.view.getWindow().remove(Main.view.getGamePanel());
-        //Main.view.getWindow().add(this);
-        //Main.view.getWindow().setVisible(false);
-        //Main.view.getSettingsPage().setVisible(true);
-        //Main.view.getWindow().setVisible(true);
-
-        Main.view.showPanel(this);
+        Main.view.getWindow().add(this);
+        Main.view.getWindow().setVisible(false);
+        Main.view.getSettingsPanel().setVisible(true);
+        Main.view.getWindow().setVisible(true);
     }
 
     public void hideSettingsPanel() {
+        if (!isVisible())   return;
 
-        //if (!isVisible())   return;
-        //
-        //Main.view.getWindow().setVisible(false);
-        //Main.view.getWindow().remove(this);
-        //Main.view.getWindow().add(gamePanel);
-        //Main.view.getWindow().toFront();
-        //Main.view.getWindow().setAutoRequestFocus(true);
-        //Main.view.getWindow().setVisible(true);
-        //Main.view.getWindow().requestFocusInWindow();
-        //Main.view.getSettingsPage().setVisible(false);
-
-        Main.view.hidePanel(this);
+        Main.view.getWindow().setVisible(false);
+        Main.view.getCoinPanel().setVisible(true);
+        Main.view.getWindow().toFront();
+        Main.view.getWindow().setAutoRequestFocus(true);
+        Main.view.getWindow().setVisible(true);
+        Main.view.getWindow().requestFocusInWindow();
+        Main.view.getSettingsPanel().setVisible(false);
     }
-
+//=======
     public SettingsPanel getSettingsPanel() {
         return this;
+//>>>>>>> Cameron-Sprint1Progress
     }
 
     public String getPriorPage() {

@@ -1,7 +1,10 @@
 package main;
 
-import character.*;
-import enemy.*;
+import character.Enemy;
+import character.NonPlayableCharacter;
+import enemy.Skeleton;
+import enemy.Slime;
+import enemy.Wizard;
 import loot.*;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ public class Room {
     private int roomNum;
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
-    private ArrayList<Friendly> NPCs;
+    private ArrayList<NonPlayableCharacter> NPCs;
     private transient KeyHandler keyH;
     private transient GamePanel gp;
     private ArrayList<Coin> coins;
@@ -52,10 +55,6 @@ public class Room {
                 items.add(apple);
                 items.add(boot);
 
-                // Item description test TODO
-                //weapon.setDescription("Basic sword that swings and misses sometimes, but we won't talk about that...");
-                boot.setDescription("Basic Boot");
-
                 break;
             case 2:
                 items = null;
@@ -81,6 +80,8 @@ public class Room {
         switch(roomNum) {
             case 0:
                 NPCs = new ArrayList<>();
+                NPCs.add(new Skeleton());
+                NPCs.add(new Wizard(this.gp));
                 break;
             case 1:
                 NPCs = null;
@@ -118,16 +119,12 @@ public class Room {
         this.enemies = enemies;
     }
 
-    public ArrayList<Friendly> getNPCs() {
+    public ArrayList<NonPlayableCharacter> getNPCs() {
         return NPCs;
     }
 
-    public void setNPCs(ArrayList<Friendly> NPCs) {
+    public void setNPCs(ArrayList<NonPlayableCharacter> NPCs) {
         this.NPCs = NPCs;
-    }
-
-    public int getRoomNum() {
-        return this.roomNum;
     }
 
     public ArrayList<Coin> getCoins() {
