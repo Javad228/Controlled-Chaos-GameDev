@@ -37,13 +37,17 @@ public class DeathPanel extends JPanel {
     private void initDeathTitle() {
         this.deathTitle = new JTextArea("You Died");
         this.deathTitle.setMinimumSize(buttonDimension);
+        this.deathTitle.setPreferredSize(buttonDimension);
         this.deathTitle.setEditable(false);
         this.deathTitle.setBackground(this.getBackground());
         this.gc.fill = GridBagConstraints.HORIZONTAL;
-        this.gc.weightx = 0.5;
+        //this.gc.weightx = 0.5;
+        this.gc.weightx = 0.75;
         this.gc.gridx = 1;
         this.gc.gridy = 0;
         this.add(new JPanel().add(deathTitle), gc);
+        this.deathTitle.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+        this.deathTitle.setAlignmentY(JTextArea.BOTTOM_ALIGNMENT);
     }
 
     private void initNewGame() {
@@ -78,36 +82,37 @@ public class DeathPanel extends JPanel {
     private void initQuitGame() {
         this.quitGame = new JButton("Quit Game");
         this.quitGame.setPreferredSize(buttonDimension);
-        this.quitGame.addActionListener((a) -> {
-            System.exit(0);
-        });
+        this.quitGame.addActionListener((a) -> System.exit(0));
         this.gc.gridx = 2;
         this.gc.gridy = 1;
         this.add(quitGame, gc);
     }
 
     public void showDeathPanel() {
-        Main.view.getWindow().remove(Main.view.getGamePanel());
-        Main.view.getWindow().add(this);
-        Main.view.getWindow().setVisible(false);
-        Main.view.getCoinPanel().setVisible(false);
-        Main.view.getWindow().setVisible(true);
+        //Main.view.getGamePanel().pauseThread();
+        //Main.view.getWindow().remove(Main.view.getGamePanel());
+        //Main.view.getWindow().add(this);
+        //Main.view.getWindow().setVisible(false);
+        //Main.view.getCoinPanel().setVisible(false);
+        //Main.view.getWindow().setVisible(true);
         Audio.stopMusic();
         Audio.stopWalking();
+
+        Main.view.showPanel(this);
     }
 
     public void hideDeathPanel() {
-        if (!isVisible())   return;
+        //if (!isVisible())   return;
+        //
+        //Main.view.getWindow().setVisible(false);
+        //Main.view.getWindow().remove(this);
+        //Main.view.getWindow().add(gp);
+        //Main.view.getWindow().toFront();
+        //Main.view.getWindow().setAutoRequestFocus(true);
+        //Main.view.getWindow().setVisible(true);
+        //Main.view.getWindow().requestFocusInWindow();
 
-        Main.view.getWindow().setVisible(false);
-        Main.view.getWindow().remove(this);
-        Main.view.getWindow().add(gp);
-        Main.view.getWindow().toFront();
-        //Main.view.getWindow().repaint();
-        //Main.view.getWindow().validate();
-        Main.view.getWindow().setAutoRequestFocus(true);
-        Main.view.getWindow().setVisible(true);
-        Main.view.getWindow().requestFocusInWindow();
+        Main.view.hidePanel(this);
     }
 
 }
