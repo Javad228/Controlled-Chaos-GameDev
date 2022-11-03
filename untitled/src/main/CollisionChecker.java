@@ -140,7 +140,14 @@ public class CollisionChecker {
                 if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
                     character.collisionOn = true;
                 }
+            } default -> {
+                System.out.println("Error with block collision.");
+                return;
             }
+        }
+
+        if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
+            character.collisionOn = true;
         }
 //        System.out.println(character.collisionOn);
     }

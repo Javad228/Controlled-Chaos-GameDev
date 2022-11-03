@@ -1,7 +1,10 @@
 package main;
 
+import character.PlayerCharacter;
+import tile.Button;
 import tile.Tile;
 import tile.TileManager;
+import tile.TrapTile;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
@@ -51,11 +54,18 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_E) {
-            if (gp.getPlayer().getCurrentTile().tileType == Tile.BUTTON) {
-                try {
-                    TileManager.tile[Tile.BUTTON].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_down.png")));
-                } catch (IOException exception) {
-                    exception.printStackTrace();
+            Tile currentTile = gp.getPlayer().getCurrentTile();
+            if (currentTile.getTileType() == Tile.BUTTON) {
+                if (gp.getCurrentRoomNum() == 2) {
+                    if (((gp.getPlayer().getRow() >= 1) && (gp.getPlayer().getRow() <= 3)) &&
+                        ((gp.getPlayer().getCol() >= 1) && (gp.getPlayer().getCol() <= 3))) {
+                        Button button = gp.getRooms().get(2).getButtons().get(0);
+                        button.toggle();
+                        for (int i = 0; i < button.getTrapTiles().size(); i++) {
+                            TrapTile trapTile = button.getTrapTiles().get(i);
+                            trapTile.toggleTrap(i, 4);
+                        }
+                    }
                 }
             }
         }

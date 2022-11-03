@@ -64,7 +64,7 @@ public class Pathfinding {
 
         while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
             int titleNum = gp.tileM.mapTileNum[col][row]; //*
-            if(gp.tileM.tile[titleNum].collision){
+            if(gp.tileM.tile[titleNum].isCollision()){
                 nodes[col][row].solid = true;
             }
 

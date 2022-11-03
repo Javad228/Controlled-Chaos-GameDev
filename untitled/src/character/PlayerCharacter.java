@@ -8,6 +8,7 @@ import main.HealthBar;
 import main.KeyHandler;
 import save.SimpleCharacter;
 import tile.Tile;
+import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -139,16 +140,19 @@ public class PlayerCharacter extends Character {
 
     }
 
+    public int getRow() {
+        return yCoord/gp.tileSize;
+    }
+
+    public int getCol() {
+        return xCoord/gp.tileSize;
+    }
+
     public Tile getCurrentTile() {
-        int xCoord = this.getxCoord();
-        int yCoord = this.getyCoord();
 
-        int col = xCoord/gp.tileSize;
-        int row = yCoord/gp.tileSize;
+        int tileNum = TileManager.mapTileNum[getCol()][getRow()];
 
-        int tileNum = gp.tileM.mapTileNum[col][row];
-
-        Tile tile = gp.tileM.tile[tileNum];
+        Tile tile = TileManager.tile[tileNum];
 
         //if (tile.damageTile) {
             //System.out.printf("xCoord: %d\n", xCoord);
