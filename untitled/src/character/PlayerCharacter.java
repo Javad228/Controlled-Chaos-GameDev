@@ -393,21 +393,7 @@ public class PlayerCharacter extends Character {
             System.out.println(enemy.health);
             Audio.enemyDamagedAudio();
 
-            if (enemy.health <= 0) {
-                enemy.isAlive = false;
-                boolean isNewEnemyKilled = true;
-
-                for (int i = 0; i < enemiesKilled.size(); i++) {
-                    if (enemiesKilled.get(i).getName() == enemy.getName()) {
-                        isNewEnemyKilled = false;
-                        break;
-                    }
-                }
-
-                if (isNewEnemyKilled) {
-                    enemiesKilled.add(new SimpleEnemy(enemy.getName(), "input a description..."));
-                }
-            }
+            enemy.checkIfDead(this);
         }
 
     }

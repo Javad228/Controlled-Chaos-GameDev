@@ -108,6 +108,7 @@ public class Projectile extends Character {
                             this.setIsAlive(false);
                         }
 
+                        enemy.checkIfDead(gp.player);
 
                     }
                 }
