@@ -2,12 +2,14 @@ package save;
 import character.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import enemy.*;
 import com.google.gson.*;
 import main.*;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,7 +40,7 @@ public class SaveData {
         initializeRestoreGameButton();
         initializeResetGameProgressButton();
         this.gb = new GsonBuilder();
-        gb.registerTypeAdapter(BufferedImage.class, new BufferedImageAdapter());
+        //gb.registerTypeAdapter(BufferedImage.class, new BufferedImageAdapter());
         gb.setPrettyPrinting();
         g = gb.create();
     }
@@ -75,6 +77,9 @@ public class SaveData {
 
         restoreGameButton.addActionListener((a) -> {
             if (gp.deathPanel.isShowing()) return;
+//TODO <<<<<<< Cameron-Merge-PlayerTime
+//            if (Main.view.getSettingsPage().isShowing()) Main.view.getSettingsPage().hideSettingsPanel();
+//=======
             if (Main.view.getSettingsPanel().isShowing()) {
                 if (Main.view.getSettingsPanel().getPriorPage().equals("Main Menu")) {
                     Main.view.showMainMenuPanel();
@@ -85,6 +90,7 @@ public class SaveData {
                     Audio.openingMusic();
                 }
             }
+//>>>>>>> Cameron-Merge-MergePlayerTime
             if (restoreSave()) JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Succeeded");
             else JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Failed\nRestoring to Default Save");
         });
@@ -126,7 +132,12 @@ public class SaveData {
     public boolean saveGameState() {
         try {
             FileWriter f = new FileWriter(file);
-            f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()))));
+            f.write(g.toJson(
+                    new GameSaveState(
+                            new SimpleCharacter(gp.getPlayer()),
+                            gp.getCurrentRunTime(),
+                            gp.getRooms(),
+                            gp.getCurrentRoomNum())));
             //f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
             f.close();
             return false;
@@ -142,12 +153,12 @@ public class SaveData {
 
         if (gs == null) {
             gp.newGame();
-            if (gp.paused) System.out.println("Game restore Failed\nUsing starting values");
+            if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
             else System.out.println("Game restore Failed");
             return false;
         }
 
-        gp.newGame(gs.player, gs.weapon);
+        gp.newGame(gs.player, new Time(gs.currentRunTimeNS), initializeRooms(gs.rooms), gs.currentRoomNum);
         System.out.println("Game restore Succeeded");
         return true;
     }
@@ -176,11 +187,48 @@ public class SaveData {
             FileWriter f = new FileWriter(file);
             f.write("");
             f.close();
+            gp.setCurrentRunTime(new Time(0));
             return true;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private ArrayList<Room> initializeRooms(ArrayList<SimpleRoom> rooms) {
+        ArrayList<Room> returnableRoomList = new ArrayList<>();
+        int i = 0;
+
+        for (SimpleRoom savedRoom : rooms) {
+            Room thisRoom = new Room(i, gp.keyH, gp);
+
+            thisRoom.setItems(savedRoom.items);
+
+            ArrayList<Enemy> enemies = new ArrayList<>();
+
+            if (savedRoom.enemies != null) {
+
+                for (SimpleEnemy enemy : savedRoom.enemies) {
+                    if (enemy.classification.equals(SimpleEnemyClassification.SKELETON)) {
+                        enemies.add(new Skeleton(enemy));
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.SLIME)) {
+                        enemies.add(new Slime(enemy));
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.WIZARD)) {
+                        enemies.add(new Wizard(enemy));
+                    } else {
+                        System.out.println("Generic enemy encountered!");
+                    }
+                }
+            }
+
+            thisRoom.setEnemies(enemies);
+            thisRoom.setCoins(savedRoom.coins);
+
+            returnableRoomList.add(thisRoom);
+            i++;
+        }
+
+        return returnableRoomList;
     }
 }
 

@@ -42,10 +42,16 @@ public abstract class Character {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public int actionLockCounter = 0;
     public boolean collisionOn = false;
-    private BufferedImage up1, up2,up3,up4,up5,up6, down1, down2,down3,down4,down5,down6, left1, left2,left3,left4,left5,left6, right1, right2,right3,right4,right5,right6;
-    private BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
-    private BufferedImage death1, death2, death3, death4, death5;
-    private BufferedImage[] deathImages;
+//TODO <<<<<<< Cameron-Merge-PlayerTime
+    private transient BufferedImage up1, up2,up3,up4,up5,up6, down1, down2,down3,down4,down5,down6, left1, left2,left3,left4,left5,left6, right1, right2,right3,right4,right5,right6;
+    private transient BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
+    private transient BufferedImage death1, death2, death3, death4, death5;
+//=======
+//    private BufferedImage up1, up2,up3,up4,up5,up6, down1, down2,down3,down4,down5,down6, left1, left2,left3,left4,left5,left6, right1, right2,right3,right4,right5,right6;
+//    private BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
+//    private BufferedImage death1, death2, death3, death4, death5;
+//    private BufferedImage[] deathImages;
+//>>>>>>> Cameron-Merge-MergePlayerTime
     public String direction = "down";
     public boolean isAttacking = false;
 
