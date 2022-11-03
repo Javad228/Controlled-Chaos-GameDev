@@ -28,22 +28,21 @@ public class GamePanel extends JPanel implements Runnable{
 	public int gameState;
 
 	private int fps = 60;
+//TODO MERGE CHECK
 	private Time startRunTime;		// Measure first time from start/resumption of run.
 									// End time is not kept as a variable.
 	private Time currentRunTime;	// Measure elapsed time
+
+	private int currentRoomNum = 1;
 
 	public CollisionChecker checker = new CollisionChecker(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	transient Thread gameThread;
 	public PlayerCharacter player = new PlayerCharacter(this, keyH);
-//<<<<<<< Bolun-layout
 	public TileManager tileM = new TileManager(this);
-//=======
 	public ArrayList<Projectile> projectileList = new ArrayList<>();
-//>>>>>>> main
 
 	private ArrayList<Room> rooms; // list of rooms. the index of the room is its room number
-	private int currentRoomNum = 0;
 
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public SaveData saveData = new SaveData(this);
@@ -65,6 +64,10 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
+    rooms.add(new Room(2, keyH, this));
+		rooms.add(new Room(3, keyH, this));
+		rooms.add(new Room(4, keyH, this));
+		rooms.add(new Room(5, keyH, this));
 
 		// First run will set enemy coordinates
 		if (rooms.get(currentRoomNum).getEnemies() != null){
@@ -107,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable{
 		Audio.stopWalking();
 		Audio.stopMusic();
 		Audio.openingMusic();
-		Main.view.getSettingsPage().hideSettingsPanel();
+		Main.view.getSettingsPanel().hideSettingsPanel();
 		deathPanel.hideDeathPanel();
 		this.setFocusable(true);
 		this.requestFocusInWindow();
@@ -116,6 +119,19 @@ public class GamePanel extends JPanel implements Runnable{
 			startGameThread();
 		}
 
+//TODO <<<<<<< Cameron-Merge-PlayerTime
+//=======
+		if (rooms.get(currentRoomNum).getEnemies() != null){
+			// assuming this is to set the position of enemies after starting a new game. probably needs to change
+			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
+				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
+				/*enemy.setxCoord(100);
+				enemy.setyCoord(100);
+				 */
+			}
+		}
+
+//>>>>>>> Cameron-Merge-MergePlayerTime
 		this.resumeThread();
 	}
 
@@ -182,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 
 				if (timer >= 1000000000) {
-					Main.window.setTitle("Controlled Chaos");
+					Main.view.getWindow().setTitle("Controlled Chaos");
 					System.out.println("FPS:" + drawCount);
 					drawCount = 0;
 					timer = 0;

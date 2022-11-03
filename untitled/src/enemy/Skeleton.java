@@ -8,7 +8,9 @@ import main.GamePanel;
 import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Skeleton extends Enemy {
 
@@ -21,18 +23,20 @@ public class Skeleton extends Enemy {
         maxHealth = 10;
         health = maxHealth;
 
-        solidArea.x = 3;
-        solidArea.y = 18;
+        solidArea.x = 0;
+        solidArea.y = 40;
         solidArea.width = 42;
-        solidArea.height = 30;
+        solidArea.height = 40;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
+        setNumDeathSprites(13);
+        setDeathImages(new BufferedImage[getNumDeathSprites()]); // should be in super()
 
-        this.setDamagePerHit(10);
+        this.setDamagePerHit(1); // originally 10
         getImage();
 
     }
@@ -169,6 +173,33 @@ public class Skeleton extends Enemy {
             this.setRight4(ImageIO.read(getClass().getResourceAsStream("/Skeleton/tile008.png")));
             this.setRight5(ImageIO.read(getClass().getResourceAsStream("/Skeleton/tile010.png")));
             this.setRight6(ImageIO.read(getClass().getResourceAsStream("/Skeleton/tile012.png")));
+
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile000.png"))), 0);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile001.png"))), 1);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile002.png"))), 2);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile003.png"))), 3);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile004.png"))), 4);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile005.png"))), 5);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile006.png"))), 6);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile007.png"))), 7);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile008.png"))), 8);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile009.png"))), 9);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile010.png"))), 10);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile011.png"))), 11);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/skeleton/death/tile012.png"))), 12);
         } catch(IOException e) {
             e.printStackTrace();
         }

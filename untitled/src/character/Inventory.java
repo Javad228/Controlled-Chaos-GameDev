@@ -40,29 +40,28 @@ public class Inventory {
 
     public void draw(Graphics2D g2){
         this.g2 = g2;
-        System.out.println(gp.gameState);
         if (gp.gameState == 4){
             drawInventory();
         }
     }
 
     private void drawInventory() {
+
         final int frameX = gp.tileSize*8;
         final int frameY = gp.tileSize*2;
         final int frameWidth = gp.tileSize*6;
         final int frameHeight = gp.tileSize*5;
         drawSubWindow(frameX,frameY,frameWidth,frameHeight);
-        System.out.println(slotCol);
-        System.out.println(slotRow);
         //Slots
         final int slotXstart = frameX + 20;
         final int slotYstart = frameY + 20;
         int slotX = slotXstart;
         int slotY = slotYstart;
         int slotSize = gp.tileSize + 3;
-
+//        System.out.println(gp.player.getInventory().listOfItems);
         //Draw Player's Items
         for(int i = 0; i < gp.player.getInventory().listOfItems.size(); i++){
+
             g2.drawImage(gp.player.getInventory().listOfItems.get(i).getLootImages()[0],slotX,slotY,null);
 
             //Display amount
@@ -90,14 +89,11 @@ public class Inventory {
             int dFrameY = frameY + frameHeight;
             int d1FrameHeight = gp.tileSize*3;
 
-            int dFrameHeight = frameHeight+10;
+
             int textX =dFrameX + 20;
             int textY = dFrameY + gp.tileSize;
             int itemIndex = slotCol + (slotRow*5);
-            if(itemIndex < gp.player.getInventory().listOfItems.size()) {
-                drawSubWindow(dFrameX, frameY, frameWidth, dFrameHeight);
-                g2.drawImage(gp.player.getInventory().listOfItems.get(i).getLootImages()[0],dFrameX+50,frameY+20,200,200,null);
-            }
+
             if(itemIndex < gp.player.getInventory().listOfItems.size()) {
                 drawSubWindow(dFrameX,dFrameY, frameWidth,d1FrameHeight);
                 for(String line: gp.player.getInventory().listOfItems.get(itemIndex).getDescription().split("\n")){
@@ -112,11 +108,21 @@ public class Inventory {
         int cursorY = slotYstart + (slotSize * slotRow);
         int cursorWidth = gp.tileSize;
         int cursorHeight = gp.tileSize;
-
+//        System.out.println(slotCol);
+//        System.out.println(slotRow);
         //Draw Cursor
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(cursorX,cursorY,cursorWidth,cursorHeight,10,10);
+        int dFrameX = frameX - frameWidth-10;
+        int dFrameHeight = frameHeight+10;
+        int dFrameY = frameY + frameHeight;
+        drawSubWindow(dFrameX, frameY, frameWidth, dFrameHeight);
+        if(slotCol+slotRow<gp.player.getInventory().listOfItems.size()){
+            if(gp.player.getInventory().listOfItems.get(slotCol+slotRow)!=null) {
+                g2.drawImage(gp.player.getInventory().listOfItems.get(slotCol + slotRow).getLootImages()[0], dFrameX + 50, frameY + 20, 200, 200, null);
+            }
+        }
 
         //Description Frame
 
@@ -127,7 +133,7 @@ public class Inventory {
         return tailX - length;
     }
     private void drawSubWindow(int x,int y,int width,int height) {
-        Color c = new Color(0,0,0,210);
+        Color c = new Color(0,0,0,250);
         g2.setColor(c);
         g2.fillRoundRect(x,y,width,height,35,35);
 

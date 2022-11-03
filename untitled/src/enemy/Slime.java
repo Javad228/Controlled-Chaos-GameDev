@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
 public class Slime extends Enemy {
@@ -33,6 +34,8 @@ public class Slime extends Enemy {
         this.collisionAreaDefaultY = solidArea.y;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
+        setNumDeathSprites(5);
+        setDeathImages(new BufferedImage[getNumDeathSprites()]); // should be in super()
 
         this.setDamagePerHit(5);
         getImage();
@@ -116,11 +119,18 @@ public class Slime extends Enemy {
             this.setRight4(ImageIO.read(getClass().getResourceAsStream("/Slime/tile010.png")));
             this.setRight5(ImageIO.read(getClass().getResourceAsStream("/Slime/tile011.png")));
             this.setRight6(ImageIO.read(getClass().getResourceAsStream("/Slime/tile012.png")));
-            this.setDeath1(ImageIO.read(getClass().getResourceAsStream("/Slime/tile028.png")));
-            this.setDeath2(ImageIO.read(getClass().getResourceAsStream("/Slime/tile029.png")));
-            this.setDeath3(ImageIO.read(getClass().getResourceAsStream("/Slime/tile030.png")));
-            this.setDeath4(ImageIO.read(getClass().getResourceAsStream("/Slime/tile031.png")));
-            this.setDeath5(ImageIO.read(getClass().getResourceAsStream("/Slime/tile032.png")));
+
+            // Get Death Animation Images
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/Slime/tile028.png"))), 0);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/Slime/tile029.png"))), 1);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/Slime/tile030.png"))), 2);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/Slime/tile031.png"))), 3);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/Slime/tile032.png"))), 4);
         } catch(IOException e) {
             e.printStackTrace();
         }

@@ -2,7 +2,6 @@ package main;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 //TODO: <<<<<<< Cameron-PlayerTime
@@ -18,9 +17,12 @@ import java.io.IOException;
 public class View {
     private JFrame window;
     private GamePanel gamePanel;
-    private SettingsPanel settingsPage;
+    private SettingsPanel settingsPanel;
     private JPanel savePage;
     private JPanel coinPanel;
+    private JPanel mainMenuPanel;
+    private JPanel statsPanel;
+    private JButton settingsButton;
 
     public View () {
         window = new JFrame();
@@ -36,10 +38,12 @@ public class View {
         coinPanel.setLayout(new FlowLayout());
         LineBorder line = new LineBorder(Color.BLACK, 2, true);
         coinPanel.setBorder(line);
-        window.add(coinPanel);
+        coinPanel.setVisible(false);
+
+        statsPanel = new statsPanel();
 
         gamePanel = new GamePanel();
-        window.add(gamePanel);
+        gamePanel.setVisible(false);
         coinPanel.setBounds(0, 0, 75, 30);
 
 
@@ -88,11 +92,7 @@ public class View {
         window.setLocationRelativeTo(null);
 
         //set up settings page
-        settingsPage = new SettingsPanel(gamePanel);
-        //settingsPage.requestFocusInWindow();
-        //settingsPage.addKeyListener(gamePanel.keyH);
-        window.add(settingsPage);
-
+        settingsPanel = new SettingsPanel(gamePanel);
 
         // Add Save Page
         //savePage = new JPanel();
@@ -114,28 +114,62 @@ public class View {
          */
 
         // temporary button to get to settings
-
-        JButton settingsButton = new JButton("Settings");
+        /*
+        settingsButton = new JButton("Settings");
         settingsButton.setPreferredSize(new Dimension(50, 25));
-
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.view.getSettingsPage().setVisible(true);
-                Main.view.getGamePanel().setVisible(false);
-                Main.view.coinPanel.setVisible(false);
-
+                showSettingsPanel("Game Panel");
                 Main.view.getGamePanel().pauseThread();
-
-                Audio.stopMusic();
-                Audio.settingsMusic();
             }
         });
+        settingsButton.setVisible(false);
+         */
 
+        mainMenuPanel = new MainMenuPanel();
+        window.add(mainMenuPanel);
+
+//TODO <<<<<<< Cameron-Merge-PlayerTime
         //window.add(settingsButton, BorderLayout.SOUTH);
+//=======
+        window.setVisible(true);                                    // currently opens up the main menu
+    }
+//>>>>>>> Cameron-Merge-MergePlayerTime
 
+    public void showSettingsPanel(String priorPage) {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getSettingsPanel());
+        Main.view.getSettingsPanel().setVisible(true);
+        Main.view.getSettingsPanel().setPriorPage(priorPage);
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
 
-        window.setVisible(true);                                    // currently opens up the game window
+        Audio.stopMusic();
+        Audio.settingsMusic();
+    }
+
+    public void showMainMenuPanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getMainMenuPanel());
+        Main.view.getMainMenuPanel().setVisible(true);
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+
+        Audio.stopMusic();
+        // TODO: add main menu music?
+    }
+
+    public void showGamePanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getCoinPanel());
+        Main.view.getWindow().add(Main.view.getGamePanel());
+        Main.view.getGamePanel().setVisible(true);
+        Main.view.getCoinPanel().setVisible(true);
+        //Main.view.getGamePanel().resumeThread();
+        Main.view.getWindow().requestFocusInWindow();
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
     }
 
     public void updateCoinLabel(Graphics2D g2) {
@@ -167,8 +201,8 @@ public class View {
         return gamePanel;
     }
 
-    public SettingsPanel getSettingsPage() {
-        return settingsPage;
+    public SettingsPanel getSettingsPanel() {
+        return settingsPanel;
     }
 
     public void showPanel(JPanel panel) {
@@ -213,5 +247,21 @@ public class View {
 
     public void setCoinPanel(JPanel coinPanel) {
         this.coinPanel = coinPanel;
+    }
+
+    public JPanel getMainMenuPanel() {
+        return mainMenuPanel;
+    }
+
+    public void setMainMenuPanel(JPanel mainMenuPanel) {
+        this.mainMenuPanel = mainMenuPanel;
+    }
+
+    public JButton getSettingsButton() {
+        return settingsButton;
+    }
+
+    public void setSettingsButton(JButton settingsButton) {
+        this.settingsButton = settingsButton;
     }
 }

@@ -11,12 +11,14 @@ public class Item extends Loot {
     private boolean isEquipped;
     public transient BufferedImage still;
     public int amount;
+    private transient GamePanel gp;
 
     public Item(int framesToWait, String[] imagePaths) {
         super(framesToWait, imagePaths);
         this.description = "";
         this.price = 0.0;
         this.isEquipped = false;
+        this.gp = gp;
     }
 
     public Item(int framesToWait, String[] imagePaths, int xCoord, int yCoord) {

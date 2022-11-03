@@ -58,12 +58,15 @@ public class SaveData {
                 System.out.println("Save Success");
                 JOptionPane.showMessageDialog(saveGameButton, "Save Succeeded");
             }
-            Main.view.getSettingsPage().hideSettingsPanel();
-            Main.view.getGamePanel().resumeThread();
-            Main.view.getCoinPanel().setVisible(true);
-            Main.view.getGamePanel().setVisible(true);
-            Audio.stopMusic();
-            Audio.openingMusic();
+
+            if (Main.view.getSettingsPanel().getPriorPage().equals("Main Menu")) {
+                Main.view.showMainMenuPanel();
+            } else if (Main.view.getSettingsPanel().getPriorPage().equals("Game Panel")) {
+                Main.view.showGamePanel();
+                Main.view.getGamePanel().resumeThread();
+                Audio.stopMusic();
+                Audio.openingMusic();
+            }
         });
     }
 
@@ -74,7 +77,20 @@ public class SaveData {
 
         restoreGameButton.addActionListener((a) -> {
             if (gp.deathPanel.isShowing()) return;
-            if (Main.view.getSettingsPage().isShowing()) Main.view.getSettingsPage().hideSettingsPanel();
+//TODO <<<<<<< Cameron-Merge-PlayerTime
+//            if (Main.view.getSettingsPage().isShowing()) Main.view.getSettingsPage().hideSettingsPanel();
+//=======
+            if (Main.view.getSettingsPanel().isShowing()) {
+                if (Main.view.getSettingsPanel().getPriorPage().equals("Main Menu")) {
+                    Main.view.showMainMenuPanel();
+                } else if (Main.view.getSettingsPanel().getPriorPage().equals("Game Panel")) {
+                    Main.view.showGamePanel();
+                    Main.view.getGamePanel().resumeThread();
+                    Audio.stopMusic();
+                    Audio.openingMusic();
+                }
+            }
+//>>>>>>> Cameron-Merge-MergePlayerTime
             if (restoreSave()) JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Succeeded");
             else JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Failed\nRestoring to Default Save");
         });
@@ -92,14 +108,16 @@ public class SaveData {
                 resetSavedProgress();
                 gp.newGame();
                 System.out.println("Saved Progress Reset");
+                if (Main.view.getSettingsPanel().getPriorPage().equals("Main Menu")) {
+                    Main.view.showMainMenuPanel();
+                } else if (Main.view.getSettingsPanel().getPriorPage().equals("Game Panel")) {
+                    Main.view.showGamePanel();
+                    Main.view.getGamePanel().resumeThread();
+                    Audio.stopMusic();
+                    Audio.openingMusic();
+                }
                 JOptionPane.showMessageDialog(resetGameProgressButton, "Game Progress Reset",
                         "Reset Game Progress", JOptionPane.INFORMATION_MESSAGE);
-                Main.view.getSettingsPage().hideSettingsPanel();
-                Main.view.getGamePanel().setVisible(true);
-                Main.view.getCoinPanel().setVisible(true);
-                Main.view.getGamePanel().resumeThread();
-                Audio.stopMusic();
-                Audio.openingMusic();
             }
 
         });
