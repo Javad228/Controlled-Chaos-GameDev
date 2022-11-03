@@ -237,6 +237,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void update(){
+		//System.out.println(player.name);
 		player.update();
 		if (rooms.get(currentRoomNum).getEnemies() != null){
 			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {

@@ -72,9 +72,10 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
-
+        this.name = "Intrepid Adventurer";
         Random r = new Random();
-        roomsetNub = r.nextInt(3);
+        roomsetNub = r.nextInt(2) + 1;
+        System.out.println("it is room set number" + roomsetNub);
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
     }
