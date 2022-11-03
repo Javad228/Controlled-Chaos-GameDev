@@ -31,18 +31,26 @@ public class Room {
     private void initializeItems() {
         switch(roomNum) {
             case 3:
-                String[] weaponImages = {"/weapons/wooden_sword.png"};
+                String[] swordImages = {"/weapons/wooden_sword.png"};
+                String[] slimeSlingerImages = {"/items/slingshot.png"};
+
                 String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
                 String[] appleImages = {"/consumables/apple.png"};
                 String[] bootImages = {"/items/boot.png"};
 
-                Weapon weapon = new Weapon(weaponImages);
+                //Sword sword = new Sword(swordImages, this.gp, 300, 300);
+                SlimeSlinger slimeSlinger = new SlimeSlinger(slimeSlingerImages, this.gp, 400, 400);
+                slimeSlinger.setxCoord(500);
+                slimeSlinger.setyCoord(400);
                 Effect effect = new Effect(effectImages);
                 Consumable apple = new Consumable(appleImages, false);
-                PassiveItem boot = new PassiveItem(bootImages);
+                Boot boot = new Boot(bootImages, this.gp, 500, 500);
+                boot.setxCoord(500);
+                boot.setyCoord(500);
 
                 items = new ArrayList<>();
-                items.add(weapon);
+                //items.add(sword);
+                items.add(slimeSlinger);
                 items.add(effect);
                 items.add(apple);
                 items.add(boot);
@@ -94,8 +102,6 @@ public class Room {
                 coins = null;
         }
     }
-
-
 
     public ArrayList<Item> getItems() {
         return items;
