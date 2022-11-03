@@ -127,6 +127,10 @@ public class TileManager {
             tile[7].setCollision(false);
             tile[7].setTileType(Tile.BUTTON);
 
+            tile[8] = new Tile();
+            tile[8].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/locked_door.png"))));
+            tile[8].setCollision(true);
+
         }catch (IOException e) {
             e.printStackTrace();
         }

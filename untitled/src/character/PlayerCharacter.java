@@ -73,7 +73,7 @@ public class PlayerCharacter extends Character {
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
 
         Random r = new Random();
-        roomsetNub = r.nextInt(3);
+        roomsetNub = r.nextInt(2) + 1;
         this.numCoins = 0;
     }
 
@@ -152,15 +152,7 @@ public class PlayerCharacter extends Character {
 
         int tileNum = TileManager.mapTileNum[getCol()][getRow()];
 
-        Tile tile = TileManager.tile[tileNum];
-
-        //if (tile.damageTile) {
-            //System.out.printf("xCoord: %d\n", xCoord);
-            //System.out.printf("yCoord: %d\n", yCoord);
-            //System.out.printf("tileNum: %d\n", tileNum);
-        //}
-
-        return tile;
+        return TileManager.tile[tileNum];
     }
 
     public void getPlayerImage() {

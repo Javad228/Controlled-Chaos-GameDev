@@ -113,7 +113,7 @@ public class CollisionChecker {
                 characterTopRow = (characterTop - character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                 }
             }
@@ -121,7 +121,7 @@ public class CollisionChecker {
                 characterBottomRow = (characterBottom + character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                 }
             }
@@ -129,7 +129,7 @@ public class CollisionChecker {
                 characterLeftCol = (characterLeft - character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                 }
             }
@@ -137,7 +137,7 @@ public class CollisionChecker {
                 characterRightCol = (characterRight + character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                 }
             } default -> {

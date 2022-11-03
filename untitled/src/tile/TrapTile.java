@@ -10,6 +10,9 @@ import java.util.Objects;
 
 
 public class TrapTile extends Tile {
+    public static final int map1TrapCol1 = 5;
+    public static final int map1TrapCol2 = 9;
+
     private boolean isOn;
 
     public TrapTile() {

@@ -7,11 +7,19 @@ import enemy.Slime;
 import enemy.Wizard;
 import loot.*;
 import tile.Button;
+import tile.DoorTile;
+import tile.TileManager;
 import tile.TrapTile;
 
 import java.util.ArrayList;
 
 public class Room {
+    public static final int STARTINGROOM = 1;
+    public static final int ENEMYROOM = 2;
+    public static final int ITEMROOM = 3;
+    public static final int TRAPROOM = 4;
+    public static final int BOSSROOM = 5;
+
     private int roomNum;
     private ArrayList<Item> items;
     private ArrayList<Enemy> enemies;
@@ -20,6 +28,8 @@ public class Room {
     private transient GamePanel gp;
     private ArrayList<Button> buttons;
     private ArrayList<Coin> coins;
+    private ArrayList<TrapTile> trapTiles;
+    private DoorTile doorTile;
 
     public Room(int roomNum, KeyHandler keyH, GamePanel gp) {
         this.roomNum = roomNum;
@@ -30,6 +40,7 @@ public class Room {
         initializeNPCs();
         initializeCoins();
         initializeButtons();
+        initializeTrapTiles();
     }
 
     private void initializeItems() {
@@ -104,33 +115,94 @@ public class Room {
                 break;
             case 2:
                 coins = null;
-            case 2:
+            case 3:
                 coins = null;
         }
     }
 
     private void initializeButtons() {
         switch(roomNum) {
-            case 0:
-                buttons = null;
             case 1:
                 buttons = null;
             case 2:
+                buttons = null;
+            case 3:
+                buttons = null;
+            case 4:
                 buttons = new ArrayList<>(5);
-                Button button1 = new Button();
-                button1.setOn(false);
-                button1.setx(2 * gp.tileSize);
-                button1.sety(2 * gp.tileSize);
+                Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
 
                 for (int i = 0; i < gp.maxScreenRow; i++) {
                     TrapTile trapTile = new TrapTile();
-                    trapTile.setx(2 * gp.tileSize);
+                    trapTile.setx(TrapTile.map1TrapCol1 * gp.tileSize);
                     trapTile.sety(i * gp.tileSize);
-                    button1.addTile(trapTile);
+                    button1.addTrapTile(trapTile);
                 }
 
-                buttons.add(button1);
+                doorTile = new DoorTile();
+                doorTile.setLocked(true);
+                doorTile.setx(DoorTile.map1Room4DoorCol * gp.tileSize);
+                doorTile.sety(DoorTile.map1Room4DoorRow * gp.tileSize);
 
+                Button button2 = new Button(Button.map1Button2Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
+                button2.addDoorTile(doorTile);
+                Button button3 = new Button(Button.map1Button3Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
+                button3.addDoorTile(doorTile);
+                Button button4 = new Button(Button.map1Button4Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
+                button4.addDoorTile(doorTile);
+
+                buttons.add(button1);
+                buttons.add(button2);
+                buttons.add(button3);
+                buttons.add(button4);
+        }
+    }
+
+    private void initializeTrapTiles() {
+        switch(roomNum) {
+            case 1:
+                trapTiles = null;
+            case 2:
+                trapTiles = null;
+            case 3:
+                trapTiles = null;
+            case 4:
+                trapTiles = new ArrayList<>(24);
+                for (int i = 0; i < gp.maxScreenRow; i++) {
+                    TrapTile thisTrapTile = new TrapTile();
+                    thisTrapTile.setx(TrapTile.map1TrapCol1 * gp.tileSize);
+                    thisTrapTile.sety(i * gp.tileSize);
+                    thisTrapTile.setOn(true);
+
+                    trapTiles.add(thisTrapTile);
+                }
+
+                for (int i = 0; i < gp.maxScreenRow; i++) {
+                    TrapTile thisTrapTile = new TrapTile();
+                    thisTrapTile.setx(TrapTile.map1TrapCol2 * gp.tileSize);
+                    thisTrapTile.sety(i * gp.tileSize);
+                    thisTrapTile.setOn(true);
+
+                    trapTiles.add(thisTrapTile);
+                }
+
+        }
+    }
+
+    private void initializeDoorTile() {
+        switch(roomNum) {
+            case 1:
+                doorTile = null;
+            case 2:
+                doorTile = null;
+            case 3:
+                doorTile = null;
+            case 4:
+                doorTile = new DoorTile();
+                doorTile.setLocked(false);
+                doorTile.setx(DoorTile.map1Room4DoorCol * gp.tileSize);
+                doorTile.sety(DoorTile.map1Room4DoorRow * gp.tileSize);
+                doorTile.toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
         }
     }
 
@@ -140,6 +212,10 @@ public class Room {
 
     public ArrayList<Button> getButtons() {
         return buttons;
+    }
+
+    public ArrayList<TrapTile> getTrapTiles() {
+        return trapTiles;
     }
 
     public void setItems(ArrayList<Item> items) {

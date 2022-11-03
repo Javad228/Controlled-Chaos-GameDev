@@ -6,12 +6,22 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Button extends Tile{
+    public static final int map1ButtonRow = 3;
+    public static final int map1Button1Col = 3;
+    public static final int map1Button2Col = 12;
+    public static final int map1Button3Col = 13;
+    public static final int map1Button4Col = 14;
+
     private boolean isOn;
     private ArrayList<TrapTile> trapTiles;
+    private ArrayList<DoorTile> doorTiles;
 
-    public Button() {
+    public Button(int x, int y) {
         isOn = false;
         trapTiles = new ArrayList<TrapTile>();
+        doorTiles = new ArrayList<DoorTile>();
+        this.setx(x);
+        this.sety(y);
     }
 
     public boolean getIsOn() {
@@ -22,8 +32,16 @@ public class Button extends Tile{
         return this.trapTiles;
     }
 
-    public void addTile(TrapTile trapTile) {
+    public ArrayList<DoorTile> getDoorTiles() {
+        return doorTiles;
+    }
+
+    public void addTrapTile(TrapTile trapTile) {
         trapTiles.add(trapTile);
+    }
+
+    public void addDoorTile(DoorTile doorTile) {
+        doorTiles.add(doorTile);
     }
 
     public void setOn(boolean isOn) {

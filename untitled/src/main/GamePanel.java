@@ -14,6 +14,7 @@ import save.SaveData;
 import save.SimpleCharacter;
 import save.SimpleWeapon;
 import tile.TileManager;
+import tile.TrapTile;
 
 public class GamePanel extends JPanel implements Runnable{
 	final static int trapDamage = 5;
@@ -143,9 +144,13 @@ public class GamePanel extends JPanel implements Runnable{
 			timer = 0;
 			lastTime = System.nanoTime();
 
+			String currentTimeStr;
+
 			while (!readThreadState()) {
 				currentTime = System.nanoTime();
 				drawInterval = 1000000000. / fps;
+
+				currentTimeStr = Long.toString(currentTime);
 
 				delta += (currentTime - lastTime) / drawInterval;
 				timer += (currentTime - lastTime);
@@ -166,7 +171,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 				if (timer >= 1000000000) {
 					Main.view.getWindow().setTitle("Controlled Chaos");
-					System.out.println("FPS:" + drawCount);
+					//System.out.println("FPS:" + drawCount);
 					drawCount = 0;
 					timer = 0;
 				}
@@ -180,6 +185,14 @@ public class GamePanel extends JPanel implements Runnable{
 					player.setKeyHandler(null);
 					deathPanel.showDeathPanel();
 					this.pauseThread();
+				}
+
+				if (currentRoomNum == Room.TRAPROOM) {
+					if (currentTime % 1000000000 == 0) {
+						for (int i = 0; i < maxScreenRow; i++) {
+							rooms.get(Room.TRAPROOM).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
+						}
+					}
 				}
 			}
 		}
