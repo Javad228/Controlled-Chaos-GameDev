@@ -6,11 +6,12 @@ import save.SimplePassiveItem;
 
 public class PassiveItem extends Item {
     // TODO: add new fields, modify constructor(s) as necessary
+    private transient GamePanel gp;
 
-    public PassiveItem(String[] imagePaths) {
-        super(7, imagePaths);
+    public PassiveItem(int framesToWait, String[] imagePaths) {
+        super(7 , imagePaths);
 
-        setDefaultValues();
+        //setDefaultValues();
         getImage(imagePaths);
     }
 

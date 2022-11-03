@@ -16,8 +16,8 @@ public class Arrow extends Projectile {
     private BufferedImage arrowRight;
     private BufferedImage arrowLeft;
 
-    public Arrow(GamePanel gp, int xCoord, int yCoord, String direction) {
-        super(gp, xCoord, yCoord, direction);
+    public Arrow(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting) {
+        super(gp, xCoord, yCoord, direction, isPlayerShooting);
         this.gp = gp;
 
         setDefaultValues();
@@ -30,7 +30,7 @@ public class Arrow extends Projectile {
         this.setWidth(7);
         this.setHeight(26);
         this.setHealth(80);
-        //this.setDamage(2);
+        this.setDamage(5);
         //this.isInvincible(true);
     }
 

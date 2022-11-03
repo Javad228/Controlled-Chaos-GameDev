@@ -12,9 +12,7 @@ public class Main {
 
 		Main.args = args;
 		view = new View();
-		window = view.getWindow();
-    
-		GamePanel gamePanel = view.getGamePanel();
-		gamePanel.startGameThread();
+		window = view.getWindow(); // TODO: get rid of this variable
+
 	}
 }

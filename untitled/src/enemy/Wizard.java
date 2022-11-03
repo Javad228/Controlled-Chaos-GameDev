@@ -11,11 +11,13 @@ import loot.LootType;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Wizard extends Enemy {
     private int counter = 1;
-    public Wizard(GamePanel gp) {
+    public Wizard(GamePanel gp, int xCoord, int yCoord) {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
@@ -32,8 +34,12 @@ public class Wizard extends Enemy {
         this.collisionAreaDefaultY = solidArea.y;
         this.width = 60;
         this.height = 60;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+        setNumDeathSprites(12);
+        setDeathImages(new BufferedImage[getNumDeathSprites()]); // should be in super()
 
-        this.setDamagePerHit(15);
+        this.setDamagePerHit(1); // originally 15
 
         getImage();
 
@@ -71,11 +77,11 @@ public class Wizard extends Enemy {
 
                             if(actionLockCounter == 70){
                                 if (goalRow < startRow) {
-                                    System.out.println("up arrow");
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    //System.out.println("up arrow");
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 } else {
-                                    System.out.println("down arrow");
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    //System.out.println("down arrow");
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
                                 actionLockCounter = 0;
@@ -112,16 +118,16 @@ public class Wizard extends Enemy {
 
                             if(actionLockCounter == 70){
                                 if (goalCol < startCol) {
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 } else {
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right"); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
                                 actionLockCounter = 0;
                             }
-                            System.out.println("shoot");
+                            //System.out.println("shoot");
                         }
                     } else {
                         counter = 1;
@@ -165,6 +171,33 @@ public class Wizard extends Enemy {
             this.setRight4(ImageIO.read(getClass().getResourceAsStream("/wizard/character/run/tile004.png")));
             this.setRight5(ImageIO.read(getClass().getResourceAsStream("/wizard/character/run/tile006.png")));
             this.setRight6(ImageIO.read(getClass().getResourceAsStream("/wizard/character/run/tile007.png")));
+
+
+            // Get Death Animation Images
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile000.png"))), 0);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile001.png"))), 1);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile002.png"))), 2);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile003.png"))), 3);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile004.png"))), 4);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile005.png"))), 5);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile006.png"))), 6);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile007.png"))), 7);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile008.png"))), 8);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile009.png"))), 9);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile010.png"))), 10);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/wizard/character/death/tile011.png"))), 11);
         } catch(IOException e) {
             e.printStackTrace();
         }

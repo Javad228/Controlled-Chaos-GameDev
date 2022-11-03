@@ -1,8 +1,7 @@
 package character;
 
-import loot.Coin;
-import loot.Consumable;
-import loot.Item;
+import enemy.SlimeBall;
+import loot.*;
 import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
@@ -33,6 +32,7 @@ public class PlayerCharacter extends Character {
     private GamePanel gp;
     private KeyHandler keyH;
 
+    private String projectileName = "Bomb";
     private int shotAvailableTimer = 0;
     private int shotTimerMax = 50;
 
@@ -43,18 +43,14 @@ public class PlayerCharacter extends Character {
     private Tile currentTile;
     public int roomsetNub;
 
-
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
         this.characterType = CharacterType.DEFAULT;
         this.inventory = new Inventory(gp);
         this.gp = gp;
         this.keyH = keyH;
-//<<<<<<< Cameron-DamageByEnemies
         this.isDying = false;
-//        this.solidArea.x = 3;
-//        this.solidArea.y = 18;
-//=======
+
         this.solidArea.x = 0;
         this.solidArea.y = 10;
         this.setWidth(18);
@@ -65,7 +61,8 @@ public class PlayerCharacter extends Character {
         solidAreaDefaultY = solidArea.y;
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
-        this.deathImages = new BufferedImage[3];
+        setDeathImages(new BufferedImage[3]); // should be in super()
+        //this.deathImages = new BufferedImage[3];
         this.currentTile = null;
         setDefaultValues();
         getPlayerImage();
@@ -73,13 +70,10 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
-//<<<<<<< Bolun-layout
 
         Random r = new Random();
-        roomsetNub = r.nextInt(1,3);
-//=======
+        roomsetNub = r.nextInt(3);
         this.numCoins = 0;
-//>>>>>>> main
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -165,26 +159,6 @@ public class PlayerCharacter extends Character {
         return tile;
     }
 
-    public Tile getCurrentTile() {
-        int xCoord = this.getxCoord();
-        int yCoord = this.getyCoord();
-
-        int col = xCoord/gp.tileSize;
-        int row = yCoord/gp.tileSize;
-
-        int tileNum = gp.tileM.mapTileNum[col][row];
-
-        Tile tile = gp.tileM.tile[tileNum];
-
-        //if (tile.damageTile) {
-            //System.out.printf("xCoord: %d\n", xCoord);
-            //System.out.printf("yCoord: %d\n", yCoord);
-            //System.out.printf("tileNum: %d\n", tileNum);
-        //}
-
-        return tile;
-    }
-
     public void getPlayerImage() {
         try {
             this.setUp1(ImageIO.read(getClass().getResourceAsStream("/player_character/up_1.png")));
@@ -206,12 +180,12 @@ public class PlayerCharacter extends Character {
             this.setAttackLeft2(ImageIO.read(getClass().getResourceAsStream("/player_character/left_attack_2.png")));
 
             // Get Death Animation Images
-            this.deathImages[0] = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/death_1.png")));
-            this.deathImages[1] = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/death_2.png")));
-            this.deathImages[2] = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/death_3.png")));
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_1.png"))), 0);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_2.png"))), 1);
+            setDeathImage(ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player_character/death_3.png"))), 2);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -264,22 +238,22 @@ public class PlayerCharacter extends Character {
             int currentY = this.getyCoord();
 
             if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "up"); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "up", true);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.downPressed && !keyH.upPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "down"); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "down", true);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.leftPressed && !keyH.rightPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "left"); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "left", true);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.rightPressed && !keyH.leftPressed && (shotAvailableTimer == shotTimerMax)) {
-                Arrow arrow = new Arrow(gp, currentX, currentY, "right"); //RANGED, true (isInvincible), this (user)
+                shoot(this.getProjectileName(), gp, currentX, currentY, "right", true);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
@@ -287,6 +261,7 @@ public class PlayerCharacter extends Character {
         if (shotAvailableTimer < shotTimerMax) {
             shotAvailableTimer++;
         }
+
         if (keyH.kPressed || (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed)) {
 
             if (keyH.kPressed) {
@@ -351,8 +326,12 @@ public class PlayerCharacter extends Character {
                         if (gp.checker.checkLootCollision(this, item)) {
                             if (item instanceof Consumable && ((Consumable) item).isVisible) {
                                 heal(((Consumable) item).consume());
-                            } else {
+                            }
+                            else {
                                 inventory.addItem(item);
+                                if (!(item instanceof Weapon)) {
+                                    item.setEquipped(true);
+                                }
                             }
                             currentList.remove(i);
                             Audio.itemPickUpAudio();
@@ -383,7 +362,6 @@ public class PlayerCharacter extends Character {
         int collisionAreaWidth = solidArea.width;
         int collisionAreaHeight = solidArea.height;
 
-
         switch (direction) {
             case "up" -> yCoord -= attackArea.height;
             case "down" -> yCoord += attackArea.height;
@@ -393,7 +371,6 @@ public class PlayerCharacter extends Character {
 
         solidArea.width = attackArea.width;
         solidArea.height = attackArea.height;
-//        System.out.println(solidArea);
         if (gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies() != null){
             ArrayList<Enemy> currentList = gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies();
             for (int i = 0; i < currentList.size(); i++) {
@@ -409,8 +386,6 @@ public class PlayerCharacter extends Character {
         }
 
 //        System.out.println(isHit);
-
-
 
         /*
         isHit = gp.checker.checkConsumableCollision(this, gp.apple);
@@ -441,6 +416,11 @@ public class PlayerCharacter extends Character {
 
     }
 
+    public void damagePlayer(Projectile projectile) {
+        gp.getPlayer().damage(projectile.getDamage());
+        gp.getPlayer().isInvincible = true;
+    }
+
     public void damagePlayer(NonPlayableCharacter entity) {
         if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
@@ -450,6 +430,17 @@ public class PlayerCharacter extends Character {
         }
     }
 
+    public void shoot(String projectileName, GamePanel gp, int currentX, int currentY, String direction, boolean isPlayerShooting) {
+        if (projectileName.equals("Arrow")) {
+            Arrow arrow = new Arrow(gp, currentX, currentY, direction, isPlayerShooting); //RANGED, true (isInvincible), this (user)
+        }
+        if (projectileName.equals("SlimeBall")) {
+            SlimeBall slimeBall = new SlimeBall(gp, currentX, currentY, direction, isPlayerShooting);
+        }
+        if (projectileName.equals("Bomb")) {
+            Bomb bomb = new Bomb(gp, currentX, currentY, direction, isPlayerShooting);
+        }
+    }
     public void damagePlayerInt(int damageAmount) {
         if(!gp.getPlayer().isInvincible){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
@@ -473,7 +464,7 @@ public class PlayerCharacter extends Character {
             this.setWidth(31);
             this.setHeight(44);
 
-            image = this.deathImages[this.getSpriteNum()];
+            image = getDeathImage(this.getSpriteNum());
 
             switch (getSpriteNum()) {       // Set width and height parameters according to death image
                                             // selected
@@ -576,7 +567,6 @@ public class PlayerCharacter extends Character {
         this.healthBar.draw(g2,
                 this.getxCoord(),
                 this.getyCoord() - this.healthBar.getHeight());
-
     }
 
     public CharacterType getCharacterType () {
@@ -636,5 +626,25 @@ public class PlayerCharacter extends Character {
     public void setNumCoins(int numCoins) {
         this.numCoins = numCoins;
     }
+
+    public int getShotTimerMax() {
+        return shotTimerMax;
+    }
+
+    public void setShotTimerMax(int shotTimerMax) {
+        this.shotTimerMax = shotTimerMax;
+    }
+
+    public String getProjectileName() {
+        return projectileName;
+    }
+
+    public void setProjectileName(String projectileName) {
+        this.projectileName = projectileName;
+    }
+
+    public int getShotAvailableTimer() { return shotAvailableTimer; }
+
+    public void setShotAvailableTimer(int shotAvailableTimer) { this.shotAvailableTimer = shotAvailableTimer; }
 }
 

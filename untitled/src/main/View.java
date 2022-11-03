@@ -1,48 +1,50 @@
 package main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class View {
     private JFrame window;
     private GamePanel gamePanel;
-    private SettingsPanel settingsPage;
+    private SettingsPanel settingsPanel;
     private JPanel savePage;
-
-    private JLabel coinLabel;
+    private JPanel coinPanel;
+    private JPanel mainMenuPanel;
+    private JPanel statsPanel;
+    private JButton settingsButton;
 
     public View () {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //window.setLayout(new ScrollPaneLayout());
         window.setPreferredSize(new Dimension(800, 600));
         window.setResizable(false);
         window.setTitle("Controlled Chaos");
 
-        coinLabel = new JLabel();
-        coinLabel.setOpaque(true);
-        coinLabel.setBackground(Color.BLACK);
-        coinLabel.setForeground(Color.WHITE);
-        window.add(coinLabel);
+        coinPanel = new JPanel();
+        coinPanel.setOpaque(true);
+        coinPanel.setLayout(new FlowLayout());
+        LineBorder line = new LineBorder(Color.BLACK, 2, true);
+        coinPanel.setBorder(line);
+        coinPanel.setVisible(false);
+
+        statsPanel = new statsPanel();
+
         gamePanel = new GamePanel();
-        window.add(gamePanel);
-        coinLabel.setBounds(0, 0, 100, 25);
+        gamePanel.setVisible(false);
+        coinPanel.setBounds(0, 0, 75, 30);
 
         window.addKeyListener(gamePanel.keyH);
-
         window.pack();
-
         window.setLocationRelativeTo(null);
 
         //set up settings page
-        settingsPage = new SettingsPanel(gamePanel);
-        //settingsPage.requestFocusInWindow();
-        //settingsPage.addKeyListener(gamePanel.keyH);
-        window.add(settingsPage);
-
+        settingsPanel = new SettingsPanel(gamePanel);
 
         // Add Save Page
         //savePage = new JPanel();
@@ -63,14 +65,66 @@ public class View {
         tempWindow.setVisible(true);
          */
 
-        window.setVisible(true);                                    // currently opens up the game window
+        mainMenuPanel = new MainMenuPanel();
+        window.add(mainMenuPanel);
+
+        window.setVisible(true);                                    // currently opens up the main menu
+    }
+
+    public void showSettingsPanel(String priorPage) {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getSettingsPanel());
+        Main.view.getSettingsPanel().setVisible(true);
+        Main.view.getSettingsPanel().setPriorPage(priorPage);
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+
+        Audio.stopMusic();
+        Audio.settingsMusic();
+    }
+
+    public void showMainMenuPanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getMainMenuPanel());
+        Main.view.getMainMenuPanel().setVisible(true);
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+
+        Audio.stopMusic();
+        // TODO: add main menu music?
+    }
+
+    public void showGamePanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getCoinPanel());
+        Main.view.getWindow().add(Main.view.getGamePanel());
+        Main.view.getGamePanel().setVisible(true);
+        Main.view.getCoinPanel().setVisible(true);
+        //Main.view.getGamePanel().resumeThread();
+        Main.view.getWindow().requestFocusInWindow();
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
     }
 
     public void updateCoinLabel(Graphics2D g2) {
-        coinLabel.setText(Integer.toString(gamePanel.player.getNumCoins()));
-        //Main.view.getCoinLabel().setBounds(this.screenWidth - 100, 0, 100, 25);
-        //this.coinLabel.setHorizontalAlignment(JLabel.RIGHT);
-        this.coinLabel.update(g2);
+        int numCoins = gamePanel.player.getNumCoins();
+
+        JLabel numCoinsLabel = new JLabel(Integer.toString(numCoins));
+        JLabel coinIconLabel = new JLabel();
+
+        try {
+            BufferedImage icon = ImageIO.read(getClass().getResourceAsStream("/items/coin_icon.png"));
+            coinIconLabel.setIcon(new ImageIcon(icon));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        coinPanel.removeAll();
+        coinIconLabel.setBounds(6, 6, 23,18);
+        numCoinsLabel.setBounds(35, 2, 50,25);
+        coinPanel.add(numCoinsLabel);
+        coinPanel.add(coinIconLabel);
+        coinPanel.update(g2);
     }
 
     public JFrame getWindow() {
@@ -81,15 +135,31 @@ public class View {
         return gamePanel;
     }
 
-    public SettingsPanel getSettingsPage() {
-        return settingsPage;
+    public SettingsPanel getSettingsPanel() {
+        return settingsPanel;
     }
 
-    public JLabel getCoinLabel() {
-        return coinLabel;
+    public JPanel getCoinPanel() {
+        return coinPanel;
     }
 
-    public void setCoinLabel(JLabel coinLabel) {
-        this.coinLabel = coinLabel;
+    public void setCoinPanel(JPanel coinPanel) {
+        this.coinPanel = coinPanel;
+    }
+
+    public JPanel getMainMenuPanel() {
+        return mainMenuPanel;
+    }
+
+    public void setMainMenuPanel(JPanel mainMenuPanel) {
+        this.mainMenuPanel = mainMenuPanel;
+    }
+
+    public JButton getSettingsButton() {
+        return settingsButton;
+    }
+
+    public void setSettingsButton(JButton settingsButton) {
+        this.settingsButton = settingsButton;
     }
 }
