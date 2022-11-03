@@ -34,7 +34,7 @@ public class MainMenuPanel extends JPanel {
     }
 
     private void addNewRunButton() {
-        JButton newRunButton = new JButton("New Run");
+        JButton newRunButton = new JButton("Continue Run");
         newRunButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
         newRunButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         newRunButton.addActionListener(new ActionListener() {

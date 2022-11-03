@@ -53,4 +53,22 @@ public class Enemy extends NonPlayableCharacter {
     public Object getSubClass() {
         return null;
     }
+
+    public void checkIfDead(PlayerCharacter player) {
+        if (this.health <= 0) {
+            this.isAlive = false;
+            boolean isNewEnemyKilled = true;
+
+            for (int i = 0; i < player.getEnemiesKilled().size(); i++) {
+                if (player.getEnemiesKilled().get(i).getName() == this.getName()) {
+                    isNewEnemyKilled = false;
+                    break;
+                }
+            }
+
+            if (isNewEnemyKilled) {
+                player.getEnemiesKilled().add(new SimpleEnemy(this.getName(), "input a description..."));
+            }
+        }
+    }
 }
