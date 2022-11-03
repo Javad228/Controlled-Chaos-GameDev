@@ -137,6 +137,22 @@ public class SaveData {
         return true;
     }
 
+    public static boolean saveGameState(SimpleCharacter sc) {
+        try {
+            GsonBuilder gb = new GsonBuilder();
+            Gson g = gb.create();
+
+            FileWriter f = new FileWriter(file);
+            f.write(g.toJson(new GameSaveState(sc)));
+            f.close();
+            return false;
+        } catch (IOException e) {
+            System.out.println("ERROR: Save to File Failed!");
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public boolean restoreSave() {
         GameSaveState gs = restoreGameState();
 
@@ -152,8 +168,30 @@ public class SaveData {
         return true;
     }
 
-    private GameSaveState restoreGameState() {
+    public GameSaveState restoreGameState() {
         try {
+            BufferedReader r = new BufferedReader(new FileReader(file));
+            StringBuilder input = new StringBuilder();
+
+            // Read from file
+            while (r.ready()) input.append(r.readLine());
+
+            return g.fromJson(input.toString(), GameSaveState.class);
+        } catch (IOException e) {
+            System.out.println("ERROR: Reading from Save Failed");
+            e.printStackTrace();
+            return null;
+        } catch (com.google.gson.JsonSyntaxException e) {
+            System.out.println("ERROR: Syntax Parsing Failure!");
+            return null;
+        }
+    }
+
+    // for use in statsPanel.java
+    public static GameSaveState restoreGameState(String dummy) {
+        try {
+            GsonBuilder gb = new GsonBuilder();
+            Gson g = gb.create();
             BufferedReader r = new BufferedReader(new FileReader(file));
             StringBuilder input = new StringBuilder();
 
