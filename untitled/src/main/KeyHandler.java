@@ -2,6 +2,7 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Objects;
 
 public class KeyHandler implements KeyListener {
 
@@ -10,7 +11,7 @@ public class KeyHandler implements KeyListener {
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
-    public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed;
+    public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed, bPressed;
 
     //TODO implement movement and attack
     @Override
@@ -40,6 +41,15 @@ public class KeyHandler implements KeyListener {
          * down the button, but for attacks and everything else it keeps attacking for as long as they
          * hold the button, which results in some funky damage and sound effects
          */
+        if (code == KeyEvent.VK_B) {
+            bPressed = true;
+            if(!Objects.equals(gp.getPlayer().projectileName, "Bomb")){
+                gp.getPlayer().projectileName = "Bomb";
+            }else{
+                gp.getPlayer().projectileName = "Arrow";
+            }
+
+        }
         if (code == KeyEvent.VK_K) {
             kPressed = true;
         }
@@ -145,7 +155,9 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
-
+        if (code == KeyEvent.VK_B) {
+            bPressed = false;
+        }
         if (code == KeyEvent.VK_K) {
             kPressed = false;
         }

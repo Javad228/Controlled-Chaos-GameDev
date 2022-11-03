@@ -1,7 +1,10 @@
 package character;
 
 import enemy.SlimeBall;
-import loot.*;
+import loot.Coin;
+import loot.Consumable;
+import loot.Item;
+import loot.Weapon;
 import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
@@ -13,7 +16,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -33,7 +35,7 @@ public class PlayerCharacter extends Character {
     private GamePanel gp;
     private KeyHandler keyH;
 
-    private String projectileName = "Bomb";
+    public String projectileName = "Bomb";
     private int shotAvailableTimer = 0;
     private int shotTimerMax = 50;
 

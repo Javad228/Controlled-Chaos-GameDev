@@ -1,8 +1,7 @@
 package enemy;
 
 import character.Enemy;
-import character.NonPlayableCharacter;
-import character.*;
+import character.EnemyType;
 import loot.LootType;
 import main.GamePanel;
 import save.SimpleEnemy;
@@ -20,7 +19,7 @@ public class Skeleton extends Enemy {
         super(EnemyType.MEDIUM, LootType.DEFAULT);
         name = "Skeleton";
         movementSpeed = 1;
-        maxHealth = 10;
+        maxHealth = 150;
         health = maxHealth;
 
         solidArea.x = 0;
