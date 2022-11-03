@@ -9,6 +9,7 @@ import main.KeyHandler;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -245,6 +246,9 @@ public abstract class NonPlayableCharacter extends Character {
                 image = getDeathImage(this.getSpriteNum());
             } else {
                 gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
+                if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins() == null) {
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setCoins(new ArrayList<>());
+                }
                 gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
 
                 return;
