@@ -176,3 +176,4 @@ public class statsPanel extends JPanel {
         add(saveButton);
     }
 }
+
