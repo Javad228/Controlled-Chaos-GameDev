@@ -1,11 +1,11 @@
 {
   "player": {
     "name": "",
-    "health": 25,
+    "health": 23,
     "maxHealth": 100,
     "movementSpeed": 4,
-    "xCoord": 242,
-    "yCoord": 220,
+    "xCoord": 500,
+    "yCoord": 328,
     "activeEffects": [],
     "combatType": "DEFAULT",
     "currentRoom": "Test",
@@ -73,12 +73,70 @@
         {
           "description": "",
           "price": 0.0,
-          "isEquipped": false,
+          "isEquipped": true,
           "amount": 0,
           "name": "",
           "lootType": "DEFAULT",
-          "xCoord": 100,
-          "yCoord": 502,
+          "xCoord": 500,
+          "yCoord": 406,
+          "imagePaths": [
+            "/items/slingshot.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 6,
+          "isBobbingUp": true,
+          "frameCounter": 2,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "",
+          "price": 0.0,
+          "isEquipped": true,
+          "amount": 0,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 500,
+          "yCoord": 503,
+          "imagePaths": [
+            "/consumables/apple.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 3,
+          "isBobbingUp": false,
+          "frameCounter": 5,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Boot",
+          "price": 0.0,
+          "isEquipped": true,
+          "amount": 0,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 500,
+          "yCoord": 503,
           "imagePaths": [
             "/items/boot.png"
           ],
@@ -91,22 +149,18 @@
           },
           "collisionAreaDefaultX": 0,
           "collisionAreaDefaultY": 0,
-          "spritePosition": 2,
-          "isBobbingUp": true,
-          "frameCounter": 0,
+          "spritePosition": 3,
+          "isBobbingUp": false,
+          "frameCounter": 6,
           "bobIncrement": 1,
           "maxSpritePosition": 6,
           "spriteCounter": 0,
           "isExpanding": true
         },
         {
-          "speedMultiplier": 1,
-          "damageModifier": 1,
-          "effectTimer": 0,
-          "customEffect": 1,
           "description": "",
           "price": 0.0,
-          "isEquipped": false,
+          "isEquipped": true,
           "amount": 0,
           "name": "",
           "lootType": "DEFAULT",
@@ -128,39 +182,10 @@
           "collisionAreaDefaultY": 0,
           "spritePosition": 0,
           "isBobbingUp": true,
-          "frameCounter": 3,
+          "frameCounter": 8,
           "bobIncrement": 1,
           "maxSpritePosition": 6,
-          "spriteCounter": 1,
-          "isExpanding": false
-        },
-        {
-          "description": "",
-          "price": 0.0,
-          "isEquipped": false,
-          "amount": 0,
-          "name": "",
-          "lootType": "DEFAULT",
-          "xCoord": 200,
-          "yCoord": 200,
-          "imagePaths": [
-            "/weapons/wooden_sword.png"
-          ],
-          "framesToWait": 7,
-          "solidArea": {
-            "x": 0,
-            "y": 0,
-            "width": 48,
-            "height": 48
-          },
-          "collisionAreaDefaultX": 0,
-          "collisionAreaDefaultY": 0,
-          "spritePosition": 0,
-          "isBobbingUp": false,
-          "frameCounter": 4,
-          "bobIncrement": 1,
-          "maxSpritePosition": 6,
-          "spriteCounter": 0,
+          "spriteCounter": 2,
           "isExpanding": true
         }
       ],
@@ -169,6 +194,76 @@
       "slotRow": 0
     },
     "characterType": "DEFAULT",
-    "numCoins": 1
-  }
+    "numCoins": 4,
+    "enemiesKilled": [
+      {
+        "name": "Skeleton",
+        "description": "very bony",
+        "health": 0,
+        "maxHealth": 0,
+        "movementSpeed": 0,
+        "xCoord": 0,
+        "yCoord": 0,
+        "damagePerHit": 0
+      },
+      {
+        "name": "Wizard",
+        "description": "shoots slime",
+        "health": 0,
+        "maxHealth": 0,
+        "movementSpeed": 0,
+        "xCoord": 0,
+        "yCoord": 0,
+        "damagePerHit": 0
+      },
+      {
+        "name": "Slime",
+        "description": "looks lost",
+        "health": 0,
+        "maxHealth": 0,
+        "movementSpeed": 0,
+        "xCoord": 0,
+        "yCoord": 0,
+        "damagePerHit": 0
+      }
+    ]
+  },
+  "rooms": [
+    {
+      "roomNum": 0,
+      "enemies": [],
+      "friendlies": []
+    },
+    {
+      "roomNum": 1,
+      "enemies": [],
+      "friendlies": [],
+      "coins": []
+    },
+    {
+      "roomNum": 2,
+      "enemies": [],
+      "friendlies": [],
+      "coins": []
+    },
+    {
+      "roomNum": 3,
+      "items": [],
+      "enemies": [],
+      "friendlies": []
+    },
+    {
+      "roomNum": 4,
+      "enemies": [],
+      "friendlies": []
+    },
+    {
+      "roomNum": 5,
+      "enemies": [],
+      "friendlies": []
+    }
+  ],
+  "currentRoomNum": 3,
+  "currentRunTimeNS": 81349617300,
+  "currentRunTimeS": "81.349"
 }

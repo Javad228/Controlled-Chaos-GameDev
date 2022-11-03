@@ -54,8 +54,7 @@ public class MainMenuPanel extends JPanel {
         statsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                Main.view.showStatsPanel();
             }
         });
         add(statsButton);

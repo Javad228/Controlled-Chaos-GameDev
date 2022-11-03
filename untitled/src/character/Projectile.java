@@ -9,8 +9,8 @@ import java.util.Objects;
 
 public class Projectile extends Character {
 
-    GamePanel gp;
-    private BufferedImage projectileImage;
+    transient GamePanel gp;
+    private transient BufferedImage projectileImage;
     private boolean isMoving;
     private int damage;
     private boolean isPlayerShooting;

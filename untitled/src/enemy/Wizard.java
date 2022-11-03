@@ -9,6 +9,8 @@ import character.*;
 import loot.LootType;
 
 import main.GamePanel;
+import main.Main;
+import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,7 +19,7 @@ import java.util.Objects;
 
 public class Wizard extends Enemy {
     private int counter = 1;
-    public Wizard(GamePanel gp, int xCoord, int yCoord) {
+    public Wizard(int xCoord, int yCoord) {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
@@ -43,6 +45,16 @@ public class Wizard extends Enemy {
 
         getImage();
 
+    }
+
+    public Wizard(SimpleEnemy enemy) {
+        this(enemy.xCoord, enemy.yCoord);
+        this.name = enemy.getName();
+        this.health = enemy.health;
+        this.maxHealth = enemy.maxHealth;
+        this.movementSpeed = enemy.movementSpeed;
+        this.activeEffects = enemy.activeEffects;
+        this.setDamagePerHit(enemy.damagePerHit);
     }
 
     @Override
@@ -142,7 +154,11 @@ public class Wizard extends Enemy {
 
         }
 
-
+    @Override
+    public void update(GamePanel gp) {
+        if (getUp1() == null) getImage();
+        super.update(gp);
+    }
 
     public void getImage(){
         try {
@@ -200,5 +216,9 @@ public class Wizard extends Enemy {
         } catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Object getSubClass() {
+        return Wizard.class;
     }
 }

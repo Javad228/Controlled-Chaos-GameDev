@@ -2,22 +2,20 @@ package loot;
 
 import character.PlayerCharacter;
 import main.GamePanel;
-import main.KeyHandler;
-import save.SimpleWeapon;
 
 public class Sword extends Weapon {
     // TODO: add new fields, modify constructor(s) as necessary
 
     private transient GamePanel gp;
-    private int xCoord;
-    private int yCoord;
-    private boolean isEquipped;
+    //private int xCoord;
+    //private int yCoord;
+    //private boolean isEquipped;
 
     public Sword(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
         super(7 , imagePaths);
         this.gp = gp;
-        this.xCoord = xCoord;
-        this.yCoord = yCoord;
+        setxCoord(xCoord);
+        setyCoord(yCoord);
 
         setDefaultValues();
         getImage(imagePaths);
@@ -43,7 +41,8 @@ public class Sword extends Weapon {
     }*/
 
     public void setEquipped(boolean equipped) {
-        isEquipped = equipped;
+        super.setEquipped(equipped);
+        
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
             //
