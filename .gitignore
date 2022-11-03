@@ -1,4 +1,11 @@
+/out/
+/.idea/
+/target/
 
+#Cameron's .gitignore
+/src/test.java
+
+#Existing .gitignore
 .idea/compiler.xml
 .idea/misc.xml
 .idea/modules.xml
@@ -201,3 +208,4 @@ target/classes/loot/Boot.class
 target/classes/loot/SlimeSlinger.class
 target/classes/loot/Sword.class
 .idea/uiDesigner.xml
+

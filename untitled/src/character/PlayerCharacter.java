@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -40,6 +41,8 @@ public class PlayerCharacter extends Character {
     private boolean isDying;                // Used for performing death animation
     private ArrayList<SimpleEnemy> enemiesKilled;
 
+    private transient BufferedImage[] deathImages;
+    
     public int roomsetNub;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {

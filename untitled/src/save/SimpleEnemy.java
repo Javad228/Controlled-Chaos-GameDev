@@ -1,32 +1,46 @@
 package save;
 
+import character.*;
+import combat.*;
+import enemy.*;
+import loot.LootType;
+
+import java.util.ArrayList;
+
 public class SimpleEnemy {
-    private String name;
-    private String description;
+    public String name;
+    public int health;
+    public int maxHealth;
+    public int movementSpeed;
+    public int xCoord;
+    public int yCoord;
+    public ArrayList<String> activeEffects;
 
-    public SimpleEnemy() {
-        name = "";
-        description = "";
-    }
+    public int damagePerHit;
 
-    public SimpleEnemy(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
 
-    public String getName() {
-        return name;
-    }
+    public SimpleEnemyClassification classification;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public SimpleEnemy(Enemy enemy, Object enemyClass) {
+        this.name = enemy.name;
+        this.health = enemy.health;
+        this.maxHealth = enemy.maxHealth;
+        this.movementSpeed = enemy.movementSpeed;
+        this.xCoord = enemy.xCoord;
+        this.yCoord = enemy.yCoord;
+        this.activeEffects = enemy.activeEffects;
+        this.damagePerHit = enemy.getDamagePerHit();
 
-    public String getDescription() {
-        return description;
-    }
+        if (Skeleton.class.equals(enemyClass)) {
+            this.classification = SimpleEnemyClassification.SKELETON;
+        }
 
-    public void setDescription(String description) {
-        this.description = description;
+        if (Slime.class.equals(enemyClass)) {
+            this.classification = SimpleEnemyClassification.SLIME;
+        }
+
+        if (Wizard.class.equals(enemyClass)) {
+            this.classification = SimpleEnemyClassification.WIZARD;
+        }
     }
 }
