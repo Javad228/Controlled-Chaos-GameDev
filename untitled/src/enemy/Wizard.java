@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class Wizard extends Enemy {
     private int counter = 1;
-    public Wizard(GamePanel gp, int xCoord, int yCoord) {
+    public Wizard(int xCoord, int yCoord) {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
@@ -48,8 +48,8 @@ public class Wizard extends Enemy {
     }
 
     public Wizard(SimpleEnemy enemy) {
-        this(Main.view.getGamePanel(), enemy.xCoord, enemy.yCoord);
-        this.name = enemy.name;
+        this(enemy.xCoord, enemy.yCoord);
+        this.name = enemy.getName();
         this.health = enemy.health;
         this.maxHealth = enemy.maxHealth;
         this.movementSpeed = enemy.movementSpeed;

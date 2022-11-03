@@ -10,15 +10,31 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 
 public class statsPanel extends JPanel {
+    GamePanel gp;
+    SaveData sd;
     GameSaveState savedData;
     JPanel basicDetailsPanel = new JPanel();
     JPanel enemiesKilledPanel = new JPanel();
     JTextArea[] enemyDescriptionTextBoxes;
 
-    public statsPanel() {
-        savedData = SaveData.restoreGameState("dummy");
+    public statsPanel(GamePanel gp) {
+        this.gp = gp;
+        sd = new SaveData(gp);
+        savedData = sd.restoreGameState();
+
+        if (savedData == null) {
+            gp.newGame(false);
+            if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
+            else System.out.println("Game restore Failed");
+        } else {
+            gp.newGame(savedData.player, new Time(savedData.currentRunTimeNS), sd.initializeRooms(savedData.rooms), savedData.currentRoomNum, false); // use this method but make sure it doesn't start the game thread
+            System.out.println("Game restore Succeeded");
+        }
+
+        //savedData = SaveData.restoreGameState("dummy");
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         basicDetailsPanel.setLayout(new GridLayout(3, 2)); // number of rows depends on number of fields you'd like to add
         basicDetailsPanel.setBackground(Color.BLACK);
@@ -164,9 +180,11 @@ public class statsPanel extends JPanel {
                 // save results
                 if (savedData != null) {
                     for (int i = 0; i < savedData.player.getEnemiesKilled().size(); i++) {
-                        savedData.player.getEnemiesKilled().get(i).setDescription(enemyDescriptionTextBoxes[i].getText());
+                        gp.player.getEnemiesKilled().get(i).setDescription(enemyDescriptionTextBoxes[i].getText());
+                        //savedData.player.getEnemiesKilled().get(i).setDescription(enemyDescriptionTextBoxes[i].getText());
                     }
-                    SaveData.saveGameState(savedData.player);
+                    //SaveData.saveGameState(savedData.player);
+                    sd.saveGameState();
                 }
 
                 // return user to main menu

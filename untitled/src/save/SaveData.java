@@ -106,13 +106,14 @@ public class SaveData {
                     "Resetting game progress will erase all progress made\nAre you sure?", "Confirm Reset",
                     JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
                 resetSavedProgress();
-                gp.newGame();
+                //gp.newGame();
                 System.out.println("Saved Progress Reset");
                 if (Main.view.getSettingsPanel().getPriorPage().equals("Main Menu")) {
                     Main.view.showMainMenuPanel();
                 } else if (Main.view.getSettingsPanel().getPriorPage().equals("Game Panel")) {
                     Main.view.showGamePanel();
-                    Main.view.getGamePanel().resumeThread();
+                    Main.view.getGamePanel().newGame(true);
+                    //Main.view.getGamePanel().resumeThread();
                     Audio.stopMusic();
                     Audio.openingMusic();
                 }
@@ -151,6 +152,7 @@ public class SaveData {
     public static boolean saveGameState(SimpleCharacter sc) {
         try {
             GsonBuilder gb = new GsonBuilder();
+            gb.setPrettyPrinting();
             Gson g = gb.create();
 
             FileWriter f = new FileWriter(file);
@@ -168,13 +170,13 @@ public class SaveData {
         GameSaveState gs = restoreGameState();
 
         if (gs == null) {
-            gp.newGame();
+            gp.newGame(true);
             if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
             else System.out.println("Game restore Failed");
             return false;
         }
 
-        gp.newGame(gs.player, new Time(gs.currentRunTimeNS), initializeRooms(gs.rooms), gs.currentRoomNum);
+        gp.newGame(gs.player, new Time(gs.currentRunTimeNS), initializeRooms(gs.rooms), gs.currentRoomNum, true);
         System.out.println("Game restore Succeeded");
         return true;
     }
@@ -233,7 +235,7 @@ public class SaveData {
         }
     }
 
-    private ArrayList<Room> initializeRooms(ArrayList<SimpleRoom> rooms) {
+    public ArrayList<Room> initializeRooms(ArrayList<SimpleRoom> rooms) {
         ArrayList<Room> returnableRoomList = new ArrayList<>();
         int i = 0;
 

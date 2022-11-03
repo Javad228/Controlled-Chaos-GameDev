@@ -70,7 +70,7 @@ public class Room {
                 enemies = new ArrayList<>();
                 enemies.add(new Slime(100, 100));
                 enemies.add(new Skeleton(500, 500));
-                enemies.add(new Wizard(this.gp, 100, 500));
+                enemies.add(new Wizard(100, 500));
                 break;
         }
     }

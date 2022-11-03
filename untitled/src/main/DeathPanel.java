@@ -56,7 +56,7 @@ public class DeathPanel extends JPanel {
         this.newGame.addActionListener((a) -> {
             hideDeathPanel();
             gp.saveData.resetSavedProgress();
-            gp.newGame();
+            gp.newGame(true);
             gp.resumeThread();
         });
         this.gc.anchor = GridBagConstraints.PAGE_END;

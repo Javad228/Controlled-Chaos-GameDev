@@ -40,12 +40,11 @@ public class View {
         coinPanel.setBorder(line);
         coinPanel.setVisible(false);
 
-        statsPanel = new statsPanel();
-
         gamePanel = new GamePanel();
         gamePanel.setVisible(false);
         coinPanel.setBounds(0, 0, 75, 30);
 
+        statsPanel = new statsPanel(gamePanel);
 
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
             @Override

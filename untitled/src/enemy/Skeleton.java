@@ -43,7 +43,7 @@ public class Skeleton extends Enemy {
 
     public Skeleton(SimpleEnemy enemy) {
         this(enemy.xCoord, enemy.yCoord);
-        this.name = enemy.name;
+        this.name = enemy.getName();
         this.health = enemy.health;
         this.maxHealth = enemy.maxHealth;
         this.movementSpeed = enemy.movementSpeed;

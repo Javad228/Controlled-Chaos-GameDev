@@ -8,18 +8,21 @@ import loot.LootType;
 import java.util.ArrayList;
 
 public class SimpleEnemy {
-    public String name;
+    private String name;
+    private String description;
     public int health;
     public int maxHealth;
     public int movementSpeed;
     public int xCoord;
     public int yCoord;
     public ArrayList<String> activeEffects;
-
     public int damagePerHit;
-
-
     public SimpleEnemyClassification classification;
+
+    public SimpleEnemy(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     public SimpleEnemy(Enemy enemy, Object enemyClass) {
         this.name = enemy.name;
@@ -42,5 +45,21 @@ public class SimpleEnemy {
         if (Wizard.class.equals(enemyClass)) {
             this.classification = SimpleEnemyClassification.WIZARD;
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

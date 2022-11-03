@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
-    rooms.add(new Room(2, keyH, this));
+    	rooms.add(new Room(2, keyH, this));
 		rooms.add(new Room(3, keyH, this));
 		rooms.add(new Room(4, keyH, this));
 		rooms.add(new Room(5, keyH, this));
@@ -91,19 +91,32 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 	}
 
-	public void newGame() {
+	public void newGame(boolean shouldStartGame) {
 		this.currentRunTime = new Time(0);	// Reset game timer to 0
 		this.setPlayer(new PlayerCharacter(this, keyH));
 		initializeRooms();
-		newGameHelper();
+		this.currentRoomNum = 1;
+		tileM.update();
+
+		if (shouldStartGame) {
+			newGameHelper();
+		}
 	}
 
-	public void newGame(SimpleCharacter sc, Time t, ArrayList<Room> rooms, int currentRoomNum) {
+	public void newGame(SimpleCharacter sc, Time t, ArrayList<Room> rooms, int currentRoomNum, boolean shouldStartGame) {
 		this.currentRunTime = t;
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
 		this.rooms = rooms;
-		this.currentRoomNum = currentRoomNum;
-		newGameHelper();
+		if (this.currentRoomNum != currentRoomNum) {
+			this.currentRoomNum = currentRoomNum;
+			tileM.update();
+		} else {
+			this.currentRoomNum = currentRoomNum;
+		}
+
+		if (shouldStartGame) {
+			newGameHelper();
+		}
 	}
 
 	private void newGameHelper() {
