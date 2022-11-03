@@ -16,6 +16,7 @@ public class View {
     private JPanel savePage;
     private JPanel coinPanel;
     private JPanel mainMenuPanel;
+    private JPanel statsPanel;
     private JButton settingsButton;
 
     public View () {
@@ -30,11 +31,11 @@ public class View {
         coinPanel.setLayout(new FlowLayout());
         LineBorder line = new LineBorder(Color.BLACK, 2, true);
         coinPanel.setBorder(line);
-        //window.add(coinPanel);
         coinPanel.setVisible(false);
 
+        statsPanel = new statsPanel();
+
         gamePanel = new GamePanel();
-        //window.add(gamePanel);
         gamePanel.setVisible(false);
         coinPanel.setBounds(0, 0, 75, 30);
 
@@ -44,7 +45,6 @@ public class View {
 
         //set up settings page
         settingsPanel = new SettingsPanel(gamePanel);
-        //window.add(settingsPanel);
 
         // Add Save Page
         //savePage = new JPanel();
@@ -66,31 +66,18 @@ public class View {
          */
 
         // temporary button to get to settings
+        /*
         settingsButton = new JButton("Settings");
         settingsButton.setPreferredSize(new Dimension(50, 25));
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                Main.view.getSettingsPanel().setVisible(true);
-                Main.view.getGamePanel().setVisible(false);
-                Main.view.coinPanel.setVisible(false);
-
-                 */
-
                 showSettingsPanel("Game Panel");
                 Main.view.getGamePanel().pauseThread();
-
-                /*
-                Audio.stopMusic();
-                Audio.settingsMusic();
-
-                 */
             }
         });
-
-        //window.add(settingsButton, BorderLayout.SOUTH);
         settingsButton.setVisible(false);
+         */
 
         mainMenuPanel = new MainMenuPanel();
         window.add(mainMenuPanel);

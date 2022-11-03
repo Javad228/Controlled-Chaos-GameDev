@@ -45,6 +45,7 @@ public abstract class Character {
     private BufferedImage up1, up2,up3,up4,up5,up6, down1, down2,down3,down4,down5,down6, left1, left2,left3,left4,left5,left6, right1, right2,right3,right4,right5,right6;
     private BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     private BufferedImage death1, death2, death3, death4, death5;
+    private BufferedImage[] deathImages;
     public String direction = "down";
     public boolean isAttacking = false;
 
@@ -571,5 +572,21 @@ public abstract class Character {
 
     public void setDeath5(BufferedImage death5) {
         this.death5 = death5;
+    }
+
+    public BufferedImage[] getDeathImages() {
+        return deathImages;
+    }
+
+    public void setDeathImages(BufferedImage[] deathImages) {
+        this.deathImages = deathImages;
+    }
+
+    public void setDeathImage(BufferedImage image, int index) {
+        this.deathImages[index] = image;
+    }
+
+    public BufferedImage getDeathImage(int index) {
+        return deathImages[index];
     }
 }
