@@ -59,6 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms.add(new Room(2, keyH, this));
 		rooms.add(new Room(3, keyH, this));
 		rooms.add(new Room(4, keyH, this));
+		rooms.add(new Room(5, keyH, this));
 	}
 
 	public void setupGame() {
