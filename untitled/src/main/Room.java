@@ -44,12 +44,16 @@ public class Room {
 
     private void initializeItems() {
         switch(roomNum) {
+            case 2:
+                items = new ArrayList<>();
+                String[] appleImages = {"/consumables/apple.png"};
+                Consumable apple = new Consumable(appleImages, false);
+                items.add(apple);
+                break;
             case 3:
                 String[] swordImages = {"/weapons/wooden_sword.png"};
                 String[] slimeSlingerImages = {"/items/slingshot.png"};
-
                 String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
-                String[] appleImages = {"/consumables/apple.png"};
                 String[] bootImages = {"/items/boot.png"};
 
                 //Sword sword = new Sword(swordImages, this.gp, 300, 300);
@@ -57,7 +61,6 @@ public class Room {
                 slimeSlinger.setxCoord(500);
                 slimeSlinger.setyCoord(400);
                 Effect effect = new Effect(effectImages);
-                Consumable apple = new Consumable(appleImages, false);
                 Boot boot = new Boot(bootImages, this.gp, 500, 500);
                 boot.setxCoord(500);
                 boot.setyCoord(500);
@@ -66,16 +69,12 @@ public class Room {
                 //items.add(sword);
                 items.add(slimeSlinger);
                 items.add(effect);
-                items.add(apple);
                 items.add(boot);
 
                 // Item description test TODO
                 //weapon.setDescription("Basic sword that swings and misses sometimes, but we won't talk about that...");
                 boot.setDescription("Basic Boot");
-
                 break;
-            case 2:
-                items = null;
         }
     }
 

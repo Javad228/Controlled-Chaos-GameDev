@@ -247,16 +247,21 @@ public abstract class NonPlayableCharacter extends Character {
             if (this.getSpriteNum() < this.getDeathImages().length) {
                 image = getDeathImage(this.getSpriteNum());
             } else {
+                // remove the enemy
                 gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
-                if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins() == null) {
-                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setCoins(new ArrayList<>());
-                }
-                gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
-                if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems() == null) {
-                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setItems(new ArrayList<>());
-                }
 
-                gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems().add(new Sword(new String[]{"/weapons/wooden_sword.png"}, gp, this.xCoord, this.yCoord));
+                // if a skeleton, drop a coin. all other enemies will drop swords
+                if(Objects.equals(this.name, "Skeleton")) {
+                    if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins() == null) {
+                        gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setCoins(new ArrayList<>());
+                    }
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
+                } else {
+                    if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems() == null) {
+                        gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setItems(new ArrayList<>());
+                    }
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems().add(new Sword(new String[]{"/weapons/wooden_sword.png"}, gp, this.xCoord, this.yCoord));
+                }
 
                 return;
             }
