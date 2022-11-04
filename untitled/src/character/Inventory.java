@@ -160,6 +160,14 @@ public class Inventory {
         this.coinAmount = coinAmount;
     }
 
+    public ArrayList<Item> getListOfItems() {
+        return this.listOfItems;
+    }
+
+    public void setListOfItems(ArrayList<Item> listOfItems) {
+        this.listOfItems = listOfItems;
+    }
+
     public boolean equals(Object o) {
         if (this.getClass() != o.getClass()) return false;
 

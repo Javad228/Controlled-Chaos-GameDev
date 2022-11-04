@@ -51,8 +51,10 @@ public class Consumable extends Item {
     }
 
     private void setDefaultValues() {
-        this.setxCoord(500);
-        this.setyCoord(500);
+        //this.setxCoord(500);
+        //this.setyCoord(500);
+        this.setName("Apple");
+        this.setDescription("Basic apple");
     }
 
     public void update() {

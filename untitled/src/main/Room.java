@@ -67,10 +67,6 @@ public class Room {
                 items.add(apple);
                 items.add(boot);
 
-                // Item description test TODO
-                //weapon.setDescription("Basic sword that swings and misses sometimes, but we won't talk about that...");
-                boot.setDescription("Basic Boot");
-
                 break;
             case 2:
                 items = null;

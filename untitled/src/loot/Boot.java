@@ -18,6 +18,8 @@ public class Boot extends PassiveItem {
 
         //setDefaultValues();
         getImage(imagePaths);
+        this.setName("Boot");
+        this.setDescription("Basic Boot");
     }
 
     /*public Boot(Boot b) {
