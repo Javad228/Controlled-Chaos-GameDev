@@ -124,7 +124,7 @@ public class Wizard extends Enemy {
                         } else {
                             int currentX = this.getxCoord();
                             int currentY = this.getyCoord();
-                            int movementSpeed = this.getProjectile().getMovementSpeed();
+                            //int movementSpeed = this.getProjectile().getMovementSpeed(); // causes error if getProjectile() is null, so commented out.
                             canMove = false;
                             actionLockCounter++;
 

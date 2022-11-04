@@ -272,6 +272,16 @@ public class PlayerCharacter extends Character {
                 isAttacking = false;
             }
 
+            this.setSpriteCounter(this.getSpriteCounter() + 1);
+            if (this.getSpriteCounter() > 12) {
+                if (this.getSpriteNum() == 1) {
+                    this.setSpriteNum(2);
+                } else if (this.getSpriteNum() == 2) {
+                    this.setSpriteNum(1);
+                }
+                this.setSpriteCounter(0);
+            }
+
             if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
                 collisionOn = false;
                 gp.checker.checkTile(this);
@@ -290,16 +300,6 @@ public class PlayerCharacter extends Character {
                 }
                 if (keyH.dPressed && !keyH.aPressed) {
                     this.setDirection("right");
-                }
-
-                this.setSpriteCounter(this.getSpriteCounter() + 1);
-                if (this.getSpriteCounter() > 12) {
-                    if (this.getSpriteNum() == 1) {
-                        this.setSpriteNum(2);
-                    } else if (this.getSpriteNum() == 2) {
-                        this.setSpriteNum(1);
-                    }
-                    this.setSpriteCounter(0);
                 }
 
                 if(!collisionOn){
