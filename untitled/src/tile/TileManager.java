@@ -131,6 +131,9 @@ public class TileManager {
             tile[8].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/locked_door.png"))));
             tile[8].setCollision(true);
 
+            tile[9] = new Tile();
+            tile[9].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/hint_block.png"))));
+
         }catch (IOException e) {
             e.printStackTrace();
         }

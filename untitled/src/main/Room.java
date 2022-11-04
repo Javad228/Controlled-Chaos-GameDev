@@ -129,7 +129,7 @@ public class Room {
                 buttons = null;
             case 4:
                 buttons = new ArrayList<>(5);
-                Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
+                Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1Button1Row * gp.tileSize);
 
                 for (int i = 0; i < gp.maxScreenRow; i++) {
                     TrapTile trapTile = new TrapTile();
@@ -143,11 +143,11 @@ public class Room {
                 doorTile.setx(DoorTile.map1Room4DoorCol * gp.tileSize);
                 doorTile.sety(DoorTile.map1Room4DoorRow * gp.tileSize);
 
-                Button button2 = new Button(Button.map1Button2Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
+                Button button2 = new Button(Button.map1Button2Col * gp.tileSize, Button.map1Button2Row * gp.tileSize);
                 button2.addDoorTile(doorTile);
-                Button button3 = new Button(Button.map1Button3Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
+                Button button3 = new Button(Button.map1Button3Col * gp.tileSize, Button.map1Button3Row * gp.tileSize);
                 button3.addDoorTile(doorTile);
-                Button button4 = new Button(Button.map1Button4Col * gp.tileSize, Button.map1ButtonRow * gp.tileSize);
+                Button button4 = new Button(Button.map1Button4Col * gp.tileSize, Button.map1Button4Row * gp.tileSize);
                 button4.addDoorTile(doorTile);
 
                 buttons.add(button1);
