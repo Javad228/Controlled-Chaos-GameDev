@@ -4,6 +4,8 @@ import character.Enemy;
 import character.Friendly;
 import character.Satyr;
 import enemy.Barrel;
+import enemy.BigSlonch;
+
 import enemy.Skeleton;
 import enemy.Wizard;
 import loot.*;
@@ -95,6 +97,16 @@ public class Room {
             case 3:
                 enemies = new ArrayList<>();
                 enemies.add(new Barrel(300, 50));
+                break;
+            case 5:
+                enemies = new ArrayList<>();
+                if(gp.getPlayer().roomsetNub==1){
+                    enemies.add(new BigSlonch(300, 300));
+                }else{
+                    enemies.add(new BigSlonch(300, 300));   //Remove
+
+                    //enemies.add(new BigSkull(300, 300));
+                }
                 break;
         }
     }
