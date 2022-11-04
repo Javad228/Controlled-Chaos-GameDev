@@ -200,4 +200,5 @@ target/classes/items/slingshot.png
 target/classes/loot/Boot.class
 target/classes/loot/SlimeSlinger.class
 target/classes/loot/Sword.class
+/out/
 .idea/uiDesigner.xml
