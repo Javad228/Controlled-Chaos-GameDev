@@ -23,7 +23,6 @@ public class Barrel extends Enemy {
         maxHealth = 10;
         health = maxHealth;
 
-        //TODO fix area
         solidArea.x = 0;
         solidArea.y = 10;
         solidArea.width = 42;
