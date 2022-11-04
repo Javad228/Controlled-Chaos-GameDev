@@ -2,6 +2,7 @@ package main;
 
 import character.Enemy;
 import character.Friendly;
+import character.Satyr;
 import enemy.Skeleton;
 import enemy.Wizard;
 import loot.*;
