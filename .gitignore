@@ -905,3 +905,8 @@ target/classes/satyr/tile001.png
 target/classes/satyr/tile000.png
 target/classes/items/bomb/Sprite-0001.png
 target/classes/character/Satyr.class
+target/classes/character/Knight.class
+target/classes/enemy/BigSkull.class
+target/classes/knight/tile000.png
+target/classes/res/items/bomb/Sprite-0001.png
+target/classes/res/knight/tile000.png
