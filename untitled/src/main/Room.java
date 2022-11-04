@@ -94,6 +94,10 @@ public class Room {
                     enemies.add(new Wizard(100, 500));
                 }
                 break;
+            case 3:
+                enemies = new ArrayList<>();
+                enemies.add(new Barrel(300, 50));
+                break;
         }
     }
 
