@@ -79,6 +79,10 @@ public class Room {
 
     private void initializeEnemies() {
         switch(roomNum) {
+            case 0:
+                enemies = new ArrayList<>();
+                enemies.add(new Barrel(300, 300));
+                break;
             case 1:
                 break;
             case 2:
