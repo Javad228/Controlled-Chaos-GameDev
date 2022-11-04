@@ -4,15 +4,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-//TODO: <<<<<<< Cameron-PlayerTime
 import java.awt.event.*;
-import java.util.ArrayList;
-//=======
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-//>>>>>>> Cameron-Merge-PlayerTime
 
 public class View {
     private JFrame window;
@@ -21,7 +15,7 @@ public class View {
     private JPanel savePage;
     private JPanel coinPanel;
     private JPanel mainMenuPanel;
-    private JPanel statsPanel;
+    private JScrollPane statsPanel;
     private JButton settingsButton;
 
     public View () {
@@ -44,7 +38,7 @@ public class View {
         gamePanel.setVisible(false);
         coinPanel.setBounds(0, 0, 75, 30);
 
-        statsPanel = new statsPanel(gamePanel);
+        statsPanel = new statsPanel(gamePanel).scrollPane;
 
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
             @Override
@@ -84,9 +78,7 @@ public class View {
             }
         });
 
-//TODO: =======
         window.addKeyListener(gamePanel.keyH);
-//>>>>>>> Cameron-Merge-PlayerTime
         window.pack();
         window.setLocationRelativeTo(null);
 
@@ -129,12 +121,8 @@ public class View {
         mainMenuPanel = new MainMenuPanel();
         window.add(mainMenuPanel);
 
-//TODO <<<<<<< Cameron-Merge-PlayerTime
-        //window.add(settingsButton, BorderLayout.SOUTH);
-//=======
         window.setVisible(true);                                    // currently opens up the main menu
     }
-//>>>>>>> Cameron-Merge-MergePlayerTime
 
     public void showSettingsPanel(String priorPage) {
         Main.view.getWindow().getContentPane().removeAll();
@@ -174,6 +162,7 @@ public class View {
         Main.view.getWindow().getContentPane().removeAll();
         Main.view.getWindow().add(Main.view.getStatsPanel());
         Main.view.getStatsPanel().setVisible(true);
+        Main.view.getStatsPanel().revalidate();
         Main.view.getWindow().revalidate();
         Main.view.getWindow().repaint();
     }
@@ -271,11 +260,11 @@ public class View {
         this.settingsButton = settingsButton;
     }
 
-    public JPanel getStatsPanel() {
+    public JScrollPane getStatsPanel() {
         return statsPanel;
     }
 
-    public void setStatsPanel(JPanel statsPanel) {
+    public void setStatsPanel(JScrollPane statsPanel) {
         this.statsPanel = statsPanel;
     }
 }

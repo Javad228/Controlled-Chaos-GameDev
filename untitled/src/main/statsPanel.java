@@ -19,6 +19,7 @@ public class statsPanel extends JPanel {
     JPanel basicDetailsPanel = new JPanel();
     JPanel enemiesKilledPanel = new JPanel();
     JTextArea[] enemyDescriptionTextBoxes;
+    JScrollPane scrollPane = new JScrollPane(this);
 
     public statsPanel(GamePanel gp) {
         this.gp = gp;
@@ -34,9 +35,13 @@ public class statsPanel extends JPanel {
             System.out.println("Game restore Succeeded");
         }
 
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         //savedData = SaveData.restoreGameState("dummy");
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        basicDetailsPanel.setLayout(new GridLayout(3, 2)); // number of rows depends on number of fields you'd like to add
+        scrollPane.setLayout(new ScrollPaneLayout());
+        basicDetailsPanel.setLayout(new GridLayout(4, 2)); // number of rows depends on number of fields you'd like to add
         basicDetailsPanel.setBackground(Color.BLACK);
         enemiesKilledPanel.setBackground(Color.BLACK);
 
@@ -48,6 +53,7 @@ public class statsPanel extends JPanel {
         // the three sets of labels are added to the basicDetailsPanel before the panel itself is added to the statsPanel
         addBasicDetailsLabel(); // added to statsPanel
         addNameLabels();
+        addClockLabels();
         addMaxHealthLabels();
         addNumCoinsLabels();
         add(basicDetailsPanel); // add basicDetailsPanel to statsPanel
@@ -61,6 +67,8 @@ public class statsPanel extends JPanel {
 
         // add button to save descriptions
         addSaveButton();
+
+        scrollPane.setBackground(Color.BLACK);
 
         setName("Stats");
         setBackground(Color.BLACK);
@@ -101,6 +109,23 @@ public class statsPanel extends JPanel {
 
         basicDetailsPanel.add(nameCategoryLabel);
         basicDetailsPanel.add(nameLabel);
+    }
+
+    private void addClockLabels() {
+        Font font = new Font("Monospaced", Font.PLAIN, 25);
+
+        JLabel clockCategoryLabel = new JLabel("Time Elapsed:");
+        clockCategoryLabel.setFont(font);
+        clockCategoryLabel.setForeground(Color.WHITE);
+
+        JLabel clockLabel = new JLabel();
+        if (savedData != null)  clockLabel.setText(savedData.currentRunTimeS);
+        else    clockLabel.setText("0.0");
+        clockLabel.setFont(font);
+        clockLabel.setForeground(Color.WHITE);
+
+        basicDetailsPanel.add(clockCategoryLabel);
+        basicDetailsPanel.add(clockLabel);
     }
 
     private void addMaxHealthLabels() {
