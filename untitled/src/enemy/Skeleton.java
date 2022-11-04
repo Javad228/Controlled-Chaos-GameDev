@@ -22,8 +22,8 @@ public class Skeleton extends Enemy {
         maxHealth = 150;
         health = maxHealth;
 
-        solidArea.x = 0;
-        solidArea.y = 40;
+        solidArea.x = 15;
+        solidArea.y = 5;
         solidArea.width = 42;
         solidArea.height = 40;
         solidAreaDefaultX = solidArea.x;

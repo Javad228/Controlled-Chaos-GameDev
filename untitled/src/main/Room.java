@@ -1,11 +1,13 @@
 package main;
 
-import character.*;
-import enemy.*;
+import character.Enemy;
+import character.Friendly;
+import character.Satyr;
+import enemy.Skeleton;
+import enemy.Wizard;
 import loot.*;
 import tile.Button;
 import tile.DoorTile;
-import tile.TileManager;
 import tile.TrapTile;
 
 import java.util.ArrayList;
@@ -83,9 +85,14 @@ public class Room {
                 break;
             case 2:
                 enemies = new ArrayList<>();
-                enemies.add(new Slime(100, 100));
-                enemies.add(new Skeleton(500, 500));
-                enemies.add(new Wizard(100, 500));
+                if(gp.getPlayer().roomsetNub==1){
+//                    enemies.add(new Slime(100, 100));
+                    enemies.add(new Skeleton(500, 500));
+                    enemies.add(new Skeleton(100, 500));
+                }else{
+                    enemies.add(new Wizard(500, 500));
+                    enemies.add(new Wizard(100, 500));
+                }
                 break;
             case 3:
                 enemies = new ArrayList<>();
@@ -95,16 +102,21 @@ public class Room {
     }
 
     private void initializeNPCs() {
-        NPCs = null;
-        /* Add something like this here when we have friendly NPCs
         switch(roomNum) {
-            case 0:
-                NPCs = new ArrayList<>();
-                break;
             case 1:
+                NPCs = new ArrayList<>();
+                Satyr satyr = new Satyr(500, 200);
+                NPCs.add(satyr);
+                break;
+            case 2:
+                NPCs = null;
+            case 3:
+                NPCs = null;
+            case 4:
+                NPCs = null;
+            case 5:
                 NPCs = null;
         }
-        */
     }
 
     private void initializeCoins() {

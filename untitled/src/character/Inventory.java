@@ -118,13 +118,19 @@ public class Inventory {
         drawSubWindow(dFrameX, frameY, frameWidth, dFrameHeight);
         if(slotCol+slotRow<gp.player.getInventory().listOfItems.size()){
             if(gp.player.getInventory().listOfItems.get(slotCol+slotRow)!=null) {
+                //big image
                 g2.drawImage(gp.player.getInventory().listOfItems.get(slotCol + slotRow).getLootImages()[0], dFrameX + 50, frameY + 20, 200, 200, null);
+                if(gp.player.getInventory().listOfItems.get(slotCol + slotRow).isEquipped()){
+                    g2.setColor(Color.YELLOW);
+                    g2.drawRect(cursorX,cursorY,cursorWidth,cursorHeight);
+                }
+                if(gp.keyH.kPressed){
+                    if(!gp.player.getInventory().listOfItems.get(slotCol + slotRow).isEquipped()){
+                        gp.player.getInventory().listOfItems.get(slotCol + slotRow).setEquipped(true);
+                    }
+                }
             }
         }
-
-        //Description Frame
-
-
     }
     public int getXforAlignToRightText(String text, int tailX){
         int length = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
