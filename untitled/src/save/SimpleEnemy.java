@@ -49,6 +49,10 @@ public class SimpleEnemy {
         if (Barrel.class.equals(enemyClass)) {
             this.classification = SimpleEnemyClassification.BARREL;
         }
+
+        if (BigSlonch.class.equals(enemyClass)) {
+            this.classification = SimpleEnemyClassification.BIGSLONCH;
+        }
     }
 
     public String getName() {

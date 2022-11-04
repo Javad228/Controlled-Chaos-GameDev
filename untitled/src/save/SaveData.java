@@ -259,7 +259,9 @@ public class SaveData {
                         enemies.add(new Wizard(enemy));
                     } else if (enemy.classification.equals(SimpleEnemyClassification.BARREL)) {
                         enemies.add(new Barrel(enemy));
-                    } else {
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.BIGSLONCH)) {
+                        enemies.add(new BigSlonch(enemy));
+                    } /*Add more classifications for future enemies*/ else {
                         System.out.println("Generic enemy encountered!");
                     }
                 }
