@@ -17,7 +17,7 @@ public class Sword extends Weapon {
         setxCoord(xCoord);
         setyCoord(yCoord);
 
-        setDefaultValues();
+        //setDefaultValues();
         getImage(imagePaths);
     }
 
