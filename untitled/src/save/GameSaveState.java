@@ -32,7 +32,7 @@ public class GameSaveState {
     public GameSaveState(SimpleCharacter player, Time currentRunTime, ArrayList<Room> rooms, int currentRoomNum) {
         this.player = player;
         this.currentRunTimeNS = currentRunTime.getTime();
-        this.currentRunTimeS = this.currentRunTimeNS / 1000000000 + "." + (this.currentRunTimeNS / 1000000) % 1000;
+        this.currentRunTimeS = formatRunTime(currentRunTimeNS);
         this.rooms = new ArrayList<>();
 
         for (Room r : rooms) {
@@ -40,5 +40,16 @@ public class GameSaveState {
         }
 
         this.currentRoomNum = currentRoomNum;
+    }
+
+    private String formatRunTime(long currentRunTimeNS) {
+        //return (currentRunTimeNS / (1000000000L * 60 * 60)) + ":" +     //Hours
+        //        (currentRunTimeNS / (1000000000L *60)) % 60 + ":" +    //Minutes
+        //        (currentRunTimeNS / 1000000000) % 60 + "." +           //Seconds
+        //        (currentRunTimeNS / 1000000) % 1000;                   //Milliseconds
+        return String.format("%01d", currentRunTimeNS / (1000000000L * 60 * 60)) + ":" +
+                String.format("%02d", (currentRunTimeNS / (1000000000L * 60)) % 60) + ":" +
+                String.format("%02d", (currentRunTimeNS / 1000000000) % 60) + "." +
+                String.format("%03d", (currentRunTimeNS / 1000000) % 1000);
     }
 }
