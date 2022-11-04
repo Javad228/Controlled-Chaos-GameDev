@@ -340,7 +340,6 @@ public class PlayerCharacter extends Character {
                             }
                             else {
                                 inventory.addItem(item);
-                                getItemsDiscovered().add(item);
                                 if (!(item instanceof Weapon)) {
                                     item.setEquipped(true);
                                 }
