@@ -1,6 +1,7 @@
 package main;
 
 import character.PlayerCharacter;
+import character.Satyr;
 import tile.*;
 
 import javax.imageio.ImageIO;
@@ -99,6 +100,12 @@ public class KeyHandler implements KeyListener {
                     }
                 }
 
+            } else if (gp.getCurrentRoomNum() == Room.STARTINGROOM) {
+                if ((gp.player.getRow() >= Satyr.room1Row - 1) && (gp.getPlayer().getRow() <= Satyr.room1Row + 1) &&
+                        (gp.player.getCol() >= Satyr.room1Col - 1) && (gp.getPlayer().getCol() <= Satyr.room1Col + 1)) {
+                    Satyr satyr = (Satyr) gp.getRooms().get(1).getNPCs().get(0);
+                    satyr.displayDialog();
+                }
             }
         }
 

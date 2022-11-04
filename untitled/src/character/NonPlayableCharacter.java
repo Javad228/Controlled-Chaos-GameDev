@@ -7,6 +7,7 @@ import loot.Item;
 import loot.Sword;
 import main.GamePanel;
 import main.KeyHandler;
+import tile.TileManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -45,7 +46,7 @@ public abstract class NonPlayableCharacter extends Character {
         this.damagePerHit = 0;
         this.damageType = DamageType.DEFAULT;
         this.attackCooldown = 1;
-        this.gp = gp;
+        this.gp = TileManager.gp;
     }
 
     public void setAction(GamePanel gp){}

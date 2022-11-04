@@ -38,6 +38,7 @@ public class Room {
         initializeCoins();
         initializeButtons();
         initializeTrapTiles();
+        initializeNPCs();
     }
 
     private void initializeItems() {
