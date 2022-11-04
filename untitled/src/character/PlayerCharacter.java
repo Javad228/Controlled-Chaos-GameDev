@@ -122,7 +122,7 @@ public class PlayerCharacter extends Character {
         this.numCoins = c.getNumCoins();
         this.currentTile = null;
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
-        itemsDiscovered = new ArrayList<>(c.itemsDiscovered);
+        itemsDiscovered = c.itemsDiscovered;
     }
 
     public void setDefaultValues() {

@@ -47,7 +47,7 @@ public class TestGameClock {
                     gp.getRooms(),
                     gp.getCurrentRoomNum());
 
-            System.out.printf("Expected\t%s\nActual\t%s\n", new GameSaveState(null, new Time(expectedRunTimeNS), new ArrayList<>(), 0).currentRunTimeS, saveState.currentRunTimeS);  // Print time elapsed
+            System.out.printf("Expected\t%s\nActual\t\t%s\n", new GameSaveState(null, new Time(expectedRunTimeNS), new ArrayList<>(), 0).currentRunTimeS, saveState.currentRunTimeS);  // Print time elapsed
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

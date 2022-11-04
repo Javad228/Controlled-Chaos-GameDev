@@ -78,20 +78,17 @@ public class SaveData {
 
         restoreGameButton.addActionListener((a) -> {
             if (gp.deathPanel.isShowing()) return;
-//TODO <<<<<<< Cameron-Merge-PlayerTime
-//            if (Main.view.getSettingsPage().isShowing()) Main.view.getSettingsPage().hideSettingsPanel();
-//=======
+
             if (Main.view.getSettingsPanel().isShowing()) {
                 if (Main.view.getSettingsPanel().getPriorPage().equals("Main Menu")) {
                     Main.view.showMainMenuPanel();
                 } else if (Main.view.getSettingsPanel().getPriorPage().equals("Game Panel")) {
                     Main.view.showGamePanel();
-                    Main.view.getGamePanel().resumeThread();
+                    //Main.view.getGamePanel().resumeThread();
                     Audio.stopMusic();
                     Audio.openingMusic();
                 }
             }
-//>>>>>>> Cameron-Merge-MergePlayerTime
             if (restoreSave()) JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Succeeded");
             else JOptionPane.showMessageDialog(restoreGameButton, "Game Restore Failed\nRestoring to Default Save");
         });
@@ -168,7 +165,7 @@ public class SaveData {
     }
 
     public boolean restoreSave() {
-        GameSaveState gs = new GameSaveState(restoreGameState(), this);
+        GameSaveState gs = restoreGameState();
 
         if (gs == null) {
             gp.newGame(true);
@@ -176,6 +173,8 @@ public class SaveData {
             else System.out.println("Game restore Failed");
             return false;
         }
+
+        gs = new GameSaveState(gs, this);
 
         Item.setUpItemListImages(gs.player.inventory.getListOfItems());
         gp.newGame(gs.player, new Time(gs.currentRunTimeNS), initializeRooms(gs.rooms), gs.currentRoomNum, true);
@@ -258,6 +257,8 @@ public class SaveData {
                         enemies.add(new Slime(enemy));
                     } else if (enemy.classification.equals(SimpleEnemyClassification.WIZARD)) {
                         enemies.add(new Wizard(enemy));
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.BARREL)) {
+                        enemies.add(new Barrel(enemy));
                     } else {
                         System.out.println("Generic enemy encountered!");
                     }

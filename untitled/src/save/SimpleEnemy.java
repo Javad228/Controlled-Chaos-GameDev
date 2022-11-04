@@ -45,6 +45,10 @@ public class SimpleEnemy {
         if (Wizard.class.equals(enemyClass)) {
             this.classification = SimpleEnemyClassification.WIZARD;
         }
+
+        if (Barrel.class.equals(enemyClass)) {
+            this.classification = SimpleEnemyClassification.BARREL;
+        }
     }
 
     public String getName() {
