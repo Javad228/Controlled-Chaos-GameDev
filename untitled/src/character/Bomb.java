@@ -41,10 +41,10 @@ public class Bomb extends Projectile {
 
     public void getImage() {
         try {
-            this.setBombUp(ImageIO.read(getClass().getResourceAsStream("/items/bomb/tile000.png")));
-            this.setBombDown(ImageIO.read(getClass().getResourceAsStream("/items/bomb/tile000.png")));
-            this.setBombRight(ImageIO.read(getClass().getResourceAsStream("/items/bomb/tile000.png")));
-            this.setBombLeft(ImageIO.read(getClass().getResourceAsStream("/items/bomb/tile000.png")));
+            this.setBombUp(ImageIO.read(getClass().getResourceAsStream("/items/bomb/Sprite-0001.png")));
+            this.setBombDown(ImageIO.read(getClass().getResourceAsStream("/items/bomb/Sprite-0001.png")));
+            this.setBombRight(ImageIO.read(getClass().getResourceAsStream("/items/bomb/Sprite-0001.png")));
+            this.setBombLeft(ImageIO.read(getClass().getResourceAsStream("/items/bomb/Sprite-0001.png")));
             this.setExplode1(ImageIO.read(getClass().getResourceAsStream("/items/bomb/tile002.png")));
             this.setExplode2(ImageIO.read(getClass().getResourceAsStream("/items/bomb/tile004.png")));
             this.setExplode3(ImageIO.read(getClass().getResourceAsStream("/items/bomb/tile006.png")));
@@ -81,27 +81,28 @@ public class Bomb extends Projectile {
             switch (this.getDirection()) {
                 case "up":
                     this.setProjectileImage(bombUp);
-                    this.setWidth(7);
+                    this.setWidth(26);
                     this.setHeight(26);
                     break;
                 case "down":
                     this.setProjectileImage(bombDown);
-                    this.setWidth(7);
+                    this.setWidth(26);
                     this.setHeight(26);
                     break;
                 case "left":
                     this.setProjectileImage(bombLeft);
-                    this.setWidth(7);
+                    this.setWidth(26);
                     this.setHeight(26);
                     break;
                 case "right":
                     this.setProjectileImage(bombRight);
-                    this.setWidth(7);
+                    this.setWidth(26);
                     this.setHeight(26);
                     break;
             }
+            g2.drawImage(this.getProjectileImage(), this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
         }
-        g2.drawImage(this.getProjectileImage(), this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
+
     }
 
     public BufferedImage getBombUp() {

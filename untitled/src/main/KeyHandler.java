@@ -1,6 +1,7 @@
 package main;
 
 import character.PlayerCharacter;
+import character.Satyr;
 import tile.*;
 
 import javax.imageio.ImageIO;
@@ -99,6 +100,12 @@ public class KeyHandler implements KeyListener {
                     }
                 }
 
+            } else if (gp.getCurrentRoomNum() == Room.STARTINGROOM) {
+                if ((gp.player.getRow() >= Satyr.room1Row - 1) && (gp.getPlayer().getRow() <= Satyr.room1Row + 1) &&
+                        (gp.player.getCol() >= Satyr.room1Col - 1) && (gp.getPlayer().getCol() <= Satyr.room1Col + 1)) {
+                    Satyr satyr = (Satyr) gp.getRooms().get(1).getNPCs().get(0);
+                    satyr.displayDialog();
+                }
             }
         }
 
@@ -141,7 +148,8 @@ public class KeyHandler implements KeyListener {
         //
         // can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
-            if (!Main.view.getSettingsPanel().isVisible()) {
+            //if (!Main.view.getSettingsPanel().isVisible()) {
+            if (!Main.view.getSettingsPanel().isDisplayable()) { // checks if the settings panel is not connected to the frame
                 //Main.view.getSettingsPage().setVisible(true);
                 //Main.view.getGamePanel().setVisible(false);
 
@@ -158,10 +166,9 @@ public class KeyHandler implements KeyListener {
             } else {
                 //Main.view.getGamePanel().setVisible(true);
                 //Main.view.getSettingsPage().setVisible(false);
-                Main.view.getSettingsPanel().hideSettingsPanel();
-
+                //Main.view.getSettingsPanel().hideSettingsPanel();
+                Main.view.showGamePanel();
                 Main.view.getGamePanel().resumeThread();
-
                 Audio.stopMusic();
                 Audio.openingMusic();
             }

@@ -19,6 +19,8 @@ public class SlimeSlinger extends Weapon {
 
         //setDefaultValues();
         getImage(imagePaths);
+        this.setName("Slime Slinger");
+        this.setDescription("Basic SlimeSlinger");
     }
 
     /*public SlimeSlinger(Sword b) {

@@ -5,6 +5,7 @@ import character.Enemy;
 import character.Inventory;
 import character.PlayerCharacter;
 import combat.*;
+import loot.Item;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public class SimpleCharacter {
     public CharacterType characterType;
     private int numCoins;
     private ArrayList<SimpleEnemy> enemiesKilled;
+    public ArrayList<Item> itemsDiscovered;
 
     public SimpleCharacter(PlayerCharacter c) {
         this.name = c.getName();
@@ -37,6 +39,7 @@ public class SimpleCharacter {
         this.characterType = c.getCharacterType();
         this.numCoins = c.getNumCoins();
         this.enemiesKilled = c.getEnemiesKilled();
+        this.itemsDiscovered = c.getItemsDiscovered();
     }
 
     public int getNumCoins() {

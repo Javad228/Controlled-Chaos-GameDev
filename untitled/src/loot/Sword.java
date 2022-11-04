@@ -19,6 +19,9 @@ public class Sword extends Weapon {
 
         //setDefaultValues();
         getImage(imagePaths);
+
+        this.setName("Sword");
+        this.setDescription("Basic Sword");
     }
 
     /*public Sword(Sword b) {
