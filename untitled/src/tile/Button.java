@@ -6,11 +6,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Button extends Tile{
-    public static final int map1ButtonRow = 3;
     public static final int map1Button1Col = 3;
-    public static final int map1Button2Col = 12;
+    public static final int map1Button1Row = 3;
+
+    public static final int map1Button2Col = 11;
+    public static final int map1Button2Row = 2;
+
     public static final int map1Button3Col = 13;
-    public static final int map1Button4Col = 14;
+    public static final int map1Button3Row = 5;
+
+    public static final int map1Button4Col = 15;
+    public static final int map1Button4Row = 2;
 
     private boolean isOn;
     private ArrayList<TrapTile> trapTiles;
@@ -49,12 +55,12 @@ public class Button extends Tile{
     }
 
     public void toggle() {
-        if (isOn) {
+        if (!isOn) {
             TileManager.mapTileNum[this.getRow()][this.getCol()] = 7;
-            isOn = false;
+            isOn = true;
         } else {
             TileManager.mapTileNum[this.getRow()][this.getCol()] = 5;
-            isOn = true;
+            isOn = false;
         }
     }
 
