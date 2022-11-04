@@ -325,6 +325,8 @@ public class PlayerCharacter extends Character {
                     for (int i = 0; i < currentList.size(); i++) {
                         Item item = currentList.get(i);
                         if (gp.checker.checkLootCollision(this, item)) {
+                            System.out.println("Just collided with item of type " + item.toString());
+
                             if (item instanceof Consumable && ((Consumable) item).isVisible) {
                                 heal(((Consumable) item).consume());
                             }
