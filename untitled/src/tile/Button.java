@@ -56,10 +56,10 @@ public class Button extends Tile{
 
     public void toggle() {
         if (!isOn) {
-            TileManager.mapTileNum[this.getRow()][this.getCol()] = 7;
+            TileManager.mapTileNum[this.getCol()][this.getRow()] = 7;
             isOn = true;
         } else {
-            TileManager.mapTileNum[this.getRow()][this.getCol()] = 5;
+            TileManager.mapTileNum[this.getCol()][this.getRow()] = 5;
             isOn = false;
         }
     }
