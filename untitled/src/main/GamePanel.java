@@ -137,8 +137,6 @@ public class GamePanel extends JPanel implements Runnable{
 			startGameThread();
 		}
 
-//TODO <<<<<<< Cameron-Merge-PlayerTime
-//=======
 		if (rooms.get(currentRoomNum).getEnemies() != null){
 			// assuming this is to set the position of enemies after starting a new game. probably needs to change
 			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
@@ -149,7 +147,6 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 
-//>>>>>>> Cameron-Merge-MergePlayerTime
 		this.resumeThread();
 	}
 
@@ -238,12 +235,7 @@ public class GamePanel extends JPanel implements Runnable{
 					keyH.reset();
 					player.setKeyHandler(null);
 					deathPanel.showDeathPanel();
-//TODO: <<<<<<< Cameron-PlayerTime
-					//Main.view.getWindow().set
 					//this.pauseThread();
-//=======
-					//this.pauseThread();
-//>>>>>>> Cameron-Merge-PlayerTime
 				}
 
 				if (currentRoomNum == Room.TRAPROOM) {
