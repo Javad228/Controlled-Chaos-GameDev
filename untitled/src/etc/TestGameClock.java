@@ -18,10 +18,12 @@ public class TestGameClock {
 
     static CountDownLatch latch;
     static long expectedRunTime;
+    static long expectedRunTimeNS;
 
     public static void main(String[] args) {
         latch = new CountDownLatch(1);                              // Variable assignments
-        expectedRunTime = 60 * 1000;
+        expectedRunTime = 5 * 1000;
+        expectedRunTimeNS = expectedRunTime * 1000 * 1000;
 
         TestHelper helper = new TestHelper(
                 latch,
@@ -45,7 +47,7 @@ public class TestGameClock {
                     gp.getRooms(),
                     gp.getCurrentRoomNum());
 
-            System.out.printf("Expected\t%d\nActual\t%s\n", expectedRunTime/1000, saveState.currentRunTimeS);  // Print time elapsed
+            System.out.printf("Expected\t%s\nActual\t%s\n", new GameSaveState(null, new Time(expectedRunTimeNS), new ArrayList<>(), 0).currentRunTimeS, saveState.currentRunTimeS);  // Print time elapsed
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -83,7 +85,8 @@ class TestHelper implements Runnable {
 
             view.getGamePanel().getRooms().get(view.getGamePanel().getCurrentRoomNum()).setEnemies(e);
                                                 // Set enemies in the room to have no enemies
-
+            view.showGamePanel();
+            view.getGamePanel().startGameThread();
             Thread.sleep(expectedRunTime);      // Sleep for specified period of time
 
             view.getGamePanel().pauseThread();  // Pause game (stop game clock)
