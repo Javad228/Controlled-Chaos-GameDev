@@ -9,8 +9,8 @@ import java.util.Objects;
 import static main.GamePanel.g2;
 
 public class Satyr extends Friendly {
-    public static final int room1Row = 4;
-    public static final int room1Col = 10;
+    private int row = 4;
+    private int col = 10;
 
     private boolean dialogOn;
 
@@ -21,6 +21,9 @@ public class Satyr extends Friendly {
         this.yCoord = yCoord;
         this.height = 50;
         this.width = 25;
+
+        col = xCoord / getGp().tileSize;
+        row = yCoord / getGp().tileSize;
 
         try {
             this.setDown1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/satyr/tile000.png"))));
@@ -47,5 +50,13 @@ public class Satyr extends Friendly {
         g2.setFont(new Font("Arial", Font.PLAIN, 13));
         g2.drawString(dialog, this.xCoord-10, this.yCoord-10);
          */
+    }
+
+    public int getRow() {
+        return this.row;
+    }
+
+    public int getCol() {
+        return this.col;
     }
 }

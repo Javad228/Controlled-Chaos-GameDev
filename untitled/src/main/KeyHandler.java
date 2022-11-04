@@ -1,5 +1,6 @@
 package main;
 
+import character.Knight;
 import character.PlayerCharacter;
 import character.Satyr;
 import tile.*;
@@ -62,48 +63,56 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_E) {
             if (gp.getCurrentRoomNum() == Room.TRAPROOM) {
-                Button button1 = gp.getRooms().get(2).getButtons().get(0);
-                Button button2 = gp.getRooms().get(2).getButtons().get(1);
-                Button button3 = gp.getRooms().get(2).getButtons().get(2);
-                Button button4 = gp.getRooms().get(2).getButtons().get(3);
+                if (gp.getPlayer().roomsetNub == 1) {
+                    Button button1 = gp.getRooms().get(2).getButtons().get(0);
+                    Button button2 = gp.getRooms().get(2).getButtons().get(1);
+                    Button button3 = gp.getRooms().get(2).getButtons().get(2);
+                    Button button4 = gp.getRooms().get(2).getButtons().get(3);
 
-                if ((gp.getPlayer().getRow() >= Button.map1Button1Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button1Row + 1) &&
-                    (gp.getPlayer().getCol() >= Button.map1Button1Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button1Col + 1)) {
-                    button1.toggle();
-                    for (int i = 0; i < button1.getTrapTiles().size(); i++) {
-                        TrapTile trapTile = button1.getTrapTiles().get(i);
-                        trapTile.toggleTrap(i, TrapTile.map1TrapCol1);
-                    }
-                } else if ((gp.getPlayer().getRow() >= Button.map1Button2Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button2Row + 1) &&
-                        (gp.getPlayer().getCol() >= Button.map1Button2Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button2Col + 1)) {
-                    button2.toggle();
+                    if ((gp.getPlayer().getRow() >= Button.map1Button1Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button1Row + 1) &&
+                            (gp.getPlayer().getCol() >= Button.map1Button1Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button1Col + 1)) {
+                        button1.toggle();
+                        for (int i = 0; i < button1.getTrapTiles().size(); i++) {
+                            TrapTile trapTile = button1.getTrapTiles().get(i);
+                            trapTile.toggleTrap(i, TrapTile.map1TrapCol1);
+                        }
+                    } else if ((gp.getPlayer().getRow() >= Button.map1Button2Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button2Row + 1) &&
+                            (gp.getPlayer().getCol() >= Button.map1Button2Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button2Col + 1)) {
+                        button2.toggle();
 
-                    if (button2.getIsOn() && button3.getIsOn() && !button4.getIsOn()) {
-                        button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
-                        Audio.doorOpenAudio();
-                    }
-                }  else if ((gp.getPlayer().getRow() >= Button.map1Button3Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button3Row + 1) &&
-                        (gp.getPlayer().getCol() >= Button.map1Button3Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button3Col + 1)) {
-                    button3.toggle();
+                        if (button2.getIsOn() && button3.getIsOn() && !button4.getIsOn()) {
+                            button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+                            Audio.doorOpenAudio();
+                        }
+                    } else if ((gp.getPlayer().getRow() >= Button.map1Button3Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button3Row + 1) &&
+                            (gp.getPlayer().getCol() >= Button.map1Button3Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button3Col + 1)) {
+                        button3.toggle();
 
-                    if (button2.getIsOn() && button3.getIsOn() && !button4.getIsOn()) {
-                        button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
-                        Audio.doorOpenAudio();
-                    }
-                } else if ((gp.getPlayer().getRow() >= Button.map1Button4Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button4Row + 1) &&
-                        (gp.getPlayer().getCol() >= Button.map1Button4Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button4Col + 1)) {
-                    button4.toggle();
+                        if (button2.getIsOn() && button3.getIsOn() && !button4.getIsOn()) {
+                            button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+                            Audio.doorOpenAudio();
+                        }
+                    } else if ((gp.getPlayer().getRow() >= Button.map1Button4Row - 1) && (gp.getPlayer().getRow() <= Button.map1Button4Row + 1) &&
+                            (gp.getPlayer().getCol() >= Button.map1Button4Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button4Col + 1)) {
+                        button4.toggle();
 
-                    if (button2.getIsOn() && button3.getIsOn() && !button4.getIsOn()) {
-                        button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
-                        Audio.doorOpenAudio();
+                        if (button2.getIsOn() && button3.getIsOn() && !button4.getIsOn()) {
+                            button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+                            Audio.doorOpenAudio();
+                        }
                     }
                 }
 
+                if ((gp.player.getRow() >= Knight.room4Row - 1) && (gp.getPlayer().getRow() <= Knight.room4Row + 1) &&
+                        (gp.player.getCol() >= Knight.room4Col - 1) && (gp.getPlayer().getCol() <= Knight.room4Col + 1)) {
+                    Knight knight = (Knight) gp.getRooms().get(Room.TRAPROOM).getNPCs().get(0);
+                    knight.displayDialog();
+                }
+
             } else if (gp.getCurrentRoomNum() == Room.STARTINGROOM) {
-                if ((gp.player.getRow() >= Satyr.room1Row - 1) && (gp.getPlayer().getRow() <= Satyr.room1Row + 1) &&
-                        (gp.player.getCol() >= Satyr.room1Col - 1) && (gp.getPlayer().getCol() <= Satyr.room1Col + 1)) {
-                    Satyr satyr = (Satyr) gp.getRooms().get(1).getNPCs().get(0);
+                Satyr satyr = (Satyr) gp.getRooms().get(Room.STARTINGROOM).getNPCs().get(0);
+                if ((gp.player.getRow() >= satyr.getRow() - 1) && (gp.getPlayer().getRow() <= satyr.getRow() + 1) &&
+                        (gp.player.getCol() >= satyr.getCol() - 1) && (gp.getPlayer().getCol() <= satyr.getCol() + 1)) {
                     satyr.displayDialog();
                 }
             }

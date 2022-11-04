@@ -1,8 +1,6 @@
 package main;
 
-import character.Enemy;
-import character.Friendly;
-import character.Satyr;
+import character.*;
 import enemy.Barrel;
 import enemy.BigSlonch;
 
@@ -39,7 +37,6 @@ public class Room {
         this.gp = gp;
         initializeItems();
         initializeEnemies();
-        initializeNPCs();
         initializeCoins();
         initializeButtons();
         initializeTrapTiles();
@@ -112,20 +109,27 @@ public class Room {
     }
 
     private void initializeNPCs() {
+        NPCs = new ArrayList<>();
         switch(roomNum) {
             case 1:
-                NPCs = new ArrayList<>();
-                Satyr satyr = new Satyr(500, 200);
-                NPCs.add(satyr);
+                if (gp.getPlayer().roomsetNub == 1) {
+                    Satyr satyr = new Satyr(500, 200);
+                    NPCs.add(satyr);
+                } else {
+                    Satyr satyr = new Satyr(100, 100);
+                    NPCs.add(satyr);
+                }
                 break;
             case 2:
-                NPCs = null;
+                break;
             case 3:
-                NPCs = null;
+                break;
             case 4:
-                NPCs = null;
+                Knight knight = new Knight(500, 200);
+                NPCs.add(knight);
+                break;
             case 5:
-                NPCs = null;
+                break;
         }
     }
 
