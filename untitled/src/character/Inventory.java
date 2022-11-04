@@ -46,7 +46,6 @@ public class Inventory {
     }
 
     private void drawInventory() {
-
         final int frameX = gp.tileSize*8;
         final int frameY = gp.tileSize*2;
         final int frameWidth = gp.tileSize*6;
@@ -61,7 +60,6 @@ public class Inventory {
 //        System.out.println(gp.player.getInventory().listOfItems);
         //Draw Player's Items
         for(int i = 0; i < gp.player.getInventory().listOfItems.size(); i++){
-
             g2.drawImage(gp.player.getInventory().listOfItems.get(i).getLootImages()[0],slotX,slotY,null);
 
             //Display amount

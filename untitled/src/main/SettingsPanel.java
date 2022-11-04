@@ -20,7 +20,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     public SettingsPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        addFrameRateSelection();
+        //addFrameRateSelection();
         addMusicVolumeSelection();
         addSoundEffectVolumeSelection();
         addSaveButtons();

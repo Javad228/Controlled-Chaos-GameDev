@@ -1,7 +1,12 @@
 package main;
 
+import character.PlayerCharacter;
+import tile.*;
+
+import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Objects;
 
 public class KeyHandler implements KeyListener {
@@ -53,6 +58,56 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_K) {
             kPressed = true;
         }
+
+        if (code == KeyEvent.VK_E) {
+            Tile currentTile = gp.getPlayer().getCurrentTile();
+
+            if (gp.getCurrentRoomNum() == Room.TRAPROOM) {
+                Button button1 = gp.getRooms().get(2).getButtons().get(0);
+                Button button2 = gp.getRooms().get(2).getButtons().get(1);
+                Button button3 = gp.getRooms().get(2).getButtons().get(2);
+                Button button4 = gp.getRooms().get(2).getButtons().get(3);
+
+                System.out.println(button2.getIsOn());
+                System.out.println(button3.getIsOn());
+                System.out.println(button4.getIsOn());
+
+                if ((gp.getPlayer().getRow() == Button.map1ButtonRow) &&
+                    (gp.getPlayer().getCol() == Button.map1Button1Col)) {
+                    button1.toggle();
+                    for (int i = 0; i < button1.getTrapTiles().size(); i++) {
+                        TrapTile trapTile = button1.getTrapTiles().get(i);
+                        trapTile.toggleTrap(i, TrapTile.map1TrapCol1);
+                    }
+                } else if ((gp.getPlayer().getRow() == Button.map1ButtonRow) &&
+                    (gp.getPlayer().getCol() == Button.map1Button2Col)) {
+                    button2.toggle();
+
+                    if (button2.getIsOn() && button3.getIsOn() && button4.getIsOn()) {
+                        button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+                        Audio.doorOpenAudio();
+                    }
+                }  else if ((gp.getPlayer().getRow() == Button.map1ButtonRow) &&
+                    (gp.getPlayer().getCol() == Button.map1Button3Col)) {
+                    button3.toggle();
+
+                    if (button2.getIsOn() && button3.getIsOn() && button4.getIsOn()) {
+                        button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+                        Audio.doorOpenAudio();
+                    }
+                } else if ((gp.getPlayer().getRow() == Button.map1ButtonRow) &&
+                    (gp.getPlayer().getCol() == Button.map1Button4Col)) {
+                    button4.toggle();
+
+                    if (button2.getIsOn() && button3.getIsOn() && button4.getIsOn()) {
+                        button2.getDoorTiles().get(0).toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+                        Audio.doorOpenAudio();
+                    }
+                }
+
+            }
+        }
+
         if (code == KeyEvent.VK_W) {
             wPressed = true;
         }
