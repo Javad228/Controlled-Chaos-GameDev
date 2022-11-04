@@ -1,5 +1,6 @@
 package main;
 
+import loot.Item;
 import save.GameSaveState;
 import save.SaveData;
 import save.SimpleCharacter;
@@ -18,7 +19,9 @@ public class statsPanel extends JPanel {
     GameSaveState savedData;
     JPanel basicDetailsPanel = new JPanel();
     JPanel enemiesKilledPanel = new JPanel();
+    JPanel itemsDiscoveredPanel = new JPanel();
     JTextArea[] enemyDescriptionTextBoxes;
+    JTextArea[] itemDescriptionTextBoxes;
     JScrollPane scrollPane = new JScrollPane(this);
 
     public statsPanel(GamePanel gp) {
@@ -31,12 +34,14 @@ public class statsPanel extends JPanel {
             if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
             else System.out.println("Game restore Failed");
         } else {
+            savedData = new GameSaveState(savedData, sd);
             gp.newGame(savedData.player, new Time(savedData.currentRunTimeNS), sd.initializeRooms(savedData.rooms), savedData.currentRoomNum, false); // use this method but make sure it doesn't start the game thread
             System.out.println("Game restore Succeeded");
         }
 
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 
         //savedData = SaveData.restoreGameState("dummy");
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -44,6 +49,7 @@ public class statsPanel extends JPanel {
         basicDetailsPanel.setLayout(new GridLayout(4, 2)); // number of rows depends on number of fields you'd like to add
         basicDetailsPanel.setBackground(Color.BLACK);
         enemiesKilledPanel.setBackground(Color.BLACK);
+        itemsDiscoveredPanel.setBackground(Color.BLACK);
 
         // the below objects are added to the statsPanel
         add(Box.createVerticalStrut(25));
@@ -63,6 +69,12 @@ public class statsPanel extends JPanel {
         if (savedData != null) {
             addEnemiesKilled();
             add(enemiesKilledPanel); // add enemiesKilledPanel to statsPanel
+        }
+
+        addItemsDiscoveredTitleLabel();
+        if (savedData != null) {
+            addItemsDiscovered();
+            add(itemsDiscoveredPanel);
         }
 
         // add button to save descriptions
@@ -120,7 +132,7 @@ public class statsPanel extends JPanel {
 
         JLabel clockLabel = new JLabel();
         if (savedData != null)  clockLabel.setText(savedData.currentRunTimeS);
-        else    clockLabel.setText("0.0");
+        else    clockLabel.setText("0:00:00.000");
         clockLabel.setFont(font);
         clockLabel.setForeground(Color.WHITE);
 
@@ -195,6 +207,49 @@ public class statsPanel extends JPanel {
         }
     }
 
+    public void addItemsDiscoveredTitleLabel() {
+        JLabel itemsDiscoveredLabel = new JLabel("Items Discovered:");
+        itemsDiscoveredLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
+        itemsDiscoveredLabel.setForeground(Color.WHITE);
+        itemsDiscoveredLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(itemsDiscoveredLabel);
+    }
+
+    public void addItemsDiscovered() {
+        itemsDiscoveredPanel.setLayout(new GridLayout(savedData.player.inventory.getListOfItems().size(), 2));
+        itemDescriptionTextBoxes = new JTextArea[savedData.player.inventory.getListOfItems().size()];
+
+        for (int i = 0; i < savedData.player.inventory.getListOfItems().size(); i++) {
+            // make label for name of enemy
+            JLabel itemNameLabel = new JLabel("");
+
+            if (savedData.player.inventory.getListOfItems().get(i).getName() == null ||
+                    savedData.player.inventory.getListOfItems().get(i).getName().equals("")) {
+                itemNameLabel.setText("Item:");
+                itemNameLabel.setFont(new Font("Monospaced", Font.ITALIC, 20));
+            } else {
+                itemNameLabel.setText(savedData.player.inventory.getListOfItems().get(i).getName() + ":");
+                itemNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
+            }
+
+
+            //itemNameLabel.setBackground(Color.BLACK);
+            itemNameLabel.setForeground(Color.WHITE);
+
+            // make text field for description of enemy
+            itemDescriptionTextBoxes[i] = new JTextArea(savedData.player.inventory.getListOfItems().get(i).getDescription());
+            itemDescriptionTextBoxes[i].setToolTipText("Enter item Description");
+            itemDescriptionTextBoxes[i].setBackground(Color.BLACK);
+            itemDescriptionTextBoxes[i].setForeground(Color.WHITE);
+            itemDescriptionTextBoxes[i].setFont(new Font("Monospaced", Font.PLAIN, 15));
+            LineBorder line = new LineBorder(Color.WHITE, 2, false);
+            itemDescriptionTextBoxes[i].setBorder(line);
+
+            itemsDiscoveredPanel.add(itemNameLabel);
+            itemsDiscoveredPanel.add(itemDescriptionTextBoxes[i]);
+        }
+    }
+
     public void addSaveButton() {
         JButton saveButton = new JButton("Save Descriptions");
         saveButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
@@ -209,6 +264,9 @@ public class statsPanel extends JPanel {
                         //savedData.player.getEnemiesKilled().get(i).setDescription(enemyDescriptionTextBoxes[i].getText());
                     }
                     //SaveData.saveGameState(savedData.player);
+                    for (int i = 0; i < savedData.player.inventory.getListOfItems().size(); i++) {
+                        gp.player.getInventory().getListOfItems().get(i).setDescription(itemDescriptionTextBoxes[i].getText());
+                    }
                     sd.saveGameState();
                 }
 

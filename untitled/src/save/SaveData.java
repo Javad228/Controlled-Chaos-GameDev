@@ -4,6 +4,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import enemy.*;
 import com.google.gson.*;
+import loot.Item;
 import main.*;
 
 import javax.swing.*;
@@ -167,7 +168,7 @@ public class SaveData {
     }
 
     public boolean restoreSave() {
-        GameSaveState gs = restoreGameState();
+        GameSaveState gs = new GameSaveState(restoreGameState(), this);
 
         if (gs == null) {
             gp.newGame(true);
@@ -176,6 +177,7 @@ public class SaveData {
             return false;
         }
 
+        Item.setUpItemListImages(gs.player.inventory.getListOfItems());
         gp.newGame(gs.player, new Time(gs.currentRunTimeNS), initializeRooms(gs.rooms), gs.currentRoomNum, true);
         System.out.println("Game restore Succeeded");
         return true;
@@ -243,6 +245,7 @@ public class SaveData {
             Room thisRoom = new Room(i, gp.keyH, gp);
 
             thisRoom.setItems(savedRoom.items);
+            Item.setUpItemListImages(thisRoom.getItems());
 
             ArrayList<Enemy> enemies = new ArrayList<>();
 

@@ -28,7 +28,6 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         addCharacterName();
         priorPage = "";
 
-
         setName("Settings");
         setBackground(Color.white);
         setVisible(false);
@@ -44,6 +43,8 @@ public class SettingsPanel extends JPanel implements ChangeListener {
                 } else if (priorPage.equals("Game Panel")) {
                     Main.view.showGamePanel();
                     Main.view.getGamePanel().resumeThread();
+                    Audio.stopMusic();
+                    Audio.openingMusic();
                 }
             }
         });
@@ -52,7 +53,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     }
 
     private void addCharacterName() {
-        name = new JTextField("Enter you character name");
+        name = new JTextField("Enter your character's name");
 
         enterNameButton = new JButton("Enter Name");
         enterNameButton.addActionListener(new ActionListener() {

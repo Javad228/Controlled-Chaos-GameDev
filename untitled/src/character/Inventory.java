@@ -59,6 +59,7 @@ public class Inventory {
         int slotSize = gp.tileSize + 3;
 //        System.out.println(gp.player.getInventory().listOfItems);
         //Draw Player's Items
+
         for(int i = 0; i < gp.player.getInventory().listOfItems.size(); i++){
             g2.drawImage(gp.player.getInventory().listOfItems.get(i).getLootImages()[0],slotX,slotY,null);
 
@@ -106,6 +107,7 @@ public class Inventory {
         int cursorY = slotYstart + (slotSize * slotRow);
         int cursorWidth = gp.tileSize;
         int cursorHeight = gp.tileSize;
+        int itemIndex = slotCol + (slotRow*5);
 //        System.out.println(slotCol);
 //        System.out.println(slotRow);
         //Draw Cursor
@@ -116,17 +118,17 @@ public class Inventory {
         int dFrameHeight = frameHeight+10;
         int dFrameY = frameY + frameHeight;
         drawSubWindow(dFrameX, frameY, frameWidth, dFrameHeight);
-        if(slotCol+slotRow<gp.player.getInventory().listOfItems.size()){
-            if(gp.player.getInventory().listOfItems.get(slotCol+slotRow)!=null) {
+        if(itemIndex<gp.player.getInventory().listOfItems.size()){
+            if(gp.player.getInventory().listOfItems.get(itemIndex)!=null) {
                 //big image
-                g2.drawImage(gp.player.getInventory().listOfItems.get(slotCol + slotRow).getLootImages()[0], dFrameX + 50, frameY + 20, 200, 200, null);
-                if(gp.player.getInventory().listOfItems.get(slotCol + slotRow).isEquipped()){
+                g2.drawImage(gp.player.getInventory().listOfItems.get(itemIndex).getLootImages()[0], dFrameX + 50, frameY + 20, 200, 200, null);
+                if(gp.player.getInventory().listOfItems.get(itemIndex).isEquipped()){
                     g2.setColor(Color.YELLOW);
                     g2.drawRect(cursorX,cursorY,cursorWidth,cursorHeight);
                 }
                 if(gp.keyH.kPressed){
-                    if(!gp.player.getInventory().listOfItems.get(slotCol + slotRow).isEquipped()){
-                        gp.player.getInventory().listOfItems.get(slotCol + slotRow).setEquipped(true);
+                    if(!gp.player.getInventory().listOfItems.get(itemIndex).isEquipped()){
+                        gp.player.getInventory().listOfItems.get(itemIndex).setEquipped(true);
                     }
                 }
             }
@@ -164,6 +166,14 @@ public class Inventory {
 
     public void setCoinAmount(int coinAmount) {
         this.coinAmount = coinAmount;
+    }
+
+    public ArrayList<Item> getListOfItems() {
+        return this.listOfItems;
+    }
+
+    public void setListOfItems(ArrayList<Item> listOfItems) {
+        this.listOfItems = listOfItems;
     }
 
     public boolean equals(Object o) {

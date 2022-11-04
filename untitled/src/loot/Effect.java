@@ -18,6 +18,9 @@ public class Effect extends Item {
 
         setDefaultValues();
         getImage(imagePaths);
+
+        this.setName("Effect");
+        this.setDescription("Normal Effect");
     }
 
     public Effect(int speedMultiplier, int damageModifier, int effectTimer, int customEffect) {

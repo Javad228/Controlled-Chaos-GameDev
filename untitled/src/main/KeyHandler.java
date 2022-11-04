@@ -148,7 +148,8 @@ public class KeyHandler implements KeyListener {
         //
         // can't make the settings page go away
         if (code == KeyEvent.VK_ESCAPE) {
-            if (!Main.view.getSettingsPanel().isVisible()) {
+            //if (!Main.view.getSettingsPanel().isVisible()) {
+            if (!Main.view.getSettingsPanel().isDisplayable()) { // checks if the settings panel is not connected to the frame
                 //Main.view.getSettingsPage().setVisible(true);
                 //Main.view.getGamePanel().setVisible(false);
 
@@ -165,10 +166,9 @@ public class KeyHandler implements KeyListener {
             } else {
                 //Main.view.getGamePanel().setVisible(true);
                 //Main.view.getSettingsPage().setVisible(false);
-                Main.view.getSettingsPanel().hideSettingsPanel();
-
+                //Main.view.getSettingsPanel().hideSettingsPanel();
+                Main.view.showGamePanel();
                 Main.view.getGamePanel().resumeThread();
-
                 Audio.stopMusic();
                 Audio.openingMusic();
             }
