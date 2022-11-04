@@ -104,20 +104,6 @@ public class View {
         tempWindow.setVisible(true);
          */
 
-        // temporary button to get to settings
-        /*
-        settingsButton = new JButton("Settings");
-        settingsButton.setPreferredSize(new Dimension(50, 25));
-        settingsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showSettingsPanel("Game Panel");
-                Main.view.getGamePanel().pauseThread();
-            }
-        });
-        settingsButton.setVisible(false);
-         */
-
         mainMenuPanel = new MainMenuPanel();
         window.add(mainMenuPanel);
 

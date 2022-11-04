@@ -1,15 +1,14 @@
 package character;
 
 import enemy.SlimeBall;
-import loot.Coin;
-import loot.Consumable;
-import loot.Item;
-import loot.Weapon;
+import loot.*;
 import main.Audio;
 import main.GamePanel;
 import main.HealthBar;
 import main.KeyHandler;
 import save.SimpleCharacter;
+import tile.Tile;
+import tile.TileManager;
 import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
@@ -44,7 +43,7 @@ public class PlayerCharacter extends Character {
     private ArrayList<SimpleEnemy> enemiesKilled;
 
     private transient BufferedImage[] deathImages;
-    
+    private Tile currentTile;
     public int roomsetNub;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -66,6 +65,7 @@ public class PlayerCharacter extends Character {
         this.collisionAreaDefaultX = solidArea.x;
         this.collisionAreaDefaultY = solidArea.y;
         setDeathImages(new BufferedImage[3]); // should be in super()
+        this.currentTile = null;
         setDefaultValues();
         getPlayerImage();
 
@@ -99,6 +99,7 @@ public class PlayerCharacter extends Character {
         this.setSpriteNum(pc.getSpriteNum());
         this.setStartingItem(pc.getStartingItem());
         this.healthBar = pc.healthBar;
+        this.currentTile = pc.currentTile;
         this.numCoins = pc.numCoins;
         enemiesKilled = new ArrayList<>(pc.getEnemiesKilled());
     }
@@ -116,6 +117,7 @@ public class PlayerCharacter extends Character {
         this.inventory = c.inventory;
         this.characterType = c.characterType;
         this.numCoins = c.getNumCoins();
+        this.currentTile = null;
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
     }
 
@@ -141,6 +143,21 @@ public class PlayerCharacter extends Character {
 //        this.collisionAreaDefaultX = solidArea.x;
 //        this.collisionAreaDefaultY = solidArea.y;
 
+    }
+
+    public int getRow() {
+        return yCoord/gp.tileSize;
+    }
+
+    public int getCol() {
+        return xCoord/gp.tileSize;
+    }
+
+    public Tile getCurrentTile() {
+
+        int tileNum = TileManager.mapTileNum[getCol()][getRow()];
+
+        return TileManager.tile[tileNum];
     }
 
     public void getPlayerImage() {
@@ -255,6 +272,16 @@ public class PlayerCharacter extends Character {
                 isAttacking = false;
             }
 
+            this.setSpriteCounter(this.getSpriteCounter() + 1);
+            if (this.getSpriteCounter() > 12) {
+                if (this.getSpriteNum() == 1) {
+                    this.setSpriteNum(2);
+                } else if (this.getSpriteNum() == 2) {
+                    this.setSpriteNum(1);
+                }
+                this.setSpriteCounter(0);
+            }
+
             if (keyH.wPressed || keyH.sPressed || keyH.aPressed || keyH.dPressed) {
                 collisionOn = false;
                 gp.checker.checkTile(this);
@@ -273,16 +300,6 @@ public class PlayerCharacter extends Character {
                 }
                 if (keyH.dPressed && !keyH.aPressed) {
                     this.setDirection("right");
-                }
-
-                this.setSpriteCounter(this.getSpriteCounter() + 1);
-                if (this.getSpriteCounter() > 12) {
-                    if (this.getSpriteNum() == 1) {
-                        this.setSpriteNum(2);
-                    } else if (this.getSpriteNum() == 2) {
-                        this.setSpriteNum(1);
-                    }
-                    this.setSpriteCounter(0);
                 }
 
                 if(!collisionOn){
@@ -423,6 +440,16 @@ public class PlayerCharacter extends Character {
             Bomb bomb = new Bomb(gp, currentX, currentY, direction, isPlayerShooting);
         }
     }
+    public void damagePlayerInt(int damageAmount) {
+        if(!gp.getPlayer().isInvincible){
+            //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
+            gp.getPlayer().damage(damageAmount);
+            gp.getPlayer().isInvincible = true;
+
+            //Needs same invincibility debugging as above method
+        }
+    }
+
 
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
