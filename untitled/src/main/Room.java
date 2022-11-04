@@ -91,16 +91,21 @@ public class Room {
     }
 
     private void initializeNPCs() {
-        NPCs = null;
-        /* Add something like this here when we have friendly NPCs
         switch(roomNum) {
-            case 0:
-                NPCs = new ArrayList<>();
-                break;
             case 1:
+                NPCs = new ArrayList<>();
+                Satyr satyr = new Satyr(500, 200);
+                NPCs.add(satyr);
+                break;
+            case 2:
+                NPCs = null;
+            case 3:
+                NPCs = null;
+            case 4:
+                NPCs = null;
+            case 5:
                 NPCs = null;
         }
-        */
     }
 
     private void initializeCoins() {
