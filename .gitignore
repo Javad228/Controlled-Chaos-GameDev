@@ -661,3 +661,6 @@ target/classes/tiles/locked_door.png
 target/classes/tiles/spike_on_grass_down.png
 target/classes/tiles/spike_on_grass_up.png
 target/classes/tiles/stone.png
+target/classes/barrel/barrel-death.png
+target/classes/barrel/barrel.png
+target/classes/enemy/Barrel.class
