@@ -60,8 +60,6 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_E) {
-            Tile currentTile = gp.getPlayer().getCurrentTile();
-
             if (gp.getCurrentRoomNum() == Room.TRAPROOM) {
                 Button button1 = gp.getRooms().get(2).getButtons().get(0);
                 Button button2 = gp.getRooms().get(2).getButtons().get(1);
@@ -72,8 +70,8 @@ public class KeyHandler implements KeyListener {
                 System.out.println(button3.getIsOn());
                 System.out.println(button4.getIsOn());
 
-                if ((gp.getPlayer().getRow() == Button.map1ButtonRow) &&
-                    (gp.getPlayer().getCol() == Button.map1Button1Col)) {
+                if ((gp.getPlayer().getRow() >= Button.map1ButtonRow - 1) && (gp.getPlayer().getRow() <= Button.map1ButtonRow + 1) &&
+                    (gp.getPlayer().getCol() >= Button.map1Button1Col - 1) && (gp.getPlayer().getCol() <= Button.map1Button1Col + 1)) {
                     button1.toggle();
                     for (int i = 0; i < button1.getTrapTiles().size(); i++) {
                         TrapTile trapTile = button1.getTrapTiles().get(i);
