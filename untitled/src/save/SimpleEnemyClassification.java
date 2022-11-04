@@ -5,5 +5,6 @@ public enum SimpleEnemyClassification {
     SLIME,
     WIZARD,
     BARREL,
-    BIGSLONCH
+    BIGSLONCH,
+    BIGSKULL
 }

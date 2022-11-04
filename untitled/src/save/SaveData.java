@@ -261,7 +261,10 @@ public class SaveData {
                         enemies.add(new Barrel(enemy));
                     } else if (enemy.classification.equals(SimpleEnemyClassification.BIGSLONCH)) {
                         enemies.add(new BigSlonch(enemy));
-                    } /*Add more classifications for future enemies*/ else {
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.BIGSKULL)) {
+                        enemies.add(new BigSkull(enemy));
+                        /*Add more classifications for future enemies*/
+                    } else {
                         System.out.println("Generic enemy encountered!");
                     }
                 }
