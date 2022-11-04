@@ -4,6 +4,7 @@ import main.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Item extends Loot {
     private String description;
@@ -79,5 +80,12 @@ public class Item extends Loot {
 
     public void setEquipped(boolean equipped) {
         isEquipped = equipped;
+    }
+
+    public static void setUpItemListImages(ArrayList<Item> list) {
+        if (list == null)   return;
+        for (Item item : list) {
+            item.getImage(item.getImagePaths());
+        }
     }
 }

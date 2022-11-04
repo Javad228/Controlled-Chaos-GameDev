@@ -72,9 +72,6 @@ public class Room {
                 items.add(effect);
                 items.add(boot);
 
-                // Item description test TODO
-                //weapon.setDescription("Basic sword that swings and misses sometimes, but we won't talk about that...");
-                boot.setDescription("Basic Boot");
                 break;
         }
     }

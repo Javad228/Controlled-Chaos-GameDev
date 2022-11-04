@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -41,6 +42,7 @@ public class PlayerCharacter extends Character {
     private int numCoins;
     private boolean isDying;                // Used for performing death animation
     private ArrayList<SimpleEnemy> enemiesKilled;
+    private ArrayList<Item> itemsDiscovered;
 
     private transient BufferedImage[] deathImages;
     private Tile currentTile;
@@ -66,7 +68,6 @@ public class PlayerCharacter extends Character {
         this.collisionAreaDefaultY = solidArea.y;
         setDeathImages(new BufferedImage[3]); // should be in super()
         this.currentTile = null;
-        setDefaultValues();
         getPlayerImage();
 
         this.setHasThrownProjectile(false);
@@ -78,6 +79,8 @@ public class PlayerCharacter extends Character {
         System.out.println("it is room set number" + roomsetNub);
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
+        itemsDiscovered = new ArrayList<>();
+        setDefaultValues();
     }
 
     public PlayerCharacter(PlayerCharacter pc) {
@@ -119,6 +122,7 @@ public class PlayerCharacter extends Character {
         this.numCoins = c.getNumCoins();
         this.currentTile = null;
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
+        itemsDiscovered = new ArrayList<>(c.itemsDiscovered);
     }
 
     public void setDefaultValues() {
@@ -132,12 +136,16 @@ public class PlayerCharacter extends Character {
         String[] stringArray = {"/weapons/wooden_sword.png"};
         String[] stringArray1 = {"/weapons/wooden_sword.png"};
         Item item = new Item(7,stringArray);
+        item.setName("Sword");
         item.setDescription("wooden sword");
         Item item1 = new Item(7,stringArray1);
+        item.setName("Sword #2");
         item1.setDescription("wooden sword #2");
 
         this.getInventory().addItem(item);
+        getItemsDiscovered().add(item);
         this.getInventory().addItem(item1);
+        getItemsDiscovered().add(item1);
 //        this.setWidth(18);
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
@@ -332,6 +340,7 @@ public class PlayerCharacter extends Character {
                             }
                             else {
                                 inventory.addItem(item);
+                                getItemsDiscovered().add(item);
                                 if (!(item instanceof Weapon)) {
                                     item.setEquipped(true);
                                 }
@@ -654,6 +663,14 @@ public class PlayerCharacter extends Character {
 
     public void setEnemiesKilled(ArrayList<SimpleEnemy> enemiesKilled) {
         this.enemiesKilled = enemiesKilled;
+    }
+
+    public ArrayList<Item> getItemsDiscovered() {
+        return itemsDiscovered;
+    }
+
+    public void setItemsDiscovered(ArrayList<Item> itemsDiscovered) {
+        this.itemsDiscovered = itemsDiscovered;
     }
 }
 
