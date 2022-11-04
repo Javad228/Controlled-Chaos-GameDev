@@ -48,11 +48,11 @@ public class Tile {
     }
 
     public int getRow() {
-        return x/TileManager.gp.tileSize;
+        return y/TileManager.gp.tileSize;
     }
 
     public int getCol() {
-        return y/TileManager.gp.tileSize;
+        return x/TileManager.gp.tileSize;
     }
 
     public void setImage(BufferedImage image) {
