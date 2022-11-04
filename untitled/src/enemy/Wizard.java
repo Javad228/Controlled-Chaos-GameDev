@@ -1,15 +1,9 @@
 package enemy;
 
 import character.Enemy;
-import character.NonPlayableCharacter;
-
-import character.Projectile;
-
-import character.*;
+import character.EnemyType;
 import loot.LootType;
-
 import main.GamePanel;
-import main.Main;
 import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
@@ -26,8 +20,8 @@ public class Wizard extends Enemy {
         maxHealth = 10;
         health = maxHealth;
         attackType = 1;
-        solidArea.x = 3;
-        solidArea.y = 18;
+        solidArea.x = 10;
+        solidArea.y = 5;
         solidArea.width = 42;
         solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;

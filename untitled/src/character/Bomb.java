@@ -32,8 +32,8 @@ public class Bomb extends Projectile {
     public void setDefaultValues() {
         this.setName("Bomb");
         this.setMovementSpeed(3);
-        this.setWidth(70);
-        this.setHeight(70);
+        this.setWidth(7);
+        this.setHeight(26);
         this.setHealth(80);
         this.setDamage(5);
         //this.isInvincible(true);
@@ -77,21 +77,28 @@ public class Bomb extends Projectile {
                 }
             }
             g2.drawImage(image, xCoord-40, yCoord-40, this.getWidth(), this.getHeight(), null);
-        }
-
-        if (this.isMoving()) {
+        }else if (this.isMoving()) {
             switch (this.getDirection()) {
                 case "up":
                     this.setProjectileImage(bombUp);
+                    this.setWidth(7);
+                    this.setHeight(26);
                     break;
                 case "down":
                     this.setProjectileImage(bombDown);
+                    this.setWidth(7);
+                    this.setHeight(26);
                     break;
                 case "left":
                     this.setProjectileImage(bombLeft);
+                    this.setWidth(7);
+                    this.setHeight(26);
                     break;
                 case "right":
                     this.setProjectileImage(bombRight);
+                    this.setWidth(7);
+                    this.setHeight(26);
+                    break;
             }
         }
         g2.drawImage(this.getProjectileImage(), this.getxCoord(), this.getyCoord(), this.getWidth(), this.getHeight(), null);
