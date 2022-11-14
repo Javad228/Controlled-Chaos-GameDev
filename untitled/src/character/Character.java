@@ -46,11 +46,15 @@ public abstract class Character {
     private transient BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackRight1, attackRight2, attackLeft1, attackLeft2;
     private transient BufferedImage death1, death2, death3, death4, death5;
     private transient BufferedImage[] deathImages;
+    private transient BufferedImage[][] walkingImages; // Row 0 = up, Row 1 = down, Row 2 = left, Row 3 = right
+    private transient BufferedImage[][] attackImages; // Row 0 = up, Row 1 = down, Row 2 = left, Row 3 = right
+
     public String direction = "down";
     public boolean isAttacking = false;
 
     public int spriteCounter = 0;
-    public int spriteNum = 1;
+    public int spriteNum = 1; // TODO: make this zero indexed and update the sprite increments accordingly
+    private boolean wasOne = false; // boolean meant to help with sprite number selection when spriteNum = 2
 
     public int collisionAreaDefaultY;
     public int collisionAreaDefaultX;
@@ -589,4 +593,45 @@ public abstract class Character {
     public BufferedImage getDeathImage(int index) {
         return deathImages[index];
     }
+
+    public boolean isWasOne() {
+        return wasOne;
+    }
+
+    public void setWasOne(boolean wasOne) {
+        this.wasOne = wasOne;
+    }
+
+    public BufferedImage[][] getWalkingImages() {
+        return walkingImages;
+    }
+
+    public void setWalkingImages(BufferedImage[][] walkingImages) {
+        this.walkingImages = walkingImages;
+    }
+
+    public void setWalkingImage(BufferedImage image, int direction, int index) {
+        this.walkingImages[direction][index] = image;
+    }
+
+    public BufferedImage getWalkingImage(int direction, int index) {
+        return walkingImages[direction][index];
+    }
+
+    public BufferedImage[][] getAttackImages() {
+        return attackImages;
+    }
+
+    public void setAttackImages(BufferedImage[][] attackImages) {
+        this.attackImages = attackImages;
+    }
+
+    public void setAttackImage(BufferedImage image, int direction, int index) {
+        this.attackImages[direction][index] = image;
+    }
+
+    public BufferedImage getAttackImage(int direction, int index) {
+        return attackImages[direction][index];
+    }
+
 }

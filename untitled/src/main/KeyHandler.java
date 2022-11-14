@@ -1,14 +1,11 @@
 package main;
 
 import character.Knight;
-import character.PlayerCharacter;
 import character.Satyr;
 import tile.*;
 
-import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.Objects;
 
 public class KeyHandler implements KeyListener {
@@ -63,7 +60,7 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_E) {
             if (gp.getCurrentRoomNum() == Room.TRAPROOM) {
-                if (gp.getPlayer().roomsetNub == 1) {
+                if (gp.getPlayer().roomSetNum == 1) {
                     Button button1 = gp.getRooms().get(2).getButtons().get(0);
                     Button button2 = gp.getRooms().get(2).getButtons().get(1);
                     Button button3 = gp.getRooms().get(2).getButtons().get(2);
