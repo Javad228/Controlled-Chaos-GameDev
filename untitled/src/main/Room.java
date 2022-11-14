@@ -79,7 +79,7 @@ public class Room {
                 break;
             case 2:
                 enemies = new ArrayList<>();
-                if(gp.getPlayer().roomsetNub==1){
+                if(gp.getPlayer().roomSetNum ==1){
 //                    enemies.add(new Slime(100, 100));
                     enemies.add(new Skeleton(500, 500));
                     enemies.add(new Skeleton(100, 500));
@@ -94,7 +94,7 @@ public class Room {
                 break;
             case 5:
                 enemies = new ArrayList<>();
-                if(gp.getPlayer().roomsetNub==1){
+                if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
                 }else{
                     enemies.add(new BigSkull(300, 300));
@@ -107,7 +107,7 @@ public class Room {
         NPCs = new ArrayList<>();
         switch(roomNum) {
             case 1:
-                if (gp.getPlayer().roomsetNub == 1) {
+                if (gp.getPlayer().roomSetNum == 1) {
                     Satyr satyr = new Satyr(500, 200);
                     NPCs.add(satyr);
                 } else {
