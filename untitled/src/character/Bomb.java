@@ -21,8 +21,8 @@ public class Bomb extends Projectile {
     private BufferedImage explode4;
     private BufferedImage explode5;
 
-    public Bomb(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting) {
-        super(gp, xCoord, yCoord, direction, isPlayerShooting);
+    public Bomb(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting, double damageMod) {
+        super(gp, xCoord, yCoord, direction, isPlayerShooting, damageMod);
         this.gp = gp;
 
         setDefaultValues();

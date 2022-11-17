@@ -16,8 +16,8 @@ public class SlimeBall extends Projectile {
     private transient BufferedImage arrowRight;
     private transient BufferedImage arrowLeft;
 
-    public SlimeBall(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting) {
-        super(gp, xCoord, yCoord, direction, isPlayerShooting);
+    public SlimeBall(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting, double damageMod) {
+        super(gp, xCoord, yCoord, direction, isPlayerShooting, damageMod);
         this.gp = gp;
 
         setDefaultValues();

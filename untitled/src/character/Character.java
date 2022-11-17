@@ -22,7 +22,7 @@ public abstract class Character {
     public boolean isAlive = true;
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
-    public int health;
+    public double health;
     public int maxHealth;                   // Character health
     public int movementSpeed;               // Character movement speed
     public int xCoord;                         // Character x-position in a room
@@ -125,18 +125,22 @@ public abstract class Character {
         this.name = name;
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         if (this instanceof PlayerCharacter) {
             Audio.playerDamagedAudio();
         }
         this.health = health;
     }
 
-    public void damage(int damageTaken) {
+    public int getMaxHealth() { return maxHealth; }
+
+    public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
+
+    public void damage(double damageTaken) {
         if (damageTaken > this.health) setHealth(0);
         else setHealth(this.health-damageTaken);
     }

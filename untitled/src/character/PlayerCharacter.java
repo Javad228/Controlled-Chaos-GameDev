@@ -38,6 +38,8 @@ public class PlayerCharacter extends Character {
     private int shotAvailableTimer = 0;
     private int shotTimerMax = 50;
 
+    private double damageMod = 1;
+
     private int numCoins;
     private boolean isDying;                // Used for performing death animation
     private ArrayList<SimpleEnemy> enemiesKilled;
@@ -262,22 +264,22 @@ public class PlayerCharacter extends Character {
             int currentY = this.getyCoord();
 
             if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "up", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "up", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.downPressed && !keyH.upPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "down", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "down", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.leftPressed && !keyH.rightPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "left", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "left", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.rightPressed && !keyH.leftPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "right", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "right", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
@@ -462,15 +464,15 @@ public class PlayerCharacter extends Character {
         }
     }
 
-    public void shoot(String projectileName, GamePanel gp, int currentX, int currentY, String direction, boolean isPlayerShooting) {
+    public void shoot(String projectileName, GamePanel gp, int currentX, int currentY, String direction, boolean isPlayerShooting, double damage) {
         if (projectileName.equals("Arrow")) {
-            Arrow arrow = new Arrow(gp, currentX, currentY, direction, isPlayerShooting); //RANGED, true (isInvincible), this (user)
+            Arrow arrow = new Arrow(gp, currentX, currentY, direction, isPlayerShooting, damage); //RANGED, true (isInvincible), this (user)
         }
         if (projectileName.equals("SlimeBall")) {
-            SlimeBall slimeBall = new SlimeBall(gp, currentX, currentY, direction, isPlayerShooting);
+            SlimeBall slimeBall = new SlimeBall(gp, currentX, currentY, direction, isPlayerShooting, damage);
         }
         if (projectileName.equals("Bomb")) {
-            Bomb bomb = new Bomb(gp, currentX, currentY, direction, isPlayerShooting);
+            Bomb bomb = new Bomb(gp, currentX, currentY, direction, isPlayerShooting, damage);
         }
     }
     public void damagePlayerInt(int damageAmount) {
@@ -630,5 +632,15 @@ public class PlayerCharacter extends Character {
     public void setItemsDiscovered(ArrayList<Item> itemsDiscovered) {
         this.itemsDiscovered = itemsDiscovered;
     }
+
+    public double getDamageMod() {
+        return damageMod;
+    }
+
+    public void setDamageMod(double damageMod) {
+        this.damageMod = damageMod;
+    }
+
+
 }
 

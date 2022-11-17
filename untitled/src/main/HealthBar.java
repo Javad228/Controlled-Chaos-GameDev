@@ -12,14 +12,14 @@ import java.util.ArrayList;
  */
 public class HealthBar extends BufferedImage {
 
-    private int health;
+    private double health;
     private final int maxHealth;
     private int width;
     private int height;
     private transient final Color red = Color.RED;
     private transient final Color blank = new Color(70, 70, 70);
 
-    public HealthBar(int hp, int maxHealth, int width, int height) {
+    public HealthBar(double hp, int maxHealth, int width, int height) {
         super(width, height, TYPE_INT_RGB);
         this.width = width;
         this.height = height;
@@ -27,15 +27,15 @@ public class HealthBar extends BufferedImage {
         this.maxHealth = maxHealth;
     }
 
-    public void setHealth(int hp) {
+    public void setHealth(double hp) {
         if (hp < 0) hp = 0;
         if (hp > 100) hp = 100;
         this.health = hp;
     }
 
-    public int getHealth() {return this.health;}
+    public double getHealth() {return this.health;}
 
-    public void update(int hp) {
+    public void update(double hp) {
         this.setHealth(hp);
     }
 

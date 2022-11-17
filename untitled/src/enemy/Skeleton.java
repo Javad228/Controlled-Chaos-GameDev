@@ -19,7 +19,7 @@ public class Skeleton extends Enemy {
         super(EnemyType.MEDIUM, LootType.DEFAULT);
         name = "Skeleton";
         movementSpeed = 1;
-        maxHealth = 150;
+        maxHealth = 75;
         health = maxHealth;
 
         solidArea.x = 15;

@@ -2,19 +2,21 @@ package loot;
 
 import character.PlayerCharacter;
 import main.GamePanel;
+import java.awt.image.BufferedImage;
+import main.HealthBar;
 
-public class Boot extends PassiveItem {
+public class HealthUp extends PassiveItem {
 
     private transient GamePanel gp;
 
-    public Boot(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
+    public HealthUp(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
         super(7 , imagePaths);
         this.gp = gp;
         setxCoord(xCoord);
         setyCoord(yCoord);
 
         getImage(imagePaths);
-        this.setName("Boot");
+        this.setName("Heart");
         this.setDescription("???");
     }
 
@@ -23,7 +25,9 @@ public class Boot extends PassiveItem {
 
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
-            player.setMovementSpeed(player.getMovementSpeed() * 2);
-        }
+            player.setMaxHealth(player.getMaxHealth() + 100);
+            player.setHealth(player.getMaxHealth());
+            //Healthbar reset to new health, max health, width
+        }//25 health up, 10 width up
     }
 }
