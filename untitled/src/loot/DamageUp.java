@@ -2,19 +2,21 @@ package loot;
 
 import character.PlayerCharacter;
 import main.GamePanel;
+import java.awt.image.BufferedImage;
+import main.HealthBar;
 
-public class SlimeSlinger extends Weapon {
+public class DamageUp extends PassiveItem {
 
     private transient GamePanel gp;
 
-    public SlimeSlinger(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
+    public DamageUp(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
         super(7 , imagePaths);
         this.gp = gp;
-        this.setxCoord(xCoord);
-        this.setyCoord(yCoord);
+        setxCoord(xCoord);
+        setyCoord(yCoord);
 
         getImage(imagePaths);
-        this.setName("Slime Slinger");
+        this.setName("Flaming Sword");
         this.setDescription("???");
     }
 
@@ -23,9 +25,7 @@ public class SlimeSlinger extends Weapon {
 
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
-            player.setProjectileName("SlimeBall");
-            player.setShotAvailableTimer(0);
-            player.setShotTimerMax(25);
+            player.setDamageMod(player.getDamageMod() * 1.5);
         }
     }
 }

@@ -18,7 +18,7 @@ public class BigSkull extends Enemy {
         super(EnemyType.LARGE, LootType.DEFAULT);
         name = "BigSkull";
         movementSpeed = 2;
-        maxHealth = 500;
+        maxHealth = 150;
         health = maxHealth;
         attackType = 1;
         solidArea.x = 15;

@@ -1,10 +1,7 @@
 package character;
 
 import combat.DamageType;
-import loot.Coin;
-import loot.Consumable;
-import loot.Item;
-import loot.Sword;
+import loot.*;
 import main.GamePanel;
 import main.KeyHandler;
 import tile.TileManager;
@@ -251,12 +248,19 @@ public abstract class NonPlayableCharacter extends Character {
                 // remove the enemy
                 gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getEnemies().remove(this);
 
-                // if a skeleton, drop a coin. all other enemies will drop swords
-                if(Objects.equals(this.name, "Skeleton")) {
+                // if a skeleton, drop a coin. If a boss, drop a health up. All other enemies will drop swords
+                if (Objects.equals(this.name, "Skeleton")) {
                     if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins() == null) {
                         gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setCoins(new ArrayList<>());
                     }
                     gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
+
+                } else if(Objects.equals(this.name, "BigSlonch") || Objects.equals(this.name, "BigSkull")) {
+                    if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems() == null) {
+                        gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setItems(new ArrayList<>());
+                    }
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems().add(new HealthUp(new String[]{"/items/health.png"}, gp, this.xCoord, this.yCoord));
+
                 } else {
                     if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems() == null) {
                         gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setItems(new ArrayList<>());

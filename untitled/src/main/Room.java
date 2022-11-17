@@ -42,6 +42,25 @@ public class Room {
 
     private void initializeItems() {
         switch(roomNum) {
+            case 1:
+                items = new ArrayList<>();
+                String [] healthImages = {"/items/health.png"};
+                String [] damageImages = {"/items/damage.png"};
+                String [] rapidFireImages = {"/items/rapid-fire.png"};
+                HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
+                DamageUp damageUp = new DamageUp(damageImages, this.gp, 500, 500);
+                //RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, 500, 500);
+                healthUp.setxCoord(200);
+                healthUp.setyCoord(200);
+                damageUp.setxCoord(300);
+                damageUp.setyCoord(300);
+                //rapidFire.setxCoord(400);
+                //rapidFire.setyCoord(400);
+                items.add(healthUp);
+                items.add(damageUp);
+                //items.add(rapidFire);
+                break;
+
             case 2:
                 items = new ArrayList<>();
                 String[] appleImages = {"/consumables/apple.png"};
