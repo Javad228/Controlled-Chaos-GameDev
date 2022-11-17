@@ -1,13 +1,5 @@
 package character;
 
-/*
- * Character Class - An abstract class which models a character containing basic information pertaining to the game.
- *
- * @author Cameron Hofbauer
- * @version September 28, 2022
- */
-
-
 import combat.CombatType;
 import main.Audio;
 
@@ -15,6 +7,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * Character Class - An abstract class which models a character containing basic information pertaining to the game.
+ *
+ * @author Cameron Hofbauer
+ * @version September 28, 2022
+ */
 public abstract class Character {
     public int attackType = 0;
     public boolean isInvincible = false;
@@ -151,7 +149,7 @@ public abstract class Character {
      * kill(): Sets the <code>isAlive</code> boolean variable to <code>false</code>.
      * Used for the GameThread to determine that the player death
      * animation is finished.
-     *
+     * <p>
      * Important: This method does not set the player health to 0.
      */
     public void kill() {
