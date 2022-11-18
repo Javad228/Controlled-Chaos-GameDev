@@ -12,6 +12,7 @@ import tile.TileManager;
 import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -44,6 +45,8 @@ public class PlayerCharacter extends Character {
     private boolean isDying;                // Used for performing death animation
     private ArrayList<SimpleEnemy> enemiesKilled;
     private ArrayList<Item> itemsDiscovered;
+    private boolean[] itemsUnlocked;
+    private int itemPriority;
 
     //private transient BufferedImage[] deathImages;
     private Tile currentTile;
@@ -83,6 +86,7 @@ public class PlayerCharacter extends Character {
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
         itemsDiscovered = new ArrayList<>();
+
         setDefaultValues();
     }
 
@@ -108,6 +112,7 @@ public class PlayerCharacter extends Character {
         this.currentTile = pc.currentTile;
         this.numCoins = pc.numCoins;
         enemiesKilled = new ArrayList<>(pc.getEnemiesKilled());
+
     }
 
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
@@ -126,6 +131,7 @@ public class PlayerCharacter extends Character {
         this.currentTile = null;
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
         itemsDiscovered = c.itemsDiscovered;
+
     }
 
     public void setDefaultValues() {
@@ -144,6 +150,8 @@ public class PlayerCharacter extends Character {
         Item item1 = new Item(7,stringArray1);
         item.setName("Sword #2");
         item1.setDescription("wooden sword #2");
+        this.itemsUnlocked = new boolean[]{ true, true, true, true, false};
+        this.itemPriority = -1;
 
         this.getInventory().addItem(item);
         getItemsDiscovered().add(item);
@@ -641,6 +649,35 @@ public class PlayerCharacter extends Character {
         this.damageMod = damageMod;
     }
 
+    public boolean[] getItemsUnlocked() {
+        return itemsUnlocked;
+    }
+    public void setItemsUnlocked() {
+        this.itemsUnlocked = itemsUnlocked;
+    }
+    public void unlockItem(int itemID) {
+        this.itemsUnlocked[itemID] = true;
+
+        setItemPriority(itemID);
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/items/health.png"));
+        if(itemID == 4) {
+            icon = new ImageIcon(getClass().getResource("/items/rapid-fire.png"));
+        }
+        JOptionPane.showMessageDialog(
+                null,
+                "A new item will appear in the realm!",
+                "New Unlock!", JOptionPane.INFORMATION_MESSAGE,
+                icon);
+    }
+
+    public int getItemPriority() {
+        return itemPriority;
+    }
+
+    public void setItemPriority(int itemPriority) {
+        this.itemPriority = itemPriority;
+    }
 
 }
 
