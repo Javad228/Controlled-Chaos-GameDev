@@ -3,18 +3,18 @@ package loot;
 import character.PlayerCharacter;
 import main.GamePanel;
 
-public class DamageUp extends PassiveItem {
+public class RapidFire extends PassiveItem {
 
     private transient GamePanel gp;
 
-    public DamageUp(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
+    public RapidFire(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
         super(7 , imagePaths);
         this.gp = gp;
         setxCoord(xCoord);
         setyCoord(yCoord);
 
         getImage(imagePaths);
-        this.setName("Inner Fire");
+        this.setName("Arrow Storm");
         this.setDescription("???");
     }
 
@@ -23,7 +23,9 @@ public class DamageUp extends PassiveItem {
 
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
-            player.setDamageMod(player.getDamageMod() * 1.5);
+            player.setShotAvailableTimer(0);
+            player.setShotTimerMax(player.getShotTimerMax() - 20);
         }
     }
 }
+

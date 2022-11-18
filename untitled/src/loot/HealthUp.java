@@ -2,8 +2,6 @@ package loot;
 
 import character.PlayerCharacter;
 import main.GamePanel;
-import java.awt.image.BufferedImage;
-import main.HealthBar;
 
 public class HealthUp extends PassiveItem {
 

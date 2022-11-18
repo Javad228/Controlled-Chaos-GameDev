@@ -88,4 +88,14 @@ public class Item extends Loot {
             item.getImage(item.getImagePaths());
         }
     }
+
+    /*
+    Item IDs
+    0 - HealthUp
+    1 - DamageUp
+    2 - Boot
+    3 - SlimeSlinger
+    4 - RapidFire
+
+     */
 }

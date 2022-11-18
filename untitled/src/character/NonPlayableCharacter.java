@@ -5,7 +5,9 @@ import loot.*;
 import main.GamePanel;
 import main.KeyHandler;
 import tile.TileManager;
+import character.PlayerCharacter;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.security.Key;
@@ -256,6 +258,11 @@ public abstract class NonPlayableCharacter extends Character {
                     gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
 
                 } else if(Objects.equals(this.name, "BigSlonch") || Objects.equals(this.name, "BigSkull")) {
+                    PlayerCharacter player = gp.getPlayer();
+                    if (!player.getItemsUnlocked()[4]) {
+                        player.unlockItem(4);
+                    }
+
                     if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems() == null) {
                         gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setItems(new ArrayList<>());
                     }
