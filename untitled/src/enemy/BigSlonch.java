@@ -18,8 +18,13 @@ public class BigSlonch extends Enemy {
         super(EnemyType.LARGE, LootType.DEFAULT);
         name = "BigSlonch";
         movementSpeed = 1;
-        setMaxHealth(500);
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+        setMaxHealth(150);
         health = getMaxHealth();
+//=======
+//        maxHealth = 150;
+//        health = maxHealth;
+//>>>>>>> Cameron-MergePermUnlocks
         attackType = 1;
         solidArea.x = 0;
         solidArea.y = 0;
@@ -60,10 +65,10 @@ public class BigSlonch extends Enemy {
         int currentY = this.getyCoord();
 
         if ((actionLockCounter == 100) || (actionLockCounter == 199)) {
-            SlimeBall slimeball = new SlimeBall(gp, currentX + 40, currentY + 60, "up", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
-            SlimeBall slimeball2 = new SlimeBall(gp, currentX + 40, currentY + 60, "down", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
-            SlimeBall slimeball3 = new SlimeBall(gp, currentX + 40, currentY + 60, "left", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
-            SlimeBall slimeball4 = new SlimeBall(gp, currentX + 40, currentY + 60, "right", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+            SlimeBall slimeball = new SlimeBall(gp, currentX + 40, currentY + 60, "up", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+            SlimeBall slimeball2 = new SlimeBall(gp, currentX + 40, currentY + 60, "down", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+            SlimeBall slimeball3 = new SlimeBall(gp, currentX + 40, currentY + 60, "left", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+            SlimeBall slimeball4 = new SlimeBall(gp, currentX + 40, currentY + 60, "right", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
 
         }
         if(actionLockCounter == 200){

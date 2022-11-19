@@ -24,7 +24,7 @@ public class HealthBar extends BufferedImage {
     private transient final Color blank = Color.BLACK;
     private transient final Color gold = new Color(255, 215, 0);
 
-    public HealthBar(int hp, int maxHealth, int width, int height) {
+    public HealthBar(double hp, int maxHealth, int width, int height) {
         super(width, height, TYPE_INT_RGB);
         this.DEFAULT_MAXHEALTH = maxHealth;
         this.DEFAULT_WIDTH = width;
@@ -33,19 +33,23 @@ public class HealthBar extends BufferedImage {
         this.maxHealth = maxHealth;
     }
 
-    public void setHealth(int hp) {
+    public void setHealth(double hp) {
         if (hp < 0) hp = 0;
         if (hp > maxHealth) hp = maxHealth;
         this.health = hp;
     }
 
-    public int getHealth() {return this.health;}
+    public double getHealth() {return this.health;}
 
+//TODO: <<<<<<< Cameron-PermanentUnlocks
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
 
-    public void update(int hp) {
+//    public void update(int hp) {
+//=======
+    public void update(double hp) {
+//>>>>>>> Cameron-MergePermUnlocks
         this.setHealth(hp);
     }
 

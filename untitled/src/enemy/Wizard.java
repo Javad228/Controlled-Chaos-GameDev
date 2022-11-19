@@ -17,8 +17,13 @@ public class Wizard extends Enemy {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
-        setMaxHealth(10);
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+        setMaxHealth(15);
         health = getMaxHealth();
+//=======
+//        maxHealth = 15;
+//        health = maxHealth;
+//>>>>>>> Cameron-MergePermUnlocks
         attackType = 1;
         solidArea.x = 10;
         solidArea.y = 5;
@@ -84,10 +89,10 @@ public class Wizard extends Enemy {
                             if(actionLockCounter == 70){
                                 if (goalRow < startRow) {
                                     //System.out.println("up arrow");
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "up", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 } else {
                                     //System.out.println("down arrow");
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "down", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;
                                 actionLockCounter = 0;
@@ -124,10 +129,10 @@ public class Wizard extends Enemy {
 
                             if(actionLockCounter == 70){
                                 if (goalCol < startCol) {
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "left", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 } else {
-                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right", false); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
+                                    SlimeBall slimeball = new SlimeBall(gp, currentX, currentY, "right", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
                                     this.setHasThrownProjectile(true);
                                 }
                                 counter = 0;

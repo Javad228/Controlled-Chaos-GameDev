@@ -1,10 +1,7 @@
 package main;
 
-import loot.Item;
 import save.GameSaveState;
 import save.SaveData;
-import save.SimpleCharacter;
-import save.SimpleEnemy;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Time;
 
-public class statsPanel extends JPanel {
+public class StatsPanel extends JPanel {
     GamePanel gp;
     SaveData sd;
     GameSaveState savedData;
@@ -24,7 +21,7 @@ public class statsPanel extends JPanel {
     JTextArea[] itemDescriptionTextBoxes;
     JScrollPane scrollPane = new JScrollPane(this);
 
-    public statsPanel(GamePanel gp) {
+    public StatsPanel(GamePanel gp) {
         this.gp = gp;
         sd = new SaveData(gp);
         savedData = sd.restoreGameState();
@@ -56,7 +53,7 @@ public class statsPanel extends JPanel {
         addTitleLabel();
         add(Box.createVerticalStrut(25));
 
-        // the three sets of labels are added to the basicDetailsPanel before the panel itself is added to the statsPanel
+        // the four sets of labels are added to the basicDetailsPanel before the panel itself is added to the statsPanel
         addBasicDetailsLabel(); // added to statsPanel
         addNameLabels();
         addClockLabels();
@@ -108,7 +105,6 @@ public class statsPanel extends JPanel {
         JLabel nameCategoryLabel = new JLabel("Player Name:");
         nameCategoryLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
         nameCategoryLabel.setForeground(Color.WHITE);
-
 
         JLabel nameLabel = new JLabel();
         if (savedData != null) {
@@ -231,7 +227,6 @@ public class statsPanel extends JPanel {
                 itemNameLabel.setText(savedData.player.inventory.getListOfItems().get(i).getName() + ":");
                 itemNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
             }
-
 
             //itemNameLabel.setBackground(Color.BLACK);
             itemNameLabel.setForeground(Color.WHITE);

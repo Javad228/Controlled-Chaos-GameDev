@@ -9,6 +9,7 @@ import tile.DoorTile;
 import tile.TrapTile;
 
 import java.util.ArrayList;
+import java.lang.Math.*;
 
 public class Room {
     public static final int STARTINGROOM = 1;
@@ -42,6 +43,29 @@ public class Room {
 
     private void initializeItems() {
         switch(roomNum) {
+            case 1:
+                items = new ArrayList<>();
+                String [] healthImages = {"/items/health.png"};
+                HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
+                healthUp.setxCoord(200);
+                healthUp.setyCoord(200);
+                items.add(healthUp);
+                String [] damageImages = {"/items/damage.png"};
+                DamageUp damageUp = new DamageUp(damageImages, this.gp, 500, 500);
+                damageUp.setxCoord(300);
+                damageUp.setyCoord(300);
+                items.add(damageUp);
+                String [] rapidFireImages = {"/items/rapid-fire.png"};
+                RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, 500, 500);
+                rapidFire.setxCoord(400);
+                rapidFire.setyCoord(400);
+                items.add(rapidFire);
+                Item random = getRandomItem();
+                random.setxCoord(500);
+                random.setyCoord(500);
+                items.add(random);
+                break;
+
             case 2:
                 items = new ArrayList<>();
                 String[] appleImages = {"/consumables/apple.png"};
@@ -272,5 +296,46 @@ public class Room {
 
     public void setCoins(ArrayList<Coin> coins) {
         this.coins = coins;
+    }
+    public Item getRandomItem() {
+
+        //random thing that returns an id from 0 to 4
+        int min = 0;
+        int max = 4;
+        int itemID;
+
+        //priority equal to item ID of item that was just unlocked, -1 if no priority
+        if (gp.getPlayer().getItemPriority() != -1) {
+            itemID = gp.getPlayer().getItemPriority();
+            gp.getPlayer().setItemPriority(-1);
+        }
+        else {
+            itemID = (int) (Math.random() * (max - min) + min);
+            //need in player: pickedUp[] same as Unlocked, but all start as false
+            //somewhere: when item picked up, set pickedUp[itemID] = true
+            while (!gp.getPlayer().getItemsUnlocked()[itemID]) {    //|| pickedUp[itemID] == true
+                itemID = (int) (Math.random() * (max - min) + min);
+            }
+        }
+
+        switch(itemID) {
+            case 0:
+            default:
+                String [] healthImages1 = {"/items/health.png"};
+                return new HealthUp(healthImages1, this.gp, 500, 500);
+            case 1:
+                String [] damageImages = {"/items/damage.png"};
+                return new DamageUp(damageImages, this.gp, 500, 500);
+            case 2:
+                String[] bootImages = {"/items/boot.png"};
+                return new Boot(bootImages, this.gp, 500, 500);
+            case 3:
+                String[] slimeSlingerImages = {"/items/slingshot.png"};
+                return new SlimeSlinger(slimeSlingerImages, this.gp, 400, 400);
+            case 4:
+                String [] rapidFireImages = {"/items/rapid-fire.png"};
+                return new RapidFire(rapidFireImages, this.gp, 500, 500);
+
+        }
     }
 }

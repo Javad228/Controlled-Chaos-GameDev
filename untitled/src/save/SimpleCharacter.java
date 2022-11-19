@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SimpleCharacter {
     public String name;
-    public int health;
+    public double health;
     public int maxHealth;
     public int movementSpeed;
     public int xCoord;

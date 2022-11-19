@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class SimpleEnemy {
     private String name;
     private String description;
-    public int health;
+    public double health;
     public int maxHealth;
     public int movementSpeed;
     public int xCoord;

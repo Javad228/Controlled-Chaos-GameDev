@@ -17,8 +17,13 @@ public class BigSkull extends Enemy {
         super(EnemyType.LARGE, LootType.DEFAULT);
         name = "BigSkull";
         movementSpeed = 2;
-        setMaxHealth(500);
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+        setMaxHealth(150);
         health = getMaxHealth();
+//=======
+//        maxHealth = 150;
+//        health = maxHealth;
+//>>>>>>> Cameron-MergePermUnlocks
         attackType = 1;
         solidArea.x = 15;
         solidArea.y = 5;

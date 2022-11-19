@@ -19,8 +19,13 @@ public class Skeleton extends Enemy {
         super(EnemyType.MEDIUM, LootType.DEFAULT);
         name = "Skeleton";
         movementSpeed = 1;
-        setMaxHealth(150);
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+        setMaxHealth(75);
         health = getMaxHealth();
+//=======
+//        maxHealth = 75;
+//        health = maxHealth;
+//>>>>>>> Cameron-MergePermUnlocks
 
         solidArea.x = 15;
         solidArea.y = 5;

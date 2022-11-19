@@ -12,11 +12,12 @@ public class Projectile extends Character {
     transient GamePanel gp;
     private transient BufferedImage projectileImage;
     private boolean isMoving;
-    private int damage;
+    private double damage;
     private boolean isPlayerShooting;
     public boolean bombExploded;
+    private double damageMod;
 
-    public Projectile(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting) {
+    public Projectile(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting, double damageMod) {
         super();
         this.gp = gp;
                                                                 //CombatType type
@@ -34,6 +35,7 @@ public class Projectile extends Character {
         this.health = getMaxHealth();
         this.isPlayerShooting = isPlayerShooting;
         gp.projectileList.add(this);
+        this.damageMod = damageMod;
 
         //this.type = RANGED;
         //this.user = user;
@@ -153,12 +155,12 @@ public class Projectile extends Character {
         isMoving = moving;
     }
 
-    public int getDamage() {
+    public double getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
+    public void setDamage(double damage) {
+        this.damage = damage * damageMod;
     }
 
     public boolean getIsPlayerShooting() {

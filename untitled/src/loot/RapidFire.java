@@ -3,18 +3,18 @@ package loot;
 import character.PlayerCharacter;
 import main.GamePanel;
 
-public class SlimeSlinger extends Weapon {
+public class RapidFire extends PassiveItem {
 
     private transient GamePanel gp;
 
-    public SlimeSlinger(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
+    public RapidFire(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
         super(7 , imagePaths);
         this.gp = gp;
-        this.setxCoord(xCoord);
-        this.setyCoord(yCoord);
+        setxCoord(xCoord);
+        setyCoord(yCoord);
 
         getImage(imagePaths);
-        this.setName("Slime Slinger");
+        this.setName("Arrow Storm");
         this.setDescription("???");
     }
 
@@ -23,9 +23,9 @@ public class SlimeSlinger extends Weapon {
 
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
-            player.setProjectileName("SlimeBall");
             player.setShotAvailableTimer(0);
-            player.setShotTimerMax(25);
+            player.setShotTimerMax(player.getShotTimerMax() - 20);
         }
     }
 }
+

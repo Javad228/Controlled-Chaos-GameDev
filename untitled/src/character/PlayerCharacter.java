@@ -12,6 +12,7 @@ import tile.TileManager;
 import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -38,10 +39,14 @@ public class PlayerCharacter extends Character {
     private int shotAvailableTimer = 0;
     private int shotTimerMax = 50;
 
+    private double damageMod = 1;
+
     private int numCoins;
     private boolean isDying;                // Used for performing death animation
     private ArrayList<SimpleEnemy> enemiesKilled;
     private ArrayList<Item> itemsDiscovered;
+    private boolean[] itemsUnlocked;
+    private int itemPriority;
 
     //private transient BufferedImage[] deathImages;
     private Tile currentTile;
@@ -81,6 +86,7 @@ public class PlayerCharacter extends Character {
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
         itemsDiscovered = new ArrayList<>();
+
         setDefaultValues();
     }
 
@@ -106,6 +112,7 @@ public class PlayerCharacter extends Character {
         this.currentTile = pc.currentTile;
         this.numCoins = pc.numCoins;
         enemiesKilled = new ArrayList<>(pc.getEnemiesKilled());
+
     }
 
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
@@ -124,6 +131,7 @@ public class PlayerCharacter extends Character {
         this.currentTile = null;
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
         itemsDiscovered = c.itemsDiscovered;
+
     }
 
     public void setDefaultValues() {
@@ -142,6 +150,8 @@ public class PlayerCharacter extends Character {
         Item item1 = new Item(7,stringArray1);
         item.setName("Sword #2");
         item1.setDescription("wooden sword #2");
+        this.itemsUnlocked = new boolean[]{ true, true, true, true, false};
+        this.itemPriority = -1;
 
         this.getInventory().addItem(item);
         getItemsDiscovered().add(item);
@@ -267,22 +277,22 @@ public class PlayerCharacter extends Character {
             int currentY = this.getyCoord();
 
             if (keyH.upPressed && !keyH.downPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "up", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "up", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.downPressed && !keyH.upPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "down", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "down", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.leftPressed && !keyH.rightPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "left", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "left", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
             if (keyH.rightPressed && !keyH.leftPressed && (shotAvailableTimer == shotTimerMax)) {
-                shoot(this.getProjectileName(), gp, currentX, currentY, "right", true);
+                shoot(this.getProjectileName(), gp, currentX, currentY, "right", true, damageMod);
                 this.setHasThrownProjectile(true);
                 shotAvailableTimer = 0;
             }
@@ -467,15 +477,15 @@ public class PlayerCharacter extends Character {
         }
     }
 
-    public void shoot(String projectileName, GamePanel gp, int currentX, int currentY, String direction, boolean isPlayerShooting) {
+    public void shoot(String projectileName, GamePanel gp, int currentX, int currentY, String direction, boolean isPlayerShooting, double damage) {
         if (projectileName.equals("Arrow")) {
-            Arrow arrow = new Arrow(gp, currentX, currentY, direction, isPlayerShooting); //RANGED, true (isInvincible), this (user)
+            Arrow arrow = new Arrow(gp, currentX, currentY, direction, isPlayerShooting, damage); //RANGED, true (isInvincible), this (user)
         }
         if (projectileName.equals("SlimeBall")) {
-            SlimeBall slimeBall = new SlimeBall(gp, currentX, currentY, direction, isPlayerShooting);
+            SlimeBall slimeBall = new SlimeBall(gp, currentX, currentY, direction, isPlayerShooting, damage);
         }
         if (projectileName.equals("Bomb")) {
-            Bomb bomb = new Bomb(gp, currentX, currentY, direction, isPlayerShooting);
+            Bomb bomb = new Bomb(gp, currentX, currentY, direction, isPlayerShooting, damage);
         }
     }
     public void damagePlayerInt(int damageAmount) {
@@ -635,5 +645,44 @@ public class PlayerCharacter extends Character {
     public void setItemsDiscovered(ArrayList<Item> itemsDiscovered) {
         this.itemsDiscovered = itemsDiscovered;
     }
+
+    public double getDamageMod() {
+        return damageMod;
+    }
+
+    public void setDamageMod(double damageMod) {
+        this.damageMod = damageMod;
+    }
+
+    public boolean[] getItemsUnlocked() {
+        return itemsUnlocked;
+    }
+    public void setItemsUnlocked() {
+        this.itemsUnlocked = itemsUnlocked;
+    }
+    public void unlockItem(int itemID) {
+        this.itemsUnlocked[itemID] = true;
+
+        setItemPriority(itemID);
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/items/health.png"));
+        if(itemID == 4) {
+            icon = new ImageIcon(getClass().getResource("/items/rapid-fire.png"));
+        }
+        JOptionPane.showMessageDialog(
+                null,
+                "A new item will appear in the realm!",
+                "New Unlock!", JOptionPane.INFORMATION_MESSAGE,
+                icon);
+    }
+
+    public int getItemPriority() {
+        return itemPriority;
+    }
+
+    public void setItemPriority(int itemPriority) {
+        this.itemPriority = itemPriority;
+    }
+
 }
 
