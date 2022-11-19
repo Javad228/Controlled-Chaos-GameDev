@@ -21,7 +21,7 @@ public abstract class Character {
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
     public int health;
-    public int maxHealth;                   // Character health
+    private int maxHealth;                   // Character health
     public int movementSpeed;               // Character movement speed
     public int xCoord;                         // Character x-position in a room
     public int yCoord;                         // Character y-position in a room
@@ -132,6 +132,14 @@ public abstract class Character {
             Audio.playerDamagedAudio();
         }
         this.health = health;
+    }
+
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public void damage(int damageTaken) {

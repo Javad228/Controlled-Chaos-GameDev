@@ -28,7 +28,7 @@ public class SimpleCharacter {
     public SimpleCharacter(PlayerCharacter c) {
         this.name = c.getName();
         this.health = c.getHealth();
-        this.maxHealth = c.maxHealth;
+        this.maxHealth = c.getMaxHealth();
         this.movementSpeed = c.getMovementSpeed();
         this.xCoord = c.getxCoord();
         this.yCoord = c.getyCoord();

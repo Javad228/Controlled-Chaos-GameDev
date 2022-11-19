@@ -30,8 +30,8 @@ public class Projectile extends Character {
         this.setMovementSpeed(movementSpeed);
         this.setMoving(true);
         this.setIsAlive(true);
-        this.maxHealth = 300;
-        this.health = this.maxHealth;
+        setMaxHealth(300);
+        this.health = getMaxHealth();
         this.isPlayerShooting = isPlayerShooting;
         gp.projectileList.add(this);
 
