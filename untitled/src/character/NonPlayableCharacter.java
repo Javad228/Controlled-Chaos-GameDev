@@ -222,7 +222,7 @@ public abstract class NonPlayableCharacter extends Character {
 
 
     public void drawHP(Graphics2D g2, GamePanel gamePanel){
-        double oneScale = (double)gamePanel.tileSize/maxHealth;
+        double oneScale = (double)gamePanel.tileSize/getMaxHealth();
         double hpBarValue = oneScale*health;
 
         g2.setColor(new Color(35, 35, 35));

@@ -21,8 +21,8 @@ public class Slime extends Enemy {
         super(EnemyType.SMALL, LootType.DEFAULT);   //TODO DEBUG
         name = "Slime";
         movementSpeed = 1;
-        maxHealth = 10;
-        health = maxHealth;
+        setMaxHealth(10);
+        health = getMaxHealth();
 
         solidArea.x = 3;
         solidArea.y = 18;
@@ -46,7 +46,7 @@ public class Slime extends Enemy {
         this(enemy.xCoord, enemy.yCoord);
         this.name = enemy.getName();
         this.health = enemy.health;
-        this.maxHealth = enemy.maxHealth;
+        setMaxHealth(enemy.maxHealth);
         this.movementSpeed = enemy.movementSpeed;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);

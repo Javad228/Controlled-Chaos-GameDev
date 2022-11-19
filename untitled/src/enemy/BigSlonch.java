@@ -18,8 +18,8 @@ public class BigSlonch extends Enemy {
         super(EnemyType.LARGE, LootType.DEFAULT);
         name = "BigSlonch";
         movementSpeed = 1;
-        maxHealth = 150;
-        health = maxHealth;
+        setMaxHealth(150);
+        health = getMaxHealth();
         attackType = 1;
         solidArea.x = 0;
         solidArea.y = 0;
@@ -46,7 +46,7 @@ public class BigSlonch extends Enemy {
         this(enemy.xCoord, enemy.yCoord);
         this.name = enemy.getName();
         this.health = enemy.health;
-        this.maxHealth = enemy.maxHealth;
+        setMaxHealth(enemy.maxHealth);
         this.movementSpeed = enemy.movementSpeed;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);

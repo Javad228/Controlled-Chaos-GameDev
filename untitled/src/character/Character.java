@@ -1,13 +1,5 @@
 package character;
 
-/*
- * Character Class - An abstract class which models a character containing basic information pertaining to the game.
- *
- * @author Cameron Hofbauer
- * @version September 28, 2022
- */
-
-
 import combat.CombatType;
 import main.Audio;
 
@@ -15,6 +7,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * Character Class - An abstract class which models a character containing basic information pertaining to the game.
+ *
+ * @author Cameron Hofbauer
+ * @version September 28, 2022
+ */
 public abstract class Character {
     public int attackType = 0;
     public boolean isInvincible = false;
@@ -23,7 +21,7 @@ public abstract class Character {
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
     public double health;
-    public int maxHealth;                   // Character health
+    private int maxHealth;                   // Character health
     public int movementSpeed;               // Character movement speed
     public int xCoord;                         // Character x-position in a room
     public int yCoord;                         // Character y-position in a room
@@ -136,9 +134,13 @@ public abstract class Character {
         this.health = health;
     }
 
-    public int getMaxHealth() { return maxHealth; }
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
 
-    public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
 
     public void damage(double damageTaken) {
         if (damageTaken > this.health) setHealth(0);
@@ -155,7 +157,7 @@ public abstract class Character {
      * kill(): Sets the <code>isAlive</code> boolean variable to <code>false</code>.
      * Used for the GameThread to determine that the player death
      * animation is finished.
-     *
+     * <p>
      * Important: This method does not set the player health to 0.
      */
     public void kill() {

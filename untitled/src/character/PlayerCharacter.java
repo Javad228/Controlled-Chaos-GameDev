@@ -78,7 +78,7 @@ public class PlayerCharacter extends Character {
 
         this.setHasThrownProjectile(false);
 
-        this.healthBar = new HealthBar(this.health, this.maxHealth, 40, 10);
+        this.healthBar = new HealthBar(this.health, getMaxHealth(), gp.tileSize+2, 10);
         this.name = "Intrepid Adventurer";
         Random r = new Random();
         roomSetNum = r.nextInt(2) + 1;
@@ -119,7 +119,7 @@ public class PlayerCharacter extends Character {
         this(gp, keyH);
         this.name = c.name;
         this.health = c.health;
-        this.maxHealth = c.maxHealth;
+        setMaxHealth(c.maxHealth);
         this.movementSpeed = c.movementSpeed;
         this.xCoord = c.xCoord;
         this.yCoord = c.yCoord;
@@ -162,6 +162,11 @@ public class PlayerCharacter extends Character {
 //        this.collisionAreaDefaultX = solidArea.x;
 //        this.collisionAreaDefaultY = solidArea.y;
 
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        super.setMaxHealth(maxHealth);
+        this.healthBar.setMaxHealth(maxHealth);
     }
 
     public int getRow() {

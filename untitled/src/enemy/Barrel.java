@@ -8,11 +8,9 @@ import main.GamePanel;
 import save.SimpleEnemy;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Random;
 
 public class Barrel extends Enemy {
 
@@ -20,8 +18,8 @@ public class Barrel extends Enemy {
         super(EnemyType.SMALL, LootType.DEFAULT);   //TODO DEBUG
         name = "Barrel";
         movementSpeed = 0;
-        maxHealth = 10;
-        health = maxHealth;
+        setMaxHealth(10);
+        health = getMaxHealth();
 
         solidArea.x = 0;
         solidArea.y = 10;
@@ -44,7 +42,7 @@ public class Barrel extends Enemy {
         this(enemy.xCoord, enemy.yCoord);
         this.name = enemy.getName();
         this.health = enemy.health;
-        this.maxHealth = enemy.maxHealth;
+        setMaxHealth(enemy.maxHealth);
         this.movementSpeed = enemy.movementSpeed;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);
