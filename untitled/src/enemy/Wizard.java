@@ -17,8 +17,13 @@ public class Wizard extends Enemy {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
-        maxHealth = 15;
-        health = maxHealth;
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+        setMaxHealth(15);
+        health = getMaxHealth();
+//=======
+//        maxHealth = 15;
+//        health = maxHealth;
+//>>>>>>> Cameron-MergePermUnlocks
         attackType = 1;
         solidArea.x = 10;
         solidArea.y = 5;
@@ -45,7 +50,7 @@ public class Wizard extends Enemy {
         this(enemy.xCoord, enemy.yCoord);
         this.name = enemy.getName();
         this.health = enemy.health;
-        this.maxHealth = enemy.maxHealth;
+        setMaxHealth(enemy.maxHealth);
         this.movementSpeed = enemy.movementSpeed;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);

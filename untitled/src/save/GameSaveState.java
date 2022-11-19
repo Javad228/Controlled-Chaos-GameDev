@@ -59,9 +59,9 @@ public class GameSaveState {
         //        (currentRunTimeNS / (1000000000L *60)) % 60 + ":" +    //Minutes
         //        (currentRunTimeNS / 1000000000) % 60 + "." +           //Seconds
         //        (currentRunTimeNS / 1000000) % 1000;                   //Milliseconds
-        return String.format("%01d", currentRunTimeNS / (1000000000L * 60 * 60)) + ":" +        //H
-                String.format("%02d", (currentRunTimeNS / (1000000000L * 60)) % 60) + ":" +     //MM
-                String.format("%02d", (currentRunTimeNS / 1000000000) % 60) + "." +             //SS
-                String.format("%03d", (currentRunTimeNS / 1000000) % 1000);                     //msmsms
+        return  String.format("%01d", (currentRunTimeNS / ( 1000000000L * 60 * 60))) + ":" +        //H
+                String.format("%02d", (currentRunTimeNS / ( 1000000000L * 60 )) % 60) + ":" +     //MM
+                String.format("%02d", (currentRunTimeNS /   1000000000) % 60    ) + "." +             //SS
+                String.format("%03d", (currentRunTimeNS /   1000000)    % 1000  );                     //msmsms
     }
 }

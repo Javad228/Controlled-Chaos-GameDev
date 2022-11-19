@@ -7,60 +7,125 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static main.Main.view;
+
 /**
  * HealthBar - A Graphical Element, as part of the PlayerCharacter class,
  */
 public class HealthBar extends BufferedImage {
 
-    private double health;
-    private final int maxHealth;
-    private int width;
-    private int height;
+    private final int DEFAULT_MAXHEALTH;
+    private final int DEFAULT_WIDTH;
+    private final int DEFAULT_HEIGHT;
+
+    private int health;
+    private int maxHealth;
     private transient final Color red = Color.RED;
-    private transient final Color blank = new Color(70, 70, 70);
+    private transient final Color blank = Color.BLACK;
+    private transient final Color gold = new Color(255, 215, 0);
 
     public HealthBar(double hp, int maxHealth, int width, int height) {
         super(width, height, TYPE_INT_RGB);
-        this.width = width;
-        this.height = height;
+        this.DEFAULT_MAXHEALTH = maxHealth;
+        this.DEFAULT_WIDTH = width;
+        this.DEFAULT_HEIGHT = height;
         this.health = hp;
         this.maxHealth = maxHealth;
     }
 
     public void setHealth(double hp) {
         if (hp < 0) hp = 0;
-        if (hp > 100) hp = 100;
+        if (hp > maxHealth) hp = maxHealth;
         this.health = hp;
     }
 
     public double getHealth() {return this.health;}
 
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+//    public void update(int hp) {
+//=======
     public void update(double hp) {
+//>>>>>>> Cameron-MergePermUnlocks
         this.setHealth(hp);
     }
 
     public void draw(Graphics2D g2, int charX, int charY) {
 
-        //if (this.getHealth() == 100) return;
+        int healthBarWidth = DEFAULT_WIDTH;
+        int barX = charX;
+        int barY = charY - 3;
+        int currHealth;
+        double scaledWidth;
+        double scaledHP;
 
-        // Removed bottom double for-loop due to graphical issues
-        //for (int y = charY; y < height+charY; y++) {
-        //    for (int x = charX; x < width+charX; x++) {
-        //        if (((double)(x-charX))/((double)(width))*100 < getHealth()) {
-        //            g2.setColor(red);
-        //        } else g2.setColor(blank);
+        // If character health is greater than normal,
+        // offset health bar by adjusting character X and width parameters
+        if ((currHealth = this.getHealth()) > DEFAULT_MAXHEALTH) {
+            healthBarWidth += (int)((currHealth-DEFAULT_MAXHEALTH)*(((double) DEFAULT_WIDTH)/DEFAULT_MAXHEALTH));
+            barX -= (7 + (int)((double)currHealth-DEFAULT_MAXHEALTH)/4);
 
-        //        g2.draw(new Rectangle(x, y, 1, 1));
-        //    }
-        //}
+        } else {
+            barX = charX - 7;
+        }
 
-        double scale = (double)Main.view.getGamePanel().tileSize/maxHealth;
-        double scaledHP = scale*health;
+        //scaledWidth = (double)(healthBarWidth-2)/maxHealth;
+        scaledWidth = (double)(healthBarWidth-2)/DEFAULT_MAXHEALTH;
+        scaledHP = scaledWidth*currHealth;
+
 
         g2.setColor(blank);
-        g2.fillRect(charX-15, charY-4, Main.view.getGamePanel().tileSize+2, 12);
+        g2.fillRect(barX-1, barY-1, healthBarWidth, DEFAULT_HEIGHT+2);
         g2.setColor(red);
-        g2.fillRect(charX-14, charY-3, (int) scaledHP, 10);
+
+        if (currHealth > DEFAULT_MAXHEALTH) {
+            g2.fillRect(
+                    barX,
+                    barY,
+                    DEFAULT_WIDTH,
+                    DEFAULT_HEIGHT
+            );
+            g2.setColor(gold);
+            g2.fillRect(
+                    barX+ DEFAULT_WIDTH,
+                    barY,
+                    Math.max(healthBarWidth - DEFAULT_WIDTH - 2, 0),
+                    DEFAULT_HEIGHT
+            );
+            g2.setColor(blank);
+            g2.fillRect(barX+ DEFAULT_WIDTH -1, barY, 1, DEFAULT_HEIGHT);
+        } else {
+            g2.fillRect(barX, barY, (int) scaledHP, DEFAULT_HEIGHT);
+        }
+
+        /*
+
+        Expanding red bar implementation
+
+        // If character health is greater than normal,
+        // offset health bar by adjusting character X and width parameters
+        int health;
+        double scaledWidth;
+        double scaledHP;
+        if ((health = this.getHealth()) > 100) {
+            healthBarWidth+=(health-100);
+            charX-=(health-100)/2;
+            scaledHP = healthBarWidth-2;
+        } else {
+            scaledWidth = (double)(healthBarWidth-2)/DEFAULT_MAXHEALTH;
+            scaledHP = scaledWidth*health;
+        }
+
+
+        g2.setColor(blank);
+        g2.fillRect(charX-8, charY-4, healthBarWidth, DEFAULT_HEIGHT+2);
+        g2.setColor(red);
+        g2.fillRect(charX-7, charY-3, (int) scaledHP, DEFAULT_HEIGHT);
+
+        */
     }
 
 }
@@ -114,5 +179,20 @@ class TestHealthBar {
         });
 
         //new JFrame("Controlled Chaos").setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE).add(consumable).setVisible(true);
+    }
+}
+
+class TestExpandedHealthBar {
+
+    public static void main(String[] args) {
+        Main.main(args);                    // Launch new instance of game
+
+        int health = 200;
+
+        view.getGamePanel().player.setMaxHealth(health);   // Set player max h to 250;
+        view.getGamePanel().player.setHealth(health);      // Ensures health is 250
+
+        view.showGamePanel();
+        view.getGamePanel().startGameThread();
     }
 }

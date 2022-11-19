@@ -28,7 +28,8 @@ public class SaveData {
     public JButton resetGameProgressButton;
 
     private static GamePanel gp;
-    private static final String file = "untitled/src/main/temp_storage.txt";
+    private static final String gameSaveFilePath = "untitled/src/main/game.save";
+    private static final String playerUnlockFilePath = "untitled/src/main/player_unlocks.save";
 //  private final String separator = "\n-=-=-=-=-=-=-\n";
     private final GsonBuilder gb;
     private final Gson g;
@@ -130,7 +131,7 @@ public class SaveData {
      */
     public boolean saveGameState() {
         try {
-            FileWriter f = new FileWriter(file);
+            FileWriter f = new FileWriter(gameSaveFilePath);
             f.write(g.toJson(
                     new GameSaveState(
                             new SimpleCharacter(gp.getPlayer()),
@@ -153,7 +154,7 @@ public class SaveData {
             gb.setPrettyPrinting();
             Gson g = gb.create();
 
-            FileWriter f = new FileWriter(file);
+            FileWriter f = new FileWriter(gameSaveFilePath);
             f.write(g.toJson(new GameSaveState(sc)));
             f.close();
             return false;
@@ -184,7 +185,7 @@ public class SaveData {
 
     public GameSaveState restoreGameState() {
         try {
-            BufferedReader r = new BufferedReader(new FileReader(file));
+            BufferedReader r = new BufferedReader(new FileReader(gameSaveFilePath));
             StringBuilder input = new StringBuilder();
 
             // Read from file
@@ -206,7 +207,7 @@ public class SaveData {
         try {
             GsonBuilder gb = new GsonBuilder();
             Gson g = gb.create();
-            BufferedReader r = new BufferedReader(new FileReader(file));
+            BufferedReader r = new BufferedReader(new FileReader(gameSaveFilePath));
             StringBuilder input = new StringBuilder();
 
             // Read from file
@@ -225,7 +226,7 @@ public class SaveData {
 
     public boolean resetSavedProgress() {
         try {
-            FileWriter f = new FileWriter(file);
+            FileWriter f = new FileWriter(gameSaveFilePath);
             f.write("");
             f.close();
             gp.setCurrentRunTime(new Time(0));

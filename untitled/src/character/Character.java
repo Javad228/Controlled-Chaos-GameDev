@@ -1,13 +1,5 @@
 package character;
 
-/*
- * Character Class - An abstract class which models a character containing basic information pertaining to the game.
- *
- * @author Cameron Hofbauer
- * @version September 28, 2022
- */
-
-
 import combat.CombatType;
 import main.Audio;
 
@@ -15,6 +7,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * Character Class - An abstract class which models a character containing basic information pertaining to the game.
+ *
+ * @author Cameron Hofbauer
+ * @version September 28, 2022
+ */
 public abstract class Character {
     public int attackType = 0;
     public boolean isInvincible = false;
@@ -22,8 +20,13 @@ public abstract class Character {
     public boolean isAlive = true;
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+    public int health;
+    private int maxHealth;                   // Character health
+//=======
     public double health;
     public int maxHealth;                   // Character health
+//>>>>>>> Cameron-MergePermUnlocks
     public int movementSpeed;               // Character movement speed
     public int xCoord;                         // Character x-position in a room
     public int yCoord;                         // Character y-position in a room
@@ -136,11 +139,23 @@ public abstract class Character {
         this.health = health;
     }
 
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+    public int getMaxHealth() {
+        return this.maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public void damage(int damageTaken) {
+//=======
     public int getMaxHealth() { return maxHealth; }
 
     public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
 
     public void damage(double damageTaken) {
+//>>>>>>> Cameron-MergePermUnlocks
         if (damageTaken > this.health) setHealth(0);
         else setHealth(this.health-damageTaken);
     }
@@ -155,7 +170,7 @@ public abstract class Character {
      * kill(): Sets the <code>isAlive</code> boolean variable to <code>false</code>.
      * Used for the GameThread to determine that the player death
      * animation is finished.
-     *
+     * <p>
      * Important: This method does not set the player health to 0.
      */
     public void kill() {

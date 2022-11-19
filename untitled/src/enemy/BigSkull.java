@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Random;
 
 public class BigSkull extends Enemy {
     private int counter = 1;
@@ -18,8 +17,13 @@ public class BigSkull extends Enemy {
         super(EnemyType.LARGE, LootType.DEFAULT);
         name = "BigSkull";
         movementSpeed = 2;
-        maxHealth = 150;
-        health = maxHealth;
+//TODO: <<<<<<< Cameron-PermanentUnlocks
+        setMaxHealth(150);
+        health = getMaxHealth();
+//=======
+//        maxHealth = 150;
+//        health = maxHealth;
+//>>>>>>> Cameron-MergePermUnlocks
         attackType = 1;
         solidArea.x = 15;
         solidArea.y = 5;
@@ -46,7 +50,7 @@ public class BigSkull extends Enemy {
         this(enemy.xCoord, enemy.yCoord);
         this.name = enemy.getName();
         this.health = enemy.health;
-        this.maxHealth = enemy.maxHealth;
+        setMaxHealth(enemy.maxHealth);
         this.movementSpeed = enemy.movementSpeed;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);

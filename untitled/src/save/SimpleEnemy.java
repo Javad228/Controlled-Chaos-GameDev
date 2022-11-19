@@ -27,7 +27,7 @@ public class SimpleEnemy {
     public SimpleEnemy(Enemy enemy, Object enemyClass) {
         this.name = enemy.name;
         this.health = enemy.health;
-        this.maxHealth = enemy.maxHealth;
+        this.maxHealth = enemy.getMaxHealth();
         this.movementSpeed = enemy.movementSpeed;
         this.xCoord = enemy.xCoord;
         this.yCoord = enemy.yCoord;
