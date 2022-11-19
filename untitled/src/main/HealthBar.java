@@ -29,27 +29,27 @@ public class HealthBar extends BufferedImage {
         this.DEFAULT_MAXHEALTH = maxHealth;
         this.DEFAULT_WIDTH = width;
         this.DEFAULT_HEIGHT = height;
-        this.health = hp;
+        this.health = (int)hp;
         this.maxHealth = maxHealth;
     }
 
     public void setHealth(double hp) {
         if (hp < 0) hp = 0;
         if (hp > maxHealth) hp = maxHealth;
-        this.health = hp;
+        this.health = (int)hp;
     }
 
     public double getHealth() {return this.health;}
 
-//TODO: <<<<<<< Cameron-PermanentUnlocks
+    public int getHealthInteger() {
+        return this.health;
+    }
+
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
 
-//    public void update(int hp) {
-//=======
     public void update(double hp) {
-//>>>>>>> Cameron-MergePermUnlocks
         this.setHealth(hp);
     }
 
@@ -64,7 +64,7 @@ public class HealthBar extends BufferedImage {
 
         // If character health is greater than normal,
         // offset health bar by adjusting character X and width parameters
-        if ((currHealth = this.getHealth()) > DEFAULT_MAXHEALTH) {
+        if ((currHealth = this.getHealthInteger()) > DEFAULT_MAXHEALTH) {
             healthBarWidth += (int)((currHealth-DEFAULT_MAXHEALTH)*(((double) DEFAULT_WIDTH)/DEFAULT_MAXHEALTH));
             barX -= (7 + (int)((double)currHealth-DEFAULT_MAXHEALTH)/4);
 

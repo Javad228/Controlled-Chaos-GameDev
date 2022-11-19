@@ -18,13 +18,8 @@ public class BigSlonch extends Enemy {
         super(EnemyType.LARGE, LootType.DEFAULT);
         name = "BigSlonch";
         movementSpeed = 1;
-//TODO: <<<<<<< Cameron-PermanentUnlocks
         setMaxHealth(150);
         health = getMaxHealth();
-//=======
-//        maxHealth = 150;
-//        health = maxHealth;
-//>>>>>>> Cameron-MergePermUnlocks
         attackType = 1;
         solidArea.x = 0;
         solidArea.y = 0;

@@ -17,13 +17,8 @@ public class Wizard extends Enemy {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
         movementSpeed = 1;
-//TODO: <<<<<<< Cameron-PermanentUnlocks
         setMaxHealth(15);
         health = getMaxHealth();
-//=======
-//        maxHealth = 15;
-//        health = maxHealth;
-//>>>>>>> Cameron-MergePermUnlocks
         attackType = 1;
         solidArea.x = 10;
         solidArea.y = 5;

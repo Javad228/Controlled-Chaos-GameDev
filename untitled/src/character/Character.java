@@ -20,13 +20,8 @@ public abstract class Character {
     public boolean isAlive = true;
     public Rectangle attackArea = new Rectangle(0, 0,8,8);
     public String name;                        // Character name
-//TODO: <<<<<<< Cameron-PermanentUnlocks
-    public int health;
-    private int maxHealth;                   // Character health
-//=======
     public double health;
-    public int maxHealth;                   // Character health
-//>>>>>>> Cameron-MergePermUnlocks
+    private int maxHealth;                   // Character health
     public int movementSpeed;               // Character movement speed
     public int xCoord;                         // Character x-position in a room
     public int yCoord;                         // Character y-position in a room
@@ -139,7 +134,6 @@ public abstract class Character {
         this.health = health;
     }
 
-//TODO: <<<<<<< Cameron-PermanentUnlocks
     public int getMaxHealth() {
         return this.maxHealth;
     }
@@ -148,14 +142,7 @@ public abstract class Character {
         this.maxHealth = maxHealth;
     }
 
-    public void damage(int damageTaken) {
-//=======
-    public int getMaxHealth() { return maxHealth; }
-
-    public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
-
     public void damage(double damageTaken) {
-//>>>>>>> Cameron-MergePermUnlocks
         if (damageTaken > this.health) setHealth(0);
         else setHealth(this.health-damageTaken);
     }
