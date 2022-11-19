@@ -13,7 +13,9 @@ public class MainMenuPanel extends JPanel {
         add(Box.createVerticalStrut(25));
         addTitle();
         add(Box.createVerticalStrut(50));
-        addNewRunButton();
+        addContinueRunButton();
+        add(Box.createVerticalStrut(10));
+        addChangeSkinButton();
         add(Box.createVerticalStrut(10));
         addStatsButton();
         add(Box.createVerticalStrut(10));
@@ -33,7 +35,7 @@ public class MainMenuPanel extends JPanel {
         add(titleLabel);
     }
 
-    private void addNewRunButton() {
+    private void addContinueRunButton() {
         JButton newRunButton = new JButton("Continue Run");
         newRunButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
         newRunButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -42,6 +44,19 @@ public class MainMenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Main.view.showGamePanel();
                 Main.view.getGamePanel().startGameThread();
+            }
+        });
+        add(newRunButton);
+    }
+
+    private void addChangeSkinButton() {
+        JButton newRunButton = new JButton("Change Character");
+        newRunButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        newRunButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        newRunButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.view.showChangeSkinPanel();
             }
         });
         add(newRunButton);

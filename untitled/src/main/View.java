@@ -17,6 +17,7 @@ public class View {
     private JPanel mainMenuPanel;
     private JScrollPane statsPanel;
     private JButton settingsButton;
+    private JPanel changeSkinPanel;
 
     public View () {
         window = new JFrame();
@@ -38,43 +39,45 @@ public class View {
         gamePanel.setVisible(false);
         coinPanel.setBounds(0, 0, 75, 30);
 
-        statsPanel = new statsPanel(gamePanel).scrollPane;
+        statsPanel = new StatsPanel(gamePanel).scrollPane;
+
+        changeSkinPanel = new changeSkinPanel();
 
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
             @Override
             public void windowClosing(WindowEvent e) {
-                // If the gamepanel is not in view, simply perform ordinary close operation
-                if (getWindow().getContentPane().getComponentZOrder(gamePanel) == -1) {
+            // If the gamepanel is not in view, simply perform ordinary close operation
+            if (getWindow().getContentPane().getComponentZOrder(gamePanel) == -1) {
+                super.windowClosing(e);
+                System.exit(0);
+            }
+
+            // Pause game execution
+            gamePanel.pauseThread();
+
+            // Show save prompt
+            switch (JOptionPane.showConfirmDialog(null, "Save?", "Controlled Chaos",
+                    JOptionPane.YES_NO_CANCEL_OPTION)) {
+
+                case JOptionPane.YES_OPTION -> {
+                    // Note: Returns false if save is successful
+                    if (gamePanel.saveData.saveGameState())
+                        JOptionPane.showMessageDialog(null, "Save Failed!\nExiting game!",
+                                "Controlled Chaos", JOptionPane.ERROR_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(null, "Game Saved Successfully!\nExiting game",
+                                "Controlled Chaos", JOptionPane.INFORMATION_MESSAGE);
                     super.windowClosing(e);
                     System.exit(0);
                 }
 
-                // Pause game execution
-                gamePanel.pauseThread();
-
-                // Show save prompt
-                switch (JOptionPane.showConfirmDialog(null, "Save?", "Controlled Chaos",
-                        JOptionPane.YES_NO_CANCEL_OPTION)) {
-
-                    case JOptionPane.YES_OPTION -> {
-                        // Note: Returns false if save is successful
-                        if (gamePanel.saveData.saveGameState())
-                            JOptionPane.showMessageDialog(null, "Save Failed!\nExiting game!",
-                                    "Controlled Chaos", JOptionPane.ERROR_MESSAGE);
-                        else
-                            JOptionPane.showMessageDialog(null, "Game Saved Successfully!\nExiting game",
-                                    "Controlled Chaos", JOptionPane.INFORMATION_MESSAGE);
-                        super.windowClosing(e);
-                        System.exit(0);
-                    }
-
-                    case JOptionPane.NO_OPTION -> {
-                        super.windowClosing(e);
-                        System.exit(0);
-                    }
-
-                    case JOptionPane.CANCEL_OPTION -> gamePanel.resumeThread();
+                case JOptionPane.NO_OPTION -> {
+                    super.windowClosing(e);
+                    System.exit(0);
                 }
+
+                case JOptionPane.CANCEL_OPTION -> gamePanel.resumeThread();
+            }
             }
         });
 
@@ -120,6 +123,17 @@ public class View {
 
         Audio.stopMusic();
         Audio.settingsMusic();
+    }
+
+    public void showChangeSkinPanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getChangeSkinPanel());
+        Main.view.getChangeSkinPanel().setVisible(true);
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+
+        Audio.stopMusic();
+        // TODO: add music?
     }
 
     public void showMainMenuPanel() {
@@ -252,5 +266,13 @@ public class View {
 
     public void setStatsPanel(JScrollPane statsPanel) {
         this.statsPanel = statsPanel;
+    }
+
+    public JPanel getChangeSkinPanel() {
+        return changeSkinPanel;
+    }
+
+    public void setChangeSkinPanel(JPanel changeSkinPanel) {
+        this.changeSkinPanel = changeSkinPanel;
     }
 }
