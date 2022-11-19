@@ -201,7 +201,7 @@ public class SaveData {
         }
     }
 
-    // for use in statsPanel.java
+    // for use in StatsPanel.java
     public static GameSaveState restoreGameState(String dummy) {
         try {
             GsonBuilder gb = new GsonBuilder();
