@@ -5,6 +5,7 @@ import character.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -73,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms.add(new Room(3, keyH, this));
 		rooms.add(new Room(4, keyH, this));
 		rooms.add(new Room(5, keyH, this));
+		rooms.add(new Room(6, keyH, this));
 
 		// First run will set enemy coordinates
 		if (rooms.get(currentRoomNum).getEnemies() != null){
@@ -269,6 +271,13 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 
+		if (rooms.get(currentRoomNum).getChests() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getChests().size(); i++) {
+				Chest chest = rooms.get(currentRoomNum).getChests().get(i);
+				chest.update();
+			}
+		}
+
 		if (rooms.get(currentRoomNum).getNPCs() != null) {
 			for (int i = 0; i < rooms.get(currentRoomNum).getNPCs().size(); i++) {
 				NonPlayableCharacter npc = rooms.get(currentRoomNum).getNPCs().get(i);
@@ -297,11 +306,29 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void paintComponent(Graphics g){
+
 		super.paintComponent(g);
 
 		g2 = (Graphics2D)g;
 
 		tileM.draw(g2);
+		if (rooms.get(currentRoomNum).getChests() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getChests().size(); i++) {
+				Chest chest = rooms.get(currentRoomNum).getChests().get(i);
+				chest.draw(g2, this);
+			}
+		}
+
+		if (rooms.get(currentRoomNum).getSigns() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getSigns().size(); i++) {
+				Sign sign = rooms.get(currentRoomNum).getSigns().get(i);
+				try {
+					sign.draw(g2, this);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
 		player.draw(g2);
 
 		if (rooms.get(currentRoomNum).getEnemies() != null) {
@@ -320,6 +347,8 @@ public class GamePanel extends JPanel implements Runnable{
 				item.draw(g2, this);
 			}
 		}
+
+
 
 		if (rooms.get(currentRoomNum).getNPCs() != null) {
 			for (int i = 0; i < rooms.get(currentRoomNum).getNPCs().size(); i++) {

@@ -232,6 +232,7 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
+        System.out.println(this.getNumCoins());
         gp.checker.checkRoom(this);
 
         this.healthBar.update(this.getHealth());

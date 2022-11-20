@@ -68,7 +68,7 @@ public class Audio {
 
     public static void openingMusic() {
         //musicClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\Derp-Nugget.wav");
-        musicClip = getClip("untitled/audio/Derp-Nugget.wav");
+        musicClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDevpathc\\untitled\\audio\\Derp-Nugget.wav");
         if (musicClip == null) {
             System.out.println("opening music failed: getClip returned null");
             System.exit(0);
@@ -98,7 +98,7 @@ public class Audio {
     public static void walking() {
 
         //want to find a different clip and make it more coherent w animation
-        walkingClip = getClip("untitled/audio/Walking_On_Gravel.wav");
+        walkingClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDevpathc\\untitled\\audio\\Walking_On_Gravel.wav");
         //walkingClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\Walking_On_Gravel.wav");
         if (walkingClip == null) {
             System.out.println("walking audio failed: getClip returned null");
@@ -150,7 +150,7 @@ public class Audio {
 
         //uncomment when there are clips for these sounds
 
-        Clip itemPickUpClip = getClip("untitled/audio/jump-coin-216.wav");
+        Clip itemPickUpClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDevpathc\\untitled\\audio\\jump-coin-216.wav");
         if (itemPickUpClip == null) {
             System.out.println("Item pick up audio failed: getClip returned null");
             System.exit(0);
@@ -163,7 +163,7 @@ public class Audio {
 
         //uncomment when there are clips for these sounds
 
-        Clip playerDamagedClip = getClip("untitled/audio/short-knife-whoosh-fx.wav");
+        Clip playerDamagedClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDevpathc\\untitled\\audio\\short-knife-whoosh-fx.wav");
         //Clip playerDamagedClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\short-knife-whoosh-fx.wav");
         if (playerDamagedClip == null) {
             System.out.println("Player damaged audio failed: getClip returned null");
@@ -175,9 +175,9 @@ public class Audio {
 
     public static void enemyDamagedAudio() {
 
-        //uncomment when there are clips for these sounds
+        //uncomment when there are clips for these soundsds
 
-        Clip playerDamagedClip = getClip("untitled/audio/Slime-Splash.wav");
+        Clip playerDamagedClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDevpathc\\untitled\\audio\\Slime-Splash.wav");
         //Clip playerDamagedClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\Slime-Splash.wav");
         if (playerDamagedClip == null) {
             System.out.println("Player damaged audio failed: getClip returned null");
@@ -202,7 +202,7 @@ public class Audio {
     public static void pressButtonAudio() {
         //uncomment when there are clips for these sounds
 
-        Clip pressButtonClip = getClip("untitled/audio/Button-Click.wav");
+        Clip pressButtonClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDevpathc\\untitled\\audio\\Button-Click.wav");
         if (pressButtonClip == null) {
             System.out.println("Press button audio failed: getClip returned null");
             System.exit(0);
@@ -214,7 +214,7 @@ public class Audio {
     public static void doorOpenAudio() {
         //uncomment when there are clips for these sounds
 
-        Clip doorOpenClip = getClip("untitled/audio/Large-Metal-Rusty-Door.wav");
+        Clip doorOpenClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDevpathc\\untitled\\audio\\Large-Metal-Rusty-Door.wav");
         if (doorOpenClip == null) {
             System.out.println("Door open audio failed: getClip returned null");
             System.exit(0);

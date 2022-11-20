@@ -28,8 +28,10 @@ public class TileManager {
     }
 
     public void update() {
+//        int roomNum = 5;
+//        gp.setCurrentRoomNum(5);
         int roomNum = gp.getCurrentRoomNum();
-//        System.out.println(roomNum);
+        System.out.println(roomNum);
         if (roomNum == 1) {
             System.out.println("loaded");
             loadMap("/maps/mapset" + gp.player.roomSetNum + "/starting1.txt");
@@ -73,6 +75,16 @@ public class TileManager {
             }
         }
         if (roomNum == 5) {
+            loadMap("/maps/mapset" + gp.player.roomSetNum + "/shop.txt");
+            gp.player.setxCoord(40);
+            gp.player.setyCoord(80);
+            if (backward) {
+                gp.player.setxCoord(600);
+                gp.player.setyCoord(380);
+                backward = false;
+            }
+        }
+        if (roomNum == 6) {
             loadMap("/maps/mapset" + gp.player.roomSetNum + "/boss5.txt");
             gp.player.setxCoord(40);
             gp.player.setyCoord(80);
