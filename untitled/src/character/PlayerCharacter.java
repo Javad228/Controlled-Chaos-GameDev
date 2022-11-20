@@ -47,10 +47,9 @@ public class PlayerCharacter extends Character {
     private ArrayList<Item> itemsDiscovered;
     private boolean[] itemsUnlocked;
     private int itemPriority;
-
-    //private transient BufferedImage[] deathImages;
     private Tile currentTile;
     public int roomSetNum;
+    private String characterAppearance;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
         super();
@@ -74,6 +73,7 @@ public class PlayerCharacter extends Character {
         setAttackImages(new BufferedImage[4][3]); // should be in super()
         setWalkingImages(new BufferedImage[4][3]); // should be in super()
         this.currentTile = null;
+        characterAppearance = "warrior";
         getPlayerImage();
 
         this.setHasThrownProjectile(false);
@@ -86,7 +86,6 @@ public class PlayerCharacter extends Character {
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
         itemsDiscovered = new ArrayList<>();
-
         setDefaultValues();
     }
 
@@ -112,6 +111,7 @@ public class PlayerCharacter extends Character {
         this.currentTile = pc.currentTile;
         this.numCoins = pc.numCoins;
         enemiesKilled = new ArrayList<>(pc.getEnemiesKilled());
+        this.characterAppearance = pc.getCharacterAppearance();
 
     }
 
@@ -131,7 +131,7 @@ public class PlayerCharacter extends Character {
         this.currentTile = null;
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
         itemsDiscovered = c.itemsDiscovered;
-
+        this.characterAppearance = c.characterAppearance;
     }
 
     public void setDefaultValues() {
@@ -161,6 +161,7 @@ public class PlayerCharacter extends Character {
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
 //        this.collisionAreaDefaultY = solidArea.y;
+        this.characterAppearance = "warrior";
 
     }
 
@@ -188,42 +189,42 @@ public class PlayerCharacter extends Character {
         try {
             // get walking sprites
             // Row 0 = up, Row 1 = down, Row 2 = left, Row 3 = right
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/up_1.png")), 0, 0);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/up_2.png")), 0, 1);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/up_3.png")), 0, 2);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/down_1.png")), 1, 0);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/down_2.png")), 1, 1);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/down_3.png")), 1, 2);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/left_1.png")), 2, 0);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/left_2.png")), 2, 1);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/left_3.png")), 2, 2);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/right_1.png")), 3, 0);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/right_2.png")), 3, 1);
-            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/walk/right_3.png")), 3, 2);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/up_1.png")), 0, 0);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/up_2.png")), 0, 1);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/up_3.png")), 0, 2);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/down_1.png")), 1, 0);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/down_2.png")), 1, 1);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/down_3.png")), 1, 2);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/left_1.png")), 2, 0);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/left_2.png")), 2, 1);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/left_3.png")), 2, 2);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/right_1.png")), 3, 0);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/right_2.png")), 3, 1);
+            this.setWalkingImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/walk/right_3.png")), 3, 2);
 
             // get attack sprites
             // again, Row 0 = up, Row 1 = down, Row 2 = left, Row 3 = right
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/up_1.png")), 0, 0);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/up_2.png")), 0, 1);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/up_3.png")), 0, 2);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/down_1.png")), 1, 0);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/down_2.png")), 1, 1);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/down_3.png")), 1, 2);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/left_1.png")), 2, 0);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/left_2.png")), 2, 1);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/left_3.png")), 2, 2);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/right_1.png")), 3, 0);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/right_2.png")), 3, 1);
-            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/attack/right_3.png")), 3, 2);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/up_1.png")), 0, 0);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/up_2.png")), 0, 1);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/up_3.png")), 0, 2);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/down_1.png")), 1, 0);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/down_2.png")), 1, 1);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/down_3.png")), 1, 2);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/left_1.png")), 2, 0);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/left_2.png")), 2, 1);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/left_3.png")), 2, 2);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/right_1.png")), 3, 0);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/right_2.png")), 3, 1);
+            this.setAttackImage(ImageIO.read(getClass().getResourceAsStream("/player_character/" + characterAppearance + "/attack/right_3.png")), 3, 2);
 
             // get death sprites
             // there's only 3 so no need for multidimensional arrays
             this.setDeathImage(ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/woman_warrior/death/death_1.png"))), 0);
+                    getClass().getResourceAsStream("/player_character/" + characterAppearance + "/death/death_1.png"))), 0);
             this.setDeathImage(ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/woman_warrior/death/death_2.png"))), 1);
+                    getClass().getResourceAsStream("/player_character/" + characterAppearance + "/death/death_2.png"))), 1);
             this.setDeathImage(ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player_character/woman_warrior/death/death_3.png"))), 2);
+                    getClass().getResourceAsStream("/player_character/" + characterAppearance + "/death/death_3.png"))), 2);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -684,5 +685,12 @@ public class PlayerCharacter extends Character {
         this.itemPriority = itemPriority;
     }
 
+    public String getCharacterAppearance() {
+        return characterAppearance;
+    }
+
+    public void setCharacterAppearance(String characterAppearance) {
+        this.characterAppearance = characterAppearance;
+    }
 }
 

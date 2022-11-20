@@ -41,7 +41,7 @@ public class View {
 
         statsPanel = new StatsPanel(gamePanel).scrollPane;
 
-        changeSkinPanel = new changeSkinPanel();
+        changeSkinPanel = new changeSkinPanel(gamePanel);
 
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
             @Override
