@@ -23,9 +23,9 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 3;
 	public final int tileSize = originalTileSizes * scale;		//48x48 tile
 	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;
+	public final int maxScreenRow = 13;
 	public final int screenWidth = tileSize * maxScreenCol; 	//768 pixels
-	public final int screenHeight = tileSize * maxScreenRow;	//576 pixels
+	public final int screenHeight = tileSize * maxScreenRow;	//624 pixels
 
 	public boolean paused = false;
 	public Pathfinding pFinder = new Pathfinding(this);
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker checker = new CollisionChecker(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	transient Thread gameThread;
-	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+	public PlayerCharacter player = new PlayerCharacter(this, keyH); // was having issues with the player character being defined multiple times
 	public TileManager tileM = new TileManager(this);
 	public ArrayList<Projectile> projectileList = new ArrayList<>();
 
@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.currentRunTime = new Time(0);
 
 		initializeRooms();
+		tileM.update();
 	}
 
 	private void initializeRooms() {
@@ -238,10 +239,10 @@ public class GamePanel extends JPanel implements Runnable{
 					//this.pauseThread();
 				}
 
-				if (currentRoomNum == Room.TRAPROOM) {
+				if (currentRoomNum == 4) { // room.TRAPROOM no longer exists. plz change
 					if (currentTime % 1000000000 == 0) {
 						for (int i = 0; i < maxScreenRow; i++) {
-							rooms.get(Room.TRAPROOM).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
+							rooms.get(4).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
 						}
 					}
 				}
