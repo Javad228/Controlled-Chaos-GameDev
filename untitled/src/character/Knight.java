@@ -2,6 +2,7 @@ package character;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Knight extends Friendly{
@@ -18,6 +19,7 @@ public class Knight extends Friendly{
 
         //TODO: add more dialog
         //create knight dialog pool (not currently implemented)
+        this.dialogPool = new ArrayList<>();
         String currentDialog = "Excellent work " + getGp().getPlayer().name + "!";
         this.dialogPool.add(currentDialog);
         currentDialog = "Careful up ahead, " + getGp().getPlayer().name + ".";

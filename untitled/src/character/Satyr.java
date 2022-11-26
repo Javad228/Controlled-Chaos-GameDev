@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static main.GamePanel.g2;
@@ -27,6 +28,7 @@ public class Satyr extends Friendly {
 
         //TODO: add more dialog
         //create satyr dialog pool (not currently implemented)
+        this.dialogPool = new ArrayList<>();
         String currentDialog = "Hello " + getGp().getPlayer().name + "!";
         this.dialogPool.add(currentDialog);
         currentDialog = "Be careful of monsters, " + getGp().getPlayer().name + ".";
