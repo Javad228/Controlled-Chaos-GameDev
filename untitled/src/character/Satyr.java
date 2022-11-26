@@ -25,6 +25,16 @@ public class Satyr extends Friendly {
         col = xCoord / getGp().tileSize;
         row = yCoord / getGp().tileSize;
 
+        //TODO: add more dialog
+        //create satyr dialog pool (not currently implemented)
+        String currentDialog = "Hello " + getGp().getPlayer().name + "!";
+        this.dialogPool.add(currentDialog);
+        currentDialog = "Be careful of monsters, " + getGp().getPlayer().name + ".";
+        this.dialogPool.add(currentDialog);
+        currentDialog = "Tip: You can pick up items to help you on your journey.";
+        this.dialogPool.add(currentDialog);
+
+
         try {
             this.setDown1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/satyr/tile000.png"))));
             this.setDown2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/satyr/tile000.png"))));

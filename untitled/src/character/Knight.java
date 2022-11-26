@@ -16,6 +16,15 @@ public class Knight extends Friendly{
         this.height = 50;
         this.width = 25;
 
+        //TODO: add more dialog
+        //create knight dialog pool (not currently implemented)
+        String currentDialog = "Excellent work " + getGp().getPlayer().name + "!";
+        this.dialogPool.add(currentDialog);
+        currentDialog = "Careful up ahead, " + getGp().getPlayer().name + ".";
+        this.dialogPool.add(currentDialog);
+
+
+
         try {
             this.setDown1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/knight/tile000.png"))));
             this.setDown2(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/knight/tile000.png"))));
