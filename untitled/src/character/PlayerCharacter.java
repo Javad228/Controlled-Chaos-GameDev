@@ -81,7 +81,7 @@ public class PlayerCharacter extends Character {
         this.healthBar = new HealthBar(this.health, getMaxHealth(), gp.tileSize+2, 10);
         this.name = "Intrepid Adventurer";
         Random r = new Random();
-        roomSetNum = r.nextInt(2) + 1;
+        roomSetNum = 1;//r.nextInt(3) + 1;
         System.out.println("it is room set number" + roomSetNum);
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
@@ -232,8 +232,6 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
-        System.out.println(this.getNumCoins());
-        gp.checker.checkRoom(this);
 
         this.healthBar.update(this.getHealth());
 

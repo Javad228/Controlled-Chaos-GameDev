@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.lang.Math.*;
 
 public class Room {
-    public static final int STARTINGROOM = 1;
-    public static final int ENEMYROOM = 2;
-    public static final int ITEMROOM = 3;
-    public static final int TRAPROOM = 4;
-    public static final int BOSSROOM = 5;
+    public static final int VOLCANOROOM = 1;
+    public static final int GRASSROOM = 2;
+    public static final int SPOOKYROOM = 3;
+    public static final int ICEROOM = 4;
+    public static final int SPACEROOM = 5;
 
     private int roomNum;
     private ArrayList<Item> items;
@@ -31,11 +31,68 @@ public class Room {
     private ArrayList<Coin> coins;
     private ArrayList<TrapTile> trapTiles;
     private DoorTile doorTile;
+    private int roomType;
 
     public Room(int roomNum, KeyHandler keyH, GamePanel gp) {
         this.roomNum = roomNum;
         this.keyH = keyH;
         this.gp = gp;
+
+        if (gp.player.roomSetNum == 1) {
+            switch(roomNum) {
+                case 1:
+                    roomType = VOLCANOROOM;
+                    break;
+                case 2:
+                    roomType = GRASSROOM;
+                    break;
+                case 3:
+                    roomType = SPOOKYROOM;
+                    break;
+                case 4:
+                    roomType = ICEROOM;
+                    break;
+                case 5:
+                    roomType = SPACEROOM;
+            }
+        } else if (gp.player.roomSetNum == 2) {
+            switch(roomNum) {
+                case 1:
+                    roomType = SPACEROOM;
+                    break;
+                case 2:
+                    roomType = ICEROOM;
+                    break;
+                case 3:
+                    roomType = VOLCANOROOM;
+                    break;
+                case 4:
+                    roomType = GRASSROOM;
+                    break;
+                case 5:
+                    roomType = SPOOKYROOM;
+            }
+        } else if (gp.player.roomSetNum == 3) {
+            switch(roomNum) {
+                case 1:
+                    roomType = SPOOKYROOM;
+                    break;
+                case 2:
+                    roomType = SPACEROOM;
+                    break;
+                case 3:
+                    roomType = ICEROOM;
+                    break;
+                case 4:
+                    roomType = VOLCANOROOM;
+                    break;
+                case 5:
+                    roomType = GRASSROOM;
+            }
+        } else {
+            System.out.println("Received bad roomSetNum.");
+        }
+
         initializeItems();
         initializeEnemies();
         initializeCoins();
@@ -183,7 +240,6 @@ public class Room {
                 coins.add(coin);
                 break;
             case 2:
-                coins = null;
             case 3:
                 coins = null;
         }
@@ -370,5 +426,13 @@ public class Room {
                 return new RapidFire(rapidFireImages, this.gp, 500, 500);
 
         }
+    }
+
+    public int getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(int roomType) {
+        this.roomType = roomType;
     }
 }

@@ -2,6 +2,7 @@ package character;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Knight extends Friendly{
@@ -15,6 +16,16 @@ public class Knight extends Friendly{
         this.yCoord = yCoord;
         this.height = 50;
         this.width = 25;
+
+        //TODO: add more dialog
+        //create knight dialog pool (not currently implemented)
+        this.dialogPool = new ArrayList<>();
+        String currentDialog = "Excellent work " + getGp().getPlayer().name + "!";
+        this.dialogPool.add(currentDialog);
+        currentDialog = "Careful up ahead, " + getGp().getPlayer().name + ".";
+        this.dialogPool.add(currentDialog);
+
+
 
         try {
             this.setDown1(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/knight/tile000.png"))));
