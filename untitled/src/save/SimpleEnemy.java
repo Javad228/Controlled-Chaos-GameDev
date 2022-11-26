@@ -13,6 +13,7 @@ public class SimpleEnemy {
     public double health;
     public int maxHealth;
     public int movementSpeed;
+    public int maxSpeed;
     public int xCoord;
     public int yCoord;
     public ArrayList<String> activeEffects;
@@ -29,6 +30,7 @@ public class SimpleEnemy {
         this.health = enemy.health;
         this.maxHealth = enemy.getMaxHealth();
         this.movementSpeed = enemy.movementSpeed;
+        this.maxSpeed = enemy.maxSpeed;
         this.xCoord = enemy.xCoord;
         this.yCoord = enemy.yCoord;
         this.activeEffects = enemy.activeEffects;

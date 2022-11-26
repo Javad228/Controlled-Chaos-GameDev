@@ -2,10 +2,7 @@ package character;
 
 import enemy.SlimeBall;
 import loot.*;
-import main.Audio;
-import main.GamePanel;
-import main.HealthBar;
-import main.KeyHandler;
+import main.*;
 import save.SimpleCharacter;
 import tile.Tile;
 import tile.TileManager;
@@ -81,7 +78,7 @@ public class PlayerCharacter extends Character {
         this.healthBar = new HealthBar(this.health, getMaxHealth(), gp.tileSize+2, 10);
         this.name = "Intrepid Adventurer";
         Random r = new Random();
-        roomSetNum = 1;//r.nextInt(3) + 1;
+        roomSetNum = 2; //r.nextInt(3) + 1;
         System.out.println("it is room set number" + roomSetNum);
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
@@ -98,6 +95,7 @@ public class PlayerCharacter extends Character {
         this.setName(pc.getName());
         this.setHealth(pc.getHealth());
         this.setMovementSpeed(pc.getMovementSpeed());
+        this.setMaxSpeed(pc.getMaxSpeed());
         this.setxCoord(pc.getxCoord());
         this.setyCoord(pc.getyCoord());
         this.setActiveEffects(pc.getActiveEffects());
@@ -138,6 +136,8 @@ public class PlayerCharacter extends Character {
         this.setxCoord(50);
         this.setyCoord(200);
         this.setMovementSpeed(4);
+        this.setMaxSpeed(4);
+        this.setMaxSpeed(5);
         this.setDirection("down");
         this.solidArea = new Rectangle(0, 16, 30, 30);
         this.attackArea.width = 36;
@@ -312,7 +312,13 @@ public class PlayerCharacter extends Character {
             }
 
             this.setSpriteCounter(this.getSpriteCounter() + 1);
-            if (this.getSpriteCounter() > 12) {
+            int maxSprite;
+            if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPACEROOM) {
+                maxSprite = 24;
+            } else {
+                maxSprite = 12;
+            }
+            if (this.getSpriteCounter() > maxSprite) {
                 if (this.getSpriteNum() == 1) {
                     this.setSpriteNum(2);
                     this.setWasOne(true);
@@ -350,17 +356,68 @@ public class PlayerCharacter extends Character {
                 }
 
                 if(!collisionOn){
-                    if(direction.equals("up") && currentY > 0){
-                        this.setyCoord(currentY - speed);
-                    }
-                    if(direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())){
-                        this.setyCoord(currentY + speed);
-                    }
-                    if(direction.equals("left") && currentX > 0){
-                        this.setxCoord(currentX - speed);
-                    }
-                    if(direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())){
-                        this.setxCoord(currentX + speed);
+                    if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() != Room.SPACEROOM) {
+                        if (direction.equals("up") && currentY > 0) {
+                            this.setyCoord(currentY - speed);
+                        }
+                        if (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())) {
+                            this.setyCoord(currentY + speed);
+                        }
+                        if (direction.equals("left") && currentX > 0) {
+                            this.setxCoord(currentX - speed);
+                        }
+                        if (direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())) {
+                            this.setxCoord(currentX + speed);
+                        }
+                    } else {
+                        if (direction.equals("up") && currentY > 0) {
+                            this.setyCoord(currentY - speed);
+                        }
+                        if (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())) {
+                            //TODO work on this
+                            //this.setyCoord(currentY + speed);
+                            currentY += speed;
+                            numBounces++;
+                            numBounces = numBounces % maxBounce;
+                            int distToBounce = (int) (-0.15 * Math.pow(numBounces, 2) + 4 * numBounces);
+                            this.setyCoord(currentY + distToBounce);
+                        }
+                        if (direction.equals("left") && currentX > 0) {
+                            this.setxCoord(currentX - speed);
+                            if (currentBounce == 0) {
+                                shouldBounce = true;
+                                currentBounce++;
+                            }else if (shouldBounce && currentBounce < maxBounce) {
+                                currentBounce++;
+                                this.setyCoord(currentY + 1);
+                            } else if (currentBounce == maxBounce) {
+                                shouldBounce = false;
+                                currentBounce--;
+                            } else if (!shouldBounce && currentBounce < maxBounce) {
+                                currentBounce--;
+                                this.setyCoord(currentY - 1);
+                            } else {
+                                System.out.println("Bad bouncing effect within PlayerCharacter.java");
+                            }
+                        }
+                        if (direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())) {
+                            this.setxCoord(currentX + speed);
+                            if (currentBounce == 0) {
+                                shouldBounce = true;
+                                currentBounce++;
+                            }else if (shouldBounce && currentBounce < maxBounce) {
+                                currentBounce++;
+                                this.setyCoord(currentY + 1);
+                            } else if (currentBounce == maxBounce) {
+                                shouldBounce = false;
+                                currentBounce--;
+                            } else if (!shouldBounce && currentBounce < maxBounce) {
+                                currentBounce--;
+                                this.setyCoord(currentY - 1);
+                            } else {
+                                System.out.println("Bad bouncing effect within PlayerCharacter.java");
+                            }
+                        }
                     }
                 }
 

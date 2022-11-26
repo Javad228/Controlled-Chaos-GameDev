@@ -17,7 +17,7 @@ public class BigSlonch extends Enemy {
     public BigSlonch(int xCoord, int yCoord) {
         super(EnemyType.LARGE, LootType.DEFAULT);
         name = "BigSlonch";
-        movementSpeed = 1;
+        movementSpeed = 2;
         setMaxHealth(150);
         health = getMaxHealth();
         attackType = 1;

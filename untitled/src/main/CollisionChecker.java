@@ -10,6 +10,7 @@ import java.awt.*;
 
 public class CollisionChecker {
     static final int trapDamage = 2;
+    static int freezeCounter = 0;
 
     GamePanel gp;
 
@@ -212,6 +213,7 @@ public class CollisionChecker {
     }
 
     public void checkTileCollisionsAndRoom(Character character, int tileNum1, int tileNum2) {
+        // check if we should stop given collisions with barriers or if we have hit a door
         if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
             character.collisionOn = true;
             // check if character is not enemy before checking room... otherwise enemies can get in other rooms...
@@ -232,6 +234,18 @@ public class CollisionChecker {
                     gp.tileM.update();
                 }
             }
+        } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.GRASSROOM && (gp.tileM.tile[tileNum1].getTileType() == Tile.ENVIRONMENT || gp.tileM.tile[tileNum2].getTileType() == Tile.ENVIRONMENT)) {
+            character.movementSpeed = character.maxSpeed / 2;
+        } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.ICEROOM && (gp.tileM.tile[tileNum1].getTileType() == Tile.ENVIRONMENT || gp.tileM.tile[tileNum2].getTileType() == Tile.ENVIRONMENT)) {
+            if (freezeCounter <= gp.getFps()) { // should freeze character for a second
+                freezeCounter++;
+                character.movementSpeed = 0;
+            } else { // after a second, reset the counter
+                freezeCounter = 0;
+                character.movementSpeed = character.maxSpeed;
+            }
+        } else {
+            character.movementSpeed = character.maxSpeed;
         }
     }
 
