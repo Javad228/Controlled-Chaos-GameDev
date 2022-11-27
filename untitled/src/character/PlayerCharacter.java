@@ -50,12 +50,8 @@ public class PlayerCharacter extends Character {
     private CharacterType characterType;    // Player Character Type
     private Item startingItem;              // Player Starting Item
     private Inventory inventory;            // Player character.Inventory
-//TODO: <<<<<<< Cameron-LevelTime
     private final HealthBar healthBar;
-//=======
-    //private HealthBar healthBar;  // from merge: comment out and experiment
     private PowerBar powerBar;
-//>>>>>>> Cameron-MergeLevelTime
     private GamePanel gp;
     private KeyHandler keyH;
 

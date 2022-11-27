@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public static Graphics2D g2;
 
 	private int fps = 60;
-//TODO MERGE CHECK
+
 	private Time startRunTime;		// Measure first time from start/resumption of run.
 									// End time is not kept as a variable.
 	private Time currentRunTime;	// Measure elapsed time
@@ -42,9 +42,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public static final long SECOND_L = 1000000000L;
 	public static final long MINUTE_L = 60 * SECOND_L;
-	public static final Time defaultTime1 = new Time(MINUTE_L);                 // 1:00
-	public static final Time defaultTime2 = new Time(MINUTE_L + 30 * SECOND_L); // 1:30
-	public static final Time defaultTime3 = new Time(2 * MINUTE_L);             // 2:00
+	public static final Time defaultTime1 = new Time(2 * MINUTE_L);                 // 2:00
+	public static final Time defaultTime2 = new Time(2 * MINUTE_L + 30 * SECOND_L); // 2:30
+	public static final Time defaultTime3 = new Time(3 * MINUTE_L);            		// 3:00
 
 	private Time startLevelTime;
 	private Time currentLevelTime;
