@@ -5,6 +5,7 @@ import main.GamePanel;
 
 public class Sword extends Weapon {
     // TODO: add new fields, modify constructor(s) as necessary
+    public static transient final String[] DEFAULT_SWORD_IMAGEPATHS = new String[]{"/weapons/wooden_sword.png"};
 
     private transient GamePanel gp;
     //private int xCoord;

@@ -28,10 +28,29 @@ import java.util.Random;
  */
 
 public class PlayerCharacter extends Character {
+
+    public static transient final int EASY_PEESY     = 0;
+    public static transient final int EASY           = 1;
+    public static transient final int EASY_ADVANCED  = 2;
+    public static transient final int MID            = 3;
+    public static transient final int MEDIUM         = 4;
+    public static transient final int KINDA_HARD     = 5;
+    public static transient final int PRETTY_HARD    = 6;
+    public static transient final int HARD           = 7;
+    public static transient final int VERY_HARD      = 8;
+    public static transient final int DEMON          = 9;
+
+    public static transient final int LOWEST_DIFF    = EASY_PEESY;
+    public static transient final int HIGHEST_DIFF   = DEMON;
+
+    public static transient final String[] difficultyNamTab
+            = new String[]{"Easy-Peesy", "Easy", "Easy-Advanced", "Mid", "Medium", "Kinda-Hard", "Pretty-Hard", "HARD", "VERY HARD", "DEMON"};
+
+
     private CharacterType characterType;    // Player Character Type
     private Item startingItem;              // Player Starting Item
     private Inventory inventory;            // Player character.Inventory
-    private HealthBar healthBar;
+    private final HealthBar healthBar;
     private PowerBar powerBar;
     private GamePanel gp;
     private KeyHandler keyH;
@@ -41,9 +60,11 @@ public class PlayerCharacter extends Character {
     private int shotTimerMax = 50;
 
     private double damageMod = 1;
+    private int gameDifficulty;
 
     private int numCoins;
     private boolean isDying;                // Used for performing death animation
+    private boolean isDamaged;              // Used to determine if player has been damaged
     private ArrayList<SimpleEnemy> enemiesKilled;
     private ArrayList<Item> itemsDiscovered;
     private boolean[] itemsUnlocked;
@@ -59,6 +80,8 @@ public class PlayerCharacter extends Character {
         this.gp = gp;
         this.keyH = keyH;
         this.isDying = false;
+        this.isDamaged = false;
+        this.gameDifficulty = PlayerCharacter.LOWEST_DIFF;       // Set to easiest difficulty (default)
 
         this.solidArea.x = 0;
         this.solidArea.y = 10;
@@ -127,13 +150,14 @@ public class PlayerCharacter extends Character {
         this.xCoord = c.xCoord;
         this.yCoord = c.yCoord;
         this.activeEffects = c.activeEffects;
-        this.type = c.combatType;
+        this.combatType = c.combatType;
         this.inventory = c.inventory;
         this.characterType = c.characterType;
         this.numCoins = c.getNumCoins();
         this.currentTile = null;
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
         itemsDiscovered = c.itemsDiscovered;
+        this.isDamaged = c.isDamaged;
         this.characterAppearance = c.characterAppearance;
     }
 
@@ -478,6 +502,12 @@ public class PlayerCharacter extends Character {
 
     }
 
+    @Override
+    public void damage(double damageTaken) {
+        if (!isDamaged)  setIsDamaged(true);
+        super.damage(damageTaken);
+    }
+
     public void damagePlayer(Projectile projectile) {
         gp.getPlayer().damage(projectile.getDamage());
         gp.getPlayer().isInvincible = true;
@@ -613,6 +643,14 @@ public class PlayerCharacter extends Character {
         return this.isDying;
     }
 
+    public void setIsDamaged(boolean isDamaged) {
+        this.isDamaged = isDamaged;
+    }
+
+    public boolean isDamaged() {
+        return this.isDamaged;
+    }
+
     @Override
     public boolean equals (Object o){
         if (this.getClass() != o.getClass()) return false;
@@ -678,7 +716,8 @@ public class PlayerCharacter extends Character {
     public boolean[] getItemsUnlocked() {
         return itemsUnlocked;
     }
-    public void setItemsUnlocked() {
+
+    public void setItemsUnlocked(boolean[] itemsUnlocked) {
         this.itemsUnlocked = itemsUnlocked;
     }
     public void unlockItem(int itemID) {
@@ -703,6 +742,20 @@ public class PlayerCharacter extends Character {
 
     public void setItemPriority(int itemPriority) {
         this.itemPriority = itemPriority;
+    }
+
+    public int getGameDifficulty() {
+        return this.gameDifficulty;
+    }
+
+    public void setGameDifficulty(int gameDifficulty) {
+        this.gameDifficulty = gameDifficulty;
+    }
+
+    public void incrementDifficulty() {
+        if (this.gameDifficulty == PlayerCharacter.DEMON)   return;
+
+        this.gameDifficulty++;
     }
 
     public String getCharacterAppearance() {
