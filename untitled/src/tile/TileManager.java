@@ -30,7 +30,9 @@ public class TileManager {
     }
 
     public void update() {
+
         int roomNum = gp.getCurrentRoomNum();
+        System.out.println(roomNum);
 //        System.out.println(roomNum);
         doorLocations.clear();
         loadMap("/maps/mapset" + gp.player.roomSetNum + "/room" + roomNum + ".txt");
@@ -61,6 +63,7 @@ public class TileManager {
 
 
         /*if (roomNum == 1) {
+
             System.out.println("loaded");
             loadMap("/maps/mapset" + gp.player.roomSetNum + "/room1.txt");
             gp.player.setxCoord(20);
@@ -103,7 +106,18 @@ public class TileManager {
             }
         }
         if (roomNum == 5) {
+            loadMap("/maps/mapset" + gp.player.roomSetNum + "/room6.txt");
+            gp.player.setxCoord(40);
+            gp.player.setyCoord(80);
+            if (backward) {
+                gp.player.setxCoord(600);
+                gp.player.setyCoord(380);
+                backward = false;
+            }
+        }
+        if (roomNum == 6) {
             loadMap("/maps/mapset" + gp.player.roomSetNum + "/room5.txt");
+
             gp.player.setxCoord(40);
             gp.player.setyCoord(80);
             if (backward) {
@@ -122,6 +136,8 @@ public class TileManager {
 
     public void getTileImage() {
         try {
+            System.out.println("printing");
+            System.out.println(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType());
             if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.VOLCANOROOM) {
                 tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
@@ -151,6 +167,12 @@ public class TileManager {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space.png"))));
                 tile[3] = new Tile();
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space_rock.png"))));
+                tile[3].setCollision(true);
+            } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == 5) {
+                tile[0] = new Tile();
+                tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+                tile[3] = new Tile();
+                tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
                 tile[3].setCollision(true);
             } else {
                 System.out.println("Received bad room type. Update of tile images not executed.");
