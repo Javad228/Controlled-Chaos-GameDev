@@ -24,6 +24,7 @@ public class GameSaveState {
     public int currentRoomNum;
     public SimpleWeapon weapon;
     public long currentRunTimeNS;
+    public long currentLevelTimeNS;
     public String currentRunTimeS;
 
     @Deprecated
@@ -36,7 +37,7 @@ public class GameSaveState {
         this.player = player;
     }
 
-    public GameSaveState(SimpleCharacter player, Time currentRunTime, ArrayList<Room> rooms, int currentRoomNum) {
+    public GameSaveState(SimpleCharacter player, Time currentRunTime, Time currentLevelTime, ArrayList<Room> rooms, int currentRoomNum) {
         this.player = player;
         this.currentRunTimeNS = currentRunTime.getTime();
         this.currentRunTimeS = formatRunTime(currentRunTimeNS);
@@ -50,7 +51,7 @@ public class GameSaveState {
     }
 
     public GameSaveState(GameSaveState gss, SaveData sd) {
-        this(gss.player, new Time(gss.currentRunTimeNS), sd.initializeRooms(gss.rooms), gss.currentRoomNum);
+        this(gss.player, new Time(gss.currentRunTimeNS), new Time(gss.currentLevelTimeNS), sd.initializeRooms(gss.rooms, gss.player), gss.currentRoomNum);
         Item.setUpItemListImages(gss.player.inventory.getListOfItems());
     }
 
@@ -59,9 +60,9 @@ public class GameSaveState {
         //        (currentRunTimeNS / (1000000000L *60)) % 60 + ":" +    //Minutes
         //        (currentRunTimeNS / 1000000000) % 60 + "." +           //Seconds
         //        (currentRunTimeNS / 1000000) % 1000;                   //Milliseconds
-        return  String.format("%01d", (currentRunTimeNS / ( 1000000000L * 60 * 60))) + ":" +        //H
-                String.format("%02d", (currentRunTimeNS / ( 1000000000L * 60 )) % 60) + ":" +     //MM
-                String.format("%02d", (currentRunTimeNS /   1000000000) % 60    ) + "." +             //SS
-                String.format("%03d", (currentRunTimeNS /   1000000)    % 1000  );                     //msmsms
+        return  String.format("%01d", (currentRunTimeNS / ( 1000000000L * 60    * 60))) + ":" +     //H
+                String.format("%02d", (currentRunTimeNS / ( 1000000000L * 60 )) % 60)   + ":" +     //MM
+                String.format("%02d", (currentRunTimeNS /   1000000000) % 60    )       + "." +     //SS
+                String.format("%03d", (currentRunTimeNS /   1000000)    % 1000  );                  //msmsms
     }
 }

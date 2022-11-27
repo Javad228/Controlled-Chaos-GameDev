@@ -14,7 +14,6 @@ import character.PlayerCharacter;
 import loot.*;
 import save.SaveData;
 import save.SimpleCharacter;
-import save.SimpleWeapon;
 import tile.TileManager;
 import tile.TrapTile;
 
@@ -29,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow;	//624 pixels
 
 	public boolean paused = false;
+	public boolean levelComplete = false;
 	public Pathfinding pFinder = new Pathfinding(this);
 	public int gameState;
 	public static Graphics2D g2;
@@ -38,6 +38,20 @@ public class GamePanel extends JPanel implements Runnable{
 	private Time startRunTime;		// Measure first time from start/resumption of run.
 									// End time is not kept as a variable.
 	private Time currentRunTime;	// Measure elapsed time
+
+
+	public static final long SECOND_L = 1000000000L;
+	public static final long MINUTE_L = 60 * SECOND_L;
+	public static final Time defaultTime1 = new Time(MINUTE_L);                 // 1:00
+	public static final Time defaultTime2 = new Time(MINUTE_L + 30 * SECOND_L); // 1:30
+	public static final Time defaultTime3 = new Time(2 * MINUTE_L);             // 2:00
+
+	private Time startLevelTime;
+	private Time currentLevelTime;
+	private Time time1;
+	private Time time2;
+	private Time time3;
+
 
 	private int currentRoomNum = 1;
 
@@ -64,6 +78,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.currentRunTime = new Time(0);
 
 		initializeRooms();
+		initializeLevelClocks();
 		tileM.update();
 	}
 
@@ -71,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
-    	rooms.add(new Room(2, keyH, this));
+		rooms.add(new Room(2, keyH, this));
 		rooms.add(new Room(3, keyH, this));
 		rooms.add(new Room(4, keyH, this));
 		rooms.add(new Room(5, keyH, this));
@@ -88,6 +103,28 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 
+	/**
+	 * initializeLevelClocks() - Calculate the time a player
+	 * has to complete a level.
+	 * <p>
+	 * This method takes player difficulty into consideration
+	 * and creates time based on the player's difficulty
+	 */
+	public void initializeLevelClocks() {
+		// Calculate time to complete level
+		if (player.getGameDifficulty() < PlayerCharacter.MID) {
+			time1 = defaultTime1;                                       // 1:00
+			time2 = defaultTime2;                                       // 1:30
+			time3 = defaultTime3;                                       // 2:00
+		} else {
+			int diff = (player.getGameDifficulty() - PlayerCharacter.EASY_ADVANCED) * 5;
+
+			time1 = new Time(defaultTime1.getTime() - diff * SECOND_L); // From 0:55 to 0:25 (difficulty: DEMON)
+			time2 = new Time(defaultTime2.getTime() - diff * SECOND_L); // From 1:25 to 0:55 (difficulty: DEMON)
+			time3 = new Time(defaultTime3.getTime() - diff * SECOND_L); // From 1:55 to 1:25 (difficulty: DEMON)
+		}
+	}
+
 	public void setupGame() {
 		assetSetter.setNPC();
 	}
@@ -96,11 +133,12 @@ public class GamePanel extends JPanel implements Runnable{
 		//Audio.stopMusic();
 		Audio.openingMusic();
 		gameThread = new Thread(this);
+		gameThread.setName("Game Thread");
 		gameThread.start();
 	}
 
 	public void newGame(boolean shouldStartGame) {
-		this.currentRunTime = new Time(0);	// Reset game timer to 0
+		this.currentRunTime = this.currentLevelTime = new Time(0);	// Reset game timers to 0
 		this.setPlayer(new PlayerCharacter(this, keyH));
 		initializeRooms();
 		this.currentRoomNum = 1;
@@ -111,9 +149,11 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 	}
 
-	public void newGame(SimpleCharacter sc, Time t, ArrayList<Room> rooms, int currentRoomNum, boolean shouldStartGame) {
-		this.currentRunTime = t;
+	public void newGame(SimpleCharacter sc, Time run_t, Time level_t, ArrayList<Room> rooms, int currentRoomNum, boolean shouldStartGame) {
+		this.currentRunTime = run_t;
+		this.currentLevelTime = level_t;
 		this.setPlayer(new PlayerCharacter(sc, this, keyH));
+		this.player.setItemsUnlocked(saveData.restorePermanentUnlocks());
 		this.rooms = rooms;
 		if (this.currentRoomNum != currentRoomNum) {
 			this.currentRoomNum = currentRoomNum;
@@ -155,14 +195,18 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void pauseThread() {
 		synchronized (this) {
-			currentRunTime = new Time(currentRunTime.getTime() + (System.nanoTime() - startRunTime.getTime()));
+			long time = System.nanoTime();
+			currentRunTime = new Time(currentRunTime.getTime() + (time - startRunTime.getTime()));
+			currentLevelTime = new Time(currentLevelTime.getTime() + (time - startLevelTime.getTime()));
 			this.paused = true;
 		}
 	}
 
 	public void resumeThread() {
 		synchronized (this) {
-			startRunTime = new Time(System.nanoTime());
+			long time = System.nanoTime();
+			startRunTime = new Time(time);
+			startLevelTime = new Time(time);
 			this.paused = false;
 		}
 	}
@@ -181,6 +225,18 @@ public class GamePanel extends JPanel implements Runnable{
 		this.gameThread = null;
 	}
 
+	public boolean readLevelComplete() {
+		synchronized (this) {
+			return this.levelComplete;
+		}
+	}
+
+	public void setLevelComplete(boolean levelComplete) {
+		synchronized (this) {
+			this.levelComplete = levelComplete;
+		}
+	}
+
 	@Override
 	public void run() {
 		double drawInterval;					//converts from nanoseconds to seconds
@@ -190,7 +246,9 @@ public class GamePanel extends JPanel implements Runnable{
 		long timer = 0;
 		int drawCount = 0;
 
-		startRunTime = new Time(System.nanoTime());
+		long t = System.nanoTime();
+		startRunTime = new Time(t);
+		startLevelTime = new Time(t);
 		
 		while(gameThread != null){
 
@@ -200,7 +258,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 			String currentTimeStr;
 
-			while (!readThreadState()) {
+			while (!readThreadState() && !readLevelComplete()) {
 				currentTime = System.nanoTime();
 				drawInterval = 1000000000. / fps;
 
@@ -218,6 +276,10 @@ public class GamePanel extends JPanel implements Runnable{
 					delta--;
 					drawCount++;
 
+					if (levelComplete)	{
+						showCompleteLevel();
+						//while (levelComplete);
+					}
 					if (player.getCurrentTile().isDamageTile()) {
 						player.damagePlayerInt(trapDamage);
 					}
@@ -402,6 +464,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void setCurrentRoomNum(int currentRoomNum) {
 		this.currentRoomNum = currentRoomNum;
+		this.tileM.update();
 	}
 
 	public ArrayList<Room> getRooms() {
@@ -416,7 +479,111 @@ public class GamePanel extends JPanel implements Runnable{
 		return this.currentRunTime;
 	}
 
+	public Time getCurrentLevelTime() {
+		return this.currentLevelTime;
+	}
+
 	public void setCurrentRunTime(Time currentRunTime) {
 		this.currentRunTime = currentRunTime;
+	}
+
+	public Time getTime1() {
+		return this.time1;
+	}
+
+	public Time getTime2() {
+		return this.time2;
+	}
+
+	public Time getTime3() {
+		return this.time3;
+	}
+
+	public void showCompleteLevel() {
+		// Measure time, determine if player was damaged
+
+		long levelTime_l;							// Keeps total time the player took to beat the level
+
+		int levelTimeRewardTier = 3;				// Measures what tier player rewards will be awarded to the player
+													// given the current level time
+		int playerHealthRewardTier = 3;				// Measures what tier player rewards will be awarded to the player
+													// given if the player has taken damage
+
+		Room currRoom = rooms.get(currentRoomNum);
+
+
+		pauseThread();					// Call pauseThread() to get current time
+										// (symmetric call to resumeThread will be made)
+
+		levelTime_l = currentLevelTime.getTime() +
+				(System.nanoTime() - startLevelTime.getTime());	// Measure time
+
+		if (levelTime_l < time3.getTime()) {
+			if (levelTime_l < time2.getTime()) {
+				if (levelTime_l < time1.getTime()) {
+					levelTimeRewardTier--;
+				}
+				levelTimeRewardTier--;
+			}
+			levelTimeRewardTier--;
+		}
+
+
+		for (int i = 0; i < 3 - levelTimeRewardTier; i++) {
+
+			// Get random x and y coordinates relative to player and parameterized by screen size
+			int x =
+				Math.max(
+					Math.min(
+							(int)(Math.random() * 120 - 60) + player.getxCoord()
+							,
+							getMaximumSize().width)
+					,
+					0
+				);
+			int y =
+				Math.max(
+					Math.min(
+							(int)(Math.random() * 120 - 60) + player.getyCoord()
+							,
+							getMaximumSize().height)
+					,
+					0
+				);
+
+			// Get a random item type and place it relative to the player
+			// coordinate plus the random offset
+			int loot = (int)(Math.random() * 2);
+			switch (loot) {
+				case 0 -> {
+					if (currRoom.getItems() == null)	currRoom.setItems(new ArrayList<>());
+					currRoom.getItems().add(new Sword(Sword.DEFAULT_SWORD_IMAGEPATHS, this, x, y));
+				}
+				case 1 -> {
+					if (currRoom.getCoins() == null)	currRoom.setCoins(new ArrayList<>());
+					currRoom.getCoins().add(new Coin(Coin.DEFAULT_FRAMES_TO_WAIT, Coin.COIN_IMAGES, x, y, Coin.DEFAULT_VALUE));
+				}
+				default -> {
+				}
+			}
+		}
+
+		// Player health
+		if (!player.isDamaged()) {
+
+		}
+
+		// Show panel
+		LevelCompleteDialog panel = LevelCompleteDialog.getLevelCompleteDialog(this, levelTimeRewardTier + playerHealthRewardTier);
+		panel.showLevelCompleteDialog();
+
+		resumeThread();				// Call to resumeThread() ensures that GameThread
+									// will not be paused and time is reset for next level
+	}
+
+	public void hideLevelComplete() {
+		setLevelComplete(false);
+		this.repaint();
+		this.resumeThread();
 	}
 }
