@@ -5,6 +5,7 @@ import character.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -22,9 +23,9 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 3;
 	public final int tileSize = originalTileSizes * scale;		//48x48 tile
 	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;
+	public final int maxScreenRow = 13;
 	public final int screenWidth = tileSize * maxScreenCol; 	//768 pixels
-	public final int screenHeight = tileSize * maxScreenRow;	//576 pixels
+	public final int screenHeight = tileSize * maxScreenRow;	//624 pixels
 
 	public boolean paused = false;
 	public boolean levelComplete = false;
@@ -57,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker checker = new CollisionChecker(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	transient Thread gameThread;
-	public PlayerCharacter player = new PlayerCharacter(this, keyH);
+	public PlayerCharacter player = new PlayerCharacter(this, keyH); // was having issues with the player character being defined multiple times
 	public TileManager tileM = new TileManager(this);
 	public ArrayList<Projectile> projectileList = new ArrayList<>();
 
@@ -78,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		initializeRooms();
 		initializeLevelClocks();
+		tileM.update();
 	}
 
 	private void initializeRooms() {
@@ -88,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms.add(new Room(3, keyH, this));
 		rooms.add(new Room(4, keyH, this));
 		rooms.add(new Room(5, keyH, this));
+		rooms.add(new Room(6, keyH, this));
 
 		// First run will set enemy coordinates
 		if (rooms.get(currentRoomNum).getEnemies() != null){
@@ -300,10 +303,10 @@ public class GamePanel extends JPanel implements Runnable{
 					//this.pauseThread();
 				}
 
-				if (currentRoomNum == Room.TRAPROOM) {
+				if (currentRoomNum == 4) { // room.TRAPROOM no longer exists. plz change
 					if (currentTime % 1000000000 == 0) {
 						for (int i = 0; i < maxScreenRow; i++) {
-							rooms.get(Room.TRAPROOM).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
+							rooms.get(4).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
 						}
 					}
 				}
@@ -328,6 +331,13 @@ public class GamePanel extends JPanel implements Runnable{
 			for (int i = 0; i < rooms.get(currentRoomNum).getItems().size(); i++) {
 				Item item = rooms.get(currentRoomNum).getItems().get(i);
 				item.update();
+			}
+		}
+
+		if (rooms.get(currentRoomNum).getChests() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getChests().size(); i++) {
+				Chest chest = rooms.get(currentRoomNum).getChests().get(i);
+				chest.update();
 			}
 		}
 
@@ -359,11 +369,29 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void paintComponent(Graphics g){
+
 		super.paintComponent(g);
 
 		g2 = (Graphics2D)g;
 
 		tileM.draw(g2);
+		if (rooms.get(currentRoomNum).getChests() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getChests().size(); i++) {
+				Chest chest = rooms.get(currentRoomNum).getChests().get(i);
+				chest.draw(g2, this);
+			}
+		}
+
+		if (rooms.get(currentRoomNum).getSigns() != null) {
+			for (int i = 0; i < rooms.get(currentRoomNum).getSigns().size(); i++) {
+				Sign sign = rooms.get(currentRoomNum).getSigns().get(i);
+				try {
+					sign.draw(g2, this);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
 		player.draw(g2);
 
 		if (rooms.get(currentRoomNum).getEnemies() != null) {
@@ -382,6 +410,8 @@ public class GamePanel extends JPanel implements Runnable{
 				item.draw(g2, this);
 			}
 		}
+
+
 
 		if (rooms.get(currentRoomNum).getNPCs() != null) {
 			for (int i = 0; i < rooms.get(currentRoomNum).getNPCs().size(); i++) {

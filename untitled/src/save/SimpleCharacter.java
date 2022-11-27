@@ -24,6 +24,7 @@ public class SimpleCharacter {
     public ArrayList<Item> itemsDiscovered;
     public int difficulty;
     public boolean isDamaged;
+    public String characterAppearance;
 
     public SimpleCharacter(PlayerCharacter c) {
         this.name = c.getName();
@@ -41,6 +42,8 @@ public class SimpleCharacter {
         this.itemsDiscovered = c.getItemsDiscovered();
         this.difficulty = c.getGameDifficulty();
         this.isDamaged = c.isDamaged();
+        this.characterAppearance = c.getCharacterAppearance();
+
     }
 
     public int getNumCoins() {

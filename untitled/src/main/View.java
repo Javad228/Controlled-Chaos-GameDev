@@ -24,9 +24,6 @@ public class View {
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);    // This close operation will be overridden in
                                                                         // the added window listener
         //window.setLayout(new ScrollPaneLayout());
-        window.setPreferredSize(new Dimension(800, 600));
-        window.setResizable(false);
-        window.setTitle("Controlled Chaos");
 
         coinPanel = new JPanel();
         coinPanel.setOpaque(true);
@@ -39,9 +36,13 @@ public class View {
         gamePanel.setVisible(false);
         coinPanel.setBounds(0, 0, 75, 30);
 
+        window.setPreferredSize(new Dimension(gamePanel.screenWidth, gamePanel.screenHeight));
+        window.setResizable(false);
+        window.setTitle("Controlled Chaos");
+
         statsPanel = new StatsPanel(gamePanel).scrollPane;
 
-        changeSkinPanel = new changeSkinPanel();
+        changeSkinPanel = new changeSkinPanel(gamePanel);
 
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
             @Override

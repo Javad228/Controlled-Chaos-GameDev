@@ -1,6 +1,7 @@
 package main;
 
 import character.Character;
+import character.Enemy;
 import character.PlayerCharacter;
 import loot.Loot;
 import tile.Tile;
@@ -154,43 +155,84 @@ public class CollisionChecker {
                 characterTopRow = (characterTop - character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
-                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
+                checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
-                }
+                    if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
+                        System.out.println("just collided with door!");
+                    }
+                }*/
             }
             case "down" -> {
                 characterBottomRow = (characterBottom + character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
+                checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
-                }
+                    if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
+                        System.out.println("just collided with door!");
+                    }
+                }*/
             }
             case "left" -> {
                 characterLeftCol = (characterLeft - character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
+                checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
-                }
+                    if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
+                        System.out.println("just collided with door!");
+                    }
+                }*/
             }
             case "right" -> {
                 characterRightCol = (characterRight + character.getMovementSpeed()) / gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
-                if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
+                checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
-                }
+                    if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
+                        System.out.println("just collided with door!");
+                    }
+                }*/
             } default -> {
                 System.out.println("Error with block collision.");
                 return;
             }
         }
 
+        //checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+        /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
+            character.collisionOn = true;
+        }*/
+//        System.out.println(character.collisionOn);
+    }
+
+    public void checkTileCollisionsAndRoom(Character character, int tileNum1, int tileNum2) {
         if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
             character.collisionOn = true;
+            // check if character is not enemy before checking room... otherwise enemies can get in other rooms...
+            if (!(character instanceof Enemy) & gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
+                System.out.println("just collided with door!");
+                // as a rule, doors to go back should be on the left side of the screen
+                if (character.getxCoord() < gp.maxScreenCol * gp.tileSize / 2) {
+                    // we want to go back!
+                    gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                    System.out.println(gp.getCurrentRoomNum());
+                    gp.tileM.backward = true;
+                    gp.tileM.update();
+                } else {
+                    // we want to go forward!
+                    gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                    System.out.println(gp.getCurrentRoomNum());
+                    gp.tileM.backward = false;
+                    gp.tileM.update();
+                }
+            }
         }
-//        System.out.println(character.collisionOn);
     }
 
     public void checkPath (Character character,int[][] maze) {
@@ -362,7 +404,17 @@ public class CollisionChecker {
             }
         }
 
-        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 5) {
+        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 5) {
+            if (characterBottom > 376 && characterBottom < 406) {
+                //System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                gp.tileM.update();
+                return gp.getCurrentRoomNum() + 1;
+            }
+        }
+
+
+        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 6) {
             if (characterBottom > 70 && characterBottom < 100) {
                 //System.out.println("it's in");
                 gp.tileM.backward = true;

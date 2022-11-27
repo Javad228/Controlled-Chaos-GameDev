@@ -1,5 +1,8 @@
 package main;
 
+import save.GameSaveState;
+import save.SaveData;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -7,12 +10,44 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.Time;
+import java.util.ArrayList;
 
 public class changeSkinPanel extends JPanel {
     JPanel characterFlipPanel = new JPanel(); // panel that contains the arrow buttons and the picture of the character
     JPanel bottomPanel = new JPanel(); // panel that contains the characterFlipPanel and exit buttons
+    JButton flipLeftButton;
+    JButton flipRightButton;
+    JLabel characterIconLabel;
+    JLabel characterNameLabel;
+    GamePanel gp;
+    SaveData sd;
+    GameSaveState savedData;
+    ArrayList<String> characters;
+    int characterShown;
 
-    public changeSkinPanel() {
+    public changeSkinPanel(GamePanel gp) {
+        this.gp = gp;
+        sd = new SaveData(gp);
+        savedData = sd.restoreGameState();
+
+        if (savedData == null) {
+            gp.newGame(false);
+            sd.saveGameState();
+            savedData = sd.restoreGameState();
+            if (gp.readThreadState()) {
+                System.out.println("Game restore Failed\nUsing starting values");
+            } else {
+                System.out.println("Game restore Failed");
+            }
+        }
+
+        characters = new ArrayList<>();
+        characters.add("Warrior");
+        characters.add("Healer");
+        String currentCharacter = gp.player.getCharacterAppearance();
+        characterShown = characters.indexOf(currentCharacter.substring(0, 1).toUpperCase() + currentCharacter.substring(1)); // this will cause issues if you have a character with multiple words in the name
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         characterFlipPanel.setLayout(new BoxLayout(characterFlipPanel, BoxLayout.X_AXIS));
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
@@ -48,14 +83,25 @@ public class changeSkinPanel extends JPanel {
     }
 
     private void addFlipLeftButton() {
-        JButton flipLeftButton = new JButton("\u2190");
+        flipLeftButton = new JButton("\u2190");
         flipLeftButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
-        flipLeftButton.setEnabled(false); // if there is nothing to the left
+        if (characterShown == 0) {
+            flipLeftButton.setEnabled(false); // if there is nothing to the left
+        }
+        System.out.println(characterShown);
 
         flipLeftButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: ADD FLIPPING FUNCTIONALITY
+                characterShown--;
+                System.out.println(characterShown);
+                if (characterShown < characters.size() - 1) {
+                    flipRightButton.setEnabled(true);
+                }
+                if (characterShown == 0) {
+                    flipLeftButton.setEnabled(false); // if there is nothing to the left
+                }
+                updateIconAndName();
             }
         });
 
@@ -63,11 +109,10 @@ public class changeSkinPanel extends JPanel {
     }
 
     private void addCharacterIcon() {
-        // TODO: modify given new characters
-        JLabel characterIconLabel = new JLabel();
+        characterIconLabel = new JLabel();
 
         try {
-            BufferedImage icon = ImageIO.read(getClass().getResourceAsStream("/player_character/woman_warrior/largerThanLife.png"));
+            BufferedImage icon = ImageIO.read(getClass().getResourceAsStream("/player_character/" + characters.get(characterShown).toLowerCase() + "/larger_than_life.png"));
             characterIconLabel.setIcon(new ImageIcon(icon));
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,22 +122,42 @@ public class changeSkinPanel extends JPanel {
     }
 
     private void addFlipRightButton() {
-        JButton flipRightButton = new JButton("\u2192");
-        flipRightButton.setEnabled(false); // if there is nothing to the left
+        flipRightButton = new JButton("\u2192");
+        if (characterShown == characters.size() - 1) {
+            flipRightButton.setEnabled(false); // if there is nothing to the right
+        }
         flipRightButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
 
         flipRightButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: ADD FLIPPING FUNCTIONALITY
+                characterShown++;
+                System.out.println(characterShown);
+                if (characterShown > 0) {
+                    flipLeftButton.setEnabled(true);
+                }
+                if (characterShown == characters.size() - 1) {
+                    flipRightButton.setEnabled(false); // if there is nothing to the right
+                }
+                updateIconAndName();
             }
         });
 
         characterFlipPanel.add(flipRightButton);
     }
 
+    private void updateIconAndName() {
+        characterNameLabel.setText(characters.get(characterShown));
+        try {
+            BufferedImage icon = ImageIO.read(getClass().getResourceAsStream("/player_character/" + characters.get(characterShown).toLowerCase() + "/larger_than_life.png"));
+            characterIconLabel.setIcon(new ImageIcon(icon));
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     private void addCharacterName() {
-        JLabel characterNameLabel = new JLabel("Woman Warrior"); // TODO: change given shown character
+        characterNameLabel = new JLabel(characters.get(characterShown));
         characterNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
         characterNameLabel.setForeground(Color.WHITE);
         characterNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -121,7 +186,12 @@ public class changeSkinPanel extends JPanel {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: ADD SAVING FUNCTIONALITY
+                // save results
+                if (savedData != null) {
+                    gp.player.setCharacterAppearance(characters.get(characterShown).toLowerCase());
+                    sd.saveGameState();
+                }
+                gp.player.getPlayerImage(); // reinitialize sprite images
                 Main.view.showMainMenuPanel();
             }
         });
