@@ -32,6 +32,7 @@ public class PlayerCharacter extends Character {
     private Item startingItem;              // Player Starting Item
     private Inventory inventory;            // Player character.Inventory
     private HealthBar healthBar;
+    private PowerBar powerBar;
     private GamePanel gp;
     private KeyHandler keyH;
 
@@ -79,6 +80,7 @@ public class PlayerCharacter extends Character {
         this.setHasThrownProjectile(false);
 
         this.healthBar = new HealthBar(this.health, getMaxHealth(), gp.tileSize+2, 10);
+
         this.name = "Intrepid Adventurer";
         Random r = new Random();
         roomSetNum = 1;//r.nextInt(3) + 1;
@@ -86,6 +88,7 @@ public class PlayerCharacter extends Character {
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
         itemsDiscovered = new ArrayList<>();
+        this.powerBar = new PowerBar(this.enemiesKilled.size(),5,gp.tileSize+2, 10);
         setDefaultValues();
     }
 
@@ -234,6 +237,18 @@ public class PlayerCharacter extends Character {
     public void update() {
 
         this.healthBar.update(this.getHealth());
+        this.powerBar.update(this.getEnemiesKilled().size());
+        if(Objects.equals(this.getCharacterAppearance(), "healer")){
+            if(this.powerBar.getHealth() == 5){
+                this.health = getMaxHealth();
+                this.powerBar.setHealth(0);
+            }
+        }else{
+            if(this.powerBar.getHealth() == 5){
+                this.setNumCoins(getNumCoins()+2);
+                this.powerBar.setHealth(0);
+            }
+        }
 
         // Escape clause for death animation
         // Only update the sprite counter
@@ -505,6 +520,9 @@ public class PlayerCharacter extends Character {
         this.healthBar.draw(g2,
                 this.getxCoord(),
                 this.getyCoord() - this.healthBar.getHeight());
+        this.powerBar.draw(g2,
+                this.getxCoord(),
+                this.getyCoord() - this.healthBar.getHeight()-10);
 
         // If player is signaled to do death animation, show death animation
         if (isDying()) {
@@ -550,6 +568,9 @@ public class PlayerCharacter extends Character {
         this.healthBar.draw(g2,
                 this.getxCoord(),
                 this.getyCoord() - this.healthBar.getHeight());
+        this.powerBar.draw(g2,
+                this.getxCoord(),
+                this.getyCoord() - this.healthBar.getHeight()-10);
     }
 
     public CharacterType getCharacterType () {

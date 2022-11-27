@@ -1,9 +1,14 @@
 package main;
 
+import character.PlayerCharacter;
+import loot.Boot;
+import loot.RapidFire;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class MainMenuPanel extends JPanel {
 
@@ -44,9 +49,20 @@ public class MainMenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Main.view.showGamePanel();
                 Main.view.getGamePanel().startGameThread();
+                PlayerCharacter pl = Main.view.getGamePanel().player;
+                if(Objects.equals(Main.view.getGamePanel().player.getCharacterAppearance(), "healer")){
+                    String[] bootImages = {"/items/boot.png"};
+                    Boot boot = new Boot(bootImages, Main.view.getGamePanel(), 500, 500);
+                    Main.view.getGamePanel().player.getInventory().addItem(boot);
+                }else{
+                    String [] rapidFireImages = {"/items/rapid-fire.png"};
+                    RapidFire rapidFire = new RapidFire(rapidFireImages,Main.view.getGamePanel(), 500, 500);
+                    Main.view.getGamePanel().player.getInventory().addItem(rapidFire);
+                }
             }
         });
         add(newRunButton);
+
     }
 
     private void addChangeSkinButton() {
