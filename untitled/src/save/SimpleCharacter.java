@@ -1,7 +1,6 @@
 package save;
 
 import character.CharacterType;
-import character.Enemy;
 import character.Inventory;
 import character.PlayerCharacter;
 import combat.*;
@@ -18,12 +17,13 @@ public class SimpleCharacter {
     public int yCoord;
     public ArrayList<String> activeEffects;
     public CombatType combatType;
-    public String currentRoom;
     public Inventory inventory;
     public CharacterType characterType;
     private int numCoins;
     private ArrayList<SimpleEnemy> enemiesKilled;
     public ArrayList<Item> itemsDiscovered;
+    public int difficulty;
+    public boolean isDamaged;
 
     public SimpleCharacter(PlayerCharacter c) {
         this.name = c.getName();
@@ -33,13 +33,14 @@ public class SimpleCharacter {
         this.xCoord = c.getxCoord();
         this.yCoord = c.getyCoord();
         this.activeEffects = c.getActiveEffects();
-        this.combatType = c.getType();
-        this.currentRoom = "Test";
+        this.combatType = c.getCombatType();
         this.inventory = c.getInventory();
         this.characterType = c.getCharacterType();
         this.numCoins = c.getNumCoins();
         this.enemiesKilled = c.getEnemiesKilled();
         this.itemsDiscovered = c.getItemsDiscovered();
+        this.difficulty = c.getGameDifficulty();
+        this.isDamaged = c.isDamaged();
     }
 
     public int getNumCoins() {

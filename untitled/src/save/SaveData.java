@@ -130,22 +130,38 @@ public class SaveData {
      *                  true - error occurs
      */
     public boolean saveGameState() {
+
+        FileWriter f = null;
+
         try {
-            FileWriter f = new FileWriter(gameSaveFilePath);
+            f = new FileWriter(gameSaveFilePath);
             f.write(g.toJson(
                     new GameSaveState(
                             new SimpleCharacter(gp.getPlayer()),
                             gp.getCurrentRunTime(),
+                            gp.getCurrentLevelTime(),
                             gp.getRooms(),
                             gp.getCurrentRoomNum())));
             //f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
             f.close();
-            return false;
         } catch (IOException e) {
-            System.out.println("ERROR: Save to File Failed!");
+            System.out.println("ERROR: Save player progress to File Failed!");
             e.printStackTrace();
+            return true;
         }
-        return true;
+
+        try {
+            f = new FileWriter(playerUnlockFilePath);
+            f.write(g.toJson(gp.player.getItemsUnlocked()));
+            f.close();
+        } catch (IOException e) {
+            System.out.println("ERROR: Save permanent unlocks to File Failed!");
+            e.printStackTrace();
+            return true;
+        }
+
+        return false;
+
     }
 
     public static boolean saveGameState(SimpleCharacter sc) {
@@ -178,7 +194,13 @@ public class SaveData {
         gs = new GameSaveState(gs, this);
 
         Item.setUpItemListImages(gs.player.inventory.getListOfItems());
-        gp.newGame(gs.player, new Time(gs.currentRunTimeNS), initializeRooms(gs.rooms), gs.currentRoomNum, true);
+        gp.newGame(
+                gs.player,
+                new Time(gs.currentRunTimeNS),
+                new Time(gs.currentLevelTimeNS),
+                initializeRooms(gs.rooms, gs.player),
+                gs.currentRoomNum,
+                true);
         System.out.println("Game restore Succeeded");
         return true;
     }
@@ -195,6 +217,24 @@ public class SaveData {
         } catch (IOException e) {
             System.out.println("ERROR: Reading from Save Failed");
             e.printStackTrace();
+            return null;
+        } catch (com.google.gson.JsonSyntaxException e) {
+            System.out.println("ERROR: Syntax Parsing Failure!");
+            return null;
+        }
+    }
+
+    public boolean[] restorePermanentUnlocks() {
+        try {
+            BufferedReader r = new BufferedReader(new FileReader(playerUnlockFilePath));
+            StringBuilder input = new StringBuilder();
+
+            // Read from file
+            while (r.ready())   input.append(r.readLine());
+
+            return g.fromJson(input.toString(), boolean[].class);
+        } catch (IOException e) {
+            System.out.println("ERROR: Reading from Save Failed");
             return null;
         } catch (com.google.gson.JsonSyntaxException e) {
             System.out.println("ERROR: Syntax Parsing Failure!");
@@ -237,7 +277,7 @@ public class SaveData {
         }
     }
 
-    public ArrayList<Room> initializeRooms(ArrayList<SimpleRoom> rooms) {
+    public ArrayList<Room> initializeRooms(ArrayList<SimpleRoom> rooms, SimpleCharacter p) {
         ArrayList<Room> returnableRoomList = new ArrayList<>();
         int i = 0;
 

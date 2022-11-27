@@ -32,7 +32,13 @@ public class StatsPanel extends JPanel {
             else System.out.println("Game restore Failed");
         } else {
             savedData = new GameSaveState(savedData, sd);
-            gp.newGame(savedData.player, new Time(savedData.currentRunTimeNS), sd.initializeRooms(savedData.rooms), savedData.currentRoomNum, false); // use this method but make sure it doesn't start the game thread
+            gp.newGame(
+                    savedData.player,
+                    new Time(savedData.currentRunTimeNS),
+                    new Time(savedData.currentLevelTimeNS),
+                    sd.initializeRooms(savedData.rooms, savedData.player),
+                    savedData.currentRoomNum,
+                    false); // use this method but make sure it doesn't start the game thread
             System.out.println("Game restore Succeeded");
         }
 
