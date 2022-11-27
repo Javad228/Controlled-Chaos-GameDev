@@ -16,7 +16,7 @@ public class Room {
     public static final int GRASSROOM = 2;
     public static final int SPOOKYROOM = 3;
     public static final int ICEROOM = 4;
-    public static final int SPACEROOM = 5;
+    public static final int SPACEROOM = 6;
 
     private int roomNum;
     private ArrayList<Item> items;
@@ -53,6 +53,9 @@ public class Room {
                     roomType = ICEROOM;
                     break;
                 case 5:
+                    roomType = 5;
+                    break;
+                case 6:
                     roomType = SPACEROOM;
             }
         } else if (gp.player.roomSetNum == 2) {
@@ -70,6 +73,9 @@ public class Room {
                     roomType = GRASSROOM;
                     break;
                 case 5:
+                    roomType = 5;
+                    break;
+                case 6:
                     roomType = SPOOKYROOM;
             }
         } else if (gp.player.roomSetNum == 3) {
@@ -87,6 +93,9 @@ public class Room {
                     roomType = VOLCANOROOM;
                     break;
                 case 5:
+                    roomType = 5;
+                    break;
+                case 6:
                     roomType = GRASSROOM;
             }
         } else {
