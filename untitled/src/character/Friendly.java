@@ -7,7 +7,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Friendly extends NonPlayableCharacter {
+    public static final int NOTSTARTED = 0;
+    public static final int INPROGRESS = 1;
+    public static final int COMPLETED = 2;
+    public static final int NOQUEST = 3;
+
     public ArrayList<String> dialogPool;
+    public ArrayList<String> questDialog;
 
     public Friendly() {
         super();

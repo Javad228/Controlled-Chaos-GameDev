@@ -31,6 +31,7 @@ public class PlayerCharacter extends Character {
     private CharacterType characterType;    // Player Character Type
     private Item startingItem;              // Player Starting Item
     private Inventory inventory;            // Player character.Inventory
+    private Weapon equippedWeapon;
     private HealthBar healthBar;
     private GamePanel gp;
     private KeyHandler keyH;
