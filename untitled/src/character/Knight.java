@@ -1,5 +1,7 @@
 package character;
 
+import loot.Item;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.IOException;
@@ -59,13 +61,41 @@ public class Knight extends Friendly{
         String dialog;
         if (this.questStatus == NOTSTARTED) {
             dialog = questDialog.get(NOTSTARTED);
+            JOptionPane.showMessageDialog(null, dialog, "Knight", JOptionPane.INFORMATION_MESSAGE);
             questStatus = INPROGRESS;
         } else if (this.questStatus == INPROGRESS) {
             dialog = questDialog.get(INPROGRESS);
-        } else {
-            dialog = "Hello!";
-        }
+            JOptionPane.showMessageDialog(null, dialog, "Knight", JOptionPane.INFORMATION_MESSAGE);
+            ArrayList<Item> inventoryList = getGp().getPlayer().getInventory().getListOfItems();
+            int i;
+            for (i = 0; i < inventoryList.size(); i++) {
+                if (inventoryList.get(i).getDescription().equals("Basic Sword")) {
+                    int give = JOptionPane.showConfirmDialog(null,
+                            "Would you like to give the knight a wooden sword from your inventory?",
+                            "Quest", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (give == JOptionPane.YES_OPTION) {
+                        inventoryList.remove(i);
+                        JOptionPane.showMessageDialog(null,
+                                "Thanks! Here are some coins for your trouble.",
+                                "Knight", JOptionPane.INFORMATION_MESSAGE);
+                        getGp().getPlayer().setNumCoins(getGp().getPlayer().getNumCoins() + 2);
+                        this.questStatus = COMPLETED;
+                    }
+                    i--;    //use to check if entire list has been passed through
+                    break;
+                }
+            }
 
-        JOptionPane.showMessageDialog(null, dialog, "Satyr", JOptionPane.INFORMATION_MESSAGE);
+            if (i == inventoryList.size()) {
+                JOptionPane.showMessageDialog(null,
+                        "You have nothing to give. Find a basic sword to help the knight on her journey!",
+                        "Knight's Dilemma", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            //randomize here
+            dialog = "Hello!";
+            JOptionPane.showMessageDialog(null, dialog, "Knight", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }
 }
