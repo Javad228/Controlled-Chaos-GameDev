@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Knight extends Friendly{
-    public static final int room4Row = 4;
+    public static final int room4Row = 6;
     public static final int room4Col = 10;
 
     public Knight(int xCoord, int yCoord) {

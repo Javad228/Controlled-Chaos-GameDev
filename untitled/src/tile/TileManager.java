@@ -172,7 +172,7 @@ public class TileManager {
 
 
             tile[4] = new Tile();
-            tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_up.png"))));
+            tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_general_up.png"))));
             tile[4].setDamageTile(true);
             //tile[4].setTileType(4);
 
@@ -182,7 +182,7 @@ public class TileManager {
             tile[5].setTileType(Tile.BUTTON);
 
             tile[6] = new Tile();
-            tile[6].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_down.png"))));
+            tile[6].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_general_down.png"))));
             tile[6].setDamageTile(false);
 
             tile[7] = new Tile();
