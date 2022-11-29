@@ -229,10 +229,10 @@ public class Room {
 
                 break;
             case 3:
+                Knight knight = new Knight(Knight.room4Col * gp.tileSize, Knight.room4Row * gp.tileSize);
+                NPCs.add(knight);
                 break;
             case 4:
-                Knight knight = new Knight(500, 200);
-                NPCs.add(knight);
                 break;
             case 6:
                 break;

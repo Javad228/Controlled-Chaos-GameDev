@@ -60,7 +60,11 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_E) {
-            if (gp.getCurrentRoomNum() == 4) { // room.TRAPROOM no longer exists. plz change
+            if (gp.getCurrentRoomNum() == 3) { // room.TRAPROOM no longer exists. plz change
+
+                //Commented out puzzle code for now, needs adjustment
+
+                /*
                 if (gp.getPlayer().roomSetNum == 1) {
                     Button button1 = gp.getRooms().get(2).getButtons().get(0);
                     Button button2 = gp.getRooms().get(2).getButtons().get(1);
@@ -101,9 +105,11 @@ public class KeyHandler implements KeyListener {
                     }
                 }
 
+                 */
+
                 if ((gp.player.getRow() >= Knight.room4Row - 1) && (gp.getPlayer().getRow() <= Knight.room4Row + 1) &&
                         (gp.player.getCol() >= Knight.room4Col - 1) && (gp.getPlayer().getCol() <= Knight.room4Col + 1)) {
-                    Knight knight = (Knight) gp.getRooms().get(4).getNPCs().get(0);
+                    Knight knight = (Knight) gp.getRooms().get(3).getNPCs().get(0);
                     knight.displayDialog();
                 }
 

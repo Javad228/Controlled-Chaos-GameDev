@@ -50,6 +50,7 @@ public class Satyr extends Friendly {
         }
     }
 
+
     public void displayDialog() {
 
         String dialog = "Hello " + getGp().getPlayer().name + "!";
@@ -61,8 +62,9 @@ public class Satyr extends Friendly {
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Arial", Font.PLAIN, 13));
         g2.drawString(dialog, this.xCoord-10, this.yCoord-10);
-         */
+        */
     }
+
 
     public int getRow() {
         return this.row;
