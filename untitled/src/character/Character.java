@@ -58,6 +58,8 @@ public abstract class Character {
     public int currentBounce = 0;
     public boolean shouldBounce = true; // if currentBounce != maxBounce, then this should be true
     public int numBounces = 0;
+    public int origY;
+    public boolean isUp = false;
 
     public int collisionAreaDefaultY;
     public int collisionAreaDefaultX;

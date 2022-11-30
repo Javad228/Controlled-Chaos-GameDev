@@ -370,18 +370,59 @@ public class PlayerCharacter extends Character {
                             this.setxCoord(currentX + speed);
                         }
                     } else {
-                        if (direction.equals("up") && currentY > 0) {
-                            this.setyCoord(currentY - speed);
-                        }
-                        if (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())) {
-                            //TODO work on this
-                            //this.setyCoord(currentY + speed);
-                            currentY += speed;
+                        if ((direction.equals("up") && currentY > 0) || (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight()))) {
+                            if (isUp && direction.equals("down")) {
+                                // just switched directions. make numBounces = 0 so we restart our bouncing motion.
+                                numBounces = 0;
+                                isUp = false;
+                            } else if (!isUp && direction.equals("up")) {
+                                numBounces = 0;
+                                isUp = true;
+                            }
+
+                            if (numBounces == 0) {
+                                origY = currentY;
+                            }
+                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
+                            //this.setyCoord(origY + distToBounce);
                             numBounces++;
-                            numBounces = numBounces % maxBounce;
-                            int distToBounce = (int) (-0.15 * Math.pow(numBounces, 2) + 4 * numBounces);
-                            this.setyCoord(currentY + distToBounce);
+                            numBounces = numBounces % (2 * speed * 5);
+
+                            if (direction.equals("up")) {
+                                this.setyCoord(origY - distToBounce);
+                            } else {
+                                this.setyCoord(origY + distToBounce);
+                            }
+                        } else {
+                            //origY = currentY;
+                            numBounces = 0;
                         }
+
+                        /*if (direction.equals("up") && currentY > 0) {
+                            this.setyCoord(currentY - speed);
+                            *//*if (numBounces == 0) {
+                                origY = currentY;
+                            }
+                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
+                            this.setyCoord(origY - distToBounce);
+                            numBounces++;
+                            numBounces = numBounces % (2 * speed * 5);*//*
+                        }*//* else {
+                            origY = currentY;
+                            numBounces = 0;
+                        }*//*
+                        if (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())) {
+                            if (numBounces == 0) {
+                                origY = currentY;
+                            }
+                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
+                            this.setyCoord(origY + distToBounce);
+                            numBounces++;
+                            numBounces = numBounces % (2 * speed * 5);
+                        } else {
+                            origY = currentY;
+                            numBounces = 0;
+                        }*/
                         if (direction.equals("left") && currentX > 0) {
                             this.setxCoord(currentX - speed);
                             if (currentBounce == 0) {
