@@ -186,6 +186,8 @@ public class Room {
     private void initializeEnemies() {
         switch(roomNum) {
             case 1:
+                enemies = new ArrayList<>();
+                enemies.add(new BigWizard(200, 200));
                 break;
             case 2:
                 enemies = new ArrayList<>();
@@ -206,7 +208,7 @@ public class Room {
                 enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
-                }else{
+                } else{
                     enemies.add(new BigSkull(300, 300));
                 }
                 break;
