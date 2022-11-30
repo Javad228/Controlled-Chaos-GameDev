@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 import static main.GamePanel.g2;
 
@@ -13,7 +14,7 @@ public class Satyr extends Friendly {
     private int row = 4;
     private int col = 10;
 
-    private boolean dialogOn;
+    private boolean firstTalk = true;
 
     public Satyr(int xCoord, int yCoord) {
         super();
@@ -29,9 +30,7 @@ public class Satyr extends Friendly {
         //TODO: add more dialog
         //create satyr dialog pool (not currently implemented)
         this.dialogPool = new ArrayList<>();
-        String currentDialog = "Hello " + getGp().getPlayer().name + "!";
-        this.dialogPool.add(currentDialog);
-        currentDialog = "Be careful of monsters, " + getGp().getPlayer().name + ".";
+        String currentDialog = "Be careful of monsters, " + getGp().getPlayer().name + ".";
         this.dialogPool.add(currentDialog);
         currentDialog = "Tip: You can pick up items to help you on your journey.";
         this.dialogPool.add(currentDialog);
@@ -52,17 +51,15 @@ public class Satyr extends Friendly {
 
 
     public void displayDialog() {
-
-        String dialog = "Hello " + getGp().getPlayer().name + "!";
-        System.out.println(dialog);
-
+        String dialog;
+        if (firstTalk) {
+            dialog = "Hello " + getGp().getPlayer().name + "!";
+            firstTalk = false;
+        } else {
+            Random r = new Random();
+            dialog = dialogPool.get(r.nextInt(dialogPool.size()));
+        }
         JOptionPane.showMessageDialog(null, dialog, "Satyr", JOptionPane.INFORMATION_MESSAGE);
-
-        /*
-        g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.PLAIN, 13));
-        g2.drawString(dialog, this.xCoord-10, this.yCoord-10);
-        */
     }
 
 
