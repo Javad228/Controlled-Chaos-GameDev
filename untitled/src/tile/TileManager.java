@@ -31,6 +31,7 @@ public class TileManager {
 
     public void update() {
         int roomNum = gp.getCurrentRoomNum();
+        System.out.println(roomNum);
 //        System.out.println(roomNum);
         doorLocations.clear();
         loadMap("/maps/mapset" + gp.player.roomSetNum + "/room" + roomNum + ".txt");
@@ -66,6 +67,8 @@ public class TileManager {
         tile[3].setCollision(true);
 
         try {
+            System.out.println("room type = " + Integer.toString(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()));
+            System.out.println("room set number = " + Integer.toString(gp.player.roomSetNum));
             if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.VOLCANOROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/lava.png"))));
@@ -87,6 +90,11 @@ public class TileManager {
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPACEROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space_rock.png"))));
+            } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == 6) { // all 6th rooms will be shop rooms
+                tile[0] = new Tile();
+                tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+                tile[3] = new Tile();
+                tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
             } else {
                 System.out.println("Received bad room type. Update of tile images not executed.");
             }
@@ -107,7 +115,7 @@ public class TileManager {
 
 
             tile[4] = new Tile();
-            tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_up.png"))));
+            tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_general_up.png"))));
             tile[4].setDamageTile(true);
             //tile[4].setTileType(4);
 
@@ -117,7 +125,7 @@ public class TileManager {
             tile[5].setTileType(Tile.BUTTON);
 
             tile[6] = new Tile();
-            tile[6].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_on_grass_down.png"))));
+            tile[6].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_general_down.png"))));
             tile[6].setDamageTile(false);
 
             tile[7] = new Tile();

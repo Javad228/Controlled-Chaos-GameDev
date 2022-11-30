@@ -257,6 +257,9 @@ public abstract class NonPlayableCharacter extends Character {
                     gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins().add(new Coin(7, new String[]{"/items/coin.png"}, this.xCoord, this.yCoord, 1));
 
                 } else if(Objects.equals(this.name, "BigSlonch") || Objects.equals(this.name, "BigSkull")) {
+
+                    gp.showCompleteLevel();
+
                     PlayerCharacter player = gp.getPlayer();
                     if (!player.getItemsUnlocked()[4]) {
                         player.unlockItem(4);

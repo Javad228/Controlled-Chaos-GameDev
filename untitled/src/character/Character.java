@@ -29,7 +29,7 @@ public abstract class Character {
     public int height;                         // Character height in pixels
     public int width;                          // Character width in pixels
     public ArrayList<String> activeEffects;    // Character active effects in game
-    public CombatType type;                    // Character combat type
+    public CombatType combatType;                    // Character combat type
     public double timeForInvincibility;        // Character time for invincibility after combat hit
     public Projectile projectile;
     private boolean hasThrownProjectile;
@@ -78,7 +78,7 @@ public abstract class Character {
         this.height = 50;
         this.width = 50;
         this.activeEffects = new ArrayList<>();
-        this.type = CombatType.DEFAULT;
+        this.combatType = CombatType.DEFAULT;
         this.timeForInvincibility = 1;
     }
 
@@ -91,7 +91,7 @@ public abstract class Character {
     public Character(String name, CombatType type) {
         this();
         this.name = name;
-        this.type = type;
+        this.combatType = type;
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class Character {
         this.height = height;
         this.width = width;
         this.activeEffects = activeEffects;
-        this.type = type;
+        this.combatType = type;
         this.timeForInvincibility = timeForInvincibility;
     }
 
@@ -221,12 +221,12 @@ public abstract class Character {
         this.activeEffects = activeEffects;
     }
 
-    public CombatType getType() {
-        return type;
+    public CombatType getCombatType() {
+        return combatType;
     }
 
-    public void setType(CombatType type) {
-        this.type = type;
+    public void setCombatType(CombatType combatType) {
+        this.combatType = combatType;
     }
 
     public double getTimeForInvincibility() {
@@ -349,7 +349,7 @@ public abstract class Character {
         if (this.xCoord != ((Character) o).getxCoord()) return false;
         if (this.yCoord != ((Character) o).getyCoord()) return false;
         if (!this.activeEffects.equals(((Character) o).getActiveEffects())) return false;
-        if (this.type != ((Character) o).getType()) return false;
+        if (this.combatType != ((Character) o).getCombatType()) return false;
 
         return this.timeForInvincibility == ((Character) o).getTimeForInvincibility();
     }

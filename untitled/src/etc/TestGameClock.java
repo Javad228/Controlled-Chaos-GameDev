@@ -44,10 +44,11 @@ public class TestGameClock {
             GameSaveState saveState = new GameSaveState(    // Initialize new savestate to access time elapsed in seconds
                     new SimpleCharacter(gp.player),
                     timeElapsed,
+                    timeElapsed,
                     gp.getRooms(),
                     gp.getCurrentRoomNum());
 
-            System.out.printf("Expected\t%s\nActual\t\t%s\n", new GameSaveState(null, new Time(expectedRunTimeNS), new ArrayList<>(), 0).currentRunTimeS, saveState.currentRunTimeS);  // Print time elapsed
+            System.out.printf("Expected\t%s\nActual\t\t%s\n", new GameSaveState(null, new Time(expectedRunTimeNS), new Time(0), new ArrayList<>(), 0).currentRunTimeS, saveState.currentRunTimeS);  // Print time elapsed
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

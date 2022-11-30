@@ -175,7 +175,7 @@ public class Audio {
 
     public static void enemyDamagedAudio() {
 
-        //uncomment when there are clips for these sounds
+        //uncomment when there are clips for these soundsds
 
         Clip playerDamagedClip = getClip("untitled/audio/Slime-Splash.wav");
         //Clip playerDamagedClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\Slime-Splash.wav");

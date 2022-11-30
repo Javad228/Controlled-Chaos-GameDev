@@ -20,6 +20,9 @@ public class Room {
 
     private int roomNum;
     private ArrayList<Item> items;
+    private ArrayList<Chest> chests;
+
+    private ArrayList<Sign> signs;
     private ArrayList<Enemy> enemies;
     private ArrayList<Friendly> NPCs;
     private transient KeyHandler keyH;
@@ -51,6 +54,9 @@ public class Room {
                     break;
                 case 5:
                     roomType = SPACEROOM;
+                    break;
+                case 6:
+                    roomType = 6;
             }
         } else if (gp.player.roomSetNum == 2) {
             switch(roomNum) {
@@ -68,6 +74,9 @@ public class Room {
                     break;
                 case 5:
                     roomType = SPOOKYROOM;
+                    break;
+                case 6:
+                    roomType = 6;
             }
         } else if (gp.player.roomSetNum == 3) {
             switch(roomNum) {
@@ -85,6 +94,9 @@ public class Room {
                     break;
                 case 5:
                     roomType = GRASSROOM;
+                    break;
+                case 6:
+                    roomType = 6;
             }
         } else {
             System.out.println("Received bad roomSetNum.");
@@ -151,6 +163,23 @@ public class Room {
                 items.add(boot);
 
                 break;
+            case 6:
+                items = new ArrayList<>();
+                chests = new ArrayList<>();
+                signs = new ArrayList<>();
+                Chest chest = new Chest(320, 200, gp,0);
+                Chest chest1 = new Chest(470, 200, gp,1);
+                Chest chest2 = new Chest(620, 200, gp,2);
+                Sign sign = new Sign(320, 245, gp,0);
+                Sign sign1 = new Sign(470, 245, gp,1);
+                Sign sign2 = new Sign(620, 245, gp,2);
+                signs.add(sign);
+                signs.add(sign1);
+                signs.add(sign2);
+                chests.add(chest);
+                chests.add(chest1);
+                chests.add(chest2);
+                break;
         }
     }
 
@@ -173,7 +202,7 @@ public class Room {
                 enemies = new ArrayList<>();
                 enemies.add(new Barrel(300, 50));
                 break;
-            case 5:
+            case 6:
                 enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
@@ -197,14 +226,15 @@ public class Room {
                 }
                 break;
             case 2:
+
                 break;
             case 3:
-                break;
-            case 4:
-                Knight knight = new Knight(500, 200);
+                Knight knight = new Knight(Knight.room4Col * gp.tileSize, Knight.room4Row * gp.tileSize);
                 NPCs.add(knight);
                 break;
-            case 5:
+            case 4:
+                break;
+            case 6:
                 break;
         }
     }
@@ -353,6 +383,18 @@ public class Room {
     public void setCoins(ArrayList<Coin> coins) {
         this.coins = coins;
     }
+    public ArrayList<Chest> getChests() {
+        return chests;
+    }
+
+    public void setChests(ArrayList<Chest> chests) {
+        this.chests = chests;
+    }
+
+    public ArrayList<Sign> getSigns() {
+        return signs;
+    }
+
     public Item getRandomItem() {
 
         //random thing that returns an id from 0 to 4

@@ -44,6 +44,8 @@ public class View {
 
         changeSkinPanel = new changeSkinPanel(gamePanel);
 
+        gamePanel.tileM.update();
+
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window
             @Override
             public void windowClosing(WindowEvent e) {

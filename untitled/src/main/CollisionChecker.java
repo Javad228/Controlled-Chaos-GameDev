@@ -356,7 +356,7 @@ public class CollisionChecker {
             if (characterBottom > 376 && characterBottom < 406) {
                 //System.out.println("it's in");
                 gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
-                gp.tileM.update();
+                //gp.tileM.update();
                 return gp.getCurrentRoomNum() + 1;
             }
         }
@@ -364,9 +364,9 @@ public class CollisionChecker {
         if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 2) {
             if (characterBottom > 70 && characterBottom < 100) {
                 //System.out.println("it's in");
-                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
                 gp.tileM.backward = true;
-                gp.tileM.update();
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                //gp.tileM.update();
                 return gp.getCurrentRoomNum() - 1;
             }
         }
@@ -375,7 +375,7 @@ public class CollisionChecker {
             if (characterBottom > 376 && characterBottom < 406) {
                 //System.out.println("it's in");
                 gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
-                gp.tileM.update();
+                //gp.tileM.update();
                 return gp.getCurrentRoomNum() + 1;
             }
         }
@@ -383,9 +383,9 @@ public class CollisionChecker {
         if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 3) {
             if (characterBottom > 70 && characterBottom < 100) {
                 //System.out.println("it's in");
-                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
                 gp.tileM.backward = true;
-                gp.tileM.update();
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                //gp.tileM.update();
                 return gp.getCurrentRoomNum() - 1;
             }
         }
@@ -394,7 +394,7 @@ public class CollisionChecker {
             if (characterBottom > 376 && characterBottom < 406) {
                 //System.out.println("it's in");
                 gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
-                gp.tileM.update();
+                //gp.tileM.update();
                 return gp.getCurrentRoomNum() + 1;
             }
         }
@@ -402,9 +402,9 @@ public class CollisionChecker {
         if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 4) {
             if (characterBottom > 70 && characterBottom < 100) {
                 //System.out.println("it's in");
-                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
                 gp.tileM.backward = true;
-                gp.tileM.update();
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                //gp.tileM.update();
                 return gp.getCurrentRoomNum() - 1;
             }
         }
@@ -413,17 +413,27 @@ public class CollisionChecker {
             if (characterBottom > 376 && characterBottom < 406) {
                 //System.out.println("it's in");
                 gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                //gp.tileM.update();
+                return gp.getCurrentRoomNum() + 1;
+            }
+        }
+
+        if (characterLeft > 616 && characterLeft < 672 && gp.getCurrentRoomNum() == 5) {
+            if (characterBottom > 376 && characterBottom < 406) {
+                //System.out.println("it's in");
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
                 gp.tileM.update();
                 return gp.getCurrentRoomNum() + 1;
             }
         }
 
-        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 5) {
+
+        if (characterLeft > 55 && characterLeft < 75 && gp.getCurrentRoomNum() == 6) {
             if (characterBottom > 70 && characterBottom < 100) {
                 //System.out.println("it's in");
-                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
                 gp.tileM.backward = true;
-                gp.tileM.update();
+                gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                //gp.tileM.update();
                 return gp.getCurrentRoomNum() - 1;
             }
         }
