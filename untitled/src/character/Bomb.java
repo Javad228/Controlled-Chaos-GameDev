@@ -32,6 +32,7 @@ public class Bomb extends Projectile {
     public void setDefaultValues() {
         this.setName("Bomb");
         this.setMovementSpeed(3);
+        this.setMaxSpeed(3);
         this.setWidth(7);
         this.setHeight(26);
         this.setHealth(80);

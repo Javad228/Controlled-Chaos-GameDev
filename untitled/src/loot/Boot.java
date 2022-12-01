@@ -23,7 +23,9 @@ public class Boot extends PassiveItem {
 
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
-            player.setMovementSpeed(player.getMovementSpeed() * 2);
+            int newSpeed = player.getMovementSpeed() * 2;
+            player.setMovementSpeed(newSpeed);
+            player.setMaxSpeed(newSpeed);
         }
     }
 }

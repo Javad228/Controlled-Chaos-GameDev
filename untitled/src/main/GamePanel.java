@@ -77,12 +77,12 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		this.currentRunTime = new Time(0);
 
-		initializeRooms();
-		initializeLevelClocks();
-		tileM.update();
+		//initializeRooms();
+		//initializeLevelClocks();
+		//tileM.update();
 	}
 
-	private void initializeRooms() {
+	public void initializeRooms() {
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));

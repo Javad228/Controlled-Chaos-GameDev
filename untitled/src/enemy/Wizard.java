@@ -16,7 +16,8 @@ public class Wizard extends Enemy {
     public Wizard(int xCoord, int yCoord) {
         super(EnemyType.SMALL, LootType.DEFAULT);
         name = "Wizard";
-        movementSpeed = 1;
+        movementSpeed = 2;
+        maxSpeed = 2;
         setMaxHealth(15);
         health = getMaxHealth();
         attackType = 1;
@@ -47,6 +48,7 @@ public class Wizard extends Enemy {
         this.health = enemy.health;
         setMaxHealth(enemy.maxHealth);
         this.movementSpeed = enemy.movementSpeed;
+        this.maxSpeed = enemy.maxSpeed;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);
     }

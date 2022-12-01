@@ -4,11 +4,10 @@
     "health": 100.0,
     "maxHealth": 100,
     "movementSpeed": 4,
-    "xCoord": 20,
-    "yCoord": 50,
+    "xCoord": 50,
+    "yCoord": 200,
     "activeEffects": [],
     "combatType": "DEFAULT",
-    "currentRoom": "Test",
     "inventory": {
       "numberOfSlots": 10,
       "listOfItems": [
@@ -138,6 +137,8 @@
         "isExpanding": true
       }
     ],
+    "difficulty": 0,
+    "isDamaged": false,
     "characterAppearance": "warrior"
   },
   "rooms": [
@@ -241,12 +242,12 @@
           "price": 0.0,
           "isEquipped": false,
           "amount": 0,
-          "name": "Inner Fire",
+          "name": "Boot",
           "lootType": "DEFAULT",
           "xCoord": 500,
           "yCoord": 500,
           "imagePaths": [
-            "/items/damage.png"
+            "/items/boot.png"
           ],
           "framesToWait": 7,
           "solidArea": {
@@ -338,26 +339,28 @@
       ],
       "enemies": [
         {
-          "name": "Skeleton",
-          "health": 75.0,
-          "maxHealth": 75,
-          "movementSpeed": 1,
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 15,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
           "xCoord": 500,
           "yCoord": 500,
           "activeEffects": [],
           "damagePerHit": 1,
-          "classification": "SKELETON"
+          "classification": "WIZARD"
         },
         {
-          "name": "Skeleton",
-          "health": 75.0,
-          "maxHealth": 75,
-          "movementSpeed": 1,
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 15,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
           "xCoord": 100,
           "yCoord": 500,
           "activeEffects": [],
           "damagePerHit": 1,
-          "classification": "SKELETON"
+          "classification": "WIZARD"
         }
       ],
       "friendlies": []
@@ -465,6 +468,7 @@
           "health": 10.0,
           "maxHealth": 10,
           "movementSpeed": 0,
+          "maxSpeed": 2,
           "xCoord": 300,
           "yCoord": 50,
           "activeEffects": [],
@@ -481,17 +485,24 @@
     },
     {
       "roomNum": 5,
+      "enemies": [],
+      "friendlies": []
+    },
+    {
+      "roomNum": 6,
+      "items": [],
       "enemies": [
         {
-          "name": "BigSlonch",
+          "name": "BigSkull",
           "health": 150.0,
           "maxHealth": 150,
-          "movementSpeed": 1,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
           "xCoord": 300,
           "yCoord": 300,
           "activeEffects": [],
           "damagePerHit": 5,
-          "classification": "BIGSLONCH"
+          "classification": "BIGSKULL"
         }
       ],
       "friendlies": []
@@ -499,5 +510,6 @@
   ],
   "currentRoomNum": 1,
   "currentRunTimeNS": 0,
+  "currentLevelTimeNS": 0,
   "currentRunTimeS": "0:00:00.000"
 }
