@@ -25,7 +25,6 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         addSoundEffectVolumeSelection();
         addSaveButtons();
         addReturnButton();
-        addCharacterName();
         priorPage = "";
 
         setName("Settings");
@@ -50,21 +49,6 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         });
 
         add(returnButton);
-    }
-
-    private void addCharacterName() {
-        name = new JTextField("Enter your character's name");
-
-        enterNameButton = new JButton("Enter Name");
-        enterNameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gamePanel.player.setName(name.getText());
-                System.out.println(name.getText());
-            }
-        });
-        add(enterNameButton);
-        add(name);
     }
 
     private void addSoundEffectVolumeSelection() {
