@@ -242,12 +242,12 @@
           "price": 0.0,
           "isEquipped": false,
           "amount": 0,
-          "name": "Heart",
+          "name": "Inner Fire",
           "lootType": "DEFAULT",
           "xCoord": 500,
           "yCoord": 500,
           "imagePaths": [
-            "/items/health.png"
+            "/items/damage.png"
           ],
           "framesToWait": 7,
           "solidArea": {
@@ -267,7 +267,19 @@
           "isExpanding": true
         }
       ],
-      "enemies": [],
+      "enemies": [
+        {
+          "name": "BigWizard",
+          "health": 150.0,
+          "maxHealth": 150,
+          "movementSpeed": 1,
+          "xCoord": 100,
+          "yCoord": 100,
+          "activeEffects": [],
+          "damagePerHit": 5,
+          "classification": "BIGWIZARD"
+        }
+      ],
       "friendlies": [],
       "coins": [
         {

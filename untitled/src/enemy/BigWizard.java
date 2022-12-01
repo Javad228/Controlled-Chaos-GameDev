@@ -54,11 +54,19 @@ public class BigWizard extends Enemy {
     @Override
 
     public void setAction(GamePanel gp){
-        actionLockCounter++;
         int currentX = this.getxCoord();
         int currentY = this.getyCoord();
+        int maxX = 630;
+        int maxY = 470;
 
-        //if ((actionLockCounter == 100) || (actionLockCounter == 199)) {
+        //Teleport to center to start
+        if (actionLockCounter == 0) {
+            setxCoord(maxX/2);
+            setyCoord(maxY/2);
+            setMovementSpeed(0);
+        }
+
+        //Firing orbs
         if ((actionLockCounter == 0) || (actionLockCounter % 40 == 0)) {
           /*  SlimeBall slimeball = new SlimeBall(gp, currentX + 40, currentY + 60, "up", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
             SlimeBall slimeball2 = new SlimeBall(gp, currentX + 40, currentY + 60, "down", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
@@ -67,39 +75,49 @@ public class BigWizard extends Enemy {
           */
             //Orb orb = new Orb(gp, currentX + 40, currentY + 60, , false, 1);
         }
+
+        //Teleporting around then moving side-to-side
+        int xLeft = 32;
+        int xRight = maxX - 32;
+        int yTop = 32;
+        int yBottom = maxY - 32;
+
         switch (actionLockCounter) {
+
             case 500:
                 //set x and y so it's on left side
-                setxCoord(145);
-                setyCoord(260);
+                setxCoord(xLeft);
+                setyCoord(maxY/2);
                 break;
             case 600:
                 //top
-                setxCoord(360);
-                setyCoord(150);
+                setxCoord(maxX/2);
+                setyCoord(yTop);
                 break;
             case 700:
                 //bottom
-                setxCoord(360);
-                setyCoord(370);
+                setxCoord(maxX/2);
+                setyCoord(yBottom);
                 break;
             case 800:
                 //right
-                setxCoord(580);
-                setyCoord(260);
+                setxCoord(xRight);
+                setyCoord(maxY/2);
                 break;
             case 850:
                 direction = "left";
+                setMovementSpeed(2);
                 break;
             case 2000:
                 actionLockCounter = 0;
         }
-        if (currentX > 594) {   //714
+        if (currentX > 614) {
             this.setDirection("left");
         }
-        if (currentX < 130) {    //10
+        if (currentX < 16) {
             this.setDirection("right");
         }
+        actionLockCounter++;
     }
 
     @Override
