@@ -20,13 +20,15 @@ public class TileManager {
     private Object[] loot;
     public boolean backward = false;
     private ArrayList<int[][]> doorLocations;
+    private ArrayList<int[][]> jackOLanternLocations;
 
     public TileManager(GamePanel gp1) {
         gp = gp1;
-        tile = new Tile[11];
+        tile = new Tile[12];
         mapTileNum = new int[gp1.maxScreenCol+1][gp1.maxScreenRow+1];
         //this.roomNum = 0;   // might need to change based on saved progress
         doorLocations = new ArrayList<>();
+        jackOLanternLocations = new ArrayList<>();
     }
 
     public void update() {
@@ -34,6 +36,7 @@ public class TileManager {
         System.out.println(roomNum);
 //        System.out.println(roomNum);
         doorLocations.clear();
+        jackOLanternLocations.clear();
         loadMap("/maps/mapset" + gp.player.roomSetNum + "/room" + roomNum + ".txt");
         if (backward) {
             for (int i = 0; i < doorLocations.size(); i++) {
@@ -81,6 +84,10 @@ public class TileManager {
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
+                tile[10] = new Tile();
+                tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/jack_o_lantern.png"))));
+                tile[10].setTileType(Tile.ENVIRONMENT);
+                tile[10].setCollision(true);
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.ICEROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/snow.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/ice_mountain.png"))));
@@ -157,6 +164,7 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
+
             while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
                 String line = br.readLine();
 
@@ -171,6 +179,11 @@ public class TileManager {
                         doorLocation[0][0] = col;
                         doorLocation[0][1] = row;
                         doorLocations.add(doorLocation);
+                    } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM && num == Tile.ENVIRONMENT) {
+                        int[][] jackOLanternLocation = new int[1][2];
+                        jackOLanternLocation[0][0] = col;
+                        jackOLanternLocation[0][1] = row;
+                        jackOLanternLocations.add(jackOLanternLocation);
                     }
 
                     mapTileNum[col][row] = num;
@@ -224,5 +237,13 @@ public class TileManager {
 
     public void setLoot(Object[] loot) {
         this.loot = loot;
+    }
+
+    public ArrayList<int[][]> getJackOLanternLocations() {
+        return jackOLanternLocations;
+    }
+
+    public void setJackOLanternLocations(ArrayList<int[][]> jackOLanternLocations) {
+        this.jackOLanternLocations = jackOLanternLocations;
     }
 }
