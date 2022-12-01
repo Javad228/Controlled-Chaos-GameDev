@@ -53,6 +53,7 @@ public abstract class Character {
 
     public int spriteCounter = 0;
     public int spriteNum = 1; // TODO: make this zero indexed and update the sprite increments accordingly
+    public int volcHealthCounter = 0;
     private boolean wasOne = false; // boolean meant to help with sprite number selection when spriteNum = 2
     public int maxBounce = 20; // variables used for bounce effect in space room
     public int currentBounce = 0;

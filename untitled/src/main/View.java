@@ -44,6 +44,9 @@ public class View {
 
         changeSkinPanel = new changeSkinPanel(gamePanel);
 
+        // because we set the room number twice :( we have to set the rooms now rather than in the GamePanel constructor.
+        gamePanel.initializeRooms();
+        gamePanel.initializeLevelClocks();
         gamePanel.tileM.update();
 
         window.addWindowListener(new WindowAdapter() {  // Add save functionality when closing the game window

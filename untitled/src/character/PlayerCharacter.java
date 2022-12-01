@@ -259,6 +259,13 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
+        // damage player by 1 every 5th of a second while in volcano room
+        if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.VOLCANOROOM && volcHealthCounter == 0) {
+            damagePlayerInt(1);
+        }
+        volcHealthCounter++;
+        volcHealthCounter %= gp.getFps();
+
 
         this.healthBar.update(this.getHealth());
         this.powerBar.update(this.getEnemiesKilled().size());
