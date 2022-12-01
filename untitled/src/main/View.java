@@ -36,7 +36,7 @@ public class View {
         gamePanel.setVisible(false);
         coinPanel.setBounds(0, 0, 75, 30);
 
-        window.setPreferredSize(new Dimension(gamePanel.screenWidth, gamePanel.screenHeight));
+        window.setPreferredSize(new Dimension(gamePanel.screenWidth + 15, gamePanel.screenHeight + 39));
         window.setResizable(false);
         window.setTitle("Controlled Chaos");
 
