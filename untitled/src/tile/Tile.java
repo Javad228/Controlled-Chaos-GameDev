@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class Tile {
 
     public static final int GRASS = 0;
-    public static final int DOOR1 = 1;
+    public static final int NEXTLEVEL = 1;
     public static final int DOOR2 = 2;
     public static final int TREE = 3;
     public static final int TRAP = 4;

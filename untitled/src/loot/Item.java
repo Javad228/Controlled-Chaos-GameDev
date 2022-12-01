@@ -19,7 +19,6 @@ public class Item extends Loot {
         this.description = "";
         this.price = 0.0;
         this.isEquipped = false;
-        this.gp = gp;
     }
 
     public Item(int framesToWait, String[] imagePaths, int xCoord, int yCoord) {

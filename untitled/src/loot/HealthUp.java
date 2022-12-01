@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public class HealthUp extends PassiveItem {
 
+    public static transient final String[] DEFAULT_IMAGE_PATHS = new String[]{"/items/health.png"};
+
     private transient GamePanel gp;
 
     public HealthUp(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {

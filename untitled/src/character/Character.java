@@ -128,9 +128,6 @@ public abstract class Character {
     }
 
     public void setHealth(double health) {
-        if (this instanceof PlayerCharacter) {
-            Audio.playerDamagedAudio();
-        }
         this.health = health;
     }
 
@@ -143,6 +140,7 @@ public abstract class Character {
     }
 
     public void damage(double damageTaken) {
+        if (this instanceof PlayerCharacter)    Audio.playerDamagedAudio();
         if (damageTaken > this.health) setHealth(0);
         else setHealth(this.health-damageTaken);
     }

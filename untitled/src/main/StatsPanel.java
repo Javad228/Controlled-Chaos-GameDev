@@ -38,6 +38,7 @@ public class StatsPanel extends JPanel {
                     new Time(savedData.currentLevelTimeNS),
                     sd.initializeRooms(savedData.rooms, savedData.player),
                     savedData.currentRoomNum,
+                    savedData.currentLevelNum,
                     false); // use this method but make sure it doesn't start the game thread
             System.out.println("Game restore Succeeded");
         }

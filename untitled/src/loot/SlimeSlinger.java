@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public class SlimeSlinger extends Weapon {
 
+    public static transient final String[] DEFAULT_IMAGE_PATHS = new String[]{"/items/slingshot.png"};
+
     private transient GamePanel gp;
 
     public SlimeSlinger(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {

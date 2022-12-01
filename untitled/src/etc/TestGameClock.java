@@ -39,16 +39,12 @@ public class TestGameClock {
 
             view.getWindow().dispose();                     // Close game window
 
-            Time timeElapsed = gp.getCurrentRunTime();      // Access time elapsed
+            Time timeElapsed = new Time(gp.getCurrentRunTime().getTime() - helper.beginningTime.getTime());
+                                                            // Access time elapsed and calculate relative time elapsed
 
-            GameSaveState saveState = new GameSaveState(    // Initialize new savestate to access time elapsed in seconds
-                    new SimpleCharacter(gp.player),
-                    timeElapsed,
-                    timeElapsed,
-                    gp.getRooms(),
-                    gp.getCurrentRoomNum());
-
-            System.out.printf("Expected\t%s\nActual\t\t%s\n", new GameSaveState(null, new Time(expectedRunTimeNS), new Time(0), new ArrayList<>(), 0).currentRunTimeS, saveState.currentRunTimeS);  // Print time elapsed
+            //System.out.printf("Expected\t%s\nActual\t\t%s\n", new GameSaveState(null, new Time(expectedRunTimeNS), new Time(0), new ArrayList<>(), 0, 0).currentRunTimeS, saveState.currentRunTimeS);
+            System.out.printf("Expected\t%s\nActual\t\t%s\n", TimeFormat.formatTimeH(expectedRunTimeNS), TimeFormat.formatTimeH(timeElapsed.getTime()));
+            // Print time elapsed
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -67,11 +63,13 @@ class TestHelper implements Runnable {
     Thread t;
     GamePanel gp;
     String[] args;
+    Time beginningTime;
 
     public TestHelper(CountDownLatch latch, long expectedRunTime, String[] args) {
         this.latch = latch;
         this.expectedRunTime = expectedRunTime;
         this.args = args;
+        this.beginningTime = new Time(0);
 
         t = new Thread(this);
         t.start();
@@ -87,6 +85,7 @@ class TestHelper implements Runnable {
             view.getGamePanel().getRooms().get(view.getGamePanel().getCurrentRoomNum()).setEnemies(e);
                                                 // Set enemies in the room to have no enemies
             view.showGamePanel();
+            this.beginningTime = view.getGamePanel().getCurrentRunTime();
             view.getGamePanel().startGameThread();
             Thread.sleep(expectedRunTime);      // Sleep for specified period of time
 

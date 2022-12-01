@@ -4,9 +4,9 @@ import character.Character;
 import character.Enemy;
 import character.PlayerCharacter;
 import loot.Loot;
+import tile.NextLevelTile;
 import tile.Tile;
-
-import java.awt.*;
+import tile.TileManager;
 
 public class CollisionChecker {
     static final int trapDamage = 2;
@@ -156,6 +156,8 @@ public class CollisionChecker {
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
                 checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                checkNextLevelTileExistence(character, characterLeftCol, characterTopRow);
+                checkNextLevelTileExistence(character, characterRightCol, characterTopRow);
                 /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                     if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
@@ -168,6 +170,8 @@ public class CollisionChecker {
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
                 checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                checkNextLevelTileExistence(character, characterLeftCol, characterBottomRow);
+                checkNextLevelTileExistence(character, characterRightCol, characterBottomRow);
                 /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                     if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
@@ -180,6 +184,8 @@ public class CollisionChecker {
                 tileNum1 = gp.tileM.mapTileNum[characterLeftCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterLeftCol][characterBottomRow];
                 checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                checkNextLevelTileExistence(character, characterLeftCol, characterTopRow);
+                checkNextLevelTileExistence(character, characterLeftCol, characterBottomRow);
                 /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                     if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
@@ -192,6 +198,8 @@ public class CollisionChecker {
                 tileNum1 = gp.tileM.mapTileNum[characterRightCol][characterTopRow];
                 tileNum2 = gp.tileM.mapTileNum[characterRightCol][characterBottomRow];
                 checkTileCollisionsAndRoom(character, tileNum1, tileNum2);
+                checkNextLevelTileExistence(character, characterRightCol, characterTopRow);
+                checkNextLevelTileExistence(character, characterRightCol, characterBottomRow);
                 /*if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
                     character.collisionOn = true;
                     if (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
@@ -215,7 +223,9 @@ public class CollisionChecker {
         if (gp.tileM.tile[tileNum1].isCollision() || gp.tileM.tile[tileNum2].isCollision()) {
             character.collisionOn = true;
             // check if character is not enemy before checking room... otherwise enemies can get in other rooms...
-            if (!(character instanceof Enemy) & gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
+            if (!(character instanceof Enemy)
+                    && gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2
+                    || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) {
                 System.out.println("just collided with door!");
                 // as a rule, doors to go back should be on the left side of the screen
                 if (character.getxCoord() < gp.maxScreenCol * gp.tileSize / 2) {
@@ -223,14 +233,32 @@ public class CollisionChecker {
                     gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
                     System.out.println(gp.getCurrentRoomNum());
                     gp.tileM.backward = true;
-                    gp.tileM.update();
+                    //gp.tileM.update();
                 } else {
                     // we want to go forward!
                     gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
                     System.out.println(gp.getCurrentRoomNum());
                     gp.tileM.backward = false;
-                    gp.tileM.update();
+                    //gp.tileM.update();
                 }
+            }
+        }
+    }
+
+    public void checkNextLevelTileExistence(Character character, int tileX, int tileY) {
+        if (!(character instanceof Enemy)
+                && (TileManager.tile[TileManager.mapTileNum[tileX][tileY]].getTileType() == Tile.NEXTLEVEL)) {
+            int candidate = ((NextLevelTile) TileManager.tile[1]).findTile(tileX, tileY);
+            switch (candidate) {
+                case NextLevelTile.NEXTLEVEL_REG -> {
+                    gp.nextLevel();
+                }
+                case NextLevelTile.NEXTLEVEL_DIFFICULT -> {
+                    gp.getPlayer().incrementDifficulty();
+                    gp.nextLevel();
+                }
+                case NextLevelTile.NEXTLEVEL_INVALID -> {/*Do nothing*/}
+                default -> System.out.println("CollisionChecker: NextLevel findTile() produced bad output!");
             }
         }
     }

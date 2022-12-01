@@ -141,7 +141,9 @@ public class SaveData {
                             gp.getCurrentRunTime(),
                             gp.getCurrentLevelTime(),
                             gp.getRooms(),
-                            gp.getCurrentRoomNum())));
+                            gp.getCurrentRoomNum(),
+                            gp.getPlayer().roomSetNum
+                    )));
             //f.write(g.toJson(new GameSaveState(new SimpleCharacter(gp.getPlayer()), new SimpleWeapon(gp.getWeapon()))));
             f.close();
         } catch (IOException e) {
@@ -183,6 +185,7 @@ public class SaveData {
                 new Time(gs.currentLevelTimeNS),
                 initializeRooms(gs.rooms, gs.player),
                 gs.currentRoomNum,
+                gs.currentLevelNum,
                 true);
         System.out.println("Game restore Succeeded");
         return true;
