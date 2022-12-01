@@ -18,7 +18,8 @@ public class Skeleton extends Enemy {
     public Skeleton(int xCoord, int yCoord) {
         super(EnemyType.MEDIUM, LootType.DEFAULT);
         name = "Skeleton";
-        movementSpeed = 1;
+        movementSpeed = 2;
+        maxSpeed = 2;
         setMaxHealth(75);
         health = getMaxHealth();
 
@@ -46,6 +47,7 @@ public class Skeleton extends Enemy {
         this.health = enemy.health;
         setMaxHealth(enemy.maxHealth);
         this.movementSpeed = enemy.movementSpeed;
+        this.maxSpeed = enemy.maxSpeed;
         this.activeEffects = enemy.activeEffects;
         this.setDamagePerHit(enemy.damagePerHit);
     }

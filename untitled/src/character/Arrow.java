@@ -27,6 +27,7 @@ public class Arrow extends Projectile {
     public void setDefaultValues() {
         this.setName("Arrow");
         this.setMovementSpeed(5);
+        this.setMaxSpeed(5);
         this.setWidth(7);
         this.setHeight(26);
         this.setHealth(80);
