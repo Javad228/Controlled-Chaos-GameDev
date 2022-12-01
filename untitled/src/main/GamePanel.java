@@ -83,14 +83,21 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	private void initializeRooms() {
-		rooms = new ArrayList<>();
-		rooms.add(new Room(0, keyH, this));
-		rooms.add(new Room(1, keyH, this));
-		rooms.add(new Room(2, keyH, this));
-		rooms.add(new Room(3, keyH, this));
-		rooms.add(new Room(4, keyH, this));
-		rooms.add(new Room(5, keyH, this));
-		rooms.add(new Room(6, keyH, this));
+		rooms = new ArrayList<>(9);
+		for (int i = 0; i < 8; i++) {
+			rooms.add(new Room(i, keyH, this));
+		}
+		/*
+		rooms.add(0, new Room(0, keyH, this));
+		rooms.add(1, new Room(1, keyH, this));
+		rooms.add(2, new Room(2, keyH, this));
+		rooms.add(3, new Room(3, keyH, this));
+		rooms.add(4, new Room(4, keyH, this));
+		rooms.add(5, new Room(5, keyH, this));
+		rooms.add(6, new Room(6, keyH, this));
+		rooms.add(7, new Room(7, keyH, this));
+
+		 */
 
 		// First run will set enemy coordinates
 		if (rooms.get(currentRoomNum).getEnemies() != null){
@@ -282,6 +289,18 @@ public class GamePanel extends JPanel implements Runnable{
 					}
 					if (player.getCurrentTile().isDamageTile()) {
 						player.damagePlayerInt(trapDamage);
+					} else if (player.getCurrentTile().getTileType() == 9) {
+						if (this.currentRoomNum == 4) {		//player is in room 4 and should go to hidden room (7)
+							//go into hidden room
+							this.setCurrentRoomNum(7);        //num of hidden room
+							//System.out.println(gp.getCurrentRoomNum());
+							//this.tileM.backward = false;
+							this.tileM.update();
+						} else {		//player is in hidden room and should go back to room 4
+							this.setCurrentRoomNum(4);
+							//this.tileM.backward = true;
+							this.tileM.update();
+						}
 					}
 				}
 
@@ -375,6 +394,7 @@ public class GamePanel extends JPanel implements Runnable{
 		g2 = (Graphics2D)g;
 
 		tileM.draw(g2);
+
 		if (rooms.get(currentRoomNum).getChests() != null) {
 			for (int i = 0; i < rooms.get(currentRoomNum).getChests().size(); i++) {
 				Chest chest = rooms.get(currentRoomNum).getChests().get(i);
