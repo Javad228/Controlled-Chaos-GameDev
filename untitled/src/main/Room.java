@@ -9,11 +9,7 @@ import tile.Button;
 import tile.DoorTile;
 import tile.TrapTile;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.lang.Math.*;
-import java.util.Objects;
-import static main.Main.view;
 import java.util.Random;
 
 public class Room {
@@ -194,13 +190,13 @@ public class Room {
                 items = new ArrayList<>();
                 //String [] healthImages = {"/items/health.png"};
                 //HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
-                HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_IMAGE_PATHS, this.gp, 500, 500);
+                HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, this.gp, 500, 500);
                 healthUp.setxCoord(200);
                 healthUp.setyCoord(200);
                 items.add(healthUp);
                 //String [] damageImages = {"/items/damage.png"};
                 //DamageUp damageUp = new DamageUp(damageImages, this.gp, 500, 500);
-                DamageUp damageUp = new DamageUp(DamageUp.DEFAULT_IMAGE_PATHS, this.gp, 500, 500);
+                DamageUp damageUp = new DamageUp(DamageUp.DEFAULT_DAMAGEUP_PATHS, this.gp, 500, 500);
                 damageUp.setxCoord(300);
                 damageUp.setyCoord(300);
                 items.add(damageUp);
@@ -723,7 +719,7 @@ public class Room {
                 item = new Sword(Sword.DEFAULT_IMAGE_PATHS, r.gp, x, y);
             }
             else {
-                item = new HealthUp(HealthUp.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+                item = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, r.gp, x, y);
             }
 
             items.add(item);
@@ -739,7 +735,7 @@ public class Room {
             if (rareItems[j].equals(Sword.class)) {
                 item = new Sword(Sword.DEFAULT_IMAGE_PATHS, r.gp, x, y);
             } else if (rareItems[j].equals(HealthUp.class)) {
-                item = new HealthUp(HealthUp.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+                item = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, r.gp, x, y);
             } else if (rareItems[j].equals(Boot.class)) {
                 item = new Boot(Boot.DEFAULT_IMAGE_PATHS, r.gp, x, y);
             } else {
@@ -757,7 +753,7 @@ public class Room {
             Item item;
 
             if (epicItems[j].equals(HealthUp.class)) {
-                item = new HealthUp(HealthUp.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+                item = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, r.gp, x, y);
             } else if (epicItems[j].equals(Boot.class)) {
                 item = new Boot(Boot.DEFAULT_IMAGE_PATHS, r.gp, x, y);
             } else if (epicItems[j].equals(SlimeSlinger.class)) {

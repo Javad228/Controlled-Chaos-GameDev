@@ -5,7 +5,7 @@ import main.GamePanel;
 
 public class DamageUp extends PassiveItem {
 
-    public static final transient String[] DEFAULT_IMAGE_PATHS = new String[] {"/items/damage.png"};
+    public static final transient String[] DEFAULT_DAMAGEUP_PATHS = new String[] {"/items/damage.png"};
 
     private transient GamePanel gp;
 

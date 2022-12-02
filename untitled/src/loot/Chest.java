@@ -37,7 +37,7 @@ public class Chest extends Character {
         //RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, this.xCoord, this.yCoord-10);
         RapidFire rapidFire = new RapidFire(RapidFire.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
         //HealthUp healthUp = new HealthUp(new String[]{"/items/health.png"}, gp, this.xCoord, this.yCoord-10);
-        HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
+        HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, this.gp, this.xCoord, this.yCoord-10);
         //Boot boot = new Boot(bootImages, gp, this.xCoord, this.yCoord-10);
         Boot boot = new Boot(Boot.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
 

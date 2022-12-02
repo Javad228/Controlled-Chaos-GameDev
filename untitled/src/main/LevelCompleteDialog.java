@@ -13,6 +13,7 @@ import java.util.concurrent.CountDownLatch;
 import static java.lang.Thread.onSpinWait;
 import static java.lang.Thread.sleep;
 import static main.Main.view;
+import main.Lighting;
 
 
 public class LevelCompleteDialog extends JDialog {
