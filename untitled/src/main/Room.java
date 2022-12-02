@@ -50,6 +50,7 @@ public class Room {
                     roomType = SPOOKYROOM;
                     break;
                 case 4:
+                case 7:                 //hidden room is in the ice room, so makes sense for it to be ice themed
                     roomType = ICEROOM;
                     break;
                 case 5:
@@ -180,13 +181,16 @@ public class Room {
                 chests.add(chest1);
                 chests.add(chest2);
                 break;
+            case 7:
+                //add reward item
+                break;
+            default:
+                items = null;
         }
     }
 
     private void initializeEnemies() {
         switch(roomNum) {
-            case 1:
-                break;
             case 2:
                 enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
@@ -210,6 +214,8 @@ public class Room {
                     enemies.add(new BigSkull(300, 300));
                 }
                 break;
+            default:
+                enemies = null;
         }
     }
 
@@ -225,17 +231,12 @@ public class Room {
                     NPCs.add(satyr);
                 }
                 break;
-            case 2:
-
-                break;
             case 3:
                 Knight knight = new Knight(Knight.room4Col * gp.tileSize, Knight.room4Row * gp.tileSize);
                 NPCs.add(knight);
                 break;
-            case 4:
-                break;
-            case 6:
-                break;
+            default:
+                NPCs = null;
         }
     }
 
@@ -248,20 +249,15 @@ public class Room {
                 coins = new ArrayList<>();
                 coins.add(coin);
                 break;
-            case 2:
-            case 3:
+            case 7:
+                //add coins to hidden room
+            default:
                 coins = null;
         }
     }
 
     private void initializeButtons() {
         switch(roomNum) {
-            case 1:
-                buttons = null;
-            case 2:
-                buttons = null;
-            case 3:
-                buttons = null;
             case 4:
                 buttons = new ArrayList<>(5);
                 Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1Button1Row * gp.tileSize);
@@ -289,17 +285,13 @@ public class Room {
                 buttons.add(button2);
                 buttons.add(button3);
                 buttons.add(button4);
+            default:
+                buttons = null;
         }
     }
 
     private void initializeTrapTiles() {
         switch(roomNum) {
-            case 1:
-                trapTiles = null;
-            case 2:
-                trapTiles = null;
-            case 3:
-                trapTiles = null;
             case 4:
                 trapTiles = new ArrayList<>(24);
                 for (int i = 0; i < gp.maxScreenRow; i++) {
@@ -319,24 +311,23 @@ public class Room {
 
                     trapTiles.add(thisTrapTile);
                 }
+                break;
+            default:
+                trapTiles = null;
 
         }
     }
 
     private void initializeDoorTile() {
         switch(roomNum) {
-            case 1:
-                doorTile = null;
-            case 2:
-                doorTile = null;
-            case 3:
-                doorTile = null;
             case 4:
                 doorTile = new DoorTile();
                 doorTile.setLocked(false);
                 doorTile.setx(DoorTile.map1Room4DoorCol * gp.tileSize);
                 doorTile.sety(DoorTile.map1Room4DoorRow * gp.tileSize);
                 doorTile.toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+            default:
+                doorTile = null;
         }
     }
 
