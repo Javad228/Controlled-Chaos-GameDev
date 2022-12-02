@@ -200,6 +200,8 @@ public class Room {
 
     private void initializeEnemies() {
         switch(roomNum) {
+            case 1:
+                break;
             case 2:
                 enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
