@@ -45,7 +45,7 @@ public class View {
         changeSkinPanel = new changeSkinPanel(gamePanel);
 
         // because we set the room number twice :( we have to set the rooms now rather than in the GamePanel constructor.
-        gamePanel.initializeRooms();
+        gamePanel.initializeFirstLevel();
         gamePanel.initializeLevelClocks();
         gamePanel.tileM.update();
 

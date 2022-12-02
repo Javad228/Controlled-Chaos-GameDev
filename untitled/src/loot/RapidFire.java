@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public class RapidFire extends PassiveItem {
 
+    public static transient final String[] DEFAULT_IMAGE_PATHS = new String[]{"/items/rapid-fire.png"};
+
     private transient GamePanel gp;
 
     public RapidFire(String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
