@@ -630,8 +630,7 @@ public class Room {
                 HealthUp.class,
                 Boot.class,
                 SlimeSlinger.class,
-                SlimeSlinger.class,
-                RapidFire.class,
+                SlimeSlinger.class
         };
 
 
