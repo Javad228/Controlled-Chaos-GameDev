@@ -44,7 +44,6 @@ public class LevelCompleteDialog extends JDialog {
     }
 
     public static LevelCompleteDialog getLevelCompleteDialog(GamePanel gp, int c) {
-        //TODO: In the future, check if level num changed, then initialize new dialog
         //if (dialog == null)  initializeLevelCompleteDialog(gp, c);
         //return dialog;
 
@@ -95,6 +94,7 @@ public class LevelCompleteDialog extends JDialog {
         c.add(initializeTimePanels(TIME1));
         c.add(Box.createVerticalStrut(20));
         c.add(initializeDifficultyDetailPanel());
+        c.add(initializeDamageDetailPanel());
         c.add(initializeRewardDetailPanel(count));
         c.add(Box.createVerticalStrut(10));
         c.add(initializeContinueButton());
@@ -247,6 +247,30 @@ public class LevelCompleteDialog extends JDialog {
         return p;
     }
 
+    private JPanel initializeDamageDetailPanel() {
+        JPanel p = new JPanel();
+        p.setBackground(backgroundColor);
+        p.setForeground(neutralFC);
+
+        JTextArea detail = new JTextArea("temp");
+        detail.setFont(smallFont);
+        detail.setBackground(backgroundColor);
+
+        if (!gp.getPlayer().isDamaged()) {
+            detail.setText("Player was not damaged!");
+            detail.setForeground(passedFC);
+        } else {
+            detail.setText("Player was damaged!");
+            detail.setForeground(failedFC);
+        }
+
+        detail.setEditable(false);
+
+        p.add(detail);
+
+        return p;
+    }
+
     private JPanel initializeRewardDetailPanel(int count) {
         JPanel p = new JPanel();
         p.setBackground(backgroundColor);
@@ -375,7 +399,6 @@ class Star extends JPanel {
 
 class TestLevelCompletePanel {
     public static void main(String[] args) {
-        int roomNo = 5;
         long timeToWaitMS = 1_000L * 1;
 
         // Launch game
@@ -383,6 +406,7 @@ class TestLevelCompletePanel {
 
         // Set room to last room and start game
         view.showGamePanel();
+        int roomNo = view.getGamePanel().getRooms().size()-1;
         view.getGamePanel().setCurrentRoomNum(roomNo);
         view.getGamePanel().player.setGameDifficulty(1);
         view.getGamePanel().startGameThread();

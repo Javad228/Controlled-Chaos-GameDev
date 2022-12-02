@@ -79,22 +79,9 @@ public class GamePanel extends JPanel implements Runnable{
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		this.currentRunTime = new Time(0);
-
-//TODO: <<<<<<< Cameron-NextLevels
-		//initializeFirstLevel();
-		//initializeLevelClocks();
-		//tileM.update();
 	}
 
-	private void initializeFirstLevel() {
-//=======
-		//initializeRooms();
-		//initializeLevelClocks();
-		//tileM.update();
-	//}
-
-	//public void initializeRooms() {
-//>>>>>>> Cameron-MergeNextLevels
+	void initializeFirstLevel() {
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
@@ -103,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
 		rooms.add(new Room(4, keyH, this));
 		rooms.add(new Room(5, keyH, this));
 		rooms.add(new Room(6, keyH, this));
+		rooms.add(new Room(7, keyH, this));
 
 		// First run will set enemy coordinates
 		if (rooms.get(currentRoomNum).getEnemies() != null){
@@ -125,15 +113,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public void initializeLevelClocks() {
 		// Calculate time to complete level
 		if (player.getGameDifficulty() < PlayerCharacter.MID) {
-			time1 = defaultTime1;                                       // 1:00
-			time2 = defaultTime2;                                       // 1:30
-			time3 = defaultTime3;                                       // 2:00
+			time1 = defaultTime1;                                       // 2:00
+			time2 = defaultTime2;                                       // 2:30
+			time3 = defaultTime3;                                       // 3:00
 		} else {
 			int diff = (player.getGameDifficulty() - PlayerCharacter.EASY_ADVANCED) * 5;
 
-			time1 = new Time(defaultTime1.getTime() - diff * SECOND_L); // From 0:55 to 0:25 (difficulty: DEMON)
-			time2 = new Time(defaultTime2.getTime() - diff * SECOND_L); // From 1:25 to 0:55 (difficulty: DEMON)
-			time3 = new Time(defaultTime3.getTime() - diff * SECOND_L); // From 1:55 to 1:25 (difficulty: DEMON)
+			time1 = new Time(defaultTime1.getTime() - diff * SECOND_L); // From 1:55 to 1:25 (difficulty: DEMON)
+			time2 = new Time(defaultTime2.getTime() - diff * SECOND_L); // From 2:25 to 1:55 (difficulty: DEMON)
+			time3 = new Time(defaultTime3.getTime() - diff * SECOND_L); // From 2:55 to 2:25 (difficulty: DEMON)
 		}
 	}
 
@@ -318,7 +306,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 				if (getPlayer().roomSetNum == 1 && currentRoomNum == 4) { // room.TRAPROOM no longer exists. plz change
 					if (currentTime % 1000000000 == 0) {
-						for (int i = 0; i < maxScreenRow; i++) {
+						for (int i = 0; !rooms.get(4).getTrapTiles().isEmpty() || i < maxScreenRow; i++) {
 							rooms.get(4).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
 						}
 					}
@@ -556,24 +544,8 @@ public class GamePanel extends JPanel implements Runnable{
 		for (int i = 0; i < levelTimeRewardTier + playerHealthRewardTier; i++) {
 
 			// Get random x and y coordinates relative to player and parameterized by screen size
-			int x =
-				Math.max(
-					Math.min(
-							(int)(Math.random() * 120 - 60) + player.getxCoord()
-							,
-							getMaximumSize().width)
-					,
-					0
-				);
-			int y =
-				Math.max(
-					Math.min(
-							(int)(Math.random() * 120 - 60) + player.getyCoord()
-							,
-							getMaximumSize().height)
-					,
-					0
-				);
+			int x = CoordinateWizard.getRelativeX(getCurrentRoomNum());
+			int y =	CoordinateWizard.getRelativeY(getCurrentRoomNum());
 
 			// Get a random item type and place it relative to the player
 			// coordinate plus the random offset
@@ -612,21 +584,17 @@ public class GamePanel extends JPanel implements Runnable{
 	public void nextLevel() {
 		this.invalidate();
 		Audio.stopMusic();
-		setLevelComplete(false);
 		getPlayer().incrementLevel();
 		//getPlayer().setxCoord(50);
 		//getPlayer().setyCoord(200);
 		// Generate new rooms
 		this.rooms = Room.generateNewLevel(getPlayer().getGameDifficulty(), keyH, this);
 		setCurrentRoomNum(0);
+		setLevelComplete(false);
 		getPlayer().setxCoord(CoordinateWizard.getX(getCurrentRoomNum()));
 		getPlayer().setyCoord(CoordinateWizard.getY(getCurrentRoomNum()));
 		initializeLevelClocks();
 		this.validate();
-
-		//TODO DEBUG NEXT LEVEL
-		System.out.println("Player difficulty: " + getPlayer().getGameDifficulty());
-		System.out.println("Number of rooms: " + rooms.size());
 
 		Audio.openingMusic();
 	}

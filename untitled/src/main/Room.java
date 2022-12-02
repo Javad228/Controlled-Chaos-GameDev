@@ -60,6 +60,9 @@ public class Room {
      * @param gp
      */
     public Room(int roomNum, KeyHandler keyH, GamePanel gp) {
+        if (roomNum == 0)    numOfRooms = 0;
+        else    numOfRooms++;
+
         this.roomNum = roomNum;
         this.keyH = keyH;
         this.gp = gp;
@@ -82,7 +85,10 @@ public class Room {
                     roomType = SPACEROOM;
                     break;
                 case 6:
-                    roomType = 6;
+                    roomType = SHOPROOM;
+                    break;
+                default:
+                    roomType = SPOOKYROOM;
             }
         } else if (gp.player.roomSetNum == 2) {
             switch(roomNum) {
@@ -102,7 +108,10 @@ public class Room {
                     roomType = SPOOKYROOM;
                     break;
                 case 6:
-                    roomType = 6;
+                    roomType = SHOPROOM;
+                    break;
+                default:
+                    roomType = SPACEROOM;
             }
         } else if (gp.player.roomSetNum == 3) {
             switch(roomNum) {
@@ -122,7 +131,10 @@ public class Room {
                     roomType = GRASSROOM;
                     break;
                 case 6:
-                    roomType = 6;
+                    roomType = SHOPROOM;
+                    break;
+                default:
+                    roomType = VOLCANOROOM;
             }
         } else {
             System.out.println("Received bad roomSetNum.");
@@ -174,6 +186,8 @@ public class Room {
     }
 
     private void initializeItems() {
+        signs = new ArrayList<>();
+        chests = new ArrayList<>();
         switch(roomNum) {
             case 1:
                 items = new ArrayList<>();
@@ -272,7 +286,7 @@ public class Room {
                 enemies = new ArrayList<>();
                 enemies.add(new Barrel(300, 50));
                 break;
-            case 6:
+            case 7:
                 enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));

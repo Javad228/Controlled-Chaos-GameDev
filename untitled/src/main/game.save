@@ -1,11 +1,11 @@
 {
   "player": {
     "name": "Intrepid Adventurer",
-    "health": 100.0,
-    "maxHealth": 100,
-    "movementSpeed": 4,
-    "xCoord": 50,
-    "yCoord": 200,
+    "health": 189.0,
+    "maxHealth": 200,
+    "movementSpeed": 5,
+    "xCoord": 373,
+    "yCoord": 331,
     "activeEffects": [],
     "combatType": "DEFAULT",
     "inventory": {
@@ -68,6 +68,296 @@
           "maxSpritePosition": 6,
           "spriteCounter": 0,
           "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 96,
+          "yCoord": 438,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 6,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 389,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 5,
+          "isBobbingUp": false,
+          "frameCounter": 4,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 96,
+          "yCoord": 389,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 5,
+          "isBobbingUp": false,
+          "frameCounter": 4,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 389,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 5,
+          "isBobbingUp": false,
+          "frameCounter": 5,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 96,
+          "yCoord": 481,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 1,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 483,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 3,
+          "isBobbingUp": true,
+          "frameCounter": 1,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": true,
+          "amount": 0,
+          "name": "Heart",
+          "lootType": "DEFAULT",
+          "xCoord": 322,
+          "yCoord": 428,
+          "imagePaths": [
+            "/items/health.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": false,
+          "frameCounter": 2,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 288,
+          "yCoord": 433,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 1,
+          "isBobbingUp": false,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 288,
+          "yCoord": 387,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 3,
+          "isBobbingUp": true,
+          "frameCounter": 5,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 288,
+          "yCoord": 387,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 3,
+          "isBobbingUp": true,
+          "frameCounter": 6,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
         }
       ],
       "coinAmount": 0,
@@ -75,8 +365,20 @@
       "slotRow": 0
     },
     "characterType": "DEFAULT",
-    "numCoins": 0,
-    "enemiesKilled": [],
+    "numCoins": 2,
+    "enemiesKilled": [
+      {
+        "name": "BigSkull",
+        "description": "input a description...",
+        "health": 0.0,
+        "maxHealth": 0,
+        "movementSpeed": 0,
+        "maxSpeed": 0,
+        "xCoord": 0,
+        "yCoord": 0,
+        "damagePerHit": 0
+      }
+    ],
     "itemsDiscovered": [
       {
         "description": "wooden sword",
@@ -137,15 +439,17 @@
         "isExpanding": true
       }
     ],
-    "difficulty": 0,
-    "isDamaged": false,
+    "difficulty": 2,
+    "isDamaged": true,
     "characterAppearance": "warrior"
   },
   "rooms": [
     {
       "roomNum": 0,
+      "items": [],
       "enemies": [],
-      "friendlies": []
+      "friendlies": [],
+      "coins": []
     },
     {
       "roomNum": 1,
@@ -155,70 +459,12 @@
           "price": 0.0,
           "isEquipped": false,
           "amount": 0,
-          "name": "Heart",
+          "name": "Boot",
           "lootType": "DEFAULT",
-          "xCoord": 200,
-          "yCoord": 200,
+          "xCoord": 192,
+          "yCoord": 0,
           "imagePaths": [
-            "/items/health.png"
-          ],
-          "framesToWait": 7,
-          "solidArea": {
-            "x": 0,
-            "y": 0,
-            "width": 48,
-            "height": 48
-          },
-          "collisionAreaDefaultX": 0,
-          "collisionAreaDefaultY": 0,
-          "spritePosition": 0,
-          "isBobbingUp": true,
-          "frameCounter": 0,
-          "bobIncrement": 1,
-          "maxSpritePosition": 6,
-          "spriteCounter": 0,
-          "isExpanding": true
-        },
-        {
-          "description": "???",
-          "price": 0.0,
-          "isEquipped": false,
-          "amount": 0,
-          "name": "Inner Fire",
-          "lootType": "DEFAULT",
-          "xCoord": 300,
-          "yCoord": 300,
-          "imagePaths": [
-            "/items/damage.png"
-          ],
-          "framesToWait": 7,
-          "solidArea": {
-            "x": 0,
-            "y": 0,
-            "width": 48,
-            "height": 48
-          },
-          "collisionAreaDefaultX": 0,
-          "collisionAreaDefaultY": 0,
-          "spritePosition": 0,
-          "isBobbingUp": true,
-          "frameCounter": 0,
-          "bobIncrement": 1,
-          "maxSpritePosition": 6,
-          "spriteCounter": 0,
-          "isExpanding": true
-        },
-        {
-          "description": "???",
-          "price": 0.0,
-          "isEquipped": false,
-          "amount": 0,
-          "name": "Arrow Storm",
-          "lootType": "DEFAULT",
-          "xCoord": 400,
-          "yCoord": 400,
-          "imagePaths": [
-            "/items/rapid-fire.png"
+            "/items/boot.png"
           ],
           "framesToWait": 7,
           "solidArea": {
@@ -244,8 +490,8 @@
           "amount": 0,
           "name": "Boot",
           "lootType": "DEFAULT",
-          "xCoord": 500,
-          "yCoord": 500,
+          "xCoord": 240,
+          "yCoord": 336,
           "imagePaths": [
             "/items/boot.png"
           ],
@@ -265,17 +511,259 @@
           "maxSpritePosition": 6,
           "spriteCounter": 0,
           "isExpanding": true
+        },
+        {
+          "healthGiven": 20,
+          "isRespawnable": false,
+          "isConsumed": false,
+          "isVisible": true,
+          "disappearTimer": 300,
+          "disappearTimerDefault": 300,
+          "description": "Basic apple",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Apple",
+          "lootType": "DEFAULT",
+          "xCoord": 288,
+          "yCoord": 384,
+          "imagePaths": [
+            "/consumables/apple.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
         }
       ],
-      "enemies": [],
+      "enemies": [
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 624,
+          "yCoord": 432,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 384,
+          "yCoord": 96,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        }
+      ],
       "friendlies": [],
       "coins": [
         {
-          "value": 1,
+          "value": 2,
           "name": "",
           "lootType": "DEFAULT",
-          "xCoord": 600,
-          "yCoord": 500,
+          "xCoord": 528,
+          "yCoord": 0,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 720,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 192,
+          "yCoord": 144,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 624,
+          "yCoord": 240,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 672,
+          "yCoord": 384,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 576,
+          "yCoord": 0,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 672,
+          "yCoord": 144,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 480,
+          "yCoord": 528,
           "imagePaths": [
             "/items/coin.png"
           ],
@@ -302,22 +790,74 @@
       "roomNum": 2,
       "items": [
         {
-          "healthGiven": 20,
-          "isRespawnable": false,
-          "isConsumed": false,
-          "isVisible": true,
-          "disappearTimer": 300,
-          "disappearTimerDefault": 300,
-          "description": "Basic apple",
+          "description": "Basic Sword",
           "price": 0.0,
           "isEquipped": false,
           "amount": 0,
-          "name": "Apple",
+          "name": "Sword",
           "lootType": "DEFAULT",
           "xCoord": 0,
+          "yCoord": 48,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 144,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 288,
           "yCoord": 0,
           "imagePaths": [
-            "/consumables/apple.png"
+            "/weapons/wooden_sword.png"
           ],
           "framesToWait": 7,
           "solidArea": {
@@ -339,46 +879,76 @@
       ],
       "enemies": [
         {
-          "name": "Wizard",
-          "health": 15.0,
-          "maxHealth": 15,
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
           "movementSpeed": 2,
           "maxSpeed": 2,
-          "xCoord": 500,
-          "yCoord": 500,
+          "xCoord": 0,
+          "yCoord": 144,
           "activeEffects": [],
-          "damagePerHit": 1,
-          "classification": "WIZARD"
+          "damagePerHit": 10,
+          "classification": "SKELETON"
         },
         {
-          "name": "Wizard",
-          "health": 15.0,
-          "maxHealth": 15,
+          "name": "Barrel",
+          "health": 10.0,
+          "maxHealth": 10,
+          "movementSpeed": 0,
+          "maxSpeed": 2,
+          "xCoord": 720,
+          "yCoord": 528,
+          "activeEffects": [],
+          "damagePerHit": 0,
+          "classification": "BARREL"
+        },
+        {
+          "name": "Barrel",
+          "health": 10.0,
+          "maxHealth": 10,
+          "movementSpeed": 0,
+          "maxSpeed": 2,
+          "xCoord": 240,
+          "yCoord": 144,
+          "activeEffects": [],
+          "damagePerHit": 0,
+          "classification": "BARREL"
+        },
+        {
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
           "movementSpeed": 2,
           "maxSpeed": 2,
-          "xCoord": 100,
-          "yCoord": 500,
+          "xCoord": 192,
+          "yCoord": 192,
           "activeEffects": [],
-          "damagePerHit": 1,
-          "classification": "WIZARD"
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Barrel",
+          "health": 10.0,
+          "maxHealth": 10,
+          "movementSpeed": 0,
+          "maxSpeed": 2,
+          "xCoord": 192,
+          "yCoord": 384,
+          "activeEffects": [],
+          "damagePerHit": 0,
+          "classification": "BARREL"
         }
       ],
-      "friendlies": []
-    },
-    {
-      "roomNum": 3,
-      "items": [
+      "friendlies": [],
+      "coins": [
         {
-          "description": "???",
-          "price": 0.0,
-          "isEquipped": false,
-          "amount": 0,
-          "name": "Slime Slinger",
+          "value": 2,
+          "name": "",
           "lootType": "DEFAULT",
-          "xCoord": 500,
-          "yCoord": 400,
+          "xCoord": 240,
+          "yCoord": 144,
           "imagePaths": [
-            "/items/slingshot.png"
+            "/items/coin.png"
           ],
           "framesToWait": 7,
           "solidArea": {
@@ -398,24 +968,179 @@
           "isExpanding": true
         },
         {
-          "speedMultiplier": 1,
-          "damageModifier": 1,
-          "effectTimer": 0,
-          "customEffect": 1,
-          "description": "Normal Effect",
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 336,
+          "yCoord": 240,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 192,
+          "yCoord": 432,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 0,
+          "yCoord": 432,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 528,
+          "yCoord": 240,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 576,
+          "yCoord": 432,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ]
+    },
+    {
+      "roomNum": 3,
+      "items": [
+        {
+          "description": "Basic Sword",
           "price": 0.0,
           "isEquipped": false,
           "amount": 0,
-          "name": "Effect",
+          "name": "Sword",
           "lootType": "DEFAULT",
-          "xCoord": 300,
-          "yCoord": 300,
+          "xCoord": 720,
+          "yCoord": 48,
           "imagePaths": [
-            "/effects/invincibility_1.png",
-            "/effects/invincibility_2.png",
-            "/effects/invincibility_3.png"
+            "/weapons/wooden_sword.png"
           ],
-          "framesToWait": 20,
+          "framesToWait": 7,
           "solidArea": {
             "x": 0,
             "y": 0,
@@ -439,8 +1164,777 @@
           "amount": 0,
           "name": "Boot",
           "lootType": "DEFAULT",
-          "xCoord": 500,
-          "yCoord": 500,
+          "xCoord": 240,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/boot.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 96,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ],
+      "enemies": [
+        {
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 672,
+          "yCoord": 528,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 528,
+          "yCoord": 0,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        },
+        {
+          "name": "Barrel",
+          "health": 10.0,
+          "maxHealth": 10,
+          "movementSpeed": 0,
+          "maxSpeed": 2,
+          "xCoord": 432,
+          "yCoord": 480,
+          "activeEffects": [],
+          "damagePerHit": 0,
+          "classification": "BARREL"
+        },
+        {
+          "name": "Barrel",
+          "health": 10.0,
+          "maxHealth": 10,
+          "movementSpeed": 0,
+          "maxSpeed": 2,
+          "xCoord": 240,
+          "yCoord": 192,
+          "activeEffects": [],
+          "damagePerHit": 0,
+          "classification": "BARREL"
+        }
+      ],
+      "friendlies": [],
+      "coins": [
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 432,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 480,
+          "yCoord": 0,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 48,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 336,
+          "yCoord": 432,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 480,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 144,
+          "yCoord": 0,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 240,
+          "yCoord": 144,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 336,
+          "yCoord": 336,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 528,
+          "yCoord": 480,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ]
+    },
+    {
+      "roomNum": 4,
+      "items": [
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Boot",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 336,
+          "imagePaths": [
+            "/items/boot.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 672,
+          "yCoord": 240,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Heart",
+          "lootType": "DEFAULT",
+          "xCoord": 576,
+          "yCoord": 48,
+          "imagePaths": [
+            "/items/health.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ],
+      "enemies": [
+        {
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 528,
+          "yCoord": 240,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 0,
+          "yCoord": 96,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        }
+      ],
+      "friendlies": [],
+      "coins": [
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 720,
+          "yCoord": 240,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 432,
+          "yCoord": 48,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 144,
+          "yCoord": 48,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 576,
+          "yCoord": 0,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 144,
+          "yCoord": 528,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 240,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 384,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ]
+    },
+    {
+      "roomNum": 5,
+      "items": [
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 480,
+          "yCoord": 480,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "healthGiven": 20,
+          "isRespawnable": false,
+          "isConsumed": false,
+          "isVisible": true,
+          "disappearTimer": 300,
+          "disappearTimerDefault": 300,
+          "description": "Basic apple",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Apple",
+          "lootType": "DEFAULT",
+          "xCoord": 0,
+          "yCoord": 288,
+          "imagePaths": [
+            "/consumables/apple.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Boot",
+          "lootType": "DEFAULT",
+          "xCoord": 672,
+          "yCoord": 528,
           "imagePaths": [
             "/items/boot.png"
           ],
@@ -469,47 +1963,994 @@
           "maxHealth": 10,
           "movementSpeed": 0,
           "maxSpeed": 2,
-          "xCoord": 300,
-          "yCoord": 50,
+          "xCoord": 528,
+          "yCoord": 96,
           "activeEffects": [],
           "damagePerHit": 0,
           "classification": "BARREL"
-        }
-      ],
-      "friendlies": []
-    },
-    {
-      "roomNum": 4,
-      "enemies": [],
-      "friendlies": []
-    },
-    {
-      "roomNum": 5,
-      "enemies": [],
-      "friendlies": []
-    },
-    {
-      "roomNum": 6,
-      "items": [],
-      "enemies": [
+        },
         {
-          "name": "BigSkull",
-          "health": 150.0,
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 96,
+          "yCoord": 144,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        },
+        {
+          "name": "Skeleton",
+          "health": 75.0,
           "maxHealth": 150,
           "movementSpeed": 2,
           "maxSpeed": 2,
-          "xCoord": 300,
-          "yCoord": 300,
+          "xCoord": 48,
+          "yCoord": 240,
           "activeEffects": [],
-          "damagePerHit": 5,
-          "classification": "BIGSKULL"
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 192,
+          "yCoord": 480,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
         }
       ],
-      "friendlies": []
+      "friendlies": [],
+      "coins": [
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 240,
+          "yCoord": 48,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 672,
+          "yCoord": 144,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 0,
+          "yCoord": 144,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 720,
+          "yCoord": 480,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 240,
+          "yCoord": 528,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 720,
+          "yCoord": 96,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 480,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 144,
+          "yCoord": 528,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 144,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ]
+    },
+    {
+      "roomNum": 6,
+      "items": [
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Heart",
+          "lootType": "DEFAULT",
+          "xCoord": 576,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/health.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "Basic Sword",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Sword",
+          "lootType": "DEFAULT",
+          "xCoord": 288,
+          "yCoord": 288,
+          "imagePaths": [
+            "/weapons/wooden_sword.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Boot",
+          "lootType": "DEFAULT",
+          "xCoord": 0,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/boot.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ],
+      "enemies": [
+        {
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 720,
+          "yCoord": 432,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Barrel",
+          "health": 10.0,
+          "maxHealth": 10,
+          "movementSpeed": 0,
+          "maxSpeed": 2,
+          "xCoord": 96,
+          "yCoord": 480,
+          "activeEffects": [],
+          "damagePerHit": 0,
+          "classification": "BARREL"
+        },
+        {
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 528,
+          "yCoord": 48,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 96,
+          "yCoord": 432,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 96,
+          "yCoord": 144,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        }
+      ],
+      "friendlies": [],
+      "coins": [
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 240,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 528,
+          "yCoord": 288,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 528,
+          "yCoord": 144,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 192,
+          "yCoord": 48,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 96,
+          "yCoord": 336,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 96,
+          "yCoord": 336,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 192,
+          "yCoord": 96,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ]
+    },
+    {
+      "roomNum": 7,
+      "items": [],
+      "enemies": [],
+      "friendlies": [],
+      "coins": []
+    },
+    {
+      "roomNum": 8,
+      "items": [
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Heart",
+          "lootType": "DEFAULT",
+          "xCoord": 432,
+          "yCoord": 96,
+          "imagePaths": [
+            "/items/health.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "healthGiven": 20,
+          "isRespawnable": false,
+          "isConsumed": false,
+          "isVisible": true,
+          "disappearTimer": 300,
+          "disappearTimerDefault": 300,
+          "description": "Basic apple",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Apple",
+          "lootType": "DEFAULT",
+          "xCoord": 48,
+          "yCoord": 96,
+          "imagePaths": [
+            "/consumables/apple.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Boot",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 336,
+          "imagePaths": [
+            "/items/boot.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ],
+      "enemies": [
+        {
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 240,
+          "yCoord": 288,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 336,
+          "yCoord": 384,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        },
+        {
+          "name": "Barrel",
+          "health": 10.0,
+          "maxHealth": 10,
+          "movementSpeed": 0,
+          "maxSpeed": 2,
+          "xCoord": 336,
+          "yCoord": 384,
+          "activeEffects": [],
+          "damagePerHit": 0,
+          "classification": "BARREL"
+        },
+        {
+          "name": "Skeleton",
+          "health": 75.0,
+          "maxHealth": 150,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 192,
+          "yCoord": 96,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "SKELETON"
+        },
+        {
+          "name": "Wizard",
+          "health": 15.0,
+          "maxHealth": 30,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 96,
+          "yCoord": 432,
+          "activeEffects": [],
+          "damagePerHit": 10,
+          "classification": "WIZARD"
+        },
+        {
+          "name": "BigSlonch",
+          "health": 150.0,
+          "maxHealth": 100,
+          "movementSpeed": 2,
+          "maxSpeed": 2,
+          "xCoord": 576,
+          "yCoord": 144,
+          "activeEffects": [],
+          "damagePerHit": 50,
+          "classification": "BIGSLONCH"
+        }
+      ],
+      "friendlies": [],
+      "coins": [
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 480,
+          "yCoord": 528,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 240,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 384,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 672,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 288,
+          "yCoord": 48,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 336,
+          "yCoord": 192,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "value": 2,
+          "name": "",
+          "lootType": "DEFAULT",
+          "xCoord": 528,
+          "yCoord": 432,
+          "imagePaths": [
+            "/items/coin.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        }
+      ]
     }
   ],
-  "currentRoomNum": 1,
-  "currentRunTimeNS": 0,
-  "currentLevelTimeNS": 0,
-  "currentRunTimeS": "0:00:00.000"
+  "currentLevelNum": 1,
+  "currentRoomNum": 0,
+  "currentRunTimeNS": 24184628100,
+  "currentLevelTimeNS": 24184628100,
+  "currentRunTimeS": "0:00:24.184"
 }
