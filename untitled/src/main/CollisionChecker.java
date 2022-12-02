@@ -296,8 +296,8 @@ public class CollisionChecker {
     }
 
     public void checkNextLevelTileExistence(Character character, int tileX, int tileY) {
-        if (!(character instanceof Enemy
-                && Main.view.getGamePanel().levelComplete)
+        if (!(character instanceof Enemy)
+                && Main.view.getGamePanel().levelComplete
                 && (TileManager.tile[TileManager.mapTileNum[tileX][tileY]].getTileType() == Tile.NEXTLEVEL)) {
             int candidate = ((NextLevelTile) TileManager.tile[1]).findTile(tileX, tileY);
             switch (candidate) {

@@ -98,4 +98,29 @@ public class Item extends Loot {
     5 - BombBuddy
 
      */
+
+    public static Item getItemByID(int id, GamePanel gp) {
+        switch(id) {
+            case 0:
+            default:
+                String [] healthImages1 = {"/items/health.png"};
+                return new HealthUp(healthImages1, gp, 500, 500);
+            case 1:
+                String [] damageImages = {"/items/damage.png"};
+                return new DamageUp(damageImages, gp, 500, 500);
+            case 2:
+                String[] bootImages = {"/items/boot.png"};
+                return new Boot(bootImages, gp, 500, 500);
+            case 3:
+                String[] slimeSlingerImages = {"/items/slingshot.png"};
+                return new SlimeSlinger(slimeSlingerImages, gp, 400, 400);
+            case 4:
+                String [] rapidFireImages = {"/items/rapid-fire.png"};
+                return new RapidFire(rapidFireImages, gp, 500, 500);
+            case 5:
+                String [] bombBuddyImages = {"/items/bomb-buddy.png"};
+                return new BombBuddy(bombBuddyImages, gp, 500, 500);
+
+        }
+    }
 }

@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class Room {
 
-    public static final int DEFAULT_NUM_ROOMS = 6;
+    public static final int DEFAULT_NUM_ROOMS = 7;
 
     // (room0.txt - room13.txt), shop.txt, boss.txt
     public static final int MAX_NUM_ROOMS = DEFAULT_NUM_ROOMS + PlayerCharacter.HIGHEST_DIFF;
@@ -301,7 +301,7 @@ public class Room {
                 if(gp.getPlayer().roomSetNum ==1){
 //                    enemies.add(new Slime(100, 100));
                     enemies.add(new Skeleton(500, 500));
-                    enemies.add(new Skeleton(100, 500));
+                    enemies.add(new Skeleton(500, 400));
                 }else{
                     enemies.add(new Wizard(500, 500));
                     enemies.add(new Wizard(100, 500));
@@ -526,28 +526,7 @@ public class Room {
         Random random = new Random();
         itemID = random.nextInt(3 + 1);
 
-        switch(itemID) {
-            case 0:
-            default:
-                String [] healthImages1 = {"/items/health.png"};
-                return new HealthUp(healthImages1, this.gp, 500, 500);
-            case 1:
-                String [] damageImages = {"/items/damage.png"};
-                return new DamageUp(damageImages, this.gp, 500, 500);
-            case 2:
-                String[] bootImages = {"/items/boot.png"};
-                return new Boot(bootImages, this.gp, 500, 500);
-            case 3:
-                String[] slimeSlingerImages = {"/items/slingshot.png"};
-                return new SlimeSlinger(slimeSlingerImages, this.gp, 400, 400);
-            case 4:
-                String [] rapidFireImages = {"/items/rapid-fire.png"};
-                return new RapidFire(rapidFireImages, this.gp, 500, 500);
-            case 5:
-                String [] bombBuddyImages = {"/items/bomb-buddy.png"};
-                return new BombBuddy(bombBuddyImages, this.gp, 500, 500);
-
-        }
+        return Item.getItemByID(itemID, this.gp);
     }
 
     public int getRoomType() {
@@ -569,7 +548,7 @@ public class Room {
         for (int i = 0; i <= numOfRooms; i++) {
             Room r = new Room(i, numOfRooms, k, g);
 
-            if (r.getRoomNum() == 0)    {
+            if (r.getRoomNum() == 0 && r.getRoomNum() == numOfRooms)    {
                 rooms.add(r);
                 continue;
             }
@@ -595,7 +574,7 @@ public class Room {
                 r.signs = signs;
             } else {
 
-                initializeRandomItems(r, difficulty);
+                //initializeRandomItems(r, difficulty);
                 initializeRandomEnemies(r, difficulty);
                 initializeRandomCoins(r, difficulty);
 
@@ -612,6 +591,7 @@ public class Room {
         }
 
         // Spawn boss for the last room in the level
+        initializeRandomItems(rooms.get(0), difficulty);
         initializeRandomBoss(rooms.get(rooms.size()-1), difficulty);
 
         return rooms;
@@ -860,6 +840,16 @@ public class Room {
     }
 
     public static void initializeRandomBoss(Room r, int difficulty) {
+
+        if (Main.view.getGamePanel().getPlayer().roomSetNum == 2) {
+            r.getEnemies().add(
+                    new BigWizard(
+                            CoordinateWizard.getX(r.getRoomNum()),
+                            CoordinateWizard.getY(r.getRoomNum())
+                    ));
+            return;
+        }
+
         var bossTypes = new Class[]{
                 BigSkull.class,
                 BigSlonch.class
@@ -872,7 +862,7 @@ public class Room {
 
         if (bossTypes[i].equals(BigSkull.class)) {
             BigSkull skull = new BigSkull(x, y);
-            skull.setMaxHealth(50 * difficulty);
+            skull.setMaxHealth(50 * (difficulty));
             skull.setDamagePerHit(25 * difficulty);
             r.getEnemies().add(skull);
         } else {
