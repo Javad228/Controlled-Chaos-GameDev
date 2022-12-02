@@ -89,11 +89,11 @@ public class TileManager {
         String prefix = "/maps/mapset" + gp.player.roomSetNum + "/";
         String file;
 
-        switch (Room.numOfRooms - roomNum) {
-            case 0 -> {
+        switch (roomNum) {
+            case 7 -> {
                 file = prefix + "boss.txt";
             }
-            case 1 -> {
+            case 6 -> {
                 file = prefix + "shop.txt";
             }
             default -> {
