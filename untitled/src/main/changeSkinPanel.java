@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class changeSkinPanel extends JPanel {
     JPanel characterFlipPanel = new JPanel(); // panel that contains the arrow buttons and the picture of the character
@@ -189,6 +190,18 @@ public class changeSkinPanel extends JPanel {
                 // save results
                 if (savedData != null) {
                     gp.player.setCharacterAppearance(characters.get(characterShown).toLowerCase());
+                    if(Objects.equals(characters.get(characterShown).toLowerCase(), "healer")){
+                        gp.getPlayer().setMovementSpeed(6);
+                        gp.getPlayer().setMaxSpeed(6);
+                        gp.getPlayer().setMaxSpeed(7);
+                        gp.getPlayer().setDamageMod(3);
+
+                    }else{
+                        gp.getPlayer().setMovementSpeed(4);
+                        gp.getPlayer().setMaxSpeed(4);
+                        gp.getPlayer().setMaxSpeed(5);
+
+                    }
                     sd.saveGameState();
                 }
                 gp.player.getPlayerImage(); // reinitialize sprite images

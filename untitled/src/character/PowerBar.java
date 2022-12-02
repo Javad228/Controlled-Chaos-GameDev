@@ -1,10 +1,12 @@
 package character;
 import character.Enemy;
+import main.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static main.Main.view;
 
@@ -22,14 +24,16 @@ public class PowerBar extends BufferedImage {
     private transient final Color red = Color.magenta;
     private transient final Color blank = Color.GRAY;
     private transient final Color gold = new Color(255, 215, 0);
+    private GamePanel gp;
 
-    public PowerBar(double hp, int maxHealth, int width, int height) {
+    public PowerBar(double hp, int maxHealth, int width, int height, GamePanel gp) {
         super(width, height, TYPE_INT_RGB);
         this.DEFAULT_MAXHEALTH = maxHealth;
         this.DEFAULT_WIDTH = width;
         this.DEFAULT_HEIGHT = height;
         this.health = (int)hp;
         this.maxHealth = maxHealth;
+        this.gp = gp;
     }
 
     public void setHealth(double hp) {
@@ -48,8 +52,19 @@ public class PowerBar extends BufferedImage {
         this.maxHealth = maxHealth;
     }
 
-    public void update(double hp) {
-        this.setHealth(hp);
+    public void update() {
+        this.setHealth(gp.getPlayer().getAllEnemiesKilled().size());
+        if(gp.getPlayer().getAllEnemiesKilled().size()>=2){
+            if(Objects.equals(gp.getPlayer().getCharacterAppearance(), "healer")){
+                gp.getPlayer().setHealth(gp.getPlayer().getMaxHealth());
+                gp.getPlayer().getAllEnemiesKilled().clear();
+            }else{
+                gp.getPlayer().setNumCoins( gp.getPlayer().getNumCoins()+2);
+                gp.getPlayer().getAllEnemiesKilled().clear();
+            }
+
+        }
+
     }
 
     public void draw(Graphics2D g2, int charX, int charY) {
