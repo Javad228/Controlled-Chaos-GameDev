@@ -1,6 +1,7 @@
 package tile;
 
 import main.GamePanel;
+import main.Main;
 import main.Room;
 
 import javax.imageio.ImageIO;
@@ -17,10 +18,16 @@ public class TileManager {
     public static GamePanel gp;
     public static Tile[] tile;
     public static int[][] mapTileNum;
+    public static ArrayList<int[]> grassTiles;
+
     private Object[] loot;
     public boolean backward = false;
-    private ArrayList<int[][]> doorLocations;
+//TODO: <<<<<<< Cameron-NextLevels
+    private static ArrayList<int[][]> doorLocations = null;
+//=======
+    //private ArrayList<int[][]> doorLocations;
     private ArrayList<int[][]> jackOLanternLocations;
+//>>>>>>> Cameron-MergeNextLevels
 
     public TileManager(GamePanel gp1) {
         gp = gp1;
@@ -28,16 +35,28 @@ public class TileManager {
         mapTileNum = new int[gp1.maxScreenCol+1][gp1.maxScreenRow+1];
         //this.roomNum = 0;   // might need to change based on saved progress
         doorLocations = new ArrayList<>();
+        grassTiles = new ArrayList<>();
+
         jackOLanternLocations = new ArrayList<>();
     }
 
     public void update() {
         int roomNum = gp.getCurrentRoomNum();
-        System.out.println(roomNum);
+        int totalRooms = gp.getRooms().size();
+
+        // Map roomNum to adjusted roomNum for Levels beyond default level
+        //switch (totalRooms - roomNum) {
+        //    case 0 -> roomNum = 6;
+        //    case 1 -> roomNum = 5;
+        //    //default -> roomNum = (((roomNum) % 5));
+        //    default -> roomNum = (roomNum-1)%4 + 1;
+        //}
+        System.out.println("Room Number: " + roomNum + " out of: " + Room.numOfRooms);
 //        System.out.println(roomNum);
         doorLocations.clear();
         jackOLanternLocations.clear();
-        loadMap("/maps/mapset" + gp.player.roomSetNum + "/room" + roomNum + ".txt");
+        loadMap(getMapFilePath(roomNum));
+
         if (backward) {
             for (int i = 0; i < doorLocations.size(); i++) {
                 int doorLocationCol = doorLocations.get(i)[0][0];
@@ -64,6 +83,27 @@ public class TileManager {
         getTileImage();
     }
 
+    public static String getMapFilePath(int roomNum) {
+
+        String prefix = "/maps/mapset" + gp.player.roomSetNum + "/";
+        String file;
+
+        switch (Room.numOfRooms - roomNum) {
+            case 0 -> {
+                file = prefix + "boss.txt";
+            }
+            case 1 -> {
+                file = prefix + "shop.txt";
+            }
+            default -> {
+                file = prefix + "room" + roomNum + ".txt";
+            }
+        }
+
+        System.out.println("File Path: " + file);
+        return file;
+    }
+
     public void getTileImage() {
         tile[0] = new Tile();
         tile[2] = new Tile();
@@ -74,7 +114,10 @@ public class TileManager {
         tile[3].setCollision(true);
 
         try {
-            System.out.println("room type = " + Integer.toString(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()));
+//TODO: <<<<<<< Cameron-NextLevels
+
+//=======
+/*          System.out.println("room type = " + Integer.toString(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()));
             System.out.println("room set number = " + Integer.toString(gp.player.roomSetNum));
             if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.VOLCANOROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
@@ -115,13 +158,28 @@ public class TileManager {
             } else {
                 System.out.println("Received bad room type. Update of tile images not executed.");
             }
+*/
+//>>>>>>> Cameron-MergeNextLevels
 
+            tile[0] = new Tile();
+            tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getFloorTilePath()))));
 
-            /* no need for 2 doors... perhaps use this for the red door instead?
-            tile[1] = new Tile();
-            tile[1].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png"))));
+            // Next Level door (Floor or Green/Red door)
+            NextLevelTile nextLevelTile = new NextLevelTile(this);
+            tile[1] = nextLevelTile;
             tile[1].setCollision(true);
-            */
+            tile[1].setTileType(Tile.NEXTLEVEL);
+
+
+            tile[2] = new Tile();
+            tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png"))));
+            //tile[2].collision = true;
+            tile[2].setCollision(true);
+            tile[2].setTileType(Tile.DOOR2);
+
+            tile[3] = new Tile();
+            tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getWallTilePath()))));
+            tile[3].setCollision(true);
 
             tile[4] = new Tile();
             tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_general_up.png"))));
@@ -154,11 +212,59 @@ public class TileManager {
         }
     }
 
-    public void loadMap(String filePath) {
+    public String getFloorTilePath() {
+        switch (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()) {
+            case Room.VOLCANOROOM:
+            case Room.SPOOKYROOM:
+            case 5:
+                return "/tiles/black.png";
+            case Room.GRASSROOM:
+                return "/tiles/grass.png";
+            case Room.ICEROOM:
+                return "/tiles/snow.png";
+            case Room.SPACEROOM:
+                return "/tiles/space.png";
+            default:
+                System.out.println("Received bad room type. Update of tile images not executed.");
+                break;
+        }
+        return "";
+    }
+
+    public String getWallTilePath() throws IOException {
+        switch (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()) {
+            case Room.VOLCANOROOM:
+                return "/tiles/lava.png";
+            case Room.GRASSROOM:
+                return "/tiles/tree.png";
+            case Room.SPOOKYROOM:
+                return "/tiles/cobweb.png";
+            case Room.ICEROOM:
+                return "/tiles/ice_mountain.png";
+            case Room.SPACEROOM:
+                return "/tiles/space_rock.png";
+            case 5:
+                return "/tiles/cobweb.png";
+            default:
+                System.out.println("Received bad room type. Update of tile images not executed.");
+                break;
+        }
+        return "";
+    }
+    
+    public String getEnvironmentTilePath() throws IOException {
+    
+    }
+
+    // getMap() will always update the grassPanel
+    public static int[][] getMap(String filePath) {
+        int[][] map = new int[gp.maxScreenCol+1][gp.maxScreenCol+1];
+        grassTiles = new ArrayList<>();
+
         try {
-            InputStream is = getClass().getResourceAsStream(filePath);
+            InputStream is = TileManager.class.getResourceAsStream(filePath);
             if (is == null) {
-                System.out.println("Problem when loading map: input stream returned null");
+                System.out.println("Problem when loading map: input stream returned null\n" + filePath);
                 System.exit(1);
             }
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -174,6 +280,19 @@ public class TileManager {
 
                     String numbers[] = line.split(" ");
 
+// TODO: <<<<<<< Cameron-NextLevels
+                    int num;
+
+                    switch (num = Integer.parseInt(numbers[col])) {
+                        case Tile.GRASS -> grassTiles.add(new int[]{col, row});
+                        case Tile.NEXTLEVEL -> ((NextLevelTile)tile[1]).addTile(col, row);
+                        case Tile.DOOR2 -> {
+                            int[][] doorLocation = new int[1][2];
+                            doorLocation[0][0] = col;
+                            doorLocation[0][1] = row;
+                            doorLocations.add(doorLocation);
+                        }
+//=======
                     int num = Integer.parseInt(numbers[col]);
 
                     if (num == Tile.DOOR2) {
@@ -186,9 +305,10 @@ public class TileManager {
                         jackOLanternLocation[0][0] = col;
                         jackOLanternLocation[0][1] = row;
                         jackOLanternLocations.add(jackOLanternLocation);
+//>>>>>>> Cameron-MergeNextLevels
                     }
 
-                    mapTileNum[col][row] = num;
+                    map[col][row] = num;
 
                     col++;
                 }
@@ -204,6 +324,12 @@ public class TileManager {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        return map;
+    }
+
+    private void loadMap(String filePath) {
+        mapTileNum = getMap(filePath);
     }
 
     public static void draw(Graphics2D g2) {
@@ -230,6 +356,9 @@ public class TileManager {
     }
 
     public static void drawTile(Graphics2D g2, int tileNum, int x, int y) {
+        if (tileNum == 1) {
+            ((NextLevelTile)tile[tileNum]).setNextLevelTileImage(x/gp.tileSize, y/gp.tileSize);
+        }
         g2.drawImage(tile[tileNum].getImage(), x, y, gp.tileSize, gp.tileSize, null);
     }
 

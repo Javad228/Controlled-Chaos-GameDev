@@ -395,11 +395,12 @@ class TestLevelCompletePanel {
                 this.gp = gp;
             }
             public void run() throws InterruptedException {
-                for (int i = PlayerCharacter.LOWEST_DIFF; i < PlayerCharacter.HIGHEST_DIFF; i++) {
-                    gp.showCompleteLevel();
-                    gp.player.incrementDifficulty();
-                    sleep(1000);
-                }
+                //for (int i = PlayerCharacter.LOWEST_DIFF; i < PlayerCharacter.HIGHEST_DIFF; i++) {
+                //    gp.showCompleteLevel();
+                //    gp.player.incrementDifficulty();
+                //    sleep(1000);
+                //}
+                gp.showCompleteLevel();
             }
         }
 

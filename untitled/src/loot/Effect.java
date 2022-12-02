@@ -3,6 +3,14 @@ package loot;
 import main.KeyHandler;
 
 public class Effect extends Item {
+
+    public static transient final String[] DEFAULT_IMAGE_PATHS =
+            new String[]{
+                            "/effects/invincibility_1.png",
+                            "/effects/invincibility_2.png",
+                            "/effects/invincibility_3.png"
+                        };
+
     private int speedMultiplier;
     private int damageModifier;
     private int effectTimer;
