@@ -209,8 +209,8 @@ public class Room {
 
                 String [] bombBuddyImages = {"/items/bomb-buddy.png"};
                 BombBuddy bombBuddy = new BombBuddy(bombBuddyImages, this.gp, 500, 500);
-                rapidFire.setxCoord(300);
-                rapidFire.setyCoord(400);
+                bombBuddy.setxCoord(300);
+                bombBuddy.setyCoord(400);
                 items.add(bombBuddy);
 
                 Item random = getRandomItem();

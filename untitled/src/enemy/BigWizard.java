@@ -60,7 +60,7 @@ public class BigWizard extends Enemy {
         int maxY = 470;
 
         //Teleport to center to start
-        if (actionLockCounter == 0) {
+        if (actionLockCounter == 1) {
             setxCoord(maxX/2);
             setyCoord(maxY/2);
             setMovementSpeed(0);
@@ -73,7 +73,10 @@ public class BigWizard extends Enemy {
             SlimeBall slimeball3 = new SlimeBall(gp, currentX + 40, currentY + 60, "left", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
             SlimeBall slimeball4 = new SlimeBall(gp, currentX + 40, currentY + 60, "right", false, 1); //RANGED, true (isInvinicible), this (user)                                    this.setHasThrownProjectile(true);
           */
-            //Orb orb = new Orb(gp, currentX + 40, currentY + 60, , false, 1);
+            Orb orb = new Orb(gp, currentX + 40, currentY + 60, "up", false, 1);
+            Orb orb2 = new Orb(gp, currentX + 40, currentY + 60, "down", false, 1);
+            Orb orb3 = new Orb(gp, currentX + 40, currentY + 60, "left", false, 1);
+            Orb orb4 = new Orb(gp, currentX + 40, currentY + 60, "right", false, 1);
         }
 
         //Teleporting around then moving side-to-side
