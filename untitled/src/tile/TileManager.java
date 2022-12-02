@@ -122,7 +122,7 @@ public class TileManager {
 
 
             tile[2] = new Tile();
-            tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png"))));
+            tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getDoorTilePath()))));
             //tile[2].collision = true;
             tile[2].setCollision(true);
             tile[2].setTileType(Tile.DOOR2);
@@ -182,6 +182,24 @@ public class TileManager {
                 return "/tiles/space.png";
             default:
                 System.out.println("Received bad room type. Update of tile images not executed.");
+                break;
+        }
+        return "/tiles/black.png";
+    }
+
+    public String getDoorTilePath() {
+        switch (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()) {
+            case Room.VOLCANOROOM:
+            case Room.SPOOKYROOM:
+            case Room.SHOPROOM:
+            case Room.SPACEROOM:
+                return "/tiles/door_black.png";
+            case Room.GRASSROOM:
+                return "/tiles/door_grass.png";
+            case Room.ICEROOM:
+                return "/tiles/door_snow.png";
+            default:
+                System.out.println("Received bad room type. Update of door tile images not executed.");
                 break;
         }
         return "/tiles/black.png";
