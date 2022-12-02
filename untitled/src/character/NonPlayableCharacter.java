@@ -271,6 +271,13 @@ public abstract class NonPlayableCharacter extends Character {
                     }
                     gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems().add(new HealthUp(new String[]{"/items/health.png"}, gp, this.xCoord, this.yCoord));
 
+                } else if (Objects.equals(this.name, "BigWizard")) {
+                    gp.showCompleteLevel();
+
+                    PlayerCharacter player = gp.getPlayer();
+                    if (!player.getItemsUnlocked()[5]) {
+                        player.unlockItem(5);
+                    }
                 } else {
                     if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems() == null) {
                         gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setItems(new ArrayList<>());

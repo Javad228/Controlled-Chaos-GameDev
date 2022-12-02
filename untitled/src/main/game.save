@@ -215,8 +215,8 @@
           "amount": 0,
           "name": "Arrow Storm",
           "lootType": "DEFAULT",
-          "xCoord": 400,
-          "yCoord": 400,
+          "xCoord": 500,
+          "yCoord": 100,
           "imagePaths": [
             "/items/rapid-fire.png"
           ],
@@ -242,12 +242,41 @@
           "price": 0.0,
           "isEquipped": false,
           "amount": 0,
-          "name": "Inner Fire",
+          "name": "Bomb Buddy",
           "lootType": "DEFAULT",
           "xCoord": 500,
           "yCoord": 500,
           "imagePaths": [
-            "/items/damage.png"
+            "/items/bomb-buddy.png"
+          ],
+          "framesToWait": 7,
+          "solidArea": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 48
+          },
+          "collisionAreaDefaultX": 0,
+          "collisionAreaDefaultY": 0,
+          "spritePosition": 0,
+          "isBobbingUp": true,
+          "frameCounter": 0,
+          "bobIncrement": 1,
+          "maxSpritePosition": 6,
+          "spriteCounter": 0,
+          "isExpanding": true
+        },
+        {
+          "description": "???",
+          "price": 0.0,
+          "isEquipped": false,
+          "amount": 0,
+          "name": "Heart",
+          "lootType": "DEFAULT",
+          "xCoord": 500,
+          "yCoord": 500,
+          "imagePaths": [
+            "/items/health.png"
           ],
           "framesToWait": 7,
           "solidArea": {
@@ -267,19 +296,7 @@
           "isExpanding": true
         }
       ],
-      "enemies": [
-        {
-          "name": "BigWizard",
-          "health": 150.0,
-          "maxHealth": 150,
-          "movementSpeed": 1,
-          "xCoord": 100,
-          "yCoord": 100,
-          "activeEffects": [],
-          "damagePerHit": 5,
-          "classification": "BIGWIZARD"
-        }
-      ],
+      "enemies": [],
       "friendlies": [],
       "coins": [
         {

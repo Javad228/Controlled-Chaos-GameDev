@@ -47,12 +47,15 @@ public class KeyHandler implements KeyListener {
          * hold the button, which results in some funky damage and sound effects
          */
         if (code == KeyEvent.VK_B) {
-            bPressed = true;
+            /*bPressed = true;
             if(!Objects.equals(gp.getPlayer().projectileName, "Bomb")){
                 gp.getPlayer().projectileName = "Bomb";
             }else{
                 gp.getPlayer().projectileName = "Arrow";
+
             }
+
+             */
 
         }
         if (code == KeyEvent.VK_K) {

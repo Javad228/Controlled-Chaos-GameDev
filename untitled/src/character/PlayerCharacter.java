@@ -54,11 +54,9 @@ public class PlayerCharacter extends Character {
     private PowerBar powerBar;
     private GamePanel gp;
     private KeyHandler keyH;
-
-    public String projectileName = "Bomb";
+    public String projectileName = "Arrow";
     private int shotAvailableTimer = 0;
     private int shotTimerMax = 50;
-
     private double damageMod = 1;
     private int gameDifficulty;
 
@@ -177,7 +175,7 @@ public class PlayerCharacter extends Character {
         Item item1 = new Item(7,stringArray1);
         item.setName("Sword #2");
         item1.setDescription("wooden sword #2");
-        this.itemsUnlocked = new boolean[]{ true, true, true, true, false};
+        this.itemsUnlocked = new boolean[]{ true, true, true, true, false, false};
         this.itemPriority = -1;
 
         this.getInventory().addItem(item);
@@ -728,6 +726,9 @@ public class PlayerCharacter extends Character {
         ImageIcon icon = new ImageIcon(getClass().getResource("/items/health.png"));
         if(itemID == 4) {
             icon = new ImageIcon(getClass().getResource("/items/rapid-fire.png"));
+        }
+        if(itemID == 5) {
+            icon = new ImageIcon(getClass().getResource("/items/bomb-buddy.png"));
         }
         JOptionPane.showMessageDialog(
                 null,
