@@ -309,13 +309,20 @@ public class GamePanel extends JPanel implements Runnable{
 					//this.pauseThread();
 				}
 
-				if (getPlayer().roomSetNum == 1 && currentRoomNum == 4) { // room.TRAPROOM no longer exists. plz change
+				if (currentRoomNum == 4) { // room.TRAPROOM no longer exists. plz change
 					if (currentTime % 1000000000 == 0) {
-						for (int i = 0; !rooms.get(4).getTrapTiles().isEmpty() || i < maxScreenRow; i++) {
+						for (int i = 0; i < maxScreenRow; i++) {
 							rooms.get(4).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
 						}
 					}
 				}
+				/*if (getPlayer().roomSetNum == 1 && currentRoomNum == 4) { // room.TRAPROOM no longer exists. plz change
+					if (currentTime % 1000000000 == 0) {
+						for (int i = 0; !rooms.get(4).getTrapTiles().isEmpty() && i < maxScreenRow; i++) {
+							rooms.get(4).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
+						}
+					}
+				}*/
 			}
 		}
 	}

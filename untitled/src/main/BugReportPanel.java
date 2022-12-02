@@ -17,9 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.*;
-import javax.mail.*;
 
-import javax.mail.internet.*;
 import java.time.LocalDate;
 public class BugReportPanel extends JPanel {
     JTextArea area;

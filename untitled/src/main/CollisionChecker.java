@@ -239,7 +239,7 @@ public class CollisionChecker {
                     }
                     System.out.println(gp.getCurrentRoomNum());
                     gp.tileM.backward = true;
-                    //gp.tileM.update();
+                    gp.tileM.update();
                 } else {
                     // we want to go forward!
                     if (gp.getCurrentRoomNum() == 7) {
@@ -251,7 +251,7 @@ public class CollisionChecker {
                     }
                     System.out.println(gp.getCurrentRoomNum());
                     gp.tileM.backward = false;
-                    //gp.tileM.update();
+                    gp.tileM.update();
                 }
             }
 
