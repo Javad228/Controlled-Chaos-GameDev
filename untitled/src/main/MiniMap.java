@@ -167,6 +167,11 @@ public class MiniMap extends JPanel{
         while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
 
             int tileNum = TileManager.minimapTileNum[exploredRoomNub][col][row];
+            int roomtype = TileManager.roomTypes[exploredRoomNub];
+            if (tileNum == 10) {
+                tileNum = 4;
+            }
+            tileNum = 100 + 10 * tileNum + roomtype;
             TileManager.drawminiTile(g2, tileNum, gp.tileSize + 60 + col * 15,gp.tileSize*2 + 20 + row * 15);
             col++;
 
