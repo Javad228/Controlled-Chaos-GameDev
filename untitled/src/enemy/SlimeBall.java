@@ -27,6 +27,7 @@ public class SlimeBall extends Projectile {
     public void setDefaultValues() {
         this.setName("SlimeBall");
         this.setMovementSpeed(2);
+        this.setMaxSpeed(2);
         this.setWidth(200);
         this.setHeight(200);
         this.setHealth(200);

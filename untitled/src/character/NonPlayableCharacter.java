@@ -103,7 +103,6 @@ public abstract class NonPlayableCharacter extends Character {
                         case "left" -> xCoord -= movementSpeed;
                         case "right" -> xCoord += movementSpeed;
                     }
-
                 }
             }
         }

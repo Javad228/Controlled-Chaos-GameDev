@@ -20,21 +20,23 @@ public class TileManager {
     private Object[] loot;
     public boolean backward = false;
     private ArrayList<int[][]> doorLocations;
+    private ArrayList<int[][]> jackOLanternLocations;
 
     public TileManager(GamePanel gp1) {
         gp = gp1;
-        tile = new Tile[10];
+        tile = new Tile[12];
         mapTileNum = new int[gp1.maxScreenCol+1][gp1.maxScreenRow+1];
         //this.roomNum = 0;   // might need to change based on saved progress
         doorLocations = new ArrayList<>();
+        jackOLanternLocations = new ArrayList<>();
     }
 
     public void update() {
-
         int roomNum = gp.getCurrentRoomNum();
         System.out.println(roomNum);
 //        System.out.println(roomNum);
         doorLocations.clear();
+        jackOLanternLocations.clear();
         loadMap("/maps/mapset" + gp.player.roomSetNum + "/room" + roomNum + ".txt");
         if (backward) {
             for (int i = 0; i < doorLocations.size(); i++) {
@@ -60,120 +62,56 @@ public class TileManager {
         }
 
         getTileImage();
-
-
-        /*if (roomNum == 1) {
-
-            System.out.println("loaded");
-            loadMap("/maps/mapset" + gp.player.roomSetNum + "/room1.txt");
-            gp.player.setxCoord(20);
-            gp.player.setyCoord(50);
-            if (backward) {
-                gp.player.setxCoord(600);
-                gp.player.setyCoord(380);
-                backward = false;
-            }
-            System.out.println("loaded success");
-        }
-        if (roomNum == 2) {
-            loadMap("/maps/mapset" + gp.player.roomSetNum + "/room2.txt");
-            gp.player.setxCoord(40);
-            gp.player.setyCoord(80);
-            if (backward) {
-                gp.player.setxCoord(600);
-                gp.player.setyCoord(380);
-                backward = false;
-            }
-        }
-        if (roomNum == 3) {
-            loadMap("/maps/mapset" + gp.player.roomSetNum + "/room3.txt");
-            gp.player.setxCoord(40);
-            gp.player.setyCoord(80);
-            if (backward) {
-                gp.player.setxCoord(600);
-                gp.player.setyCoord(380);
-                backward = false;
-            }
-        }
-        if (roomNum == 4) {
-            loadMap("/maps/mapset" + gp.player.roomSetNum + "/room4.txt");
-            gp.player.setxCoord(40);
-            gp.player.setyCoord(80);
-            if (backward) {
-                gp.player.setxCoord(600);
-                gp.player.setyCoord(380);
-                backward = false;
-            }
-        }
-        if (roomNum == 5) {
-            loadMap("/maps/mapset" + gp.player.roomSetNum + "/room6.txt");
-            gp.player.setxCoord(40);
-            gp.player.setyCoord(80);
-            if (backward) {
-                gp.player.setxCoord(600);
-                gp.player.setyCoord(380);
-                backward = false;
-            }
-        }
-        if (roomNum == 6) {
-            loadMap("/maps/mapset" + gp.player.roomSetNum + "/room5.txt");
-
-            gp.player.setxCoord(40);
-            gp.player.setyCoord(80);
-            if (backward) {
-                gp.player.setxCoord(600);
-                gp.player.setyCoord(380);
-                backward = false;
-            }
-        }*/
-
-        /*
-        if (gp.tileM != null){
-            gp.updateLootInRoom();
-        }
-         */
     }
 
     public void getTileImage() {
+        tile[0] = new Tile();
+        tile[2] = new Tile();
+        //tile[2].collision = true;
+        tile[2].setCollision(true);
+        tile[2].setTileType(Tile.DOOR2);
+        tile[3] = new Tile();
+        tile[3].setCollision(true);
+
         try {
-            System.out.println("printing");
-            System.out.println(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType());
+            System.out.println("room type = " + Integer.toString(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()));
+            System.out.println("room set number = " + Integer.toString(gp.player.roomSetNum));
             if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.VOLCANOROOM) {
-                tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
-                tile[3] = new Tile();
+                tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/lava.png"))));
-                tile[3].setCollision(true);
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.GRASSROOM) {
-                tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png"))));
-                tile[3] = new Tile();
+                tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_grass.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/tree.png"))));
-                tile[3].setCollision(true);
+                tile[10] = new Tile();
+                tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/mud.png"))));
+                tile[10].setTileType(Tile.ENVIRONMENT);
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM) {
-                tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
-                tile[3] = new Tile();
+                tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
-                tile[3].setCollision(true);
+                tile[10] = new Tile();
+                tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/jack_o_lantern.png"))));
+                tile[10].setTileType(Tile.ENVIRONMENT);
+                tile[10].setCollision(true);
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.ICEROOM) {
-                tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/snow.png"))));
-                tile[3] = new Tile();
+                tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_snow.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/ice_mountain.png"))));
-                tile[3].setCollision(true);
+                tile[10] = new Tile();
+                tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png"))));
+                tile[10].setTileType(Tile.ENVIRONMENT);
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPACEROOM) {
-                tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space.png"))));
-                tile[3] = new Tile();
+                tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space_rock.png"))));
-                tile[3].setCollision(true);
-            } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == 5) {
+            } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == 6) { // all 6th rooms will be shop rooms
                 tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+                tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
                 tile[3] = new Tile();
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
-                tile[3].setCollision(true);
             } else {
                 System.out.println("Received bad room type. Update of tile images not executed.");
             }
@@ -184,14 +122,6 @@ public class TileManager {
             tile[1].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png"))));
             tile[1].setCollision(true);
             */
-
-            tile[2] = new Tile();
-            tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door.png"))));
-            //tile[2].collision = true;
-            tile[2].setCollision(true);
-            tile[2].setTileType(Tile.DOOR2);
-
-
 
             tile[4] = new Tile();
             tile[4].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/spike_general_up.png"))));
@@ -236,6 +166,7 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
+
             while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
                 String line = br.readLine();
 
@@ -250,6 +181,11 @@ public class TileManager {
                         doorLocation[0][0] = col;
                         doorLocation[0][1] = row;
                         doorLocations.add(doorLocation);
+                    } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM && num == Tile.ENVIRONMENT) {
+                        int[][] jackOLanternLocation = new int[1][2];
+                        jackOLanternLocation[0][0] = col;
+                        jackOLanternLocation[0][1] = row;
+                        jackOLanternLocations.add(jackOLanternLocation);
                     }
 
                     mapTileNum[col][row] = num;
@@ -303,5 +239,13 @@ public class TileManager {
 
     public void setLoot(Object[] loot) {
         this.loot = loot;
+    }
+
+    public ArrayList<int[][]> getJackOLanternLocations() {
+        return jackOLanternLocations;
+    }
+
+    public void setJackOLanternLocations(ArrayList<int[][]> jackOLanternLocations) {
+        this.jackOLanternLocations = jackOLanternLocations;
     }
 }

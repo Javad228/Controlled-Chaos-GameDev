@@ -122,9 +122,9 @@ public class KeyHandler implements KeyListener {
                         (gp.player.getCol() >= satyr.getCol() - 1) && (gp.getPlayer().getCol() <= satyr.getCol() + 1)) {
                     satyr.displayDialog();
                 }
-            }else if(gp.getCurrentRoomNum() == 5){
-                for(int i =0; i<gp.getRooms().get(5).getChests().size();i++){
-                    Chest chest = gp.getRooms().get(5).getChests().get(i);
+            }else if(gp.getCurrentRoomNum() == 6){
+                for(int i =0; i<gp.getRooms().get(6).getChests().size();i++){
+                    Chest chest = gp.getRooms().get(6).getChests().get(i);
                     if ((gp.player.getRow() >= chest.getRow() - 1) && (gp.getPlayer().getRow() <= chest.getRow() + 1) &&
                             (gp.player.getCol() >= chest.getCol() - 1) && (gp.getPlayer().getCol() <= chest.getCol() + 1)) {
                         chest.open();
