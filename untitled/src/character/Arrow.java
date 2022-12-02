@@ -31,7 +31,7 @@ public class Arrow extends Projectile {
         this.setWidth(7);
         this.setHeight(26);
         this.setHealth(80);
-        this.setDamage(5);
+        this.setDamage(10);
         //this.isInvincible(true);
     }
 

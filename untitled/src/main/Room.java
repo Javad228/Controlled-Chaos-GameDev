@@ -196,6 +196,7 @@ public class Room {
     private void initializeItems() {
         switch(roomNum) {
             case 1:
+                /*
                 //String [] healthImages = {"/items/health.png"};
                 //HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
                 HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, this.gp, 500, 500);
@@ -227,6 +228,8 @@ public class Room {
                 items.add(random);
                 break;
 
+                */
+
             case 2:
                 //String[] appleImages = {"/consumables/apple.png"};
                 //Consumable apple = new Consumable(appleImages, false);
@@ -241,6 +244,7 @@ public class Room {
 
                 //Sword sword = new Sword(swordImages, this.gp, 300, 300);
                 //SlimeSlinger slimeSlinger = new SlimeSlinger(slimeSlingerImages, this.gp, 400, 400);
+                /*
                 SlimeSlinger slimeSlinger = new SlimeSlinger(SlimeSlinger.DEFAULT_IMAGE_PATHS, this.gp, 400, 400);
                 slimeSlinger.setxCoord(500);
                 slimeSlinger.setyCoord(400);
@@ -255,6 +259,8 @@ public class Room {
                 items.add(slimeSlinger);
                 items.add(effect);
                 items.add(boot);
+
+                 */
 
                 break;
             case 6:
@@ -274,11 +280,11 @@ public class Room {
             case 8:
                 //add reward item
                 items = new ArrayList<>();
-                damageUp = new DamageUp(DamageUp.DEFAULT_DAMAGEUP_PATHS, this.gp, 500, 500);
+                Item damageUp = new DamageUp(DamageUp.DEFAULT_DAMAGEUP_PATHS, this.gp, 500, 500);
                 damageUp.setxCoord(8 * gp.tileSize);
                 damageUp.setyCoord(6 * gp.tileSize);
                 items.add(damageUp);
-                random = getRandomItem();
+                Item random = getRandomItem();
                 random.setxCoord(10 * gp.tileSize);
                 random.setyCoord(1 * gp.tileSize);
                 items.add(random);
@@ -314,7 +320,7 @@ public class Room {
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
                 } else{
-                    enemies.add(new BigSkull(300, 300));
+                    enemies.add(new BigWizard(300, 300));
                 }
                 break;
         }
