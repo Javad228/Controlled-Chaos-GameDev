@@ -28,7 +28,6 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         addSoundEffectVolumeSelection();
         addSaveButtons();
         addReturnButton();
-        addCharacterName();
         addMapNote();
         priorPage = "";
 

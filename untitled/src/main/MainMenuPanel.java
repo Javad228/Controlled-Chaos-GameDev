@@ -19,9 +19,13 @@ public class MainMenuPanel extends JPanel {
         add(Box.createVerticalStrut(25));
         addTitle();
         add(Box.createVerticalStrut(50));
+        addNewRunButton();
+        add(Box.createVerticalStrut(10));
         addContinueRunButton();
         add(Box.createVerticalStrut(10));
         addChangeSkinButton();
+        add(Box.createVerticalStrut(10));
+        addNameDescButton();
         add(Box.createVerticalStrut(10));
         addStatsButton();
         add(Box.createVerticalStrut(10));
@@ -43,29 +47,48 @@ public class MainMenuPanel extends JPanel {
         add(titleLabel);
     }
 
+    private void addNewRunButton() {
+        JButton newRun = new JButton("New Run");
+        newRun.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        newRun.setAlignmentX(Component.CENTER_ALIGNMENT);
+        newRun.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.view.showGamePanel();
+                Main.view.getGamePanel().newGame(true);
+                addItemsPerCharacter();
+            }
+        });
+        add(newRun);
+
+    }
+
     private void addContinueRunButton() {
-        JButton newRunButton = new JButton("Continue Run");
-        newRunButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
-        newRunButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        newRunButton.addActionListener(new ActionListener() {
+        JButton continueRun = new JButton("Continue Run");
+        continueRun.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        continueRun.setAlignmentX(Component.CENTER_ALIGNMENT);
+        continueRun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.view.showGamePanel();
                 Main.view.getGamePanel().startGameThread();
-                PlayerCharacter pl = Main.view.getGamePanel().player;
-                if(Objects.equals(Main.view.getGamePanel().player.getCharacterAppearance(), "healer")){
-                    String[] bootImages = {"/items/boot.png"};
-                    Boot boot = new Boot(bootImages, Main.view.getGamePanel(), 500, 500);
-                    Main.view.getGamePanel().player.getInventory().addItem(boot);
-                }else{
-                    String [] rapidFireImages = {"/items/rapid-fire.png"};
-                    RapidFire rapidFire = new RapidFire(rapidFireImages,Main.view.getGamePanel(), 500, 500);
-                    Main.view.getGamePanel().player.getInventory().addItem(rapidFire);
-                }
+                addItemsPerCharacter();
             }
         });
-        add(newRunButton);
+        add(continueRun);
 
+    }
+
+    private void addItemsPerCharacter() {
+        if(Objects.equals(Main.view.getGamePanel().player.getCharacterAppearance(), "healer")){
+            String[] bootImages = {"/items/boot.png"};
+            Boot boot = new Boot(bootImages, Main.view.getGamePanel(), 500, 500);
+            Main.view.getGamePanel().player.getInventory().addItem(boot);
+        }else{
+            String [] rapidFireImages = {"/items/rapid-fire.png"};
+            RapidFire rapidFire = new RapidFire(rapidFireImages,Main.view.getGamePanel(), 500, 500);
+            Main.view.getGamePanel().player.getInventory().addItem(rapidFire);
+        }
     }
 
     private void addChangeSkinButton() {
@@ -79,6 +102,19 @@ public class MainMenuPanel extends JPanel {
             }
         });
         add(newRunButton);
+    }
+
+    private void addNameDescButton() {
+        JButton nameDescButton = new JButton("Change Name and Descriptions");
+        nameDescButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        nameDescButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameDescButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.view.showNameDescPanel();
+            }
+        });
+        add(nameDescButton);
     }
 
     private void addStatsButton() {

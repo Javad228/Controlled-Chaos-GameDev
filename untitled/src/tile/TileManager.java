@@ -29,6 +29,7 @@ public class TileManager {
     public static int[][][] minimapTileNum;
     public TileManager(GamePanel gp1) {
         gp = gp1;
+        tile = new Tile[13];
         tile = new Tile[200];
         mapTileNum = new int[gp1.maxScreenCol+1][gp1.maxScreenRow+1];
         //this.roomNum = 0;   // might need to change based on saved progress
@@ -106,15 +107,9 @@ public class TileManager {
     }
 
     public void getTileImage() {
-        tile[0] = new Tile();
-        tile[2] = new Tile();
-        //tile[2].collision = true;
-        tile[2].setCollision(true);
-        tile[2].setTileType(Tile.DOOR2);
-        tile[3] = new Tile();
-        tile[3].setCollision(true);
-
         try {
+            System.out.println("room type = " + Integer.toString(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()));
+            System.out.println("room set number = " + Integer.toString(gp.player.roomSetNum));
 
             tile[0] = new Tile();
             tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getFloorTilePath()))));
@@ -167,6 +162,9 @@ public class TileManager {
             tile[10] = new Tile();
             tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getEnvironmentTilePath()))));
             tile[10].setTileType(Tile.ENVIRONMENT);
+            if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM) {
+                tile[10].setCollision(true); // so you can't run over poor jack-o-lanterns
+            }
 
             // for minimap
             tile[102] = new Tile();
@@ -177,6 +175,11 @@ public class TileManager {
 
             tile[11] = new Tile();
             tile[11].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/qm.png"))));
+
+            tile[12] = new Tile();
+            tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getLockedDoorTilePath()))));
+            tile[12].setCollision(true);
+            tile[12].setTileType(Tile.DOOR1);
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -212,6 +215,24 @@ public class TileManager {
                 return "/tiles/door_grass.png";
             case Room.ICEROOM:
                 return "/tiles/door_snow.png";
+            default:
+                System.out.println("Received bad room type. Update of door tile images not executed.");
+                break;
+        }
+        return "/tiles/black.png";
+    }
+
+    public String getLockedDoorTilePath() {
+        switch (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()) {
+            case Room.VOLCANOROOM:
+            case Room.SPOOKYROOM:
+            case Room.SHOPROOM:
+            case Room.SPACEROOM:
+                return "/tiles/door_black_locked.png";
+            case Room.GRASSROOM:
+                return "/tiles/door_grass_locked.png";
+            case Room.ICEROOM:
+                return "/tiles/door_snow_locked.png";
             default:
                 System.out.println("Received bad room type. Update of door tile images not executed.");
                 break;
@@ -336,7 +357,14 @@ public class TileManager {
 
             int tileNum = mapTileNum[col][row];
 
-            drawTile(g2, tileNum, x, y);
+            // check if the given tile is a door, it is located on the right side of the screen, and there are currently enemies in the room.
+            // assumes that the enemy list is never null... might be a bad assumption.
+            if (tileNum == Tile.DOOR2 && x > gp.screenWidth / 2 && gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies().size() > 0) {
+                drawTile(g2, 12, x, y);
+            } else {
+                drawTile(g2, tileNum, x, y);
+            }
+
             col++;
             x += gp.tileSize;
 

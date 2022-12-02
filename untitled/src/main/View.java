@@ -17,6 +17,7 @@ public class View {
     private JPanel coinPanel;
     private JPanel mainMenuPanel;
     private JScrollPane statsPanel;
+    private JScrollPane nameDescPanel;
     private JButton settingsButton;
     private JPanel changeSkinPanel;
 
@@ -62,10 +63,11 @@ public class View {
         window.setResizable(false);
         window.setTitle("Controlled Chaos");
 
+        nameDescPanel = new NameDescPanel(gamePanel).scrollPane;
         statsPanel = new StatsPanel(gamePanel).scrollPane;
+        changeSkinPanel = new ChangeSkinPanel(gamePanel);
         tutorialPanel = new TutorialPanel(gamePanel).scrollPane;
 
-        changeSkinPanel = new changeSkinPanel(gamePanel);
         pauseMenuPanel = new PauseMenuPanel(gamePanel);
         bugReportPanel = new BugReportPanel(gamePanel);
 
@@ -227,6 +229,14 @@ public class View {
         Main.view.getWindow().repaint();
     }
 
+    public void showNameDescPanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getNameDescPanel());
+        Main.view.getNameDescPanel().setVisible(true);
+        Main.view.getNameDescPanel().revalidate();
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+    }
 
     public void updateCoinLabel(Graphics2D g2) {
         int numCoins = gamePanel.player.getNumCoins();
@@ -331,6 +341,14 @@ public class View {
 
     public void setStatsPanel(JScrollPane statsPanel) {
         this.statsPanel = statsPanel;
+    }
+
+    public JScrollPane getNameDescPanel() {
+        return nameDescPanel;
+    }
+
+    public void setNameDescPanel(JScrollPane nameDescPanel) {
+        this.nameDescPanel = nameDescPanel;
     }
 
     public JPanel getChangeSkinPanel() {

@@ -140,6 +140,14 @@ public class Room {
             System.out.println("Received bad roomSetNum.");
         }
 
+        items = new ArrayList<>();
+        chests = new ArrayList<>();
+        signs = new ArrayList<>();
+        enemies = new ArrayList<>();
+        NPCs = new ArrayList<>();
+        coins = new ArrayList<>();
+
+
         initializeItems();
         initializeEnemies();
         initializeCoins();
@@ -186,11 +194,8 @@ public class Room {
     }
 
     private void initializeItems() {
-        signs = new ArrayList<>();
-        chests = new ArrayList<>();
         switch(roomNum) {
             case 1:
-                items = new ArrayList<>();
                 //String [] healthImages = {"/items/health.png"};
                 //HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
                 HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, this.gp, 500, 500);
@@ -223,7 +228,6 @@ public class Room {
                 break;
 
             case 2:
-                items = new ArrayList<>();
                 //String[] appleImages = {"/consumables/apple.png"};
                 //Consumable apple = new Consumable(appleImages, false);
                 Consumable apple = new Consumable(Consumable.DEFAULT_IMAGE_PATHS, false, 100, 100);
@@ -247,7 +251,6 @@ public class Room {
                 boot.setxCoord(500);
                 boot.setyCoord(500);
 
-                items = new ArrayList<>();
                 //items.add(sword);
                 items.add(slimeSlinger);
                 items.add(effect);
@@ -255,9 +258,6 @@ public class Room {
 
                 break;
             case 6:
-                items = new ArrayList<>();
-                chests = new ArrayList<>();
-                signs = new ArrayList<>();
                 Chest chest = new Chest(320, 200, gp,0);
                 Chest chest1 = new Chest(470, 200, gp,1);
                 Chest chest2 = new Chest(620, 200, gp,2);
@@ -291,41 +291,36 @@ public class Room {
     private void initializeEnemies() {
         switch(roomNum) {
             case 1:
-/*
-                enemies = new ArrayList<>();
-                enemies.add(new BigWizard(500, 500));
-*/
-                break;
-            case 2:
-                enemies = new ArrayList<>();
-                if(gp.getPlayer().roomSetNum ==1){
-//                    enemies.add(new Slime(100, 100));
-                    enemies.add(new Skeleton(500, 500));
-                    enemies.add(new Skeleton(100, 500));
-                }else{
-                    enemies.add(new Wizard(500, 500));
-                    enemies.add(new Wizard(100, 500));
-                }
-                break;
-            case 3:
-                enemies = new ArrayList<>();
                 enemies.add(new Barrel(300, 50));
                 break;
+            case 2:
+                enemies.add(new Skeleton(300, 500));
+                enemies.add(new Skeleton(100, 300));
+                enemies.add(new Skeleton(200, 200));
+                break;
+            case 3:
+                enemies.add(new Wizard(500, 300));
+                enemies.add(new Wizard(100, 100));
+                enemies.add(new Wizard(200, 140));
+                enemies.add(new Wizard(300, 100));
+                break;
+            case 4:
+                enemies.add(new Snowman(200, 200));
+                enemies.add(new Snowman(400, 300));
+                enemies.add(new Snowman(300, 400));
+                enemies.add(new Snowman(200, 200));
+                break;
             case 7:
-                enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
                 } else{
                     enemies.add(new BigSkull(300, 300));
                 }
                 break;
-            default:
-                enemies = null;
         }
     }
 
     private void initializeNPCs() {
-        NPCs = new ArrayList<>();
         switch(roomNum) {
             case 1:
                 if (gp.getPlayer().roomSetNum == 1) {
@@ -340,8 +335,6 @@ public class Room {
                 Knight knight = new Knight(Knight.room4Col * gp.tileSize, Knight.room4Row * gp.tileSize);
                 NPCs.add(knight);
                 break;
-            default:
-                NPCs = null;
         }
     }
 
@@ -352,7 +345,6 @@ public class Room {
                 //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
                 //Coin coin = new Coin(7, coinImages, 600, 500, 1);
                 Coin coin = new Coin(Coin.DEFAULT_FRAMES_TO_WAIT, Coin.DEFAULT_COIN_IMAGES, 600, 500, 1);
-                coins = new ArrayList<>();
                 coins.add(coin);
                 break;
             case 8:
@@ -364,15 +356,14 @@ public class Room {
                 coins.add(coin);
 
                 break;
-            default:
-                coins = null;
         }
     }
 
     private void initializeButtons() {
         switch(roomNum) {
             case 4:
-                buttons = new ArrayList<>(5);
+                buttons = new ArrayList<>();
+                //buttons = new ArrayList<>(5); // TODO: if no crashes, move above line to constructor
                 Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1Button1Row * gp.tileSize);
 
                 for (int i = 0; i < gp.maxScreenRow; i++) {
@@ -398,15 +389,14 @@ public class Room {
                 buttons.add(button2);
                 buttons.add(button3);
                 buttons.add(button4);
-            default:
-                buttons = null;
         }
     }
 
     private void initializeTrapTiles() {
         switch(roomNum) {
             case 4:
-                trapTiles = new ArrayList<>(24);
+                trapTiles = new ArrayList<>();
+                //trapTiles = new ArrayList<>(24); // TODO: if no crashes, move above line to constructor
                 for (int i = 0; i < gp.maxScreenRow; i++) {
                     TrapTile thisTrapTile = new TrapTile();
                     thisTrapTile.setx(TrapTile.map1TrapCol1 * gp.tileSize);
@@ -424,9 +414,6 @@ public class Room {
 
                     trapTiles.add(thisTrapTile);
                 }
-                break;
-            default:
-                trapTiles = null;
 
         }
     }
@@ -439,8 +426,6 @@ public class Room {
                 doorTile.setx(DoorTile.map1Room4DoorCol * gp.tileSize);
                 doorTile.sety(DoorTile.map1Room4DoorRow * gp.tileSize);
                 doorTile.toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
-            default:
-                doorTile = null;
         }
     }
 
