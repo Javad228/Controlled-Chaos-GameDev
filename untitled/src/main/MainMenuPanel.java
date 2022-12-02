@@ -12,6 +12,7 @@ import java.util.Objects;
 
 public class MainMenuPanel extends JPanel {
 
+
     public MainMenuPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -25,6 +26,8 @@ public class MainMenuPanel extends JPanel {
         addStatsButton();
         add(Box.createVerticalStrut(10));
         addSettingsButton();
+        add(Box.createVerticalStrut(10));
+        addTutorialButton();
 
         setName("Main Menu");
         setBackground(Color.BLACK);
@@ -104,4 +107,16 @@ public class MainMenuPanel extends JPanel {
         add(settingsButton);
     }
 
+    private void addTutorialButton() {
+        JButton tutorialButton = new JButton("Tutorial");
+        tutorialButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        tutorialButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tutorialButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.view.showTutorialPanel();
+            }
+        });
+        add(tutorialButton);
+    }
 }
