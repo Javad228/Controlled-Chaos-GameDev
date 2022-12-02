@@ -101,7 +101,7 @@ public class PlayerCharacter extends Character {
 
         this.name = "Intrepid Adventurer";
         Random r = new Random();
-        roomSetNum = r.nextInt(3) + 1;
+        roomSetNum = 1;//r.nextInt(3) + 1;
         System.out.println("it is room set number" + roomSetNum);
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
