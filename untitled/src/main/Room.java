@@ -291,20 +291,24 @@ public class Room {
     private void initializeEnemies() {
         switch(roomNum) {
             case 1:
-                enemies.add(new Snowman(500, 500));
+                enemies.add(new Barrel(300, 50));
                 break;
             case 2:
-                if(gp.getPlayer().roomSetNum ==1){
-//                    enemies.add(new Slime(100, 100));
-                    enemies.add(new Skeleton(500, 500));
-                    enemies.add(new Skeleton(100, 500));
-                }else{
-                    enemies.add(new Wizard(500, 500));
-                    enemies.add(new Wizard(100, 500));
-                }
+                enemies.add(new Skeleton(300, 500));
+                enemies.add(new Skeleton(100, 300));
+                enemies.add(new Skeleton(200, 200));
                 break;
             case 3:
-                enemies.add(new Barrel(300, 50));
+                enemies.add(new Wizard(500, 300));
+                enemies.add(new Wizard(100, 100));
+                enemies.add(new Wizard(200, 140));
+                enemies.add(new Wizard(300, 100));
+                break;
+            case 4:
+                enemies.add(new Snowman(200, 200));
+                enemies.add(new Snowman(400, 300));
+                enemies.add(new Snowman(300, 400));
+                enemies.add(new Snowman(200, 200));
                 break;
             case 7:
                 if(gp.getPlayer().roomSetNum ==1){

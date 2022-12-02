@@ -162,6 +162,9 @@ public class TileManager {
             tile[10] = new Tile();
             tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getEnvironmentTilePath()))));
             tile[10].setTileType(Tile.ENVIRONMENT);
+            if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM) {
+                tile[10].setCollision(true); // so you can't run over poor jack-o-lanterns
+            }
 
             // for minimap
             tile[102] = new Tile();

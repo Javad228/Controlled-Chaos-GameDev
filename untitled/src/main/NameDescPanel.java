@@ -30,6 +30,7 @@ public class NameDescPanel extends JPanel {
         if (savedData == null) {
             gp.newGame(false);
             sd.saveGameState();
+            savedData = sd.restoreGameState();
             if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
             else System.out.println("Game restore Failed");
         } else {
