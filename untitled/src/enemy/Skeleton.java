@@ -36,7 +36,7 @@ public class Skeleton extends Enemy {
         setNumDeathSprites(13);
         setDeathImages(new BufferedImage[getNumDeathSprites()]); // should be in super()
 
-        this.setDamagePerHit(1); // originally 10
+        this.setDamagePerHit(2); // originally 10
         getImage();
 
     }

@@ -31,7 +31,7 @@ public class SlimeBall extends Projectile {
         this.setWidth(200);
         this.setHeight(200);
         this.setHealth(200);
-        this.setDamage(1); // originally 20
+        this.setDamage(2); // originally 20
         //this.setDamage(2);
         //this.isInvincible(true);
     }

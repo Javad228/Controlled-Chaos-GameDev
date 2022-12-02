@@ -25,7 +25,7 @@ public class HealthUp extends PassiveItem {
 
         if (equipped) {
             PlayerCharacter player = gp.getPlayer();
-            player.setMaxHealth(player.getMaxHealth() + 100);
+            player.setMaxHealth(player.getMaxHealth() + 15);
             player.setHealth(player.getMaxHealth());
             //Healthbar reset to new health, max health, width
         }//25 health up, 10 width up
