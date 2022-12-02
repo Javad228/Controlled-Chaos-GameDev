@@ -68,6 +68,10 @@ public class Enemy extends NonPlayableCharacter {
 
             if (isNewEnemyKilled) {
                 player.getEnemiesKilled().add(new SimpleEnemy(this.getName(), "input a description..."));
+                player.allEnemiesKilled.add(new SimpleEnemy(this.getName(), "input a description..."));
+            }else{
+                player.allEnemiesKilled.add(new SimpleEnemy(this.getName(), "input a description..."));
+
             }
         }
     }

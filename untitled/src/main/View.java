@@ -12,6 +12,7 @@ public class View {
     private JFrame window;
     private GamePanel gamePanel;
     private SettingsPanel settingsPanel;
+    private JScrollPane tutorialPanel;
     private JPanel savePage;
     private JPanel coinPanel;
     private JPanel mainMenuPanel;
@@ -65,6 +66,7 @@ public class View {
         nameDescPanel = new NameDescPanel(gamePanel).scrollPane;
         statsPanel = new StatsPanel(gamePanel).scrollPane;
         changeSkinPanel = new ChangeSkinPanel(gamePanel);
+        tutorialPanel = new TutorialPanel(gamePanel).scrollPane;
 
         pauseMenuPanel = new PauseMenuPanel(gamePanel);
         bugReportPanel = new BugReportPanel(gamePanel);
@@ -154,6 +156,15 @@ public class View {
 
         Audio.stopMusic();
         Audio.settingsMusic();
+    }
+
+    public void showTutorialPanel() {
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getTutorialPanel());
+        Main.view.getTutorialPanel().setVisible(true);
+        Main.view.getTutorialPanel().revalidate();
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
     }
 
     public void showChangeSkinPanel() {
@@ -258,6 +269,10 @@ public class View {
 
     public SettingsPanel getSettingsPanel() {
         return settingsPanel;
+    }
+
+    public JScrollPane getTutorialPanel() {
+        return tutorialPanel;
     }
 
     public void showPanel(JPanel panel) {
