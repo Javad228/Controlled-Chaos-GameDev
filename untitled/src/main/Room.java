@@ -274,10 +274,10 @@ public class Room {
             case 8:
                 //add reward item
                 items = new ArrayList<>();
-                random = getRandomItem();
-                random.setxCoord(8 * gp.tileSize);
-                random.setyCoord(6 * gp.tileSize);
-                items.add(random);
+                damageUp = new DamageUp(DamageUp.DEFAULT_DAMAGEUP_PATHS, this.gp, 500, 500);
+                damageUp.setxCoord(8 * gp.tileSize);
+                damageUp.setyCoord(6 * gp.tileSize);
+                items.add(damageUp);
                 random = getRandomItem();
                 random.setxCoord(10 * gp.tileSize);
                 random.setyCoord(1 * gp.tileSize);
