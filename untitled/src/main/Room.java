@@ -521,7 +521,7 @@ public class Room {
          */
 
         Random random = new Random();
-        itemID = random.nextInt(max + 1);
+        itemID = random.nextInt(3 + 1);
 
         switch(itemID) {
             case 0:
