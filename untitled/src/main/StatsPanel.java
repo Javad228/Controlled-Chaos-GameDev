@@ -176,6 +176,7 @@ public class StatsPanel extends JPanel {
 
     public void addPermanentUnlocks() {
         permanentUnlocksPanel.setLayout(new BoxLayout(permanentUnlocksPanel, BoxLayout.Y_AXIS));
+        permanentUnlocksPanel.setBackground(Color.BLACK);
         permanentUnlocksPanel.add(Box.createVerticalStrut(10));
         for (int i = 0; i < pu.length; i++) {
             // make label for name of enemy
@@ -186,11 +187,11 @@ public class StatsPanel extends JPanel {
                 itemNameLabel.setText("Hidden Item");
                 itemNameLabel.setFont(new Font("Monospaced", Font.ITALIC, 20));
             } else {
-                itemNameLabel.setText(Item.getItemByID(i, gp).getName() + ":");
+                itemNameLabel.setText(Item.getItemByID(i, gp).getName());
                 itemNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
             }
 
-            //itemNameLabel.setBackground(Color.BLACK);
+            itemNameLabel.setBackground(Color.BLACK);
             itemNameLabel.setForeground(Color.WHITE);
             itemNameLabel.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
 
