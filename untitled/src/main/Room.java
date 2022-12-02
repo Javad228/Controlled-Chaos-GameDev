@@ -69,13 +69,14 @@ public class Room {
                     roomType = VOLCANOROOM;
                     break;
                 case 2:
+                case 7:
                     roomType = GRASSROOM;
                     break;
                 case 3:
                     roomType = SPOOKYROOM;
                     break;
                 case 4:
-                case 7:                 //hidden room is in the ice room, so makes sense for it to be ice themed
+                case 8:                 //hidden room is in the ice room, so makes sense for it to be ice themed
                     roomType = ICEROOM;
                     break;
                 case 5:
@@ -93,6 +94,7 @@ public class Room {
                     roomType = SPACEROOM;
                     break;
                 case 2:
+                case 7:
                     roomType = ICEROOM;
                     break;
                 case 3:
@@ -116,6 +118,7 @@ public class Room {
                     roomType = SPOOKYROOM;
                     break;
                 case 2:
+                case 7:
                     roomType = SPACEROOM;
                     break;
                 case 3:
@@ -268,7 +271,7 @@ public class Room {
                 chests.add(chest1);
                 chests.add(chest2);
                 break;
-            case 7:
+            case 8:
                 //add reward item
                 items = new ArrayList<>();
                 random = getRandomItem();
@@ -352,7 +355,7 @@ public class Room {
                 coins = new ArrayList<>();
                 coins.add(coin);
                 break;
-            case 7:
+            case 8:
                 //add coins to hidden room
                 coins = new ArrayList<>();
                 coin = new Coin(7, coinImages, 1 * gp.tileSize, 1 * gp.tileSize, 1);
