@@ -143,7 +143,6 @@ public class GamePanel extends JPanel implements Runnable{
 		initializeFirstLevel();
 		this.currentRoomNum = 1;
 		tileM.update();
-		//eManager.setup();
 
 		if (shouldStartGame) {
 			tileM.update();

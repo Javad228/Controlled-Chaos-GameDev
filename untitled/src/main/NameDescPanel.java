@@ -29,6 +29,7 @@ public class NameDescPanel extends JPanel {
 
         if (savedData == null) {
             gp.newGame(false);
+            sd.saveGameState();
             if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
             else System.out.println("Game restore Failed");
         } else {
@@ -38,7 +39,7 @@ public class NameDescPanel extends JPanel {
                     new Time(savedData.currentRunTimeNS),
                     new Time(savedData.currentLevelTimeNS),
                     sd.initializeRooms(savedData.rooms, savedData.player),
-                    savedData.currentRoomNum,
+                    savedData.currentRoomNum, savedData.currentLevelNum,
                     false); // use this method but make sure it doesn't start the game thread
             System.out.println("Game restore Succeeded");
         }
