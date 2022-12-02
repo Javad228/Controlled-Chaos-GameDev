@@ -12,6 +12,8 @@ import java.util.Objects;
 
 public class Consumable extends Item {
 
+    public static transient final String[] DEFAULT_IMAGE_PATHS = new String[]{"/consumables/apple.png"};
+
     private final int healthGiven;
 
     private boolean isRespawnable;
@@ -34,9 +36,11 @@ public class Consumable extends Item {
         getConsumableImage();
     }
 
-    public Consumable(String[] consumableImages, boolean isRespawnable) {
+    public Consumable(String[] consumableImages, boolean isRespawnable, int x, int y) {
         this(consumableImages);
         this.isRespawnable = isRespawnable;
+        this.setxCoord(x);
+        this.setyCoord(y);
     }
 
     public Consumable(String name, LootType lootType, int xCoord, int yCoord,

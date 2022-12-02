@@ -5,7 +5,7 @@ import main.KeyHandler;
 public class Coin extends Loot {
 
     public static transient final int DEFAULT_FRAMES_TO_WAIT = 7;
-    public static transient final String[] COIN_IMAGES = new String[]{"/items/coin.png"};
+    public static transient final String[] DEFAULT_COIN_IMAGES = new String[]{"/items/coin.png"};
     public static transient final int DEFAULT_VALUE = 1;
 
     private int value;
