@@ -313,7 +313,7 @@ public class GamePanel extends JPanel implements Runnable{
 				}
 
 				if (currentRoomNum == 4) { // room.TRAPROOM no longer exists. plz change
-					if (currentTime % 1000000000 == 0) {
+					if (currentTime % 1000000000 == 0 && rooms.get(currentRoomNum).getTrapTiles().size() > 0) {
 						for (int i = 0; i < maxScreenRow; i++) {
 							rooms.get(4).getTrapTiles().get(maxScreenRow + i).toggleTrap(i, TrapTile.map1TrapCol2);
 						}
