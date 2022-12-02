@@ -95,6 +95,7 @@ public class Item extends Loot {
     2 - Boot
     3 - SlimeSlinger
     4 - RapidFire
+    5 - BombBuddy
 
      */
 }

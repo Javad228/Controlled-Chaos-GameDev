@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class Knight extends Friendly{
     public static final int room4Row = 6;
@@ -93,7 +94,9 @@ public class Knight extends Friendly{
             }
         } else {
             //randomize here
-            dialog = "Hello!";
+            Random r = new Random();
+
+            dialog = dialogPool.get(r.nextInt(dialogPool.size()));
             JOptionPane.showMessageDialog(null, dialog, "Knight", JOptionPane.INFORMATION_MESSAGE);
 
         }

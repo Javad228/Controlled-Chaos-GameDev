@@ -268,6 +268,8 @@ public class SaveData {
                         enemies.add(new BigSlonch(enemy));
                     } else if (enemy.classification.equals(SimpleEnemyClassification.BIGSKULL)) {
                         enemies.add(new BigSkull(enemy));
+                    } else if (enemy.classification.equals(SimpleEnemyClassification.BIGWIZARD)) {
+                        enemies.add(new BigWizard(enemy));
                         /*Add more classifications for future enemies*/
                     } else {
                         System.out.println("Generic enemy encountered!");
