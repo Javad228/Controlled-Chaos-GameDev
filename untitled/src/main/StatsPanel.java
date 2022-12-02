@@ -1,5 +1,7 @@
 package main;
 
+import character.PlayerCharacter;
+import loot.Item;
 import save.GameSaveState;
 import save.SaveData;
 
@@ -13,14 +15,19 @@ import java.sql.Time;
 public class StatsPanel extends JPanel {
     GamePanel gp;
     SaveData sd;
+    boolean[] pu;
     GameSaveState savedData;
+
     JPanel basicDetailsPanel = new JPanel();
+    JPanel permanentUnlocksPanel = new JPanel();
     JScrollPane scrollPane = new JScrollPane(this);
 
     public StatsPanel(GamePanel gp) {
         this.gp = gp;
         sd = new SaveData(gp);
         savedData = sd.restoreGameState();
+        pu = sd.restorePermanentUnlocks();
+
 
         if (savedData == null) {
             gp.newGame(false);
@@ -37,6 +44,10 @@ public class StatsPanel extends JPanel {
                     savedData.currentLevelNum,
                     false); // use this method but make sure it doesn't start the game thread
             System.out.println("Game restore Succeeded");
+        }
+
+        if (pu == null) {
+            pu = new boolean[]{false, false, false, false, false, false};
         }
 
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -62,6 +73,11 @@ public class StatsPanel extends JPanel {
 
         scrollPane.setBackground(Color.BLACK);
 
+        addPermanentUnlocksTitleLabel();
+        if (savedData != null) {
+            addPermanentUnlocks();
+            add(permanentUnlocksPanel);
+        }
         // add button to save descriptions
         addReturnButton();
 
@@ -150,8 +166,45 @@ public class StatsPanel extends JPanel {
         basicDetailsPanel.add(numCoinsLabel);
     }
 
+    public void addPermanentUnlocksTitleLabel() {
+        JLabel itemsDiscoveredLabel = new JLabel("Permanent Unlocks:");
+        itemsDiscoveredLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
+        itemsDiscoveredLabel.setForeground(Color.WHITE);
+        itemsDiscoveredLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(itemsDiscoveredLabel);
+    }
+
+    public void addPermanentUnlocks() {
+        permanentUnlocksPanel.setLayout(new BoxLayout(permanentUnlocksPanel, BoxLayout.Y_AXIS));
+        permanentUnlocksPanel.setBackground(Color.BLACK);
+        permanentUnlocksPanel.add(Box.createVerticalStrut(10));
+        for (int i = 0; i < pu.length; i++) {
+            // make label for name of enemy
+            Item item = Item.getItemByID(i, gp);
+            JLabel itemNameLabel = new JLabel(item.getName());
+
+            if (pu == null || !pu[i] ) {
+                itemNameLabel.setText("Hidden Item");
+                itemNameLabel.setFont(new Font("Monospaced", Font.ITALIC, 20));
+            } else {
+                itemNameLabel.setText(Item.getItemByID(i, gp).getName());
+                itemNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
+            }
+
+            itemNameLabel.setBackground(Color.BLACK);
+            itemNameLabel.setForeground(Color.WHITE);
+            itemNameLabel.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+
+
+            permanentUnlocksPanel.add(itemNameLabel);
+        }
+
+        permanentUnlocksPanel.add(Box.createVerticalStrut(20));
+    }
+
     public void addReturnButton() {
         JButton saveButton = new JButton("Return");
+
         saveButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
         saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         saveButton.addActionListener(new ActionListener() {
