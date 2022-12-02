@@ -180,6 +180,78 @@ public class TileManager {
             tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getLockedDoorTilePath()))));
             tile[12].setCollision(true);
             tile[12].setTileType(Tile.DOOR1);
+
+            tile[101] = new Tile();
+            tile[101].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+
+            tile[103] = new Tile();
+            tile[103].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+
+            tile[106] = new Tile();
+            tile[106].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+
+            tile[102] = new Tile();
+            tile[102].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png"))));
+
+            tile[104] = new Tile();
+            tile[104].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/snow.png"))));
+
+            tile[105] = new Tile();
+            tile[105].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space.png"))));
+
+            tile[121] = new Tile();
+            tile[121].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+
+            tile[123] = new Tile();
+            tile[123].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+
+            tile[126] = new Tile();
+            tile[126].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
+
+            tile[122] = new Tile();
+            tile[122].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_grass.png"))));
+
+            tile[124] = new Tile();
+            tile[124].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_snow.png"))));
+
+            tile[125] = new Tile();
+            tile[125].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
+
+            tile[131] = new Tile();
+            tile[131].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/lava.png"))));
+
+            tile[133] = new Tile();
+            tile[133].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
+
+            tile[136] = new Tile();
+            tile[136].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
+
+            tile[132] = new Tile();
+            tile[132].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/tree.png"))));
+
+            tile[134] = new Tile();
+            tile[134].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/ice_mountain.png"))));
+
+            tile[135] = new Tile();
+            tile[135].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space_rock.png"))));
+
+            tile[141] = new Tile();
+            tile[141].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/lava.png"))));
+
+            tile[143] = new Tile();
+            tile[143].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/jack_o_lantern.png"))));
+
+            tile[146] = new Tile();
+            tile[146].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
+
+            tile[142] = new Tile();
+            tile[142].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/mud.png"))));
+
+            tile[144] = new Tile();
+            tile[144].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png"))));
+
+            tile[145] = new Tile();
+            tile[145].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space_rock.png"))));
         }catch (IOException e) {
             e.printStackTrace();
         }
