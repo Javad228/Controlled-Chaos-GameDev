@@ -223,18 +223,54 @@ public class CollisionChecker {
                 // as a rule, doors to go back should be on the left side of the screen
                 if (character.getxCoord() < gp.maxScreenCol * gp.tileSize / 2) {
                     // we want to go back!
-                    gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                    if (gp.getCurrentRoomNum() == 7) {
+                        gp.setCurrentRoomNum(4);
+                    } else {
+                        gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                    }
                     System.out.println(gp.getCurrentRoomNum());
                     gp.tileM.backward = true;
                     gp.tileM.update();
                 } else {
                     // we want to go forward!
-                    gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                    if (gp.getCurrentRoomNum() == 7) {
+                        gp.setCurrentRoomNum(5);
+                    } else if (gp.getCurrentRoomNum() == 6) {
+                        //go back to main menu?
+                    } else {
+                        gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                    }
                     System.out.println(gp.getCurrentRoomNum());
                     gp.tileM.backward = false;
                     gp.tileM.update();
                 }
             }
+
+            /*
+            if (character.getxCoord() < gp.maxScreenCol * gp.tileSize / 2) {
+                // we want to go back!
+                gp.tileM.backward = true;
+                if (gp.getCurrentRoomNum() == 7) {
+                    //take us to room 4 from the hidden room
+                    gp.setCurrentRoomNum(4);
+                } else {
+                    gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
+                    System.out.println(gp.getCurrentRoomNum());
+                }
+            } else {
+                // we want to go forward!
+                gp.tileM.backward = false;
+                if (gp.getCurrentRoomNum() == 7) {
+                    //take us to room 5 from the hidden room
+                    gp.setCurrentRoomNum(5);
+                } else {
+                    gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
+                    System.out.println(gp.getCurrentRoomNum());
+                }
+            }
+            gp.tileM.update();
+
+            */
         } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.GRASSROOM && (gp.tileM.tile[tileNum1].getTileType() == Tile.ENVIRONMENT || gp.tileM.tile[tileNum2].getTileType() == Tile.ENVIRONMENT)) {
             character.movementSpeed = character.maxSpeed / 2;
         } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.ICEROOM && (gp.tileM.tile[tileNum1].getTileType() == Tile.ENVIRONMENT || gp.tileM.tile[tileNum2].getTileType() == Tile.ENVIRONMENT)) {

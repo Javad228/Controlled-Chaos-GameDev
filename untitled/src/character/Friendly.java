@@ -24,9 +24,6 @@ public class Friendly extends NonPlayableCharacter {
 
     //need to change with randomization and specific npcs
     public void displayDialog() {
-        System.out.printf("Current room: %d\n", getGp().getCurrentRoomNum());
-
-
         if (getGp().getCurrentRoomNum() == 1) { // room.STARTINGROOM no longer exists. plz change
             String dialog = "Hello " + getGp().getPlayer().name + "!";
             JOptionPane.showMessageDialog(null, dialog, "Satyr", JOptionPane.INFORMATION_MESSAGE);

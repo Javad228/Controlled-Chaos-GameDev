@@ -85,13 +85,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void initializeRooms() {
 		rooms = new ArrayList<>();
-		rooms.add(new Room(0, keyH, this));
-		rooms.add(new Room(1, keyH, this));
-		rooms.add(new Room(2, keyH, this));
-		rooms.add(new Room(3, keyH, this));
-		rooms.add(new Room(4, keyH, this));
-		rooms.add(new Room(5, keyH, this));
-		rooms.add(new Room(6, keyH, this));
+		for (int i = 0; i < 8; i++) {
+			rooms.add(new Room(i, keyH, this));
+		}
 
 		// First run will set enemy coordinates
 		if (rooms.get(currentRoomNum).getEnemies() != null){
@@ -286,6 +282,14 @@ public class GamePanel extends JPanel implements Runnable{
 					}
 					if (player.getCurrentTile().isDamageTile()) {
 						player.damagePlayerInt(trapDamage);
+					} else if (player.getCurrentTile().getTileType() == 9) {
+						if (this.currentRoomNum == 4) {		//player is in room 4 and should go to hidden room (7)
+							//go into hidden room
+							this.setCurrentRoomNum(7);        //num of hidden room
+							//System.out.println(gp.getCurrentRoomNum());
+							this.tileM.backward = false;
+							this.tileM.update();
+						}
 					}
 				}
 

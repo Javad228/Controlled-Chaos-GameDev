@@ -10,6 +10,7 @@ import tile.TrapTile;
 
 import java.util.ArrayList;
 import java.lang.Math.*;
+import java.util.Random;
 
 public class Room {
     public static final int VOLCANOROOM = 1;
@@ -50,6 +51,7 @@ public class Room {
                     roomType = SPOOKYROOM;
                     break;
                 case 4:
+                case 7:                 //hidden room is in the ice room, so makes sense for it to be ice themed
                     roomType = ICEROOM;
                     break;
                 case 5:
@@ -136,6 +138,13 @@ public class Room {
                 rapidFire.setxCoord(400);
                 rapidFire.setyCoord(400);
                 items.add(rapidFire);
+
+                String [] bombBuddyImages = {"/items/bomb-buddy.png"};
+                BombBuddy bombBuddy = new BombBuddy(bombBuddyImages, this.gp, 500, 500);
+                rapidFire.setxCoord(300);
+                rapidFire.setyCoord(400);
+                items.add(bombBuddy);
+
                 Item random = getRandomItem();
                 random.setxCoord(500);
                 random.setyCoord(500);
@@ -182,12 +191,30 @@ public class Room {
                 chests.add(chest1);
                 chests.add(chest2);
                 break;
+            case 7:
+                //add reward item
+                items = new ArrayList<>();
+                random = getRandomItem();
+                random.setxCoord(8 * gp.tileSize);
+                random.setyCoord(6 * gp.tileSize);
+                items.add(random);
+                random = getRandomItem();
+                random.setxCoord(10 * gp.tileSize);
+                random.setyCoord(1 * gp.tileSize);
+                items.add(random);
+                break;
+            default:
+                items = null;
         }
     }
 
     private void initializeEnemies() {
         switch(roomNum) {
             case 1:
+                /*
+                enemies = new ArrayList<>();
+                enemies.add(new BigWizard(500, 500));
+                */
                 break;
             case 2:
                 if(gp.getPlayer().roomSetNum ==1){
@@ -205,7 +232,7 @@ public class Room {
             case 6:
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
-                }else{
+                } else{
                     enemies.add(new BigSkull(300, 300));
                 }
                 break;
@@ -223,41 +250,35 @@ public class Room {
                     NPCs.add(satyr);
                 }
                 break;
-            case 2:
-
-                break;
             case 3:
                 Knight knight = new Knight(Knight.room4Col * gp.tileSize, Knight.room4Row * gp.tileSize);
                 NPCs.add(knight);
-                break;
-            case 4:
-                break;
-            case 6:
                 break;
         }
     }
 
     private void initializeCoins() {
+        String[] coinImages = {"/items/coin.png"};
         switch(roomNum) {
             case 1:
-                String[] coinImages = {"/items/coin.png"};
                 //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
                 Coin coin = new Coin(7, coinImages, 600, 500, 1);
                 coins.add(coin);
                 break;
-            case 2:
-            case 3:
+            case 7:
+                //add coins to hidden room
+                coins = new ArrayList<>();
+                coin = new Coin(7, coinImages, 1 * gp.tileSize, 1 * gp.tileSize, 1);
+                coins.add(coin);
+                coin = new Coin(7, coinImages, 13 * gp.tileSize, 4 * gp.tileSize, 1);
+                coins.add(coin);
+
+                break;
         }
     }
 
     private void initializeButtons() {
         switch(roomNum) {
-            case 1:
-                buttons = null;
-            case 2:
-                buttons = null;
-            case 3:
-                buttons = null;
             case 4:
                 buttons = new ArrayList<>();
                 //buttons = new ArrayList<>(5); // TODO: if no crashes, move above line to constructor
@@ -291,12 +312,6 @@ public class Room {
 
     private void initializeTrapTiles() {
         switch(roomNum) {
-            case 1:
-                trapTiles = null;
-            case 2:
-                trapTiles = null;
-            case 3:
-                trapTiles = null;
             case 4:
                 trapTiles = new ArrayList<>();
                 //trapTiles = new ArrayList<>(24); // TODO: if no crashes, move above line to constructor
@@ -323,12 +338,6 @@ public class Room {
 
     private void initializeDoorTile() {
         switch(roomNum) {
-            case 1:
-                doorTile = null;
-            case 2:
-                doorTile = null;
-            case 3:
-                doorTile = null;
             case 4:
                 doorTile = new DoorTile();
                 doorTile.setLocked(false);
@@ -397,22 +406,28 @@ public class Room {
 
         //random thing that returns an id from 0 to 4
         int min = 0;
-        int max = 4;
+        int max = 5;
         int itemID;
 
         //priority equal to item ID of item that was just unlocked, -1 if no priority
+        /*
         if (gp.getPlayer().getItemPriority() != -1) {
             itemID = gp.getPlayer().getItemPriority();
             gp.getPlayer().setItemPriority(-1);
         }
         else {
-            itemID = (int) (Math.random() * (max - min) + min);
+            //itemID = (int) (Math.random() * (max - min) + min);
             //need in player: pickedUp[] same as Unlocked, but all start as false
             //somewhere: when item picked up, set pickedUp[itemID] = true
             while (!gp.getPlayer().getItemsUnlocked()[itemID]) {    //|| pickedUp[itemID] == true
                 itemID = (int) (Math.random() * (max - min) + min);
             }
         }
+
+         */
+
+        Random random = new Random();
+        itemID = random.nextInt(max + 1);
 
         switch(itemID) {
             case 0:
@@ -431,6 +446,9 @@ public class Room {
             case 4:
                 String [] rapidFireImages = {"/items/rapid-fire.png"};
                 return new RapidFire(rapidFireImages, this.gp, 500, 500);
+            case 5:
+                String [] bombBuddyImages = {"/items/bomb-buddy.png"};
+                return new BombBuddy(bombBuddyImages, this.gp, 500, 500);
 
         }
     }

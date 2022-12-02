@@ -154,8 +154,10 @@ public class TileManager {
             tile[8].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/locked_door.png"))));
             tile[8].setCollision(true);
 
+            //texture will need adjusted if there are hidden doors put in rooms other than the ice room
             tile[9] = new Tile();
-            tile[9].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/hint_block.png"))));
+            tile[9].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/snow_hidden_door.png"))));
+            tile[9].setTileType(9);
 
         }catch (IOException e) {
             e.printStackTrace();
