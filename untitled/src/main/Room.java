@@ -102,6 +102,14 @@ public class Room {
             System.out.println("Received bad roomSetNum.");
         }
 
+        items = new ArrayList<>();
+        chests = new ArrayList<>();
+        signs = new ArrayList<>();
+        enemies = new ArrayList<>();
+        NPCs = new ArrayList<>();
+        coins = new ArrayList<>();
+
+
         initializeItems();
         initializeEnemies();
         initializeCoins();
@@ -113,7 +121,6 @@ public class Room {
     private void initializeItems() {
         switch(roomNum) {
             case 1:
-                items = new ArrayList<>();
                 String [] healthImages = {"/items/health.png"};
                 HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
                 healthUp.setxCoord(200);
@@ -136,7 +143,6 @@ public class Room {
                 break;
 
             case 2:
-                items = new ArrayList<>();
                 String[] appleImages = {"/consumables/apple.png"};
                 Consumable apple = new Consumable(appleImages, false);
                 items.add(apple);
@@ -156,7 +162,6 @@ public class Room {
                 boot.setxCoord(500);
                 boot.setyCoord(500);
 
-                items = new ArrayList<>();
                 //items.add(sword);
                 items.add(slimeSlinger);
                 items.add(effect);
@@ -164,9 +169,6 @@ public class Room {
 
                 break;
             case 6:
-                items = new ArrayList<>();
-                chests = new ArrayList<>();
-                signs = new ArrayList<>();
                 Chest chest = new Chest(320, 200, gp,0);
                 Chest chest1 = new Chest(470, 200, gp,1);
                 Chest chest2 = new Chest(620, 200, gp,2);
@@ -188,7 +190,6 @@ public class Room {
             case 1:
                 break;
             case 2:
-                enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
 //                    enemies.add(new Slime(100, 100));
                     enemies.add(new Skeleton(500, 500));
@@ -199,11 +200,9 @@ public class Room {
                 }
                 break;
             case 3:
-                enemies = new ArrayList<>();
                 enemies.add(new Barrel(300, 50));
                 break;
             case 6:
-                enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
                 }else{
@@ -214,7 +213,6 @@ public class Room {
     }
 
     private void initializeNPCs() {
-        NPCs = new ArrayList<>();
         switch(roomNum) {
             case 1:
                 if (gp.getPlayer().roomSetNum == 1) {
@@ -245,12 +243,10 @@ public class Room {
                 String[] coinImages = {"/items/coin.png"};
                 //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
                 Coin coin = new Coin(7, coinImages, 600, 500, 1);
-                coins = new ArrayList<>();
                 coins.add(coin);
                 break;
             case 2:
             case 3:
-                coins = null;
         }
     }
 
@@ -263,7 +259,8 @@ public class Room {
             case 3:
                 buttons = null;
             case 4:
-                buttons = new ArrayList<>(5);
+                buttons = new ArrayList<>();
+                //buttons = new ArrayList<>(5); // TODO: if no crashes, move above line to constructor
                 Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1Button1Row * gp.tileSize);
 
                 for (int i = 0; i < gp.maxScreenRow; i++) {
@@ -301,7 +298,8 @@ public class Room {
             case 3:
                 trapTiles = null;
             case 4:
-                trapTiles = new ArrayList<>(24);
+                trapTiles = new ArrayList<>();
+                //trapTiles = new ArrayList<>(24); // TODO: if no crashes, move above line to constructor
                 for (int i = 0; i < gp.maxScreenRow; i++) {
                     TrapTile thisTrapTile = new TrapTile();
                     thisTrapTile.setx(TrapTile.map1TrapCol1 * gp.tileSize);

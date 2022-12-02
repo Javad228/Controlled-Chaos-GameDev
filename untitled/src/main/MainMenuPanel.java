@@ -45,10 +45,10 @@ public class MainMenuPanel extends JPanel {
     }
 
     private void addNewRunButton() {
-        JButton continueRun = new JButton("New Run");
-        continueRun.setFont(new Font("Monospaced", Font.PLAIN, 25));
-        continueRun.setAlignmentX(Component.CENTER_ALIGNMENT);
-        continueRun.addActionListener(new ActionListener() {
+        JButton newRun = new JButton("New Run");
+        newRun.setFont(new Font("Monospaced", Font.PLAIN, 25));
+        newRun.setAlignmentX(Component.CENTER_ALIGNMENT);
+        newRun.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.view.showGamePanel();
@@ -56,7 +56,7 @@ public class MainMenuPanel extends JPanel {
                 addItemsPerCharacter();
             }
         });
-        add(continueRun);
+        add(newRun);
 
     }
 

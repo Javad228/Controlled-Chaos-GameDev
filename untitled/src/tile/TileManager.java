@@ -24,7 +24,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp1) {
         gp = gp1;
-        tile = new Tile[12];
+        tile = new Tile[13];
         mapTileNum = new int[gp1.maxScreenCol+1][gp1.maxScreenRow+1];
         //this.roomNum = 0;   // might need to change based on saved progress
         doorLocations = new ArrayList<>();
@@ -67,11 +67,13 @@ public class TileManager {
     public void getTileImage() {
         tile[0] = new Tile();
         tile[2] = new Tile();
-        //tile[2].collision = true;
         tile[2].setCollision(true);
         tile[2].setTileType(Tile.DOOR2);
         tile[3] = new Tile();
         tile[3].setCollision(true);
+        tile[12] = new Tile();
+        tile[12].setCollision(true);
+        tile[12].setTileType(Tile.DOOR1);
 
         try {
             System.out.println("room type = " + Integer.toString(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()));
@@ -80,6 +82,7 @@ public class TileManager {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
                 tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/lava.png"))));
+                tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black_locked.png"))));
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.GRASSROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png"))));
                 tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_grass.png"))));
@@ -87,6 +90,7 @@ public class TileManager {
                 tile[10] = new Tile();
                 tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/mud.png"))));
                 tile[10].setTileType(Tile.ENVIRONMENT);
+                tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_grass_locked.png"))));
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
                 tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
@@ -95,6 +99,7 @@ public class TileManager {
                 tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/jack_o_lantern.png"))));
                 tile[10].setTileType(Tile.ENVIRONMENT);
                 tile[10].setCollision(true);
+                tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black_locked.png"))));
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.ICEROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/snow.png"))));
                 tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_snow.png"))));
@@ -102,16 +107,19 @@ public class TileManager {
                 tile[10] = new Tile();
                 tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png"))));
                 tile[10].setTileType(Tile.ENVIRONMENT);
+                tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_snow_locked.png"))));
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPACEROOM) {
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space.png"))));
                 tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/space_rock.png"))));
+                tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black_locked.png"))));
             } else if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == 6) { // all 6th rooms will be shop rooms
                 tile[0] = new Tile();
                 tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));
                 tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black.png"))));
                 tile[3] = new Tile();
                 tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/cobweb.png"))));
+                tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/door_black_locked.png"))));
             } else {
                 System.out.println("Received bad room type. Update of tile images not executed.");
             }
@@ -216,7 +224,14 @@ public class TileManager {
 
             int tileNum = mapTileNum[col][row];
 
-            drawTile(g2, tileNum, x, y);
+            // check if the given tile is a door, it is located on the right side of the screen, and there are currently enemies in the room.
+            // assumes that the enemy list is never null... might be a bad assumption.
+            if (tileNum == Tile.DOOR2 && x > gp.screenWidth / 2 && gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies().size() > 0) {
+                drawTile(g2, 12, x, y);
+            } else {
+                drawTile(g2, tileNum, x, y);
+            }
+
             col++;
             x += gp.tileSize;
 

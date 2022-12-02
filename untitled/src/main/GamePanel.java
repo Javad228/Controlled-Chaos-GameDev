@@ -174,14 +174,14 @@ public class GamePanel extends JPanel implements Runnable{
 	private void newGameHelper() {
 		Audio.stopWalking();
 		Audio.stopMusic();
-		Audio.openingMusic();
-		Main.view.getSettingsPanel().hideSettingsPanel();
-		deathPanel.hideDeathPanel();
-		this.setFocusable(true);
-		this.requestFocusInWindow();
+		// commented the following out because I couldn't get out the settings menu by pressing escape
+		//this.setFocusable(true);
+		//this.requestFocusInWindow();
 		if (gameThread == null) {
 			this.gameThread = new Thread(this);
 			startGameThread();
+		} else {
+			Audio.openingMusic();
 		}
 
 		if (rooms.get(currentRoomNum).getEnemies() != null){
