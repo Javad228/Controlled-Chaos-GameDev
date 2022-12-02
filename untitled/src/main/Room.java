@@ -3,38 +3,62 @@ package main;
 import character.*;
 import enemy.*;
 
+import etc.CoordinateWizard;
 import loot.*;
 import tile.Button;
 import tile.DoorTile;
 import tile.TrapTile;
 
 import java.util.ArrayList;
-import java.lang.Math.*;
 import java.util.Random;
 
 public class Room {
+
+    public static final int DEFAULT_NUM_ROOMS = 6;
+
+    // (room0.txt - room13.txt), shop.txt, boss.txt
+    public static final int MAX_NUM_ROOMS = DEFAULT_NUM_ROOMS + PlayerCharacter.HIGHEST_DIFF;
+
     public static final int VOLCANOROOM = 1;
     public static final int GRASSROOM = 2;
     public static final int SPOOKYROOM = 3;
     public static final int ICEROOM = 4;
     public static final int SPACEROOM = 5;
+    public static final int SHOPROOM = 6;
 
-    private int roomNum;
+    public static final int[] roomTypes =
+            new int[]{VOLCANOROOM, GRASSROOM, SPOOKYROOM, ICEROOM, SPACEROOM};
+
+    public static int numOfRooms = DEFAULT_NUM_ROOMS;
+
     private ArrayList<Item> items;
     private ArrayList<Chest> chests;
-
     private ArrayList<Sign> signs;
     private ArrayList<Enemy> enemies;
     private ArrayList<Friendly> NPCs;
-    private transient KeyHandler keyH;
-    private transient GamePanel gp;
     private ArrayList<Button> buttons;
     private ArrayList<Coin> coins;
     private ArrayList<TrapTile> trapTiles;
+
     private DoorTile doorTile;
+    private int roomNum;
     private int roomType;
 
+    private transient KeyHandler keyH;
+    private transient GamePanel gp;
+
+    /**
+     * Room - Generate first level room. Scope of this constructor
+     * is public
+     *
+     * @param roomNum
+     * @param keyH
+     * @param gp
+     */
     public Room(int roomNum, KeyHandler keyH, GamePanel gp) {
+        if (roomNum == 0)    numOfRooms = 0;
+        else    numOfRooms++;
+
         this.roomNum = roomNum;
         this.keyH = keyH;
         this.gp = gp;
@@ -58,7 +82,10 @@ public class Room {
                     roomType = SPACEROOM;
                     break;
                 case 6:
-                    roomType = 6;
+                    roomType = SHOPROOM;
+                    break;
+                default:
+                    roomType = SPOOKYROOM;
             }
         } else if (gp.player.roomSetNum == 2) {
             switch(roomNum) {
@@ -78,7 +105,10 @@ public class Room {
                     roomType = SPOOKYROOM;
                     break;
                 case 6:
-                    roomType = 6;
+                    roomType = SHOPROOM;
+                    break;
+                default:
+                    roomType = SPACEROOM;
             }
         } else if (gp.player.roomSetNum == 3) {
             switch(roomNum) {
@@ -98,7 +128,10 @@ public class Room {
                     roomType = GRASSROOM;
                     break;
                 case 6:
-                    roomType = 6;
+                    roomType = SHOPROOM;
+                    break;
+                default:
+                    roomType = VOLCANOROOM;
             }
         } else {
             System.out.println("Received bad roomSetNum.");
@@ -120,29 +153,69 @@ public class Room {
         initializeNPCs();
     }
 
+    /**
+     * Room - Private constructor to create room objects after the player has completed
+     * the first level. This is to ensure that the list variables which contain room elements
+     * such as enemies, items, traps, coins, and NPCs are existing.
+     *
+     * @param thisRoomNum   The given room number
+     * @param numRooms
+     * @param keyH
+     * @param gp
+     */
+    private Room(int thisRoomNum, final int numRooms, KeyHandler keyH, GamePanel gp) {
+        this.keyH = keyH;
+        this.gp = gp;
+        this.roomNum = thisRoomNum;
+
+        // If this room being created is the second to last room
+        // in the level, make it the shop room.
+        // Otherwise, choose room type from a sequential array
+        if (numRooms < 0) {
+            this.roomType = 0;
+        } else if (numRooms - thisRoomNum == 1) {
+            this.roomType = SHOPROOM;
+        } else {
+            this.roomType = roomTypes[thisRoomNum % roomTypes.length];
+        }
+
+        // Initialize every ArrayList
+        this.items = new ArrayList<>();
+        this.chests = new ArrayList<>();
+        this.signs = new ArrayList<>();
+        this.enemies = new ArrayList<>();
+        this.NPCs = new ArrayList<>();
+        this.buttons = new ArrayList<>();
+        this.coins = new ArrayList<>();
+        this.trapTiles = new ArrayList<>();
+    }
+
     private void initializeItems() {
         switch(roomNum) {
             case 1:
-                String [] healthImages = {"/items/health.png"};
-                HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
+                //String [] healthImages = {"/items/health.png"};
+                //HealthUp healthUp = new HealthUp(healthImages, this.gp, 500, 500);
+                HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, this.gp, 500, 500);
                 healthUp.setxCoord(200);
                 healthUp.setyCoord(200);
                 items.add(healthUp);
-                String [] damageImages = {"/items/damage.png"};
-                DamageUp damageUp = new DamageUp(damageImages, this.gp, 500, 500);
+                //String [] damageImages = {"/items/damage.png"};
+                //DamageUp damageUp = new DamageUp(damageImages, this.gp, 500, 500);
+                DamageUp damageUp = new DamageUp(DamageUp.DEFAULT_DAMAGEUP_PATHS, this.gp, 500, 500);
                 damageUp.setxCoord(300);
                 damageUp.setyCoord(300);
                 items.add(damageUp);
-                String [] rapidFireImages = {"/items/rapid-fire.png"};
-                RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, 500, 500);
+                //String [] rapidFireImages = {"/items/rapid-fire.png"};
+                //RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, 500, 500);
+                RapidFire rapidFire = new RapidFire(RapidFire.DEFAULT_IMAGE_PATHS, this.gp, 500, 500);
                 rapidFire.setxCoord(400);
                 rapidFire.setyCoord(400);
                 items.add(rapidFire);
 
                 String [] bombBuddyImages = {"/items/bomb-buddy.png"};
                 BombBuddy bombBuddy = new BombBuddy(bombBuddyImages, this.gp, 500, 500);
-                rapidFire.setxCoord(300);
-                rapidFire.setyCoord(400);
+                bombBuddy.setxCoord(300);
+                bombBuddy.setyCoord(400);
                 items.add(bombBuddy);
 
                 Item random = getRandomItem();
@@ -152,22 +225,26 @@ public class Room {
                 break;
 
             case 2:
-                String[] appleImages = {"/consumables/apple.png"};
-                Consumable apple = new Consumable(appleImages, false);
+                //String[] appleImages = {"/consumables/apple.png"};
+                //Consumable apple = new Consumable(appleImages, false);
+                Consumable apple = new Consumable(Consumable.DEFAULT_IMAGE_PATHS, false, 100, 100);
                 items.add(apple);
                 break;
             case 3:
-                String[] swordImages = {"/weapons/wooden_sword.png"};
-                String[] slimeSlingerImages = {"/items/slingshot.png"};
-                String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
-                String[] bootImages = {"/items/boot.png"};
+                //String[] swordImages = {"/weapons/wooden_sword.png"};
+                //String[] slimeSlingerImages = {"/items/slingshot.png"};
+                //String[] effectImages = {"/effects/invincibility_1.png", "/effects/invincibility_2.png", "/effects/invincibility_3.png"};
+                //String[] bootImages = {"/items/boot.png"};
 
                 //Sword sword = new Sword(swordImages, this.gp, 300, 300);
-                SlimeSlinger slimeSlinger = new SlimeSlinger(slimeSlingerImages, this.gp, 400, 400);
+                //SlimeSlinger slimeSlinger = new SlimeSlinger(slimeSlingerImages, this.gp, 400, 400);
+                SlimeSlinger slimeSlinger = new SlimeSlinger(SlimeSlinger.DEFAULT_IMAGE_PATHS, this.gp, 400, 400);
                 slimeSlinger.setxCoord(500);
                 slimeSlinger.setyCoord(400);
-                Effect effect = new Effect(effectImages);
-                Boot boot = new Boot(bootImages, this.gp, 500, 500);
+                //Effect effect = new Effect(effectImages);
+                Effect effect = new Effect(Effect.DEFAULT_IMAGE_PATHS);
+                //Boot boot = new Boot(bootImages, this.gp, 500, 500);
+                Boot boot = new Boot(Boot.DEFAULT_IMAGE_PATHS, this.gp, 500, 500);
                 boot.setxCoord(500);
                 boot.setyCoord(500);
 
@@ -226,7 +303,7 @@ public class Room {
             case 3:
                 enemies.add(new Barrel(300, 50));
                 break;
-            case 6:
+            case 7:
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
                 } else{
@@ -259,7 +336,8 @@ public class Room {
         switch(roomNum) {
             case 1:
                 //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
-                Coin coin = new Coin(7, coinImages, 600, 500, 1);
+                //Coin coin = new Coin(7, coinImages, 600, 500, 1);
+                Coin coin = new Coin(Coin.DEFAULT_FRAMES_TO_WAIT, Coin.DEFAULT_COIN_IMAGES, 600, 500, 1);
                 coins.add(coin);
                 break;
             case 7:
@@ -456,5 +534,339 @@ public class Room {
 
     public void setRoomType(int roomType) {
         this.roomType = roomType;
+    }
+
+    public static ArrayList<Room> generateNewLevel(int difficulty, KeyHandler k, GamePanel g) {
+        numOfRooms = Math.min(DEFAULT_NUM_ROOMS + difficulty, MAX_NUM_ROOMS);
+
+        ArrayList<Room> rooms = new ArrayList<>();
+        int randRoomType = (int)(Math.random() * roomTypes.length);
+
+        //rooms.add(new Room(0, -1, k, g)); // Add empty room
+
+        for (int i = 0; i <= numOfRooms; i++) {
+            Room r = new Room(i, numOfRooms, k, g);
+
+            if (r.getRoomNum() == 0)    {
+                rooms.add(r);
+                continue;
+            }
+
+            if (r.roomType == SHOPROOM) {
+                ArrayList<Item> items = new ArrayList<>();
+                ArrayList<Chest> chests = new ArrayList<>();
+                ArrayList<Sign> signs = new ArrayList<>();
+                Chest chest = new Chest(320, 200, g,0);
+                Chest chest1 = new Chest(470, 200, g,1);
+                Chest chest2 = new Chest(620, 200, g,2);
+                Sign sign = new Sign(320, 245, g,0);
+                Sign sign1 = new Sign(470, 245, g,1);
+                Sign sign2 = new Sign(620, 245, g,2);
+                signs.add(sign);
+                signs.add(sign1);
+                signs.add(sign2);
+                chests.add(chest);
+                chests.add(chest1);
+                chests.add(chest2);
+                r.setItems(items);
+                r.setChests(chests);
+                r.signs = signs;
+            } else {
+
+                initializeRandomItems(r, difficulty);
+                initializeRandomEnemies(r, difficulty);
+                initializeRandomCoins(r, difficulty);
+
+                //r.setNPCs(new ArrayList<>());   // TODO: ADD FURTHER IMPLEMENTATION
+
+                //r.trapTiles = new ArrayList<>();
+                //r.setRoomType(roomTypes[(randRoomType++) % roomTypes.length]);
+                r.doorTile = null;  // TODO: ADD FURTHER IMPLEMENTATION
+                r.buttons = new ArrayList<>();
+
+            }
+
+            rooms.add(r);
+        }
+
+        // Spawn boss for the last room in the level
+        initializeRandomBoss(rooms.get(rooms.size()-1), difficulty);
+
+        return rooms;
+    }
+
+    private static void initializeRandomItems(Room r, int difficulty) {
+        // Duplicated random loot set from Chest.java:44,49,55
+
+        int minNumOfItems = 3;
+        int variability = 1;
+
+        if (difficulty > PlayerCharacter.MID)   minNumOfItems = 5;
+
+        int numOfCommonItems;
+        int numOfRareItems;
+        int numOfEpicItems;
+
+        var commonItems = new Class[]{
+                Sword.class,
+                Sword.class,
+                Sword.class,
+                HealthUp.class,
+                HealthUp.class
+        };
+        var rareItems = new Class[] {
+                Sword.class,
+                Sword.class,
+                HealthUp.class,
+                Boot.class,
+                Boot.class,
+                Consumable.class,
+                Consumable.class
+        };
+        var epicItems = new Class[] {
+                HealthUp.class,
+                HealthUp.class,
+                Boot.class,
+                SlimeSlinger.class,
+                SlimeSlinger.class,
+                RapidFire.class,
+        };
+
+
+        // The total number of items that can be present in this room
+        // Generated by using a constant floor variable plus a random
+        // constant, giving a pseudo-random feel for randomness in item quantity
+        int numOfItems = (int)((Math.random() * variability) + minNumOfItems);
+
+        switch (difficulty) {
+            // Number of items per room here is 3
+
+            // Common is guaranteed to be in the room
+            // Rare and epic cannot appear
+            case PlayerCharacter.EASY_PEESY, PlayerCharacter.EASY -> {
+                numOfCommonItems = numOfItems;
+                numOfRareItems = 0;
+                numOfEpicItems = 0;
+            }
+            // Common and Rare are guaranteed to be in the room
+            // Epic cannot appear
+            case PlayerCharacter.EASY_ADVANCED, PlayerCharacter.MID -> {
+                numOfCommonItems = (int)(Math.random()*(numOfItems-1));
+                numOfRareItems = numOfItems - numOfCommonItems;
+                numOfEpicItems = 0;
+            }
+            // After this point, the number of items per room is 5
+
+            // Common, Rare, and Epic are guaranteed to be in the room
+            case PlayerCharacter.MEDIUM, PlayerCharacter.KINDA_HARD -> {
+                numOfCommonItems = (int)(Math.random() * (numOfItems - 2));
+                numOfRareItems = (int)(Math.random() * (numOfItems - (numOfCommonItems - 1)));
+                numOfEpicItems = numOfItems - numOfCommonItems - numOfRareItems;
+            }
+            // Rare and Epic are guaranteed to be in the room
+            // Common is not guaranteed, but still can appear
+            case PlayerCharacter.PRETTY_HARD, PlayerCharacter.HARD -> {
+                numOfRareItems = (int)(Math.random() * (numOfItems - 1));
+                numOfEpicItems = (int)(Math.random() * (numOfItems - numOfRareItems));
+                numOfCommonItems = numOfItems - numOfRareItems - numOfEpicItems;
+            }
+            // Epic is guaranteed to be in the room
+            // Rare is not guaranteed, but still can appear
+            // Common cannot appear
+            case PlayerCharacter.VERY_HARD, PlayerCharacter.DEMON -> {
+                numOfEpicItems = (int)(Math.random() * numOfItems);
+                numOfRareItems = numOfItems - numOfEpicItems;
+                numOfCommonItems = 0;
+            }
+            default -> {
+                System.err.printf("initializeRandomItems() - Player Difficulty not valid: %d\n", difficulty);
+                numOfCommonItems = 0;
+                numOfRareItems = 0;
+                numOfEpicItems = 0;
+            }
+        }
+
+
+        ArrayList<Item> items = new ArrayList<>();
+
+        for (int i = 0; i < numOfCommonItems; i++) {
+            int j = (int)(Math.random() * commonItems.length);
+            int x = CoordinateWizard.getX(r.getRoomNum());
+            int y = CoordinateWizard.getY(r.getRoomNum());
+
+            Item item;
+
+            if (commonItems[j].equals(Sword.class)) {
+                item = new Sword(Sword.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+            }
+            else {
+                item = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, r.gp, x, y);
+            }
+
+            items.add(item);
+        }
+
+        for (int i = 0; i < numOfRareItems; i++) {
+            int j = (int)(Math.random() * rareItems.length);
+            int x = CoordinateWizard.getX(r.getRoomNum());
+            int y = CoordinateWizard.getY(r.getRoomNum());
+
+            Item item;
+
+            if (rareItems[j].equals(Sword.class)) {
+                item = new Sword(Sword.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+            } else if (rareItems[j].equals(HealthUp.class)) {
+                item = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, r.gp, x, y);
+            } else if (rareItems[j].equals(Boot.class)) {
+                item = new Boot(Boot.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+            } else {
+                item = new Consumable(Consumable.DEFAULT_IMAGE_PATHS, false, x, y);
+            }
+
+            items.add(item);
+        }
+
+        for (int i = 0; i < numOfEpicItems; i++) {
+            int j = (int)(Math.random() * epicItems.length);
+            int x = CoordinateWizard.getX(r.getRoomNum());
+            int y = CoordinateWizard.getY(r.getRoomNum());
+
+            Item item;
+
+            if (epicItems[j].equals(HealthUp.class)) {
+                item = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, r.gp, x, y);
+            } else if (epicItems[j].equals(Boot.class)) {
+                item = new Boot(Boot.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+            } else if (epicItems[j].equals(SlimeSlinger.class)) {
+                item = new SlimeSlinger(SlimeSlinger.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+            } else {
+                item = new RapidFire(RapidFire.DEFAULT_IMAGE_PATHS, r.gp, x, y);
+            }
+
+            items.add(item);
+        }
+
+        r.setItems(items);
+    }
+
+    private static void initializeRandomEnemies(Room r, int difficulty) {
+        ArrayList<Enemy> enemies = new ArrayList<>();
+        int minNumOfEnemies;
+        int variability = 2 + difficulty;
+        var enemyTypes = new Class[]{
+                Barrel.class,
+                Skeleton.class,
+                Skeleton.class,
+                Wizard.class,
+                Wizard.class
+        };
+
+        switch (difficulty) {
+            case PlayerCharacter.EASY_PEESY, PlayerCharacter.EASY -> minNumOfEnemies = difficulty;
+            case PlayerCharacter.EASY_ADVANCED, PlayerCharacter.MID -> minNumOfEnemies = difficulty;
+            case PlayerCharacter.MEDIUM, PlayerCharacter.KINDA_HARD -> minNumOfEnemies = difficulty;
+            case PlayerCharacter.PRETTY_HARD, PlayerCharacter.HARD -> minNumOfEnemies = 10;
+            case PlayerCharacter.VERY_HARD -> minNumOfEnemies = 15;
+            case PlayerCharacter.DEMON -> minNumOfEnemies = 20;
+            default -> {
+                System.err.printf("initializeRandomEnemies() - Player Difficulty not valid: %d\n", difficulty);
+                minNumOfEnemies = 0;
+                variability = 0;
+            }
+        }
+
+
+        int num = minNumOfEnemies + (int)(Math.random() * variability);
+        Enemy e;
+
+        for (int i = 0; i < num; i++) {
+            int j = (int)(Math.random() * enemyTypes.length);
+            int x = CoordinateWizard.getX(r.getRoomNum());
+            int y = CoordinateWizard.getY(r.getRoomNum());
+
+            if (enemyTypes[j].equals(Barrel.class)) {
+                e = new Barrel(x, y);
+            } else if (enemyTypes[j].equals(Skeleton.class)) {
+                e = new Skeleton(x, y);
+                e.setMaxHealth((difficulty < PlayerCharacter.EASY) ? e.getMaxHealth() : e.getMaxHealth() * difficulty);
+                e.setDamagePerHit((difficulty < PlayerCharacter.EASY_ADVANCED) ? difficulty :  5 * difficulty);
+            } else {
+                e = new Wizard(x, y);
+                e.setMaxHealth((difficulty < PlayerCharacter.EASY) ? e.getMaxHealth() : e.getMaxHealth() * difficulty);
+                e.setDamagePerHit((difficulty < PlayerCharacter.EASY_ADVANCED) ? difficulty : 5 * difficulty);
+            }
+
+            enemies.add(e);
+        }
+
+        r.setEnemies(enemies);
+    }
+
+    public static void initializeRandomCoins(Room r, int difficulty) {
+        ArrayList<Coin> coins = new ArrayList<>();
+
+        int minNumOfCoins = 5 + difficulty;
+        int variability = 3;
+        int value;
+
+        switch (difficulty) {
+            case PlayerCharacter.EASY_PEESY, PlayerCharacter.EASY -> value = 1;
+            case PlayerCharacter.EASY_ADVANCED, PlayerCharacter.MID -> value = 2;
+            case PlayerCharacter.MEDIUM, PlayerCharacter.KINDA_HARD -> value = 3;
+            case PlayerCharacter.PRETTY_HARD, PlayerCharacter.HARD -> value = 4;
+            case PlayerCharacter.VERY_HARD -> value = 7;
+            case PlayerCharacter.DEMON -> value = 10;
+            default -> {
+                System.err.printf("initializeRandomCoins() - Player Difficulty not valid: %d\n", difficulty);
+                minNumOfCoins = 0;
+                variability = 0;
+                value = 0;
+            }
+        }
+
+        int numCoins = minNumOfCoins + (int)(Math.random() * variability);
+
+        for (int i = 0; i < numCoins; i++) {
+            int x = CoordinateWizard.getX(r.getRoomNum());
+            int y = CoordinateWizard.getY(r.getRoomNum());
+
+            Coin c = new Coin(Coin.DEFAULT_FRAMES_TO_WAIT, Coin.DEFAULT_COIN_IMAGES, x, y, value);
+            coins.add(c);
+        }
+
+        r.setCoins(coins);
+    }
+
+    public static void initializeRandomBoss(Room r, int difficulty) {
+        var bossTypes = new Class[]{
+                BigSkull.class,
+                BigSlonch.class
+        };
+
+        int x = CoordinateWizard.getX(r.getRoomNum());
+        int y = CoordinateWizard.getY(r.getRoomNum());
+
+        int i = (int)(Math.random() * 2);
+
+        if (bossTypes[i].equals(BigSkull.class)) {
+            BigSkull skull = new BigSkull(x, y);
+            skull.setMaxHealth(50 * difficulty);
+            skull.setDamagePerHit(25 * difficulty);
+            r.getEnemies().add(skull);
+        } else {
+            BigSlonch bigSlonch = new BigSlonch(x, y);
+            bigSlonch.setMaxHealth(50 * difficulty);
+            bigSlonch.setDamagePerHit(25 * difficulty);
+            r.getEnemies().add(bigSlonch);
+        }
+    }
+}
+
+class TestNextLevel {
+    public static void main(String[] args) {
+        Main.main(args);
+        Main.view.getGamePanel().startGameThread();
+        Main.view.getGamePanel().nextLevel();
+        Main.view.showGamePanel();
     }
 }

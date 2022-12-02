@@ -54,9 +54,24 @@ public class Pathfinding {
         resetNodes();
         //setup
 
-        startNode = nodes[startCol][startRow];
+        try {startNode = nodes[startCol][startRow];}
+        catch (ArrayIndexOutOfBoundsException e) {
+            if (startCol < 0)   startCol = 0;
+            else if (startCol > gp.maxScreenCol)    startCol = gp.maxScreenCol;
+            if (startRow < 0)   startRow = 0;
+            else if (startRow > gp.maxScreenRow)    startRow = gp.maxScreenRow;
+            startNode = nodes[startCol][startRow];
+        }
         currentNode = startNode;
-        goalNode = nodes[goalCol][goalRow];
+        try {
+            goalNode = nodes[goalCol][goalRow];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            if (goalCol < 0)    goalCol = 0;
+            else if (goalCol > gp.maxScreenCol)  goalCol = gp.maxScreenCol;
+            if (goalRow < 0)    goalRow = 0;
+            else if (goalRow > gp.maxScreenRow)  goalRow = gp.maxScreenRow;
+            goalNode = nodes[goalCol][goalRow];
+        }
         openList.add(currentNode);
 
         int col = 0;

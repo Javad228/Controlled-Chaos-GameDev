@@ -44,6 +44,9 @@ public class PlayerCharacter extends Character {
             = new String[]{"Easy-Peesy", "Easy", "Easy-Advanced", "Mid", "Medium", "Kinda-Hard", "Pretty-Hard", "HARD", "VERY HARD", "DEMON"};
 
 
+    public static transient final int STARTING_LEVEL = 1;
+    public static transient final int MAX_LEVEL = 3;
+
     private CharacterType characterType;    // Player Character Type
     private Item startingItem;              // Player Starting Item
     private Inventory inventory;            // Player character.Inventory
@@ -65,7 +68,11 @@ public class PlayerCharacter extends Character {
     private boolean[] itemsUnlocked;
     private int itemPriority;
     private Tile currentTile;
+
+
     public int roomSetNum;
+
+
     private String characterAppearance;
 
     public PlayerCharacter(GamePanel gp, KeyHandler keyH) {
@@ -140,8 +147,8 @@ public class PlayerCharacter extends Character {
     public PlayerCharacter(SimpleCharacter c, GamePanel gp, KeyHandler keyH) {
         this(gp, keyH);
         this.name = c.name;
-        this.health = c.health;
         setMaxHealth(c.maxHealth);
+        setHealth(c.health);
         this.movementSpeed = c.movementSpeed;
         this.xCoord = c.xCoord;
         this.yCoord = c.yCoord;
@@ -535,8 +542,9 @@ public class PlayerCharacter extends Character {
                     for (int i = 0; i < currentList.size(); i++) {
                         Coin coin = currentList.get(i);
                         if (gp.checker.checkLootCollision(this, coin)) {
-                            this.numCoins = this.numCoins + coin.getValue();
-                            currentList.remove(i);
+                            //this.numCoins = this.numCoins + coin.getValue();
+                            setNumCoins(getNumCoins() + coin.getValue());
+                            currentList.remove(coin);
                             Audio.itemPickUpAudio();
                         }
                     }
@@ -870,6 +878,15 @@ public class PlayerCharacter extends Character {
 
     public void setCharacterAppearance(String characterAppearance) {
         this.characterAppearance = characterAppearance;
+    }
+
+    /**
+     * incrementLevel() - Increments the player's level and other relative variables
+     * in the game
+     * <p>
+     */
+    public void incrementLevel() {
+        this.roomSetNum = (this.roomSetNum)%MAX_LEVEL+1;
     }
 }
 

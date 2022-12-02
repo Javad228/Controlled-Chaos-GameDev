@@ -16,7 +16,7 @@ public class KeyHandler implements KeyListener {
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
-    public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed, bPressed;
+    public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed, bPressed, pPressed;
 
     //TODO implement movement and attack
     @Override
@@ -136,6 +136,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_W) {
             wPressed = true;
         }
+        if (code == KeyEvent.VK_P) {
+            pPressed = true;
+        }
         if (code == KeyEvent.VK_S) {
             sPressed = true;
         }
@@ -167,6 +170,18 @@ public class KeyHandler implements KeyListener {
         }else{
             if (code == KeyEvent.VK_C){gp.gameState = 4;}
         }
+
+        if (gp.gameMapState == 4) {
+            if (code == KeyEvent.VK_M){gp.gameMapState = 1;}
+            if(code == KeyEvent.VK_W) {if (gp.minimap.slotRow != 0) {gp.minimap.slotRow--;}}
+            if(code == KeyEvent.VK_A) {if (gp.minimap.slotCol != 0) {gp.minimap.slotCol--;}}
+            if(code == KeyEvent.VK_S){if (gp.minimap.slotRow != 3) {gp.minimap.slotRow++;}}
+            if(code == KeyEvent.VK_D){if (gp.minimap.slotCol != 4) {gp.minimap.slotCol++;}}
+//            if(code == KeyEvent.VK_ENTER){gp.player.selectItem();}
+        }else{
+            if (code == KeyEvent.VK_M){gp.gameMapState = 4;}
+        }
+
 
 
         //
@@ -235,6 +250,9 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
+        if (code == KeyEvent.VK_P) {
+            pPressed = false;
+        }
         if (code == KeyEvent.VK_B) {
             bPressed = false;
         }
