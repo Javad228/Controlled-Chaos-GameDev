@@ -63,6 +63,7 @@ public class PauseMenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gp.togglePause = true;
+                gp.resumeThread();
                 Main.view.showGamePanel();
 
             }

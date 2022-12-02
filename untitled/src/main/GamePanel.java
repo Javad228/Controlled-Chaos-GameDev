@@ -331,9 +331,8 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public void update(){
 		if(this.keyH.pPressed){
-
-				Main.view.showPausePanel();
-
+			Main.view.showPausePanel();
+			this.pauseThread();
 		}
 		//System.out.println(player.name);
 		player.update();
