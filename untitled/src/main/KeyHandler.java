@@ -171,6 +171,18 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_C){gp.gameState = 4;}
         }
 
+        if (gp.gameMapState == 4) {
+            if (code == KeyEvent.VK_M){gp.gameMapState = 1;}
+            if(code == KeyEvent.VK_W) {if (gp.minimap.slotRow != 0) {gp.minimap.slotRow--;}}
+            if(code == KeyEvent.VK_A) {if (gp.minimap.slotCol != 0) {gp.minimap.slotCol--;}}
+            if(code == KeyEvent.VK_S){if (gp.minimap.slotRow != 3) {gp.minimap.slotRow++;}}
+            if(code == KeyEvent.VK_D){if (gp.minimap.slotCol != 4) {gp.minimap.slotCol++;}}
+//            if(code == KeyEvent.VK_ENTER){gp.player.selectItem();}
+        }else{
+            if (code == KeyEvent.VK_M){gp.gameMapState = 4;}
+        }
+
+
 
         //
         // can't make the settings page go away

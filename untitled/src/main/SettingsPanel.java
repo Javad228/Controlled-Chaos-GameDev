@@ -15,6 +15,9 @@ public class SettingsPanel extends JPanel implements ChangeListener {
     JButton returnButton;
     JTextField name;
     JButton enterNameButton;
+
+    JTextField mapnote;
+    JButton entermapnote;
     private String priorPage;
 
     public SettingsPanel(GamePanel gamePanel) {
@@ -26,6 +29,7 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         addSaveButtons();
         addReturnButton();
         addCharacterName();
+        addMapNote();
         priorPage = "";
 
         setName("Settings");
@@ -50,6 +54,20 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         });
 
         add(returnButton);
+    }
+
+    private void addMapNote() {
+        mapnote = new JTextField("Enter your map note");
+
+        entermapnote = new JButton("Enter map note");
+        entermapnote.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gamePanel.minimap.setText(mapnote.getText());
+            }
+        });
+        add(entermapnote);
+        add(mapnote);
     }
 
     private void addCharacterName() {

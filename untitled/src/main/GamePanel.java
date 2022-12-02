@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public boolean levelComplete = false;
 	public Pathfinding pFinder = new Pathfinding(this);
 	public int gameState;
+	public int gameMapState;
 	public static Graphics2D g2;
 
 	private int fps = 60;
@@ -73,6 +74,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public Inventory inventory = new Inventory(this);
 	private JPanel pauseMenuPanel;
 	public Lighting lighting = new Lighting(this, 350);
+
+	public MiniMap minimap = new MiniMap(this);
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -461,6 +464,8 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 
 		inventory.draw(g2);
+
+		minimap.draw(g2);
 
 		Main.view.updateCoinLabel(g2);
 
