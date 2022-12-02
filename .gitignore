@@ -1688,3 +1688,4 @@ target/classes/tiles/door_black_locked.png
 target/classes/tiles/door_grass_locked.png
 target/classes/tiles/door_snow_locked.png
 untitled/src/main/game.save
+target/classes/etc/TestPlayerDamage.class
