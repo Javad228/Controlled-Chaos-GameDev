@@ -10,6 +10,7 @@ import tile.TrapTile;
 
 import java.util.ArrayList;
 import java.lang.Math.*;
+import java.util.Random;
 
 public class Room {
     public static final int VOLCANOROOM = 1;
@@ -423,18 +424,24 @@ public class Room {
         int itemID;
 
         //priority equal to item ID of item that was just unlocked, -1 if no priority
+        /*
         if (gp.getPlayer().getItemPriority() != -1) {
             itemID = gp.getPlayer().getItemPriority();
             gp.getPlayer().setItemPriority(-1);
         }
         else {
-            itemID = (int) (Math.random() * (max - min) + min);
+            //itemID = (int) (Math.random() * (max - min) + min);
             //need in player: pickedUp[] same as Unlocked, but all start as false
             //somewhere: when item picked up, set pickedUp[itemID] = true
             while (!gp.getPlayer().getItemsUnlocked()[itemID]) {    //|| pickedUp[itemID] == true
                 itemID = (int) (Math.random() * (max - min) + min);
             }
         }
+
+         */
+
+        Random random = new Random();
+        itemID = random.nextInt(max + 1);
 
         switch(itemID) {
             case 0:
