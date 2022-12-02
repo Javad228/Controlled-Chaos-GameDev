@@ -16,7 +16,7 @@ public class KeyHandler implements KeyListener {
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
     }
-    public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed, bPressed;
+    public boolean kPressed, wPressed, sPressed, aPressed, dPressed, upPressed, downPressed, leftPressed, rightPressed, bPressed, pPressed;
 
     //TODO implement movement and attack
     @Override
@@ -136,6 +136,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_W) {
             wPressed = true;
         }
+        if (code == KeyEvent.VK_P) {
+            pPressed = true;
+        }
         if (code == KeyEvent.VK_S) {
             sPressed = true;
         }
@@ -235,6 +238,9 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
+        if (code == KeyEvent.VK_P) {
+            pPressed = false;
+        }
         if (code == KeyEvent.VK_B) {
             bPressed = false;
         }

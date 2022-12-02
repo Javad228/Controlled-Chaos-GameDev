@@ -19,6 +19,27 @@ public class View {
     private JButton settingsButton;
     private JPanel changeSkinPanel;
 
+    public JPanel getBugReportPanel() {
+        return bugReportPanel;
+    }
+
+    public void setBugReportPanel(JPanel bugReportPanel) {
+        this.bugReportPanel = bugReportPanel;
+    }
+
+    private JPanel bugReportPanel;
+
+    public JPanel getPauseMenuPanel() {
+        return pauseMenuPanel;
+    }
+
+    public void setPauseMenuPanel(JPanel pauseMenuPanel) {
+        this.pauseMenuPanel = pauseMenuPanel;
+    }
+
+    private JPanel pauseMenuPanel;
+    public Boolean showingGamePanel = false;
+
     public View () {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);    // This close operation will be overridden in
@@ -43,6 +64,8 @@ public class View {
         statsPanel = new StatsPanel(gamePanel).scrollPane;
 
         changeSkinPanel = new changeSkinPanel(gamePanel);
+        pauseMenuPanel = new PauseMenuPanel(gamePanel);
+        bugReportPanel = new BugReportPanel(gamePanel);
 
         // because we set the room number twice :( we have to set the rooms now rather than in the GamePanel constructor.
         gamePanel.initializeRooms();
@@ -154,6 +177,7 @@ public class View {
     }
 
     public void showGamePanel() {
+        showingGamePanel = true;
         Main.view.getWindow().getContentPane().removeAll();
         Main.view.getWindow().add(Main.view.getCoinPanel());
         Main.view.getWindow().add(Main.view.getGamePanel());
@@ -164,6 +188,25 @@ public class View {
         Main.view.getWindow().repaint();
     }
 
+    public void showPausePanel() {
+        showingGamePanel = false;
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getPauseMenuPanel());
+        Main.view.getPauseMenuPanel().setVisible(true);
+        Main.view.getPauseMenuPanel().revalidate();
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+    }
+
+    public void showBugReportPanel() {
+        showingGamePanel = false;
+        Main.view.getWindow().getContentPane().removeAll();
+        Main.view.getWindow().add(Main.view.getBugReportPanel());
+        Main.view.getBugReportPanel().setVisible(true);
+        Main.view.getBugReportPanel().revalidate();
+        Main.view.getWindow().revalidate();
+        Main.view.getWindow().repaint();
+    }
     public void showStatsPanel() {
         Main.view.getWindow().getContentPane().removeAll();
         Main.view.getWindow().add(Main.view.getStatsPanel());
@@ -172,6 +215,7 @@ public class View {
         Main.view.getWindow().revalidate();
         Main.view.getWindow().repaint();
     }
+
 
     public void updateCoinLabel(Graphics2D g2) {
         int numCoins = gamePanel.player.getNumCoins();

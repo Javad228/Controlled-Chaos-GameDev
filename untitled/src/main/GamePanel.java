@@ -18,6 +18,7 @@ import tile.TileManager;
 import tile.TrapTile;
 
 public class GamePanel extends JPanel implements Runnable{
+	public Boolean togglePause =false;
 	final static int trapDamage = 5;
 	final int originalTileSizes = 16;							//16x16 tile
 	final int scale = 3;
@@ -68,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
 	public Inventory inventory = new Inventory(this);
+	private JPanel pauseMenuPanel;
 	public Lighting lighting = new Lighting(this, 350);
 
 	public GamePanel() {
@@ -323,6 +325,11 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void update(){
+		if(this.keyH.pPressed){
+
+				Main.view.showPausePanel();
+
+		}
 		//System.out.println(player.name);
 		player.update();
 		if (rooms.get(currentRoomNum).getEnemies() != null){
