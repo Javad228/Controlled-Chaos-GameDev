@@ -177,6 +177,9 @@ public class TileManager {
 
             tile[11] = new Tile();
             tile[11].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/qm.png"))));
+
+            tile[12] = new Tile();
+            tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/hint_block.png"))));
         }catch (IOException e) {
             e.printStackTrace();
         }
