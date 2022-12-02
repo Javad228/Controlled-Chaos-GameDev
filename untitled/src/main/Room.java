@@ -288,10 +288,10 @@ public class Room {
     private void initializeEnemies() {
         switch(roomNum) {
             case 1:
-                /*
+/*
                 enemies = new ArrayList<>();
                 enemies.add(new BigWizard(500, 500));
-                */
+*/
                 break;
             case 2:
                 enemies = new ArrayList<>();
