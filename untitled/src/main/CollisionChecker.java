@@ -219,6 +219,7 @@ public class CollisionChecker {
             // check if character is not enemy before checking room... otherwise enemies can get in other rooms...
             // also check if there are enemies in the room. if there are, don't allow the player through.
             if (!(character instanceof Enemy) && (gp.tileM.tile[tileNum1].getTileType() == Tile.DOOR2 || gp.tileM.tile[tileNum2].getTileType() == Tile.DOOR2) && gp.getRooms().get(gp.getCurrentRoomNum()).getEnemies().size() == 0) {
+                Audio.doorOpenAudio();
                 System.out.println("just collided with door!");
                 // as a rule, doors to go back should be on the left side of the screen
                 if (character.getxCoord() < gp.maxScreenCol * gp.tileSize / 2) {
