@@ -183,6 +183,15 @@ public class Room {
                 break;
             case 7:
                 //add reward item
+                items = new ArrayList<>();
+                random = getRandomItem();
+                random.setxCoord(8 * gp.tileSize);
+                random.setyCoord(6 * gp.tileSize);
+                items.add(random);
+                random = getRandomItem();
+                random.setxCoord(10 * gp.tileSize);
+                random.setyCoord(1 * gp.tileSize);
+                items.add(random);
                 break;
             default:
                 items = null;
@@ -241,9 +250,9 @@ public class Room {
     }
 
     private void initializeCoins() {
+        String[] coinImages = {"/items/coin.png"};
         switch(roomNum) {
             case 1:
-                String[] coinImages = {"/items/coin.png"};
                 //Coin coin = new Coin(keyH, 7, coinImages, 600, 500, 1);
                 Coin coin = new Coin(7, coinImages, 600, 500, 1);
                 coins = new ArrayList<>();
@@ -251,6 +260,13 @@ public class Room {
                 break;
             case 7:
                 //add coins to hidden room
+                coins = new ArrayList<>();
+                coin = new Coin(7, coinImages, 1 * gp.tileSize, 1 * gp.tileSize, 1);
+                coins.add(coin);
+                coin = new Coin(7, coinImages, 13 * gp.tileSize, 4 * gp.tileSize, 1);
+                coins.add(coin);
+
+                break;
             default:
                 coins = null;
         }

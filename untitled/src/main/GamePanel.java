@@ -287,11 +287,7 @@ public class GamePanel extends JPanel implements Runnable{
 							//go into hidden room
 							this.setCurrentRoomNum(7);        //num of hidden room
 							//System.out.println(gp.getCurrentRoomNum());
-							//this.tileM.backward = false;
-							this.tileM.update();
-						} else {		//player is in hidden room and should go back to room 4
-							this.setCurrentRoomNum(4);
-							//this.tileM.backward = true;
+							this.tileM.backward = false;
 							this.tileM.update();
 						}
 					}
