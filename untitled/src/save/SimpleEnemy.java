@@ -59,6 +59,10 @@ public class SimpleEnemy {
         if (BigSkull.class.equals(enemyClass)) {
             this.classification = SimpleEnemyClassification.BIGSKULL;
         }
+
+        if (BigWizard.class.equals(enemyClass)) {
+            this.classification = SimpleEnemyClassification.BIGWIZARD;
+        }
     }
 
     public String getName() {
