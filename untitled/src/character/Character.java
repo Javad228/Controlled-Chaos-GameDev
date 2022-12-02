@@ -23,6 +23,7 @@ public abstract class Character {
     public double health;
     private int maxHealth;                   // Character health
     public int movementSpeed;               // Character movement speed
+    public int maxSpeed;                    // maximum character movement speed. used to reset speed after character leaves tiles that affect its speed (like mud)
     public int xCoord;                         // Character x-position in a room
     public int yCoord;                         // Character y-position in a room
     public int height;                         // Character height in pixels
@@ -52,7 +53,14 @@ public abstract class Character {
 
     public int spriteCounter = 0;
     public int spriteNum = 1; // TODO: make this zero indexed and update the sprite increments accordingly
+    public int volcHealthCounter = 0;
     private boolean wasOne = false; // boolean meant to help with sprite number selection when spriteNum = 2
+    public int maxBounce = 20; // variables used for bounce effect in space room
+    public int currentBounce = 0;
+    public boolean shouldBounce = true; // if currentBounce != maxBounce, then this should be true
+    public int numBounces = 0;
+    public int origY;
+    public boolean isUp = false;
 
     public int collisionAreaDefaultY;
     public int collisionAreaDefaultX;
@@ -64,7 +72,8 @@ public abstract class Character {
         this.name = "";
         this.maxHealth = 100;
         this.health = maxHealth;
-        this.movementSpeed = 1;
+        this.movementSpeed = 2; // must be greater than or equal to 2
+        this.maxSpeed = 2;
         this.xCoord = 50;
         this.yCoord = 50;
         this.height = 50;
@@ -100,11 +109,12 @@ public abstract class Character {
      * @param type Character Combat type
      * @param timeForInvincibility Time for invincibility given a hit occurs against this Character
      */
-    public Character(String name, int health, int movementSpeed, int xCoord, int yCoord, int height, int width,
+    public Character(String name, int health, int movementSpeed, int maxSpeed, int xCoord, int yCoord, int height, int width,
                      ArrayList<String> activeEffects, CombatType type, double timeForInvincibility) {
         this.name = name;
         this.health = health;
         this.movementSpeed = movementSpeed;
+        this.maxSpeed = maxSpeed;
         this.xCoord = xCoord;
         this.yCoord = yCoord;
         this.height = height;
@@ -636,6 +646,14 @@ public abstract class Character {
 
     public BufferedImage getAttackImage(int direction, int index) {
         return attackImages[direction][index];
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public void setMaxSpeed(int maxSpeed) {
+        this.maxSpeed = maxSpeed;
     }
 
 }

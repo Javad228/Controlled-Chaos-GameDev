@@ -27,8 +27,8 @@ public class Room {
     public static final int GRASSROOM = 2;
     public static final int SPOOKYROOM = 3;
     public static final int ICEROOM = 4;
-    public static final int SHOPROOM = 5;
-    public static final int SPACEROOM = 6;
+    public static final int SPACEROOM = 5;
+    public static final int SHOPROOM = 6;
 
     public static final int[] roomTypes =
             new int[]{VOLCANOROOM, GRASSROOM, SPOOKYROOM, ICEROOM, SPACEROOM};
@@ -79,10 +79,10 @@ public class Room {
                     roomType = ICEROOM;
                     break;
                 case 5:
-                    roomType = 5;
+                    roomType = SPACEROOM;
                     break;
                 case 6:
-                    roomType = SPACEROOM;
+                    roomType = 6;
             }
         } else if (gp.player.roomSetNum == 2) {
             switch(roomNum) {
@@ -99,10 +99,10 @@ public class Room {
                     roomType = GRASSROOM;
                     break;
                 case 5:
-                    roomType = 5;
+                    roomType = SPOOKYROOM;
                     break;
                 case 6:
-                    roomType = SPOOKYROOM;
+                    roomType = 6;
             }
         } else if (gp.player.roomSetNum == 3) {
             switch(roomNum) {
@@ -119,10 +119,10 @@ public class Room {
                     roomType = VOLCANOROOM;
                     break;
                 case 5:
-                    roomType = 5;
+                    roomType = GRASSROOM;
                     break;
                 case 6:
-                    roomType = GRASSROOM;
+                    roomType = 6;
             }
         } else {
             System.out.println("Received bad roomSetNum.");
@@ -233,7 +233,7 @@ public class Room {
                 items.add(boot);
 
                 break;
-            case 5:
+            case 6:
                 items = new ArrayList<>();
                 chests = new ArrayList<>();
                 signs = new ArrayList<>();
@@ -299,10 +299,10 @@ public class Room {
 
                 break;
             case 3:
+                Knight knight = new Knight(Knight.room4Col * gp.tileSize, Knight.room4Row * gp.tileSize);
+                NPCs.add(knight);
                 break;
             case 4:
-                Knight knight = new Knight(500, 200);
-                NPCs.add(knight);
                 break;
             case 6:
                 break;

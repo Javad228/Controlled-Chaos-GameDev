@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 3;
 	public final int tileSize = originalTileSizes * scale;		//48x48 tile
 	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 13;
+	public final int maxScreenRow = 12;
 	public final int screenWidth = tileSize * maxScreenCol; 	//768 pixels
 	public final int screenHeight = tileSize * maxScreenRow;	//624 pixels
 
@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public SaveData saveData = new SaveData(this);
 	public DeathPanel deathPanel = new DeathPanel(this);
 	public Inventory inventory = new Inventory(this);
+	public Lighting lighting = new Lighting(this, 350);
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -79,12 +80,21 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		this.currentRunTime = new Time(0);
 
-		initializeFirstLevel();
-		initializeLevelClocks();
-		tileM.update();
+//TODO: <<<<<<< Cameron-NextLevels
+		//initializeFirstLevel();
+		//initializeLevelClocks();
+		//tileM.update();
 	}
 
 	private void initializeFirstLevel() {
+//=======
+		//initializeRooms();
+		//initializeLevelClocks();
+		//tileM.update();
+	//}
+
+	//public void initializeRooms() {
+//>>>>>>> Cameron-MergeNextLevels
 		rooms = new ArrayList<>();
 		rooms.add(new Room(0, keyH, this));
 		rooms.add(new Room(1, keyH, this));
@@ -144,6 +154,8 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setPlayer(new PlayerCharacter(this, keyH));
 		initializeFirstLevel();
 		this.currentRoomNum = 1;
+		tileM.update();
+		//eManager.setup();
 
 		if (shouldStartGame) {
 			tileM.update();
@@ -158,11 +170,13 @@ public class GamePanel extends JPanel implements Runnable{
 		this.player.setItemsUnlocked(saveData.restorePermanentUnlocks());
 		this.player.roomSetNum = currentLevelNum;
 		this.rooms = rooms;
+    
+    		//eManager.setup();
 
 		if (this.currentRoomNum != currentRoomNum || player.roomSetNum != PlayerCharacter.STARTING_LEVEL) {
+			this.currentRoomNum = currentRoomNum;
 			tileM.update();
 		}
-		this.currentRoomNum = currentRoomNum;
 
 		if (shouldStartGame) {
 			newGameHelper();
@@ -374,6 +388,8 @@ public class GamePanel extends JPanel implements Runnable{
 		g2 = (Graphics2D)g;
 
 		tileM.draw(g2);
+		//eManager.draw(g2);
+
 		if (rooms.get(currentRoomNum).getChests() != null) {
 			for (int i = 0; i < rooms.get(currentRoomNum).getChests().size(); i++) {
 				Chest chest = rooms.get(currentRoomNum).getChests().get(i);
@@ -432,6 +448,11 @@ public class GamePanel extends JPanel implements Runnable{
 				Coin coin = rooms.get(currentRoomNum).getCoins().get(k);
 				coin.draw(g2, this);
 			}
+		}
+
+		if (getRooms().get(getCurrentRoomNum()).getRoomType() == Room.SPOOKYROOM) {
+			lighting = new Lighting(this, 200);
+			lighting.draw(g2);
 		}
 
 		inventory.draw(g2);

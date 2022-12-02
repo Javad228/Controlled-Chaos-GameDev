@@ -110,7 +110,7 @@ public class PlayerCharacter extends Character {
 
         this.name = "Intrepid Adventurer";
         Random r = new Random();
-        roomSetNum = 1;//r.nextInt(3) + 1;
+        roomSetNum = r.nextInt(3) + 1;
         System.out.println("it is room set number" + roomSetNum);
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
@@ -128,6 +128,7 @@ public class PlayerCharacter extends Character {
         this.setName(pc.getName());
         this.setHealth(pc.getHealth());
         this.setMovementSpeed(pc.getMovementSpeed());
+        this.setMaxSpeed(pc.getMaxSpeed());
         this.setxCoord(pc.getxCoord());
         this.setyCoord(pc.getyCoord());
         this.setActiveEffects(pc.getActiveEffects());
@@ -169,6 +170,8 @@ public class PlayerCharacter extends Character {
         this.setxCoord(50);
         this.setyCoord(200);
         this.setMovementSpeed(4);
+        this.setMaxSpeed(4);
+        this.setMaxSpeed(5);
         this.setDirection("down");
         this.solidArea = new Rectangle(0, 16, 30, 30);
         this.attackArea.width = 36;
@@ -263,6 +266,13 @@ public class PlayerCharacter extends Character {
     }
 
     public void update() {
+        // damage player by 1 every 5th of a second while in volcano room
+        if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.VOLCANOROOM && volcHealthCounter == 0) {
+            damagePlayerInt(1);
+        }
+        volcHealthCounter++;
+        volcHealthCounter %= gp.getFps();
+
 
         this.healthBar.update(this.getHealth());
         this.powerBar.update(this.getEnemiesKilled().size());
@@ -354,7 +364,13 @@ public class PlayerCharacter extends Character {
             }
 
             this.setSpriteCounter(this.getSpriteCounter() + 1);
-            if (this.getSpriteCounter() > 12) {
+            int maxSprite;
+            if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.SPACEROOM) {
+                maxSprite = 24;
+            } else {
+                maxSprite = 12;
+            }
+            if (this.getSpriteCounter() > maxSprite) {
                 if (this.getSpriteNum() == 1) {
                     this.setSpriteNum(2);
                     this.setWasOne(true);
@@ -392,17 +408,109 @@ public class PlayerCharacter extends Character {
                 }
 
                 if(!collisionOn){
-                    if(direction.equals("up") && currentY > 0){
-                        this.setyCoord(currentY - speed);
-                    }
-                    if(direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())){
-                        this.setyCoord(currentY + speed);
-                    }
-                    if(direction.equals("left") && currentX > 0){
-                        this.setxCoord(currentX - speed);
-                    }
-                    if(direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())){
-                        this.setxCoord(currentX + speed);
+                    if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() != Room.SPACEROOM) {
+                        if (direction.equals("up") && currentY > 0) {
+                            this.setyCoord(currentY - speed);
+                        }
+                        if (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())) {
+                            this.setyCoord(currentY + speed);
+                        }
+                        if (direction.equals("left") && currentX > 0) {
+                            this.setxCoord(currentX - speed);
+                        }
+                        if (direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())) {
+                            this.setxCoord(currentX + speed);
+                        }
+                    } else {
+                        if ((direction.equals("up") && currentY > 0) || (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight()))) {
+                            if (isUp && direction.equals("down")) {
+                                // just switched directions. make numBounces = 0 so we restart our bouncing motion.
+                                numBounces = 0;
+                                isUp = false;
+                            } else if (!isUp && direction.equals("up")) {
+                                numBounces = 0;
+                                isUp = true;
+                            }
+
+                            if (numBounces == 0) {
+                                origY = currentY;
+                            }
+                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
+                            //this.setyCoord(origY + distToBounce);
+                            numBounces++;
+                            numBounces = numBounces % (2 * speed * 5);
+
+                            if (direction.equals("up")) {
+                                this.setyCoord(origY - distToBounce);
+                            } else {
+                                this.setyCoord(origY + distToBounce);
+                            }
+                        } else {
+                            //origY = currentY;
+                            numBounces = 0;
+                        }
+
+                        /*if (direction.equals("up") && currentY > 0) {
+                            this.setyCoord(currentY - speed);
+                            *//*if (numBounces == 0) {
+                                origY = currentY;
+                            }
+                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
+                            this.setyCoord(origY - distToBounce);
+                            numBounces++;
+                            numBounces = numBounces % (2 * speed * 5);*//*
+                        }*//* else {
+                            origY = currentY;
+                            numBounces = 0;
+                        }*//*
+                        if (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())) {
+                            if (numBounces == 0) {
+                                origY = currentY;
+                            }
+                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
+                            this.setyCoord(origY + distToBounce);
+                            numBounces++;
+                            numBounces = numBounces % (2 * speed * 5);
+                        } else {
+                            origY = currentY;
+                            numBounces = 0;
+                        }*/
+                        if (direction.equals("left") && currentX > 0) {
+                            this.setxCoord(currentX - speed);
+                            if (currentBounce == 0) {
+                                shouldBounce = true;
+                                currentBounce++;
+                            }else if (shouldBounce && currentBounce < maxBounce) {
+                                currentBounce++;
+                                this.setyCoord(currentY + 1);
+                            } else if (currentBounce == maxBounce) {
+                                shouldBounce = false;
+                                currentBounce--;
+                            } else if (!shouldBounce && currentBounce < maxBounce) {
+                                currentBounce--;
+                                this.setyCoord(currentY - 1);
+                            } else {
+                                System.out.println("Bad bouncing effect within PlayerCharacter.java");
+                            }
+                        }
+                        if (direction.equals("right") && currentX < (gp.screenWidth - this.getWidth())) {
+                            this.setxCoord(currentX + speed);
+                            if (currentBounce == 0) {
+                                shouldBounce = true;
+                                currentBounce++;
+                            }else if (shouldBounce && currentBounce < maxBounce) {
+                                currentBounce++;
+                                this.setyCoord(currentY + 1);
+                            } else if (currentBounce == maxBounce) {
+                                shouldBounce = false;
+                                currentBounce--;
+                            } else if (!shouldBounce && currentBounce < maxBounce) {
+                                currentBounce--;
+                                this.setyCoord(currentY - 1);
+                            } else {
+                                System.out.println("Bad bouncing effect within PlayerCharacter.java");
+                            }
+                        }
                     }
                 }
 
