@@ -232,7 +232,7 @@ public class CollisionChecker {
                 // as a rule, doors to go back should be on the left side of the screen
                 if (character.getxCoord() < gp.maxScreenCol * gp.tileSize / 2) {
                     // we want to go back!
-                    if (gp.getCurrentRoomNum() == 7) {
+                    if (gp.getCurrentRoomNum() == 8) {
                         gp.setCurrentRoomNum(4);
                     } else {
                         gp.setCurrentRoomNum(gp.getCurrentRoomNum() - 1);
@@ -242,9 +242,9 @@ public class CollisionChecker {
                     gp.tileM.update();
                 } else {
                     // we want to go forward!
-                    if (gp.getCurrentRoomNum() == 7) {
+                    if (gp.getCurrentRoomNum() == 8) {
                         gp.setCurrentRoomNum(5);
-                    } else if (gp.getCurrentRoomNum() == 6) {
+                    //} else if (gp.getCurrentRoomNum() == 6) {
                         //go back to main menu?
                     } else {
                         gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
