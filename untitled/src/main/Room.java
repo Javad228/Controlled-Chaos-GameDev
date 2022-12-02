@@ -130,6 +130,13 @@ public class Room {
                 rapidFire.setxCoord(400);
                 rapidFire.setyCoord(400);
                 items.add(rapidFire);
+
+                String [] bombBuddyImages = {"/items/bomb-buddy.png"};
+                BombBuddy bombBuddy = new BombBuddy(bombBuddyImages, this.gp, 500, 500);
+                rapidFire.setxCoord(300);
+                rapidFire.setyCoord(400);
+                items.add(bombBuddy);
+
                 Item random = getRandomItem();
                 random.setxCoord(500);
                 random.setyCoord(500);
@@ -191,6 +198,12 @@ public class Room {
 
     private void initializeEnemies() {
         switch(roomNum) {
+            case 1:
+                /*
+                enemies = new ArrayList<>();
+                enemies.add(new BigWizard(500, 500));
+                */
+                break;
             case 2:
                 enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
@@ -210,7 +223,7 @@ public class Room {
                 enemies = new ArrayList<>();
                 if(gp.getPlayer().roomSetNum ==1){
                     enemies.add(new BigSlonch(300, 300));
-                }else{
+                } else{
                     enemies.add(new BigSkull(300, 300));
                 }
                 break;
@@ -258,6 +271,12 @@ public class Room {
 
     private void initializeButtons() {
         switch(roomNum) {
+            case 1:
+                buttons = null;
+            case 2:
+                buttons = null;
+            case 3:
+                buttons = null;
             case 4:
                 buttons = new ArrayList<>(5);
                 Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1Button1Row * gp.tileSize);
@@ -390,7 +409,7 @@ public class Room {
 
         //random thing that returns an id from 0 to 4
         int min = 0;
-        int max = 4;
+        int max = 5;
         int itemID;
 
         //priority equal to item ID of item that was just unlocked, -1 if no priority
@@ -424,6 +443,9 @@ public class Room {
             case 4:
                 String [] rapidFireImages = {"/items/rapid-fire.png"};
                 return new RapidFire(rapidFireImages, this.gp, 500, 500);
+            case 5:
+                String [] bombBuddyImages = {"/items/bomb-buddy.png"};
+                return new BombBuddy(bombBuddyImages, this.gp, 500, 500);
 
         }
     }
