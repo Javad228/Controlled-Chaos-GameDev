@@ -25,15 +25,20 @@ public class TileManager {
     private static ArrayList<int[][]> doorLocations = null;
     private static ArrayList<int[][]> jackOLanternLocations;
 
+    public static int[] roomTypes;
+    public static int[][][] minimapTileNum;
     public TileManager(GamePanel gp1) {
         gp = gp1;
-        tile = new Tile[12];
+        tile = new Tile[200];
         mapTileNum = new int[gp1.maxScreenCol+1][gp1.maxScreenRow+1];
         //this.roomNum = 0;   // might need to change based on saved progress
         doorLocations = new ArrayList<>();
         grassTiles = new ArrayList<>();
 
         jackOLanternLocations = new ArrayList<>();
+
+        minimapTileNum = new int[20][gp1.maxScreenCol+1][gp1.maxScreenRow+1];
+        roomTypes = new int[20];
     }
 
     public void update() {
@@ -163,6 +168,15 @@ public class TileManager {
             tile[10].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getEnvironmentTilePath()))));
             tile[10].setTileType(Tile.ENVIRONMENT);
 
+            // for minimap
+            tile[102] = new Tile();
+            tile[102].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png"))));
+
+            tile[100] = new Tile();
+            tile[100].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player_character/archived/standing.png"))));
+
+            tile[11] = new Tile();
+            tile[11].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/qm.png"))));
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -225,7 +239,7 @@ public class TileManager {
         }
         return "tiles/tree.png";
     }
-    
+
     public String getEnvironmentTilePath() throws IOException {
         switch (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType()) {
             case Room.ICEROOM:
@@ -285,6 +299,9 @@ public class TileManager {
                         }
                     }
 
+                    mapTileNum[col][row] = num;
+                    minimapTileNum[gp.getCurrentRoomNum()][col][row] = num;
+                    roomTypes[gp.getCurrentRoomNum()] = gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType();
                     map[col][row] = num;
 
                     col++;
@@ -337,6 +354,10 @@ public class TileManager {
             ((NextLevelTile)tile[tileNum]).setNextLevelTileImage(x/gp.tileSize, y/gp.tileSize);
         }
         g2.drawImage(tile[tileNum].getImage(), x, y, gp.tileSize, gp.tileSize, null);
+    }
+
+    public static void drawminiTile(Graphics2D g2, int tileNum, int x, int y) {
+        g2.drawImage(tile[tileNum].getImage(), x, y, 15, 15, null);
     }
 
     public Object[] getLoot() {
