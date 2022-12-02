@@ -45,9 +45,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 	public static final long SECOND_L = 1000000000L;
 	public static final long MINUTE_L = 60 * SECOND_L;
-	public static final Time defaultTime1 = new Time(2 * MINUTE_L);                 // 2:00
-	public static final Time defaultTime2 = new Time(2 * MINUTE_L + 30 * SECOND_L); // 2:30
-	public static final Time defaultTime3 = new Time(3 * MINUTE_L);            		// 3:00
+	public static final Time defaultTime1 = new Time(20 * SECOND_L);                 // 2:00
+	public static final Time defaultTime2 = new Time(30 * SECOND_L); // 2:30
+	public static final Time defaultTime3 = new Time(40 * SECOND_L);            		// 3:00
 
 	private Time startLevelTime;
 	private Time currentLevelTime;
@@ -113,15 +113,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public void initializeLevelClocks() {
 		// Calculate time to complete level
 		if (player.getGameDifficulty() < PlayerCharacter.MID) {
-			time1 = defaultTime1;                                       // 2:00
-			time2 = defaultTime2;                                       // 2:30
-			time3 = defaultTime3;                                       // 3:00
+			time1 = new Time(defaultTime1.getTime() * rooms.size());                                       // 2:00
+			time2 = new Time(defaultTime2.getTime() * rooms.size());                                        // 2:30
+			time3 = new Time(defaultTime3.getTime() * rooms.size());                                        // 3:00
 		} else {
 			int diff = (player.getGameDifficulty() - PlayerCharacter.EASY_ADVANCED) * 5;
 
-			time1 = new Time(defaultTime1.getTime() - diff * SECOND_L); // From 1:55 to 1:25 (difficulty: DEMON)
-			time2 = new Time(defaultTime2.getTime() - diff * SECOND_L); // From 2:25 to 1:55 (difficulty: DEMON)
-			time3 = new Time(defaultTime3.getTime() - diff * SECOND_L); // From 2:55 to 2:25 (difficulty: DEMON)
+			time1 = new Time(defaultTime1.getTime() * rooms.size() - diff * SECOND_L); // From 1:55 to 1:25 (difficulty: DEMON)
+			time2 = new Time(defaultTime2.getTime() * rooms.size() - diff * SECOND_L); // From 2:25 to 1:55 (difficulty: DEMON)
+			time3 = new Time(defaultTime3.getTime() * rooms.size() - diff * SECOND_L); // From 2:55 to 2:25 (difficulty: DEMON)
 		}
 	}
 
@@ -533,9 +533,9 @@ public class GamePanel extends JPanel implements Runnable{
 
 		long levelTime_l;							// Keeps total time the player took to beat the level
 
-		int levelTimeRewardTier = 3;				// Measures what tier player rewards will be awarded to the player
+		int levelTimeRewardTier = 0;				// Measures what tier player rewards will be awarded to the player
 													// given the current level time
-		int playerHealthRewardTier = 0;				// Measures what tier player rewards will be awarded to the player
+		int playerHealthRewardTier = 3;				// Measures what tier player rewards will be awarded to the player
 													// given if the player has taken damage
 
 		Room currRoom = rooms.get(currentRoomNum);

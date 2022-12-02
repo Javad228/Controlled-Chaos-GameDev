@@ -1,5 +1,6 @@
 package tile;
 
+import character.PlayerCharacter;
 import main.GamePanel;
 import main.Main;
 import main.Room;
@@ -90,15 +91,23 @@ public class TileManager {
         String prefix = "/maps/mapset" + gp.player.roomSetNum + "/";
         String file;
 
-        switch (roomNum) {
-            case 7 -> {
-                file = prefix + "boss.txt";
+        if (gp.player.roomSetNum == 1) {
+            switch (roomNum) {
+                case 7 -> {
+                    file = prefix + "boss.txt";
+                }
+                case 6 -> {
+                    file = prefix + "shop.txt";
+                }
+                default -> {
+                    file = prefix + "room" + roomNum + ".txt";
+                }
             }
-            case 6 -> {
-                file = prefix + "shop.txt";
-            }
-            default -> {
-                file = prefix + "room" + roomNum + ".txt";
+        } else {
+            switch (gp.getRooms().size()-roomNum) {
+                case 1 -> file = prefix + "boss.txt";
+                case 2 -> file = prefix + "shop.txt";
+                default -> file = prefix + "room" + roomNum + ".txt";
             }
         }
 

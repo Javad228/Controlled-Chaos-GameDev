@@ -539,7 +539,9 @@ public class Room {
         for (int i = 0; i <= numOfRooms; i++) {
             Room r = new Room(i, numOfRooms, k, g);
 
-            if (r.getRoomNum() == 0 && r.getRoomNum() == numOfRooms)    {
+            if (r.getRoomNum() == 0
+                    || r.getRoomNum() == numOfRooms
+                    || r.getRoomNum() == 1)    {
                 rooms.add(r);
                 continue;
             }
@@ -566,7 +568,7 @@ public class Room {
             } else {
 
                 //initializeRandomItems(r, difficulty);
-                initializeRandomEnemies(r, difficulty);
+                //initializeRandomEnemies(r, difficulty);
                 initializeRandomCoins(r, difficulty);
 
                 //r.setNPCs(new ArrayList<>());   // TODO: ADD FURTHER IMPLEMENTATION
@@ -582,7 +584,14 @@ public class Room {
         }
 
         // Spawn boss for the last room in the level
+        initializeRandomEnemies(rooms.get(1), difficulty);
         initializeRandomItems(rooms.get(0), difficulty);
+
+        Item item = rooms.get(0).getRandomItem();
+        item.setxCoord(CoordinateWizard.getX(0));
+        item.setyCoord(CoordinateWizard.getY(0));
+        rooms.get(0).getItems().add(item);
+
         initializeRandomBoss(rooms.get(rooms.size()-1), difficulty);
 
         return rooms;
@@ -605,7 +614,7 @@ public class Room {
                 Sword.class,
                 Sword.class,
                 HealthUp.class,
-                HealthUp.class
+                HealthUp.class,
         };
         var rareItems = new Class[] {
                 Sword.class,
@@ -614,7 +623,7 @@ public class Room {
                 Boot.class,
                 Boot.class,
                 Consumable.class,
-                Consumable.class
+                Consumable.class,
         };
         var epicItems = new Class[] {
                 HealthUp.class,
@@ -738,6 +747,8 @@ public class Room {
 
             items.add(item);
         }
+
+        items.add(new RapidFire(RapidFire.DEFAULT_IMAGE_PATHS, r.gp, CoordinateWizard.getX(0), CoordinateWizard.getY(0)));
 
         r.setItems(items);
     }
