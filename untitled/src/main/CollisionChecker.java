@@ -234,6 +234,8 @@ public class CollisionChecker {
                     // we want to go forward!
                     if (gp.getCurrentRoomNum() == 7) {
                         gp.setCurrentRoomNum(5);
+                    } else if (gp.getCurrentRoomNum() == 6) {
+                        //go back to main menu?
                     } else {
                         gp.setCurrentRoomNum(gp.getCurrentRoomNum() + 1);
                     }
