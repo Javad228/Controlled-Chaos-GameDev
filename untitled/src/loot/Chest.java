@@ -27,14 +27,19 @@ public class Chest extends Character {
         this.height = 50;
         this.width = 50;
         this.gp = gp;
-        String[] slimeSlingerImages = {"/items/slingshot.png"};
-        String[] bootImages = {"/items/boot.png"};
-        String [] rapidFireImages = {"/items/rapid-fire.png"};
-        Sword sword = new Sword(new String[]{"/weapons/wooden_sword.png"}, gp, this.xCoord, this.yCoord-10);
-        SlimeSlinger slimeSlinger = new SlimeSlinger(slimeSlingerImages, this.gp, this.xCoord, this.yCoord-10);
-        RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, this.xCoord, this.yCoord-10);
-        HealthUp healthUp = new HealthUp(new String[]{"/items/health.png"}, gp, this.xCoord, this.yCoord-10);
-        Boot boot = new Boot(bootImages, gp, this.xCoord, this.yCoord-10);
+        //String[] slimeSlingerImages = {"/items/slingshot.png"};
+        //String[] bootImages = {"/items/boot.png"};
+        //String [] rapidFireImages = {"/items/rapid-fire.png"};
+        //Sword sword = new Sword(new String[]{"/weapons/wooden_sword.png"}, gp, this.xCoord, this.yCoord-10);
+        Sword sword = new Sword(Sword.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
+        //SlimeSlinger slimeSlinger = new SlimeSlinger(slimeSlingerImages, this.gp, this.xCoord, this.yCoord-10);
+        SlimeSlinger slimeSlinger = new SlimeSlinger(SlimeSlinger.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
+        //RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, this.xCoord, this.yCoord-10);
+        RapidFire rapidFire = new RapidFire(RapidFire.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
+        //HealthUp healthUp = new HealthUp(new String[]{"/items/health.png"}, gp, this.xCoord, this.yCoord-10);
+        HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
+        //Boot boot = new Boot(bootImages, gp, this.xCoord, this.yCoord-10);
+        Boot boot = new Boot(Boot.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
 
         commonSet = new Item[3];
         commonSet[0] = sword;
