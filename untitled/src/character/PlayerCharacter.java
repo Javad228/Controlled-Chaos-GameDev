@@ -64,6 +64,7 @@ public class PlayerCharacter extends Character {
     private boolean isDying;                // Used for performing death animation
     private boolean isDamaged;              // Used to determine if player has been damaged
     private ArrayList<SimpleEnemy> enemiesKilled;
+    public ArrayList<SimpleEnemy> allEnemiesKilled;
     private ArrayList<Item> itemsDiscovered;
     private boolean[] itemsUnlocked;
     private int itemPriority;
@@ -112,8 +113,9 @@ public class PlayerCharacter extends Character {
         System.out.println("it is room set number" + roomSetNum);
         this.numCoins = 0;
         enemiesKilled = new ArrayList<>();
+        allEnemiesKilled = new ArrayList<>();
         itemsDiscovered = new ArrayList<>();
-        this.powerBar = new PowerBar(this.enemiesKilled.size(),5,gp.tileSize+2, 10);
+        this.powerBar = new PowerBar(this.allEnemiesKilled.size(),2,gp.tileSize+2, 10,gp);
         setDefaultValues();
     }
 
@@ -140,6 +142,7 @@ public class PlayerCharacter extends Character {
         this.currentTile = pc.currentTile;
         this.numCoins = pc.numCoins;
         enemiesKilled = new ArrayList<>(pc.getEnemiesKilled());
+        allEnemiesKilled = new ArrayList<>(pc.getEnemiesKilled());
         this.characterAppearance = pc.getCharacterAppearance();
 
     }
@@ -158,7 +161,9 @@ public class PlayerCharacter extends Character {
         this.characterType = c.characterType;
         this.numCoins = c.getNumCoins();
         this.currentTile = null;
+
         enemiesKilled = new ArrayList<>(c.getEnemiesKilled());
+        allEnemiesKilled = new ArrayList<>(c.getEnemiesKilled());
         itemsDiscovered = c.itemsDiscovered;
         this.isDamaged = c.isDamaged;
         this.characterAppearance = c.characterAppearance;
@@ -263,6 +268,14 @@ public class PlayerCharacter extends Character {
         }
     }
 
+    public ArrayList<SimpleEnemy> getAllEnemiesKilled() {
+        return allEnemiesKilled;
+    }
+
+    public void setAllEnemiesKilled(ArrayList<SimpleEnemy> allEnemiesKilled) {
+        this.allEnemiesKilled = allEnemiesKilled;
+    }
+
     public void update() {
         // damage player by 1 every 5th of a second while in volcano room
         if (gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == Room.VOLCANOROOM && volcHealthCounter == 0) {
@@ -273,18 +286,8 @@ public class PlayerCharacter extends Character {
 
 
         this.healthBar.update(this.getHealth());
-        this.powerBar.update(this.getEnemiesKilled().size());
-        if(Objects.equals(this.getCharacterAppearance(), "healer")){
-            if(this.powerBar.getHealth() == 5){
-                this.health = getMaxHealth();
-                this.powerBar.setHealth(0);
-            }
-        }else{
-            if(this.powerBar.getHealth() == 5){
-                this.setNumCoins(getNumCoins()+2);
-                this.powerBar.setHealth(0);
-            }
-        }
+        this.powerBar.update();
+
 
         // Escape clause for death animation
         // Only update the sprite counter

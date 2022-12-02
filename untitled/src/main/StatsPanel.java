@@ -19,11 +19,7 @@ public class StatsPanel extends JPanel {
     GameSaveState savedData;
 
     JPanel basicDetailsPanel = new JPanel();
-    JPanel enemiesKilledPanel = new JPanel();
-    JPanel itemsDiscoveredPanel = new JPanel();
     JPanel permanentUnlocksPanel = new JPanel();
-    JTextArea[] enemyDescriptionTextBoxes;
-    JTextArea[] itemDescriptionTextBoxes;
     JScrollPane scrollPane = new JScrollPane(this);
 
     public StatsPanel(GamePanel gp) {
@@ -58,14 +54,10 @@ public class StatsPanel extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 
-        //savedData = SaveData.restoreGameState("dummy");
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         scrollPane.setLayout(new ScrollPaneLayout());
         basicDetailsPanel.setLayout(new GridLayout(4, 2)); // number of rows depends on number of fields you'd like to add
         basicDetailsPanel.setBackground(Color.BLACK);
-        enemiesKilledPanel.setBackground(Color.BLACK);
-        itemsDiscoveredPanel.setBackground(Color.BLACK);
-        permanentUnlocksPanel.setBackground(Color.BLACK);
 
         // the below objects are added to the statsPanel
         add(Box.createVerticalStrut(25));
@@ -73,25 +65,13 @@ public class StatsPanel extends JPanel {
         add(Box.createVerticalStrut(25));
 
         // the four sets of labels are added to the basicDetailsPanel before the panel itself is added to the statsPanel
-        addBasicDetailsLabel(); // added to statsPanel
         addNameLabels();
         addClockLabels();
         addMaxHealthLabels();
         addNumCoinsLabels();
         add(basicDetailsPanel); // add basicDetailsPanel to statsPanel
 
-        // add enemies killed title, then labels and text boxes to input descriptions
-        addEnemiesKilledTitleLabel(); // added to statsPanel
-        if (savedData != null) {
-            addEnemiesKilled();
-            add(enemiesKilledPanel); // add enemiesKilledPanel to statsPanel
-        }
-
-        addItemsDiscoveredTitleLabel();
-        if (savedData != null) {
-            addItemsDiscovered();
-            add(itemsDiscoveredPanel);
-        }
+        scrollPane.setBackground(Color.BLACK);
 
         addPermanentUnlocksTitleLabel();
         if (savedData != null) {
@@ -99,9 +79,7 @@ public class StatsPanel extends JPanel {
             add(permanentUnlocksPanel);
         }
         // add button to save descriptions
-        addSaveButton();
-
-        scrollPane.setBackground(Color.BLACK);
+        addReturnButton();
 
         setName("Stats");
         setBackground(Color.BLACK);
@@ -112,14 +90,6 @@ public class StatsPanel extends JPanel {
     private void addTitleLabel() {
         JLabel titleLabel = new JLabel("STATS");
         titleLabel.setFont(new Font("Monospaced", Font.BOLD, 50));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleLabel);
-    }
-
-    private void addBasicDetailsLabel() {
-        JLabel titleLabel = new JLabel("Basic Details:");
-        titleLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleLabel);
@@ -196,79 +166,6 @@ public class StatsPanel extends JPanel {
         basicDetailsPanel.add(numCoinsLabel);
     }
 
-    public void addEnemiesKilledTitleLabel() {
-        JLabel enemiesKilledLabel = new JLabel("Enemies Killed:");
-        enemiesKilledLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
-        enemiesKilledLabel.setForeground(Color.WHITE);
-        enemiesKilledLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(enemiesKilledLabel);
-    }
-
-    public void addEnemiesKilled() {
-        enemiesKilledPanel.setLayout(new GridLayout(savedData.player.getEnemiesKilled().size(), 2));
-        enemyDescriptionTextBoxes = new JTextArea[savedData.player.getEnemiesKilled().size()];
-
-        for (int i = 0; i < savedData.player.getEnemiesKilled().size(); i++) {
-            // make label for name of enemy
-            JLabel enemyNameLabel = new JLabel(savedData.player.getEnemiesKilled().get(i).getName() + ":");
-            enemyNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
-            enemyNameLabel.setForeground(Color.WHITE);
-
-            // make text field for description of enemy
-            enemyDescriptionTextBoxes[i] = new JTextArea(savedData.player.getEnemiesKilled().get(i).getDescription());
-            enemyDescriptionTextBoxes[i].setBackground(Color.BLACK);
-            enemyDescriptionTextBoxes[i].setForeground(Color.WHITE);
-            enemyDescriptionTextBoxes[i].setFont(new Font("Monospaced", Font.PLAIN, 15));
-            LineBorder line = new LineBorder(Color.WHITE, 2, false);
-            enemyDescriptionTextBoxes[i].setBorder(line);
-
-            enemiesKilledPanel.add(enemyNameLabel);
-            enemiesKilledPanel.add(enemyDescriptionTextBoxes[i]);
-        }
-    }
-
-    public void addItemsDiscoveredTitleLabel() {
-        JLabel itemsDiscoveredLabel = new JLabel("Items Discovered:");
-        itemsDiscoveredLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
-        itemsDiscoveredLabel.setForeground(Color.WHITE);
-        itemsDiscoveredLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(itemsDiscoveredLabel);
-    }
-
-    public void addItemsDiscovered() {
-        itemsDiscoveredPanel.setLayout(new GridLayout(savedData.player.inventory.getListOfItems().size(), 2));
-        itemDescriptionTextBoxes = new JTextArea[savedData.player.inventory.getListOfItems().size()];
-
-        for (int i = 0; i < savedData.player.inventory.getListOfItems().size(); i++) {
-            // make label for name of enemy
-            JLabel itemNameLabel = new JLabel("");
-
-            if (savedData.player.inventory.getListOfItems().get(i).getName() == null ||
-                    savedData.player.inventory.getListOfItems().get(i).getName().equals("")) {
-                itemNameLabel.setText("Item:");
-                itemNameLabel.setFont(new Font("Monospaced", Font.ITALIC, 20));
-            } else {
-                itemNameLabel.setText(savedData.player.inventory.getListOfItems().get(i).getName() + ":");
-                itemNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
-            }
-
-            //itemNameLabel.setBackground(Color.BLACK);
-            itemNameLabel.setForeground(Color.WHITE);
-
-            // make text field for description of enemy
-            itemDescriptionTextBoxes[i] = new JTextArea(savedData.player.inventory.getListOfItems().get(i).getDescription());
-            itemDescriptionTextBoxes[i].setToolTipText("Enter item Description");
-            itemDescriptionTextBoxes[i].setBackground(Color.BLACK);
-            itemDescriptionTextBoxes[i].setForeground(Color.WHITE);
-            itemDescriptionTextBoxes[i].setFont(new Font("Monospaced", Font.PLAIN, 15));
-            LineBorder line = new LineBorder(Color.WHITE, 2, false);
-            itemDescriptionTextBoxes[i].setBorder(line);
-
-            itemsDiscoveredPanel.add(itemNameLabel);
-            itemsDiscoveredPanel.add(itemDescriptionTextBoxes[i]);
-        }
-    }
-
     public void addPermanentUnlocksTitleLabel() {
         JLabel itemsDiscoveredLabel = new JLabel("Permanent Unlocks:");
         itemsDiscoveredLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
@@ -304,26 +201,14 @@ public class StatsPanel extends JPanel {
         permanentUnlocksPanel.add(Box.createVerticalStrut(20));
     }
 
-    public void addSaveButton() {
-        JButton saveButton = new JButton("Save Descriptions");
+    public void addReturnButton() {
+        JButton saveButton = new JButton("Return");
+
         saveButton.setFont(new Font("Monospaced", Font.PLAIN, 25));
         saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // save results
-                if (savedData != null) {
-                    for (int i = 0; i < savedData.player.getEnemiesKilled().size(); i++) {
-                        gp.player.getEnemiesKilled().get(i).setDescription(enemyDescriptionTextBoxes[i].getText());
-                        //savedData.player.getEnemiesKilled().get(i).setDescription(enemyDescriptionTextBoxes[i].getText());
-                    }
-                    //SaveData.saveGameState(savedData.player);
-                    for (int i = 0; i < savedData.player.inventory.getListOfItems().size(); i++) {
-                        gp.player.getInventory().getListOfItems().get(i).setDescription(itemDescriptionTextBoxes[i].getText());
-                    }
-                    sd.saveGameState();
-                }
-
                 // return user to main menu
                 Main.view.showMainMenuPanel();
             }
@@ -331,4 +216,3 @@ public class StatsPanel extends JPanel {
         add(saveButton);
     }
 }
-

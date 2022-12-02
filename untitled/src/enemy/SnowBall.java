@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class SlimeBall extends Projectile {
+public class SnowBall extends Projectile {
 
     transient GamePanel gp;
     private transient BufferedImage arrowUp;
@@ -16,7 +16,7 @@ public class SlimeBall extends Projectile {
     private transient BufferedImage arrowRight;
     private transient BufferedImage arrowLeft;
 
-    public SlimeBall(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting, double damageMod) {
+    public SnowBall(GamePanel gp, int xCoord, int yCoord, String direction, boolean isPlayerShooting, double damageMod) {
         super(gp, xCoord, yCoord, direction, isPlayerShooting, damageMod);
         this.gp = gp;
 
@@ -25,23 +25,23 @@ public class SlimeBall extends Projectile {
     }
 
     public void setDefaultValues() {
-        this.setName("SlimeBall");
+        this.setName("Snowball");
         this.setMovementSpeed(2);
         this.setMaxSpeed(2);
         this.setWidth(200);
         this.setHeight(200);
         this.setHealth(200);
-        this.setDamage(2); // originally 20
+        this.setDamage(1); // originally 20
         //this.setDamage(2);
         //this.isInvincible(true);
     }
 
     public void getImage() {
         try {
-            this.setArrowUp(ImageIO.read(getClass().getResourceAsStream("/wizard/projectile/tile000.png")));
-            this.setArrowDown(ImageIO.read(getClass().getResourceAsStream("/wizard/projectile/tile000.png")));
-            this.setArrowRight(ImageIO.read(getClass().getResourceAsStream("/wizard/projectile/tile000.png")));
-            this.setArrowLeft(ImageIO.read(getClass().getResourceAsStream("/wizard/projectile/tile000.png")));
+            this.setArrowUp(ImageIO.read(getClass().getResourceAsStream("/snowman/snowball.png")));
+            this.setArrowDown(ImageIO.read(getClass().getResourceAsStream("/snowman/snowball.png")));
+            this.setArrowRight(ImageIO.read(getClass().getResourceAsStream("/snowman/snowball.png")));
+            this.setArrowLeft(ImageIO.read(getClass().getResourceAsStream("/snowman/snowball.png")));
         } catch(IOException e) {
             e.printStackTrace();
         }

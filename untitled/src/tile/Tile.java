@@ -14,6 +14,7 @@ public class Tile {
     public static final int TRAP = 4;
     public static final int BUTTON = 5;
     public static final int ENVIRONMENT = 10;
+    public static final int DOOR1 = 12;
 
 
     private BufferedImage image;
