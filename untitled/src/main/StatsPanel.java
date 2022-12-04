@@ -28,7 +28,6 @@ public class StatsPanel extends JPanel {
         savedData = sd.restoreGameState();
         pu = sd.restorePermanentUnlocks();
 
-
         if (savedData == null) {
             gp.newGame(false);
             if (gp.readThreadState()) System.out.println("Game restore Failed\nUsing starting values");
