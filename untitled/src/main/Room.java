@@ -280,11 +280,11 @@ public class Room {
             case 8:
                 //add reward item
                 items = new ArrayList<>();
+                Item damageUp = new DamageUp(DamageUp.DEFAULT_DAMAGEUP_PATHS, this.gp, 500, 500);
+                damageUp.setxCoord(8 * gp.tileSize);
+                damageUp.setyCoord(6 * gp.tileSize);
+                items.add(damageUp);
                 Item random = getRandomItem();
-                random.setxCoord(8 * gp.tileSize);
-                random.setyCoord(6 * gp.tileSize);
-                items.add(random);
-                random = getRandomItem();
                 random.setxCoord(10 * gp.tileSize);
                 random.setyCoord(1 * gp.tileSize);
                 items.add(random);
@@ -367,11 +367,11 @@ public class Room {
 
     private void initializeButtons() {
         switch(roomNum) {
-            case 4:
-                buttons = new ArrayList<>();
-                //buttons = new ArrayList<>(5); // TODO: if no crashes, move above line to constructor
-                Button button1 = new Button(Button.map1Button1Col * gp.tileSize, Button.map1Button1Row * gp.tileSize);
+            case 5:
+                buttons = new ArrayList<>(3); // TODO: if no crashes, move above line to constructor
+                //Button button1 = new Button(Button.button1Col * gp.tileSize, Button.button1Row * gp.tileSize);
 
+                /*
                 for (int i = 0; i < gp.maxScreenRow; i++) {
                     TrapTile trapTile = new TrapTile();
                     trapTile.setx(TrapTile.map1TrapCol1 * gp.tileSize);
@@ -379,22 +379,23 @@ public class Room {
                     button1.addTrapTile(trapTile);
                 }
 
+                 */
+
                 doorTile = new DoorTile();
                 doorTile.setLocked(true);
-                doorTile.setx(DoorTile.map1Room4DoorCol * gp.tileSize);
-                doorTile.sety(DoorTile.map1Room4DoorRow * gp.tileSize);
+                doorTile.setx(DoorTile.room5DoorCol * gp.tileSize);
+                doorTile.sety(DoorTile.room5DoorRow * gp.tileSize);
 
-                Button button2 = new Button(Button.map1Button2Col * gp.tileSize, Button.map1Button2Row * gp.tileSize);
+                Button button1 = new Button(Button.button1Col * gp.tileSize, Button.button1Row * gp.tileSize);
+                button1.addDoorTile(doorTile);
+                Button button2 = new Button(Button.button2Col * gp.tileSize, Button.button2Row * gp.tileSize);
                 button2.addDoorTile(doorTile);
-                Button button3 = new Button(Button.map1Button3Col * gp.tileSize, Button.map1Button3Row * gp.tileSize);
+                Button button3 = new Button(Button.button3Col * gp.tileSize, Button.button3Row * gp.tileSize);
                 button3.addDoorTile(doorTile);
-                Button button4 = new Button(Button.map1Button4Col * gp.tileSize, Button.map1Button4Row * gp.tileSize);
-                button4.addDoorTile(doorTile);
 
                 buttons.add(button1);
                 buttons.add(button2);
                 buttons.add(button3);
-                buttons.add(button4);
         }
     }
 
@@ -429,9 +430,9 @@ public class Room {
             case 4:
                 doorTile = new DoorTile();
                 doorTile.setLocked(false);
-                doorTile.setx(DoorTile.map1Room4DoorCol * gp.tileSize);
-                doorTile.sety(DoorTile.map1Room4DoorRow * gp.tileSize);
-                doorTile.toggleDoor(DoorTile.map1Room4DoorCol, DoorTile.map1Room4DoorRow);
+                doorTile.setx(DoorTile.room5DoorCol * gp.tileSize);
+                doorTile.sety(DoorTile.room5DoorRow * gp.tileSize);
+                doorTile.toggleDoor(DoorTile.room5DoorCol, DoorTile.room5DoorRow);
         }
     }
 

@@ -27,35 +27,28 @@ public class Chest extends Character {
         this.height = 50;
         this.width = 50;
         this.gp = gp;
-        //String[] slimeSlingerImages = {"/items/slingshot.png"};
-        //String[] bootImages = {"/items/boot.png"};
-        //String [] rapidFireImages = {"/items/rapid-fire.png"};
-        //Sword sword = new Sword(new String[]{"/weapons/wooden_sword.png"}, gp, this.xCoord, this.yCoord-10);
         Sword sword = new Sword(Sword.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
-        //SlimeSlinger slimeSlinger = new SlimeSlinger(slimeSlingerImages, this.gp, this.xCoord, this.yCoord-10);
         SlimeSlinger slimeSlinger = new SlimeSlinger(SlimeSlinger.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
-        //RapidFire rapidFire = new RapidFire(rapidFireImages, this.gp, this.xCoord, this.yCoord-10);
-        RapidFire rapidFire = new RapidFire(RapidFire.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
-        //HealthUp healthUp = new HealthUp(new String[]{"/items/health.png"}, gp, this.xCoord, this.yCoord-10);
         HealthUp healthUp = new HealthUp(HealthUp.DEFAULT_HEALTHUP_PATHS, this.gp, this.xCoord, this.yCoord-10);
-        //Boot boot = new Boot(bootImages, gp, this.xCoord, this.yCoord-10);
         Boot boot = new Boot(Boot.DEFAULT_IMAGE_PATHS, this.gp, this.xCoord, this.yCoord-10);
-
+        DamageUp damage =  new DamageUp(DamageUp.DEFAULT_DAMAGEUP_PATHS, gp,  this.xCoord, this.yCoord-10);
+        String [] bombBuddyImages = {"/items/bomb-buddy.png"};
+        BombBuddy bomb = new BombBuddy(bombBuddyImages, gp, this.xCoord, this.yCoord-10);
         commonSet = new Item[3];
-        commonSet[0] = sword;
-        commonSet[1] = sword;
-        commonSet[2] = healthUp;
+        commonSet[0] = healthUp;
+        commonSet[1] = healthUp;
+        commonSet[2] = damage;
 
         rareSet = new Item[4];
-        rareSet[0] = sword;
-        rareSet[1] = sword;
-        rareSet[2] = healthUp;
+        rareSet[0] = damage;
+        rareSet[1] = damage;
+        rareSet[2] = boot;
         rareSet[3] = boot;
 
         epicSet = new Item[4];
         epicSet[0] = slimeSlinger;
-        epicSet[1] = rapidFire;
-        epicSet[2] = healthUp;
+        epicSet[1] = damage;
+        epicSet[2] = bomb;
         epicSet[3] = boot;
 
 

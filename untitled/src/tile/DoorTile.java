@@ -1,8 +1,8 @@
 package tile;
 
 public class DoorTile extends Tile {
-    public static final int map1Room4DoorRow = 13;
-    public static final int map1Room4DoorCol = 7;
+    public static final int room5DoorRow = 15;
+    public static final int room5DoorCol = 6;
 
     private boolean locked;
 
