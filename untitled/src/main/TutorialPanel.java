@@ -34,7 +34,7 @@ public class TutorialPanel extends JPanel {
     }
 
     private void addBasicDetailsLabel() {
-        JLabel titleLabel = new JLabel("Basic Move:");
+        JLabel titleLabel = new JLabel("Basic Movement:");
         titleLabel.setFont(new Font("Monospaced", Font.BOLD, 25));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -42,11 +42,11 @@ public class TutorialPanel extends JPanel {
     }
 
     private void addContentLabels() {
-        JLabel nameCategoryLabel = new JLabel("  Movement:  Up: W  Down: s  Left: A  Right: D");
+        JLabel nameCategoryLabel = new JLabel("  Movement:  Up: W  Down: S  Left: A  Right: D");
         nameCategoryLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
         nameCategoryLabel.setForeground(Color.WHITE);
 
-        JLabel attackLabel = new JLabel("  Attack: K   Talk to NPC: E   Ckeck Iventory: C");
+        JLabel attackLabel = new JLabel("  Attack: Arrow Key   Talk to NPC: E   Check Inventory: C");
         attackLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
         attackLabel.setForeground(Color.WHITE);
 
@@ -54,7 +54,7 @@ public class TutorialPanel extends JPanel {
         settingLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
         settingLabel.setForeground(Color.WHITE);
 
-        JLabel nextroomLabel = new JLabel("       Try those move in the tutorial room");
+        JLabel nextroomLabel = new JLabel("       Try these move in the tutorial room");
         nextroomLabel.setFont(new Font("Monospaced", Font.PLAIN, 25));
         nextroomLabel.setForeground(Color.WHITE);
 
