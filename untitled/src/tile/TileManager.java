@@ -146,7 +146,7 @@ public class TileManager {
             //tile[4].setTileType(4);
 
             tile[5] = new Tile();
-            tile[5].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_up.png"))));
+            tile[5].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_up_general.png"))));
             tile[5].setCollision(false);
             tile[5].setTileType(Tile.BUTTON);
 
@@ -155,12 +155,12 @@ public class TileManager {
             tile[6].setDamageTile(false);
 
             tile[7] = new Tile();
-            tile[7].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_on_grass_down.png"))));
+            tile[7].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/button_down_general.png"))));
             tile[7].setCollision(false);
             tile[7].setTileType(Tile.BUTTON);
 
             tile[8] = new Tile();
-            tile[8].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/locked_door.png"))));
+            tile[8].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/puzzle_door_locked.png"))));
             tile[8].setCollision(true);
 
             //texture will need adjusted if there are hidden doors put in rooms other than the ice room
@@ -189,6 +189,9 @@ public class TileManager {
             tile[12].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(getLockedDoorTilePath()))));
             tile[12].setCollision(true);
             tile[12].setTileType(Tile.DOOR1);
+
+            tile[13] = new Tile();
+            tile[13].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/hint_block.png"))));
 
             tile[101] = new Tile();
             tile[101].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/black.png"))));

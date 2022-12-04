@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Button extends Tile{
-    public static final int map1Button1Col = 3;
-    public static final int map1Button1Row = 3;
+    public static final int button1Col = 6;
+    public static final int button1Row = 5;
 
-    public static final int map1Button2Col = 11;
-    public static final int map1Button2Row = 2;
+    public static final int button2Col = 7;
+    public static final int button2Row = 7;
 
-    public static final int map1Button3Col = 13;
-    public static final int map1Button3Row = 5;
+    public static final int button3Col = 8;
+    public static final int button3Row = 5;
 
-    public static final int map1Button4Col = 15;
-    public static final int map1Button4Row = 2;
+    //public static final int map1Button4Col = 15;
+    //public static final int map1Button4Row = 2;
 
     private boolean isOn;
     private ArrayList<TrapTile> trapTiles;
