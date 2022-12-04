@@ -407,7 +407,7 @@ class TestLevelCompletePanel {
 
         // Set room to last room and start game
         view.showGamePanel();
-        int roomNo = view.getGamePanel().getRooms().size()-1;
+        int roomNo = view.getGamePanel().getRooms().size()-2;
         view.getGamePanel().setCurrentRoomNum(roomNo);
         view.getGamePanel().player.setGameDifficulty(1);
         view.getGamePanel().startGameThread();
