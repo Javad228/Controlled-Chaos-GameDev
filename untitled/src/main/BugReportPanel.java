@@ -80,11 +80,11 @@ public class BugReportPanel extends JPanel {
                     LocalDateTime myDateObj = LocalDateTime.now();
                     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
                     String formattedDate = myDateObj.format(myFormatObj);
-                    File dir = new File("src/logs/");
+                    File dir = new File("untitled/src/logs/");
                     dir.mkdirs();
                     File tmp = new File(dir, myObj1+".txt");
                     tmp.createNewFile();
-                    FileWriter fw = new FileWriter("src/logs/"+myObj1+".txt", true);
+                    FileWriter fw = new FileWriter("untitled/src/logs/"+myObj1+".txt", true);
                     BufferedWriter myWriter = new BufferedWriter(fw);
                     myWriter.write(formattedDate);
                     myWriter.write("\n");
