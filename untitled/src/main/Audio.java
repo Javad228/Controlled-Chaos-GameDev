@@ -47,7 +47,6 @@ public class Audio {
             String message = "Cannot find audio file " + filename + "\n";
             exc.printStackTrace();
             System.out.println(message);
-            System.exit(0);
         }
         catch (Exception exc) {
             exc.printStackTrace();
@@ -71,7 +70,7 @@ public class Audio {
         musicClip = getClip("untitled/audio/Derp-Nugget.wav");
         if (musicClip == null) {
             System.out.println("opening music failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(musicClip, musicVolume);
         musicClip.start();
@@ -81,7 +80,7 @@ public class Audio {
         musicClip = getClip("untitled/audio/Background_for_a_Shoe_Commercial.wav");
         if (musicClip == null) {
             System.out.println("opening music failed: getClip returned null");
-            System.exit(0);
+            return;
         }
 
         setClipVolume(musicClip, musicVolume);
@@ -102,7 +101,7 @@ public class Audio {
         //walkingClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\Walking_On_Gravel.wav");
         if (walkingClip == null) {
             System.out.println("walking audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(walkingClip, soundEffectVolume);
         walkingClip.start();
@@ -122,7 +121,7 @@ public class Audio {
         Clip swordHitClip = getClip("untitled/audio/mixkit-dagger-woosh-1487.wav");
         if (swordHitClip == null) {
             System.out.println("Sword hit audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(swordHitClip, soundEffectVolume);
         swordHitClip.start();
@@ -153,7 +152,7 @@ public class Audio {
         Clip itemPickUpClip = getClip("untitled/audio/jump-coin-216.wav");
         if (itemPickUpClip == null) {
             System.out.println("Item pick up audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(itemPickUpClip, soundEffectVolume);
         itemPickUpClip.start();
@@ -167,7 +166,7 @@ public class Audio {
         //Clip playerDamagedClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\short-knife-whoosh-fx.wav");
         if (playerDamagedClip == null) {
             System.out.println("Player damaged audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(playerDamagedClip, soundEffectVolume);
         playerDamagedClip.start();
@@ -181,7 +180,7 @@ public class Audio {
         //Clip playerDamagedClip = getClip("C:\\Users\\Javad\\Downloads\\Controlled-Chaos-GameDev-main-nbranch\\untitled\\audio\\Slime-Splash.wav");
         if (playerDamagedClip == null) {
             System.out.println("Player damaged audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(playerDamagedClip, soundEffectVolume);
         playerDamagedClip.start();
@@ -193,7 +192,7 @@ public class Audio {
         Clip destroyObjectClip = getClip("untitled/audio/Frying-Pan-Hit.wav");
         if (destroyObjectClip == null) {
             System.out.println("Destroy object audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(destroyObjectClip, soundEffectVolume);
         destroyObjectClip.start();
@@ -205,7 +204,7 @@ public class Audio {
         Clip pressButtonClip = getClip("untitled/audio/Button-Click.wav");
         if (pressButtonClip == null) {
             System.out.println("Press button audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(pressButtonClip, soundEffectVolume);
         pressButtonClip.start();
@@ -217,7 +216,7 @@ public class Audio {
         Clip doorOpenClip = getClip("untitled/audio/Large-Metal-Rusty-Door.wav");
         if (doorOpenClip == null) {
             System.out.println("Door open audio failed: getClip returned null");
-            System.exit(0);
+            return;
         }
         setClipVolume(doorOpenClip, soundEffectVolume);
         doorOpenClip.start();
