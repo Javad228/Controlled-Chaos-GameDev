@@ -40,6 +40,9 @@ public class PlayerCharacter extends Character {
     public static transient final int LOWEST_DIFF    = EASY_PEESY;
     public static transient final int HIGHEST_DIFF   = DEMON;
 
+    public static transient final int GREEN_DOOR     = EASY;
+    public static transient final int RED_DOOR       = HARD;
+
     public static transient final String[] difficultyNamTab
             = new String[]{"Easy-Peesy", "Easy", "Easy-Advanced", "Mid", "Medium", "Kinda-Hard", "Pretty-Hard", "HARD", "VERY HARD", "DEMON"};
 
@@ -607,7 +610,7 @@ public class PlayerCharacter extends Character {
     }
 
     public void damagePlayer(NonPlayableCharacter entity) {
-        if(!gp.getPlayer().isInvincible){
+        if(!gp.getPlayer().isInvincible && entity.getDamagePerHit() > 0){
             //gp.getPlayer().setHealth(gp.getPlayer().getHealth()-gp.enemy.getDamagePerHit());
             gp.getPlayer().damage(entity.getDamagePerHit());
             gp.getPlayer().isInvincible = true;
@@ -849,9 +852,15 @@ public class PlayerCharacter extends Character {
     }
 
     public void incrementDifficulty() {
-        if (this.gameDifficulty == PlayerCharacter.DEMON)   return;
+        if (this.gameDifficulty == PlayerCharacter.HIGHEST_DIFF)   return;
 
         this.gameDifficulty++;
+    }
+
+    public void incrementDifficulty(int gameDifficulty) {
+        if (this.gameDifficulty == PlayerCharacter.HIGHEST_DIFF)    return;
+
+        this.gameDifficulty = gameDifficulty;
     }
 
     public String getCharacterAppearance() {

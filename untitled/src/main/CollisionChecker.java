@@ -299,13 +299,26 @@ public class CollisionChecker {
         if (!(character instanceof Enemy)
                 && Main.view.getGamePanel().levelComplete
                 && (TileManager.tile[TileManager.mapTileNum[tileX][tileY]].getTileType() == Tile.NEXTLEVEL)) {
+
+            if (gp.getPlayer().getGameDifficulty() == PlayerCharacter.GREEN_DOOR
+                    || gp.getPlayer().getGameDifficulty() == PlayerCharacter.RED_DOOR) {
+                gp.pauseThread();
+                gp.saveData.saveGameState();
+                Main.view.setStatsPanel(new StatsPanel(gp).scrollPane);
+                Audio.stopMusic();
+                Main.view.showMainMenuPanel();
+                return;
+            }
+
             int candidate = ((NextLevelTile) TileManager.tile[1]).findTile(tileX, tileY);
+
             switch (candidate) {
                 case NextLevelTile.NEXTLEVEL_REG -> {
+                    gp.getPlayer().incrementDifficulty(PlayerCharacter.GREEN_DOOR);
                     gp.nextLevel();
                 }
                 case NextLevelTile.NEXTLEVEL_DIFFICULT -> {
-                    gp.getPlayer().incrementDifficulty();
+                    gp.getPlayer().incrementDifficulty(PlayerCharacter.RED_DOOR);
                     gp.nextLevel();
                 }
                 case NextLevelTile.NEXTLEVEL_INVALID -> {/*Do nothing*/}

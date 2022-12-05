@@ -5,6 +5,8 @@ import main.GamePanel;
 
 public class BombBuddy extends Weapon {
 
+    public static transient final String[] DEFAULT_BOMB_BUDDY_PATHS = new String[]{"/items/bomb-buddy.png"};
+
     private transient GamePanel gp;
 
     public BombBuddy (String[] imagePaths, GamePanel gp, int xCoord, int yCoord) {
