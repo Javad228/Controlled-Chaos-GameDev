@@ -100,7 +100,11 @@ public class PlayerCharacter extends Character {
         setAttackImages(new BufferedImage[4][3]); // should be in super()
         setWalkingImages(new BufferedImage[4][3]); // should be in super()
         this.currentTile = null;
-        characterAppearance = "warrior";
+        if (gp.getCharacterAppearance() == null) {
+            characterAppearance = "warrior";
+        } else {
+            characterAppearance = gp.getCharacterAppearance();
+        }
         getPlayerImage();
 
         this.setHasThrownProjectile(false);
@@ -451,31 +455,6 @@ public class PlayerCharacter extends Character {
                             numBounces = 0;
                         }
 
-                        /*if (direction.equals("up") && currentY > 0) {
-                            this.setyCoord(currentY - speed);
-                            *//*if (numBounces == 0) {
-                                origY = currentY;
-                            }
-                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
-                            this.setyCoord(origY - distToBounce);
-                            numBounces++;
-                            numBounces = numBounces % (2 * speed * 5);*//*
-                        }*//* else {
-                            origY = currentY;
-                            numBounces = 0;
-                        }*//*
-                        if (direction.equals("down") && currentY < (gp.screenHeight - this.getHeight())) {
-                            if (numBounces == 0) {
-                                origY = currentY;
-                            }
-                            int distToBounce = (int) (-0.033 * Math.pow(numBounces, 2) + speed / 1.5 * numBounces);
-                            this.setyCoord(origY + distToBounce);
-                            numBounces++;
-                            numBounces = numBounces % (2 * speed * 5);
-                        } else {
-                            origY = currentY;
-                            numBounces = 0;
-                        }*/
                         if (direction.equals("left") && currentX > 0) {
                             this.setxCoord(currentX - speed);
                             if (currentBounce == 0) {

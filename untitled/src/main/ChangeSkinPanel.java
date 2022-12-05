@@ -203,6 +203,7 @@ public class ChangeSkinPanel extends JPanel {
                     }
                     sd.saveGameState();
                 }
+                gp.setCharacterAppearance(characters.get(characterShown).toLowerCase());
                 gp.player.getPlayerImage(); // reinitialize sprite images
                 Main.view.showMainMenuPanel();
             }
