@@ -276,6 +276,11 @@ public abstract class NonPlayableCharacter extends Character {
                     }
                     gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems().add(new HealthUp(new String[]{"/items/health.png"}, gp, this.xCoord, this.yCoord));
 
+                } else if (Objects.equals(this.name, "Barrel")) {
+                    if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems() == null) {
+                        gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setItems(new ArrayList<>());
+                    }
+                    gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getItems().add(new Sword(new String[]{"/weapons/wooden_sword.png"}, gp, this.xCoord, this.yCoord));
                 } else {
                     if (gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).getCoins() == null) {
                         gamePanel.getRooms().get(gamePanel.getCurrentRoomNum()).setCoins(new ArrayList<>());
