@@ -76,6 +76,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public Lighting lighting = new Lighting(this, 350);
 
 	public MiniMap minimap = new MiniMap(this);
+	private String characterAppearance;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -617,5 +618,13 @@ public class GamePanel extends JPanel implements Runnable{
 		this.validate();
 
 		Audio.openingMusic();
+	}
+
+	public String getCharacterAppearance() {
+		return characterAppearance;
+	}
+
+	public void setCharacterAppearance(String characterAppearance) {
+		this.characterAppearance = characterAppearance;
 	}
 }

@@ -100,7 +100,11 @@ public class PlayerCharacter extends Character {
         setAttackImages(new BufferedImage[4][3]); // should be in super()
         setWalkingImages(new BufferedImage[4][3]); // should be in super()
         this.currentTile = null;
-        characterAppearance = "warrior";
+        if (gp.getCharacterAppearance() == null) {
+            characterAppearance = "warrior";
+        } else {
+            characterAppearance = gp.getCharacterAppearance();
+        }
         getPlayerImage();
 
         this.setHasThrownProjectile(false);

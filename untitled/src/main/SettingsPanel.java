@@ -79,11 +79,11 @@ public class SettingsPanel extends JPanel implements ChangeListener {
         mapPanel.setBackground(Color.BLACK);
         mapPanel.setPreferredSize(new Dimension(300, 100));
 
-        mapnote = new JTextField("Enter your map note");
+        mapnote = new JTextField("Enter your map note for the given room");
         mapnote.setFont(new Font("Monospaced", Font.BOLD, 15));
         mapnote.setForeground(Color.WHITE);
         mapnote.setBackground(Color.BLACK);
-        mapnote.setPreferredSize(new Dimension(300, 100));
+        mapnote.setPreferredSize(new Dimension(500, 100));
         mapnote.setHorizontalAlignment(JTextField.CENTER);
         mapnote.setAlignmentX(Component.CENTER_ALIGNMENT);
         LineBorder line = new LineBorder(Color.WHITE, 2, false);
