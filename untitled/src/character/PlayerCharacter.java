@@ -193,7 +193,7 @@ public class PlayerCharacter extends Character {
         item.setDescription("wooden sword");
         Item item1 = new Item(7,stringArray1);
         item.setName("Sword #2");
-        item1.setDescription("wooden sword #2");
+        item1.setDescription("Basic Sword");
         this.itemsUnlocked = new boolean[]{ true, true, true, true, false, false};
         this.itemPriority = -1;
 
