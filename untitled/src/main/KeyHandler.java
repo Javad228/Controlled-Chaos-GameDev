@@ -102,8 +102,8 @@ public class KeyHandler implements KeyListener {
                     }
                 }
             } else if(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == 6){
-                for(int i =0; i<gp.getRooms().get(6).getChests().size();i++){
-                    Chest chest = gp.getRooms().get(6).getChests().get(i);
+                for(int i =0; i<gp.getRooms().get(gp.getCurrentRoomNum()).getChests().size();i++){
+                    Chest chest = gp.getRooms().get(gp.getCurrentRoomNum()).getChests().get(i);
                     if ((gp.player.getRow() >= chest.getRow() - 1) && (gp.getPlayer().getRow() <= chest.getRow() + 1) &&
                             (gp.player.getCol() >= chest.getCol() - 1) && (gp.getPlayer().getCol() <= chest.getCol() + 1)) {
                         chest.open();
