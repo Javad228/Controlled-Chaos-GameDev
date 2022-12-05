@@ -93,15 +93,15 @@ public class GamePanel extends JPanel implements Runnable{
 			rooms.add(new Room(i, keyH, this));
 		}
 
-		// First run will set enemy coordinates
-		if (rooms.get(currentRoomNum).getEnemies() != null){
-			// assuming this is to set the position of enemies after starting a new game. probably needs to change
-			for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
-				Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
-				enemy.setxCoord(100);
-				enemy.setyCoord(100);
-			}
-		}
+		//// First run will set enemy coordinates
+		//if (rooms.get(currentRoomNum).getEnemies() != null){
+		//	// assuming this is to set the position of enemies after starting a new game. probably needs to change
+		//	for (int i = 0; i < rooms.get(currentRoomNum).getEnemies().size(); i++) {
+		//		Enemy enemy = rooms.get(currentRoomNum).getEnemies().get(i);
+		//		enemy.setxCoord(100);
+		//		enemy.setyCoord(100);
+		//	}
+		//}
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class GamePanel extends JPanel implements Runnable{
 			time2 = new Time(defaultTime2.getTime() * rooms.size());                                        // 2:30
 			time3 = new Time(defaultTime3.getTime() * rooms.size());                                        // 3:00
 		} else {
-			int diff = (player.getGameDifficulty() - PlayerCharacter.EASY_ADVANCED) * 5;
+			int diff = Math.max((player.getGameDifficulty() - PlayerCharacter.EASY_ADVANCED) * 5, 0);
 
 			time1 = new Time(defaultTime1.getTime() * rooms.size() - diff * SECOND_L); // From 1:55 to 1:25 (difficulty: DEMON)
 			time2 = new Time(defaultTime2.getTime() * rooms.size() - diff * SECOND_L); // From 2:25 to 1:55 (difficulty: DEMON)
@@ -574,7 +574,7 @@ public class GamePanel extends JPanel implements Runnable{
 			switch (loot) {
 				case 0 -> {
 					if (currRoom.getItems() == null)	currRoom.setItems(new ArrayList<>());
-					currRoom.getItems().add(new Sword(Sword.DEFAULT_IMAGE_PATHS, this, x, y));
+					currRoom.getItems().add(new Consumable(Consumable.DEFAULT_IMAGE_PATHS, false, x, y));
 				}
 				case 1 -> {
 					if (currRoom.getCoins() == null)	currRoom.setCoins(new ArrayList<>());
@@ -587,13 +587,15 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 		// Show panel
-		LevelCompleteDialog panel = LevelCompleteDialog.getLevelCompleteDialog(this, levelTimeRewardTier + playerHealthRewardTier);
-		panel.showLevelCompleteDialog();
+		LevelCompleteDialog
+				.getLevelCompleteDialog(this, levelTimeRewardTier + playerHealthRewardTier)
+				.showLevelCompleteDialog();
 
 		resumeThread();				// Call to resumeThread() ensures that GameThread
 									// will not be paused and time is reset for next level
 
-		setLevelComplete(true);
+		setLevelComplete(true);		// Set levelComplete to true to allow the player
+									// to continue to the next level
 	}
 
 	public void hideLevelComplete() {

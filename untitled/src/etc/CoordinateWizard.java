@@ -100,10 +100,9 @@ public class CoordinateWizard {
 
         // Find any grass tiles near the player
         for (int[] coordinate : grassTiles) {
-            if (playerTileX-2 < coordinate[0] && coordinate[0] < playerTileX+2) {
-                if (playerTileY-2 < coordinate[1] && coordinate[1] < playerTileY+2) {
-                    relativeTiles.add(new int[]{coordinate[0]*tileSize, coordinate[1]*tileSize});
-                }
+            if (playerTileX - 3 < coordinate[0] && coordinate[0] < playerTileX + 3
+                    && playerTileY - 3 < coordinate[1] && coordinate[1] < playerTileY + 3) {
+                relativeTiles.add(new int[]{coordinate[0] * tileSize, coordinate[1] * tileSize});
             }
         }
 

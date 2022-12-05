@@ -10,10 +10,8 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.concurrent.CountDownLatch;
 
-import static java.lang.Thread.onSpinWait;
 import static java.lang.Thread.sleep;
 import static main.Main.view;
-import main.Lighting;
 
 
 public class LevelCompleteDialog extends JDialog {
@@ -398,7 +396,7 @@ class Star extends JPanel {
     }
 }
 
-class TestLevelCompletePanel {
+class TestLevelCompleteDialog {
     public static void main(String[] args) {
         long timeToWaitMS = 1_000L * 1;
 
@@ -406,10 +404,11 @@ class TestLevelCompletePanel {
         Main.main(args);
 
         // Set room to last room and start game
+        view.getGamePanel().getPlayer().roomSetNum = 1;
         view.showGamePanel();
-        int roomNo = view.getGamePanel().getRooms().size()-2;
+        int roomNo = view.getGamePanel().getRooms().size()-2                                            ;
         view.getGamePanel().setCurrentRoomNum(roomNo);
-        view.getGamePanel().player.setGameDifficulty(1);
+        view.getGamePanel().player.setGameDifficulty(PlayerCharacter.EASY_PEESY);
         view.getGamePanel().startGameThread();
 
         // Create local class to test level complete dialogs
