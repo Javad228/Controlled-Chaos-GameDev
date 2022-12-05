@@ -186,21 +186,21 @@ public class PlayerCharacter extends Character {
         this.solidArea = new Rectangle(0, 16, 30, 30);
         this.attackArea.width = 36;
         this.attackArea.height = 36;
-        String[] stringArray = {"/weapons/wooden_sword.png"};
+        /*String[] stringArray = {"/weapons/wooden_sword.png"};
         String[] stringArray1 = {"/weapons/wooden_sword.png"};
         Item item = new Item(7,stringArray);
         item.setName("Sword");
         item.setDescription("wooden sword");
         Item item1 = new Item(7,stringArray1);
         item.setName("Sword #2");
-        item1.setDescription("Basic Sword");
+        item1.setDescription("Basic Sword");*/
         this.itemsUnlocked = new boolean[]{ true, true, true, true, false, false};
         this.itemPriority = -1;
 
-        this.getInventory().addItem(item);
+        /*this.getInventory().addItem(item);
         getItemsDiscovered().add(item);
         this.getInventory().addItem(item1);
-        getItemsDiscovered().add(item1);
+        getItemsDiscovered().add(item1);*/
 //        this.setWidth(18);
 //        this.setHeight(46);
 //        this.collisionAreaDefaultX = solidArea.x;
