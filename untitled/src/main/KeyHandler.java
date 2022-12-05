@@ -101,7 +101,7 @@ public class KeyHandler implements KeyListener {
                         Audio.doorOpenAudio();
                     }
                 }
-            } else if(gp.getCurrentRoomNum() == 6){
+            } else if(gp.getRooms().get(gp.getCurrentRoomNum()).getRoomType() == 6){
                 for(int i =0; i<gp.getRooms().get(6).getChests().size();i++){
                     Chest chest = gp.getRooms().get(6).getChests().get(i);
                     if ((gp.player.getRow() >= chest.getRow() - 1) && (gp.getPlayer().getRow() <= chest.getRow() + 1) &&
