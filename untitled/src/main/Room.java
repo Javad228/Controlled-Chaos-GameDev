@@ -642,8 +642,6 @@ public class Room {
                 HealthUp.class,
                 SlimeSlinger.class,
                 SlimeSlinger.class,
-                BombBuddy.class,
-                BombBuddy.class
         };
 
 
